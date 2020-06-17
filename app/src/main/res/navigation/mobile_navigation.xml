@@ -12,14 +12,19 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.stromtracker.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_geraete"
+        android:name="com.example.stromtracker.ui.geraete.GeraeteFragment"
+        android:label="@string/menu_geraete"
+        tools:layout="@layout/fragment_geraete" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.stromtracker.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_haushalt"
+        android:name="com.example.stromtracker.ui.haushalt.HaushaltFragment"
+        android:label="@string/menu_haushalt"
+        tools:layout="@layout/fragment_haushalt" />
 </navigation>
