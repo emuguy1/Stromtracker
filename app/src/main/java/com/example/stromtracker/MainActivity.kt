@@ -30,7 +30,11 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_geraete, R.id.nav_slideshow, R.id.nav_haushalt), drawerLayout)
+            R.id.nav_home, R.id.nav_geraete, R.id.nav_slideshow,
+            R.id.nav_haushalt,R.id.nav_haushalt, R.id.nav_geraete,
+            R.id.nav_kategorien,R.id.nav_raeume,R.id.nav_verbrauchsrechner,
+            R.id.nav_amortisationsrechner,R.id.nav_amortisationsrechnerPV,
+            R.id.nav_co2bilanz,R.id.nav_importexport), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

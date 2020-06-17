@@ -10,4 +10,11 @@
     <string name="menu_geraete">Geräte</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_haushalt">Haushalt</string>
+    <string name="menu_amortisationsrechner">Amortisationsrechner</string>
+    <string name="menu_amortisationsrechnerPV">AmortisationsrechnerPV</string>
+    <string name="menu_co2bilanz">CO2-Bilanz</string>
+    <string name="menu_importexport">Import/Export</string>
+    <string name="menu_kategorien">Kategorien</string>
+    <string name="menu_raeume">Räume</string>
+    <string name="menu_verbrauchsrechner">Verbrauchsrechner</string>
 </resources>

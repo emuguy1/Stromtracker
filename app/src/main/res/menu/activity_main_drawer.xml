@@ -5,20 +5,49 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_haushalt"
+            android:icon="@drawable/ic_menu_haushalt"
+            android:title="@string/menu_haushalt" />
         <item
             android:id="@+id/nav_geraete"
             android:icon="@drawable/ic_menu_geraete"
             android:title="@string/menu_geraete" />
         <item
+            android:id="@+id/nav_kategorien"
+            android:icon="@drawable/ic_menu_kategorien"
+            android:title="@string/menu_kategorien" />
+        <item
+            android:id="@+id/nav_raeume"
+            android:icon="@drawable/ic_menu_raeume"
+            android:title="@string/menu_raeume" />
+        <item
+            android:id="@+id/nav_verbrauchsrechner"
+            android:icon="@drawable/ic_menu_verbrauchsrechner"
+            android:title="@string/menu_verbrauchsrechner" />
+        <item
+            android:id="@+id/nav_amortisationsrechner"
+            android:icon="@drawable/ic_menu_amortrechner"
+            android:title="@string/menu_amortisationsrechner" />
+        <item
+            android:id="@+id/nav_amortisationsrechnerPV"
+            android:icon="@drawable/ic_menu_amortrechnerpv"
+            android:title="@string/menu_amortisationsrechnerPV" />
+        <item
+            android:id="@+id/nav_co2bilanz"
+            android:icon="@drawable/ic_menu_co2bilanz"
+            android:title="@string/menu_co2bilanz" />
+        #<item
+        android:id="@+id/nav_importexport"
+        android:icon="@drawable/ic_menu_importexport"
+        android:title="@string/menu_importexport" />
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
-        <item
-            android:id="@+id/nav_haushalt"
-            android:icon="@drawable/ic_menu_haushalt"
-            android:title="@string/menu_haushalt" />
     </group>
 </menu>
