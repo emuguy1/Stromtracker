@@ -1,4 +1,4 @@
-package com.example.stromtracker.ui.geraete
+package com.example.stromtracker.ui.amortisationsrechner
 
 import android.os.Bundle
 import android.view.LayoutInflater
