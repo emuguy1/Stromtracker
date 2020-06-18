@@ -19,14 +19,5 @@
     <string name="menu_verbrauchsrechner">Verbrauchsrechner</string>
     <string name="hint_text">hint_text</string>
 
-    <string-array name="dropdown_items">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
+
 </resources>
