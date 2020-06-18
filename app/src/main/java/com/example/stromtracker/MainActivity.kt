@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         val items = arrayOf("Haushalt1", "Haushalt2", "Haushalt3", "Haushalt4")
 
-        val sp: Spinner = navView.menu.findItem(R.id.nav_lang).getActionView() as Spinner
+        val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).getActionView() as Spinner
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items)
         sp.adapter = adapter
 

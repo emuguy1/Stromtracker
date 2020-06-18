@@ -9,15 +9,12 @@
 
 
     <group android:checkableBehavior="single">
-
-        <item android:id="@+id/nav_lang"
-            android:icon="@android:drawable/ic_menu_manage"
-            android:title="Haushalt"
-            app:actionLayout="@layout/spinner_menu"/>
         <item
             android:id="@+id/nav_haushalt"
             android:icon="@drawable/ic_menu_haushalt"
-            android:title="@string/menu_haushalt" />
+            android:title="@string/menu_haushalt"
+            app:actionLayout="@layout/spinner_menu"/>
+
         <item
             android:id="@+id/nav_geraete"
             android:icon="@drawable/ic_menu_geraete"
