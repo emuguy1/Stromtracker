@@ -3,7 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_haushalt">
+
+    <fragment
+        android:id="@+id/nav_haushalt"
+        android:name="com.example.stromtracker.ui.haushalt.HaushaltFragment"
+        android:label="@string/menu_haushalt"
+        tools:layout="@layout/fragment_haushalt" />
+    <fragment
+        android:id="@+id/nav_geraete"
+        android:name="com.example.stromtracker.ui.geraete.GeraeteFragment"
+        android:label="@string/menu_geraete"
+        tools:layout="@layout/fragment_geraete" />
+    <fragment
+        android:id="@+id/nav_kategorien"
+        android:name="com.example.stromtracker.ui.kategorien.KategorienFragment"
+        android:label="@string/menu_kategorien"
+        tools:layout="@layout/fragment_kategorien" />
+    <fragment
+        android:id="@+id/nav_raeume"
+        android:name="com.example.stromtracker.ui.raeume.RaeumeFragment"
+        android:label="@string/menu_raeume"
+        tools:layout="@layout/fragment_raeume" />
+    <fragment
+        android:id="@+id/nav_verbrauchsrechner"
+        android:name="com.example.stromtracker.ui.verbrauchsrechner.VerbrauchsrechnerFragment"
+        android:label="@string/menu_verbrauchsrechner"
+        tools:layout="@layout/fragment_verbrauchsrechner" />
+    <fragment
+        android:id="@+id/nav_amortisationsrechner"
+        android:name="com.example.stromtracker.ui.amortisationsrechner.AmortisationsrechnerFragment"
+        android:label="@string/menu_amortisationsrechner"
+        tools:layout="@layout/fragment_amortisationsrechner" />
+    <fragment
+        android:id="@+id/nav_amortisationsrechnerPV"
+        android:name="com.example.stromtracker.ui.amortisationsrechnerPV.AmortisationsrechnerPVFragment"
+        android:label="@string/menu_amortisationsrechnerPV"
+        tools:layout="@layout/fragment_amortisationsrechnerpv" />
+    <fragment
+        android:id="@+id/nav_co2bilanz"
+        android:name="com.example.stromtracker.ui.co2bilanz.CO2BilanzFragment"
+        android:label="@string/menu_co2bilanz"
+        tools:layout="@layout/fragment_co2bilanz" />
+    <fragment
+        android:id="@+id/nav_importexport"
+        android:name="com.example.stromtracker.ui.importexport.ImportExportFragment"
+        android:label="@string/menu_importexport"
+        tools:layout="@layout/fragment_importexport" />
+
+
 
     <fragment
         android:id="@+id/nav_home"
@@ -11,15 +59,4 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.stromtracker.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.stromtracker.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
 </navigation>
