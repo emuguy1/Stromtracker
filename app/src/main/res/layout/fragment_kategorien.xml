@@ -55,6 +55,7 @@
         android:layout_marginRight="62dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:focusable="true"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
