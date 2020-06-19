@@ -14,20 +14,21 @@ class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): KategorienListAdapter.MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val textView = layoutInflater.inflate(R.layout.fragment_kategorien_recycler_text_view, parent, false) as TextView
+        val mItemView = layoutInflater.inflate(R.layout.fragment_kategorien_recycler_text_view, parent, false)
 
-        return MyViewHolder(textView)
+        return MyViewHolder(mItemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.textView.text= myDataset[position]
+        holder.mTextView.text= myDataset[position]
     }
     override fun getItemCount() = myDataset.size
 
-    inner class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView), View.OnClickListener {
-
+    inner class MyViewHolder(val mItemView:View) : RecyclerView.ViewHolder(mItemView), View.OnClickListener {
+        val mTextView:TextView
         init {
-            textView.setOnClickListener(this)
+            mTextView = mItemView.findViewById<TextView>(R.id.kategorien_recycler_text)
+            mTextView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
