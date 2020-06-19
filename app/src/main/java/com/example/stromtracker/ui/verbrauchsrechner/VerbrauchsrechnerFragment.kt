@@ -22,8 +22,8 @@ class VerbrauchsrechnerFragment : Fragment() {
     ): View? {
         verbrauchsrechnerViewModel =
             ViewModelProviders.of(this).get(com.example.stromtracker.ui.verbrauchsrechner.VerbrauchsrechnerViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_geraete, container, false)
-        val textView: TextView = root.findViewById(R.id.text_geraete)
+        val root = inflater.inflate(R.layout.fragment_verbrauchsrechner, container, false)
+        val textView: TextView = root.findViewById(R.id.text_verbrauchsrechner)
         verbrauchsrechnerViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
