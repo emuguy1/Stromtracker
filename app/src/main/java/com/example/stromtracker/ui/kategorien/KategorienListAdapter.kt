@@ -3,6 +3,7 @@ package com.example.stromtracker.ui.kategorien
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -26,9 +27,11 @@ class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView
 
     inner class MyViewHolder(val mItemView:View) : RecyclerView.ViewHolder(mItemView), View.OnClickListener {
         val mTextView:TextView
+        //val mButton:Button
         init {
             mTextView = mItemView.findViewById<TextView>(R.id.kategorien_recycler_text)
             mTextView.setOnClickListener(this)
+            //mButton = mItemView.findViewById(R.id.kategorie_button_speichern)
         }
 
         override fun onClick(v: View?) {

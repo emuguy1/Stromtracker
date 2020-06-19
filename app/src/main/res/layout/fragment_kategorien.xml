@@ -13,7 +13,6 @@
         android:layout_height="661dp"
         android:layout_marginBottom="6dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,10 +23,12 @@
         android:id="@+id/kategorie_button_speichern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="296dp"
+        android:layout_marginLeft="296dp"
         android:layout_marginBottom="16dp"
-        android:text="Speichern"
+        android:background="@color/colorPrimary"
+        android:text="@string/button_speichern"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -35,12 +36,30 @@
         android:id="@+id/kategorie_button_abbrechen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="288dp"
+        android:layout_marginRight="296dp"
         android:layout_marginBottom="16dp"
-        android:text="Abbrechen"
+        android:background="@color/colorDarkRed"
+        android:text="@string/button_abbrechen"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="54dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginRight="62dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/kategorie_button_speichern"
+        app:layout_constraintStart_toEndOf="@+id/kategorie_button_abbrechen" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

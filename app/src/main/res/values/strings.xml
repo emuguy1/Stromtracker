@@ -17,7 +17,11 @@
     <string name="menu_kategorien">Kategorien</string>
     <string name="menu_raeume">Räume</string>
     <string name="menu_verbrauchsrechner">Verbrauchsrechner</string>
+
     <string name="hint_text">hint_text</string>
     <string name="hint_kategorie">Kategorie</string>
+
+    <string name="button_abbrechen">Abbrechen</string>
+    <string name="button_speichern">Speichern</string>
 
 </resources>
