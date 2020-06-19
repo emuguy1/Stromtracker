@@ -21,8 +21,8 @@ class HaushaltFragment: Fragment() {
     ): View? {
         haushaltViewModel =
             ViewModelProviders.of(this).get(HaushaltViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_geraete, container, false)
-        val textView: TextView = root.findViewById(R.id.text_geraete)
+        val root = inflater.inflate(R.layout.fragment_haushalt, container, false)
+        val textView: TextView = root.findViewById(R.id.text_haushalt)
         haushaltViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

@@ -21,8 +21,8 @@ class CO2BilanzFragment : Fragment() {
     ): View? {
         co2bilanzViewModel =
             ViewModelProviders.of(this).get(com.example.stromtracker.ui.co2bilanz.CO2BilanzViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_geraete, container, false)
-        val textView: TextView = root.findViewById(R.id.text_geraete)
+        val root = inflater.inflate(R.layout.fragment_co2bilanz, container, false)
+        val textView: TextView = root.findViewById(R.id.text_co2bilanz)
         co2bilanzViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

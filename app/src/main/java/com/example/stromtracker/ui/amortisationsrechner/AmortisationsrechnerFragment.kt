@@ -22,8 +22,8 @@ class AmortisationsrechnerFragment : Fragment() {
     ): View? {
         amortisationsrechnerViewModel =
             ViewModelProviders.of(this).get(com.example.stromtracker.ui.amortisationsrechner.AmortisationsrechnerViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_geraete, container, false)
-        val textView: TextView = root.findViewById(R.id.text_geraete)
+        val root = inflater.inflate(R.layout.fragment_amortisationsrechner, container, false)
+        val textView: TextView = root.findViewById(R.id.text_amortisationsrechner)
         amortisationsrechnerViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

@@ -18,5 +18,6 @@
     <string name="menu_raeume">Räume</string>
     <string name="menu_verbrauchsrechner">Verbrauchsrechner</string>
     <string name="hint_text">hint_text</string>
+    <string name="addButtonHaushalt">Add</string>
 
 </resources>

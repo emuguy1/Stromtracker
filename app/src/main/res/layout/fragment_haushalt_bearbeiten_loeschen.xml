@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.importexport.ImportExportFragment">
+    tools:context=".ui.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment">
 
     <TextView
-        android:id="@+id/text_importExport"
+        android:id="@+id/text_haushaltBearbeitenLoeschen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,5 +19,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="center_horizontal" />
+        android:gravity="center_horizontal" />
 </androidx.constraintlayout.widget.ConstraintLayout>
