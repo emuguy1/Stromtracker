@@ -3,13 +3,11 @@ package com.example.stromtracker.ui.kategorien
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
 class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView.Adapter<KategorienListAdapter.MyViewHolder>() {

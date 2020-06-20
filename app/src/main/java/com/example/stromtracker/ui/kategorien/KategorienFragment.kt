@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +31,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         val root = inflater.inflate(R.layout.fragment_kategorien, container, false)
 
         //TODO Bestehende Kategorien holen und hier einfügen
-        var myDataset = arrayOf("Kat1", "Kat2", "Kat3")
+        var myDataset = arrayOf("Kat1", "Kat2", "Kat3", "Kat4", "Kat5", "Kat6", "Kat7", "Kat8", "Kat9", "Kat10")
         viewAdapter = KategorienListAdapter(myDataset)
         viewManager = LinearLayoutManager(this.context)
 
