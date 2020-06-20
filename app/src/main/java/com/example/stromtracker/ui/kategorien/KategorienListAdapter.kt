@@ -1,5 +1,6 @@
 package com.example.stromtracker.ui.kategorien
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,22 +11,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import java.util.*
 
-class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView.Adapter<KategorienListAdapter.MyViewHolder>() {
+class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView.Adapter<KategorienListAdapter.KategorienViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): KategorienListAdapter.MyViewHolder {
+                                    viewType: Int): KategorienListAdapter.KategorienViewHolder {
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val mItemView = layoutInflater.inflate(R.layout.fragment_kategorien_recycler_text_view, parent, false)
+        //mItemView ist nun die jeweilige View auf das ConstraintLayout der Items in der Recyclerview
 
-        return MyViewHolder(mItemView)
+        //KategorienViewHolder erstellen und returnen, diesem wird die mItemView übergeben.
+        return KategorienViewHolder(mItemView)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: KategorienViewHolder, position: Int) {
         holder.mTextView.text= myDataset[position]
     }
     override fun getItemCount() = myDataset.size
 
-    inner class MyViewHolder(val mItemView:View) : RecyclerView.ViewHolder(mItemView), View.OnClickListener {
+    inner class KategorienViewHolder(val mItemView:View) : RecyclerView.ViewHolder(mItemView), View.OnClickListener {
+
+        //Über die mItemView lassen sich nun die Inhalte auslesen, diese werden in der init-Funktion initialisiert und Click Listener registriert
         val mTextView:TextView
         val mCardView:CardView
         init {
