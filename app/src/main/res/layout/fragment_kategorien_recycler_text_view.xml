@@ -8,6 +8,7 @@
     android:background="@color/colorBackgroundGrey">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/kategorien_recycler_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -24,10 +25,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorWhite">
 
-            <EditText
+            <TextView
                 android:id="@+id/kategorien_recycler_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@color/colorWhite"
                 android:gravity="center_horizontal"
                 android:hint="@string/hint_kategorie"

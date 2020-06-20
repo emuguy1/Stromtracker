@@ -5,19 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 
-class KategorienFragment : Fragment() {
+class KategorienFragment : Fragment(), View.OnClickListener {
 
     private lateinit var kategorienViewModel: KategorienViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var buttonAdd: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +31,6 @@ class KategorienFragment : Fragment() {
         kategorienViewModel =
             ViewModelProviders.of(this).get(com.example.stromtracker.ui.kategorien.KategorienViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_kategorien, container, false)
-
 
         //TODO Bestehende Kategorien holen und hier einfügen
         var myDataset = arrayOf("Kat1", "Kat2", "Kat3")
@@ -39,6 +42,18 @@ class KategorienFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        buttonAdd = root.findViewById(R.id.kategorie_button_add)
+        buttonAdd.setOnClickListener(this)
+
         return root
+    }
+
+    override fun onClick(v : View) {
+        Toast.makeText(v.context,
+            String.format(
+                Locale.GERMAN,
+                "Button is clicked. %d", v.id),
+            Toast.LENGTH_SHORT).show()
     }
 }
