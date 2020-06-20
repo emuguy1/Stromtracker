@@ -1,15 +1,16 @@
 package com.example.stromtracker.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*;
 
 
 @Dao
 interface GerateDAO {
     @Query("SELECT * FROM geraete")
-    fun getAll(): List<Geraete>
+    fun getAll(): LiveData<List<Geraete>>
 
     @Query("SELECT * FROM geraete WHERE geraeteID IN (:geraeteIDs)")
-    fun loadAllByIds(geraeteIDs: IntArray): List<Geraete>
+    fun loadAllByIds(geraeteIDs: IntArray): LiveData<List<Geraete>>
 
     @Query("SELECT * FROM Geraete WHERE first_name LIKE :first AND " +
             "last_name LIKE :last LIMIT 1")

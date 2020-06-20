@@ -5,19 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
-import androidx.room.*;
-import com.example.stromtracker.database.*;
-
+import com.example.stromtracker.database.Geraete
 
 
 class GeraeteFragment : Fragment() {
 
-    private lateinit var GeraeteViewModel: GeraeteViewModel
+    private lateinit var geraeteViewModel: GeraeteViewModel
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -28,24 +26,54 @@ class GeraeteFragment : Fragment() {
 
 
 
-        GeraeteViewModel =
-                ViewModelProviders.of(this).get(com.example.stromtracker.ui.geraete.GeraeteViewModel::class.java)
+        //Log.d("TAG", ViewModelProvider(this).get(GeraeteViewModel.javaClass).toString())
+
+
+
+        //GeraeteViewModel =
+         //     ViewModelProviders.of(this).get(com.example.stromtracker.ui.geraete.GeraeteViewModel::class.java)
+
+
+
+
+
         val root = inflater.inflate(R.layout.fragment_geraete, container, false)
-        val textView: TextView = root.findViewById(R.id.text_geraete)
-        GeraeteViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-
-        /*GeraeteViewModel.setGereateList(Geraete(1, "test", "test2"))
-        Log.d("TAG2", GeraeteViewModel.getGereateList().toString())
 
 
-         */
+
+    /*
+        geraeteViewModel.setGereateList(Geraete(1, "test", "test2"))
+        Log.d("TAG2", geraeteViewModel.getGereateList().toString())
+
+
+     */
+
+
 
 
 
 
 
         return root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //geraeteViewModel= ViewModelProvider(this).get(GeraeteViewModel::class.java)
+
+        geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+        geraeteViewModel.getAllGeraete().observe(
+            viewLifecycleOwner,
+            object : Observer<List<Geraete?>?> {
+
+
+                override fun onChanged(geraete: List<Geraete?>?) {
+                    if(geraete != null) {
+                        Log.d("TAG", geraete.toString())
+
+                    }
+                }
+            })
     }
 }

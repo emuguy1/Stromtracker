@@ -10,18 +10,10 @@ import androidx.lifecycle.ViewModel
 import com.example.stromtracker.database.*;
 
 
-abstract class GeraeteViewModel: AndroidViewModel {
-    //lateinit var test:AppDatabase
+ class GeraeteViewModel(application: Application) : AndroidViewModel(application) {
 
-
-        constructor(application: Application) : super(application) {
-
-            //test = AppDatabase.getInstance(application.applicationContext)!!
-
-        }
-
-
-
+    var repo:DataRepository = DataRepository(application)
+    var list:LiveData<List<Geraete>> = repo.getAllGeraete()
 
 
 
@@ -30,7 +22,14 @@ abstract class GeraeteViewModel: AndroidViewModel {
     }
     val text: LiveData<String> = _text
 
-    /*fun setGereateList(geraet:Geraete) {
+
+    fun getAllGeraete():LiveData<List<Geraete>> {
+        return list
+    }
+
+        /*
+
+    fun setGereateList(geraet:Geraete) {
         test.geraeteDao().insertAll(geraet)
 
     }
@@ -39,13 +38,15 @@ abstract class GeraeteViewModel: AndroidViewModel {
         return test.geraeteDao().getAll()
 
     }
-    */
 
 
 
 
 
 
+
+
+     */
 
 
 }
