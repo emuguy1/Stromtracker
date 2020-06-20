@@ -13,6 +13,8 @@ import com.example.stromtracker.R
 class HaushaltBearbeitenLoeschenFragment: Fragment() {
     private lateinit var haushaltbearbeitenLoeschenViewModel: HaushaltBearbeitenLoeschenViewModel
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

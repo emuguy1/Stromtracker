@@ -18,7 +18,6 @@
         android:layout_width="wrap_content"
         android:text="Edit"
         android:layout_height="match_parent"
-        android:onClick="createNewHaushalt"
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"

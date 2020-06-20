@@ -24,7 +24,7 @@
         android:src="@drawable/ic_plus_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="createNewHaushalt"/>
+        tools:context=".ui.haushalt.HaushaltFragment" />
 
 
 

@@ -1,5 +1,6 @@
 package com.example.stromtracker.ui.haushalt
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import com.example.stromtracker.ui.haushalt.HaushaltViewModel
+import com.example.stromtracker.ui.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment
+
 
 class HaushaltFragment: Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
@@ -29,8 +32,18 @@ class HaushaltFragment: Fragment() {
         val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewHaushalt)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = ListAdapterHaushalt()
+
+
+
+        val fab: View = root.findViewById(R.id.fab)
+        fab.setOnClickListener { view ->
+            val intent = Intent(this@HaushaltFragment.context, HaushaltBearbeitenLoeschenFragment::class.java)
+            intent.putExtra("hallo", "text")
+            startActivity(intent)
+        }
         return root
     }
+
 }
 
 
