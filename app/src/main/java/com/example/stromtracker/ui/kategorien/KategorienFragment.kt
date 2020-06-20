@@ -22,8 +22,8 @@ class KategorienFragment : Fragment() {
     ): View? {
         kategorienViewModel =
             ViewModelProviders.of(this).get(com.example.stromtracker.ui.kategorien.KategorienViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_geraete, container, false)
-        val textView: TextView = root.findViewById(R.id.text_geraete)
+        val root = inflater.inflate(R.layout.fragment_kategorien, container, false)
+        val textView: TextView = root.findViewById(R.id.text_kategorien)
         kategorienViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

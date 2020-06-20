@@ -2,6 +2,9 @@ package com.example.stromtracker
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Spinner
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -22,11 +25,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+
+
         setSupportActionBar(toolbar)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+        val items = arrayOf("Haushalt1", "Haushalt2", "Haushalt3", "Haushalt4")
+
+        val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).getActionView() as Spinner
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items)
+        sp.adapter = adapter
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
@@ -37,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_co2bilanz,R.id.nav_importexport), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
