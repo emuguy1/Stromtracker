@@ -27,5 +27,7 @@
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
     <string name="button_loeschen">Löschen</string>
+  
+    <string name="addButtonHaushalt">Add</string>
 
 </resources>

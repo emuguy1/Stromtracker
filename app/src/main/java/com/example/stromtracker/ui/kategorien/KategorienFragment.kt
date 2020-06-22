@@ -53,8 +53,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
         //Buttons finden und Click Listener zuweisen
         buttonAdd = root.findViewById(R.id.kategorie_button_add)
-        buttonAdd.setOnClickListener(this)
-
+        buttonAdd.setOnClickListener(this)    
         return root
     }
 
