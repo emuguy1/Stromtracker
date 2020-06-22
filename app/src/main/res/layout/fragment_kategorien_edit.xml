@@ -10,25 +10,47 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="296dp"
         android:layout_marginLeft="296dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/button_speichern"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/kategorie_edit_button_abbrechen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginEnd="288dp"
         android:layout_marginRight="296dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/colorDarkRed"
+        android:background="@color/colorDarkGreen"
         android:text="@string/button_abbrechen"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/kategorie_edit_button_loeschen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginLeft="29dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorDarkRed"
+        android:text="@string/button_loeschen"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/kategorie_edit_button_speichern"
+        app:layout_constraintStart_toEndOf="@+id/kategorie_edit_button_abbrechen" />
 
     <TextView
         android:id="@+id/kategorie_edit_text"
