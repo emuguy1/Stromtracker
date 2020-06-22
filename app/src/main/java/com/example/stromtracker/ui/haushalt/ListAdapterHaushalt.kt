@@ -1,23 +1,17 @@
 package com.example.stromtracker.ui.haushalt
 
-import android.content.Intent
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
-import com.example.stromtracker.ui.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment
-import java.util.*
-import kotlin.random.Random
+import com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment
 
 class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolder>() {
     private val data =
-        List(50) { ('A' + Random.nextInt('Z' - 'A')).toString() + " " }
+        List(10) { ("Haushalt " + (it+1).toString()) }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item_haushalt, parent, false)
@@ -45,13 +39,11 @@ class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolde
         }
         override fun onClick(view: View?) {
             if (view != null) {
-                Toast.makeText(view.context,
-                    String.format(
-                        Locale.GERMAN,
-                        "Position: %d was clicked",
-                        layoutPosition),
-                    Toast.LENGTH_SHORT).show()
-
+                val frag = HaushaltBearbeitenLoeschenFragment()
+                //Fragment Manager aus Main Activity holen
+                val fragMan = view.findFragment<HaushaltFragment>().parentFragmentManager
+                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
             }
         }
     }

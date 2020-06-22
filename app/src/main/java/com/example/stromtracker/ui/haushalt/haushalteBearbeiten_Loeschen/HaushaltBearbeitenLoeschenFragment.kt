@@ -1,4 +1,4 @@
-package com.example.stromtracker.ui.haushalteBearbeiten_Loeschen
+package com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,10 +23,7 @@ class HaushaltBearbeitenLoeschenFragment: Fragment() {
         haushaltbearbeitenLoeschenViewModel =
             ViewModelProviders.of(this).get(HaushaltBearbeitenLoeschenViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_haushalt_bearbeiten_loeschen, container, false)
-        val textView: TextView = root.findViewById(R.id.text_haushaltBearbeitenLoeschen)
-        haushaltbearbeitenLoeschenViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
         return root
     }
 }
