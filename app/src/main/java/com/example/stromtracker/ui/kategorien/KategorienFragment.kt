@@ -30,7 +30,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
         //kategorienViewModel einbinden
         kategorienViewModel =
-            ViewModelProviders.of(this).get(com.example.stromtracker.ui.kategorien.KategorienViewModel::class.java)
+            ViewModelProviders.of(this).get(KategorienViewModel::class.java)
 
         //root festlegen -> root ist ConstraintLayout
         val root = inflater.inflate(R.layout.fragment_kategorien, container, false)
@@ -64,9 +64,9 @@ class KategorienFragment : Fragment(), View.OnClickListener {
             R.id.kategorie_button_add -> {
                 Toast.makeText(v.context, "Add Button clicked.", Toast.LENGTH_SHORT).show()
                 //neues Fragment erstellen, Beim Klick soll ja auf die Seite zum neu erstellen weitergeleitet werden
-                var frag = KategorienNewFragment()
+                val frag = KategorienNewFragment()
                 //Fragment Manager aus Main Activity holen
-                var fragMan = parentFragmentManager
+                val fragMan = parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
             }

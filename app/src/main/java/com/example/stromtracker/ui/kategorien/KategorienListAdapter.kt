@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.example.stromtracker.ui.kategorien.edit_kategorie.KategorienEditFragment
+import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import java.util.*
 
 class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView.Adapter<KategorienListAdapter.KategorienViewHolder>() {
@@ -48,6 +51,11 @@ class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView
                         "Position: %d is clicked.",
                         layoutPosition),
                     Toast.LENGTH_SHORT).show()
+                val frag = KategorienEditFragment()
+                //Fragment Manager aus Main Activity holen
+                val fragMan = mItemView.findFragment<KategorienFragment>().parentFragmentManager
+                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
             }
         }
     }

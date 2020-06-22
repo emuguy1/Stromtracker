@@ -23,8 +23,7 @@ class KategorienNewFragment : Fragment() {
 
             val root = inflater.inflate(R.layout.fragment_kategorien_new, container, false)
 
-            val textView: TextView = root.findViewById(R.id.katNewText)
-            textView.text = "Neue Kategorie erstellen"
+            val textView: TextView = root.findViewById(R.id.kategorie_new_text)
 
             return root
         }

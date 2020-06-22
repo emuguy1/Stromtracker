@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/kategorie_new_button_speichern"
+        android:id="@+id/kategorie_edit_button_speichern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="296dp"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/kategorie_new_button_abbrechen"
+        android:id="@+id/kategorie_edit_button_abbrechen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="288dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/kategorie_new_text"
+        android:id="@+id/kategorie_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
@@ -40,7 +40,7 @@
         android:layout_marginEnd="177dp"
         android:layout_marginRight="177dp"
         android:layout_marginBottom="356dp"
-        android:text="@string/kategorie_new_text"
+        android:text="@string/kategorie_edit_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
