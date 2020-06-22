@@ -20,4 +20,15 @@
     <string name="hint_text">hint_text</string>
     <string name="addButtonHaushalt">Add</string>
 
+    <string name="button_abbrechen">Abbrechen</string>
+    <string name="button_speichern">Speichern</string>
+    <string name="button_loeschen">Löschen</string>
+    <string name="haushaltstrompreis">Strompreis pro kWh</string>
+    <string name="haushaltsname">Name des Haushalt</string>
+    <string name="standardhaushaltsname">Haushalt</string>
+    <string name="haushaltspersonen">Anzahl Personen</string>
+    <string name="haushaltdatum">Datum</string>
+    <string name="haushaltzaehlerstand">Aktueller Zählerstand</string>
+    <string name="haushaltökomix">Ökomix in %</string>
+
 </resources>
