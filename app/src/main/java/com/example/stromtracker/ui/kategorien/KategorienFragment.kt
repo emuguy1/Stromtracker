@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
@@ -62,6 +63,12 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         when (v.id) {
             R.id.kategorie_button_add -> {
                 Toast.makeText(v.context, "Add Button clicked.", Toast.LENGTH_SHORT).show()
+                //neues Fragment erstellen, Beim Klick soll ja auf die Seite zum neu erstellen weitergeleitet werden
+                var frag = KategorienNewFragment()
+                //Fragment Manager aus Main Activity holen
+                var fragMan = parentFragmentManager
+                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
             }
             else -> {
                 Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
