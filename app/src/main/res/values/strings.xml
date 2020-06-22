@@ -22,7 +22,8 @@
     <string name="hint_kategorie">Kategorie</string>
 
     <string name="kategorie_new_text">Neue Kategorie erstellen</string>
-    <string name="kategorie_edit_text">Kategorie bearbeiten</string>
+    <string name="kategorie_edit_name">Name der Kategorie</string>
+    <string name="kategorie_edit_icon">Icon wählen</string>
 
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
