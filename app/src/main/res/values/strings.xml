@@ -30,9 +30,6 @@
   
     <string name="addButtonHaushalt">Add</string>
 
-    <string name="button_abbrechen">Abbrechen</string>
-    <string name="button_speichern">Speichern</string>
-    <string name="button_loeschen">Löschen</string>
     <string name="haushaltstrompreis">Strompreis pro kWh</string>
     <string name="haushaltsname">Name des Haushalt</string>
     <string name="standardhaushaltsname">Haushalt</string>
