@@ -18,6 +18,14 @@ class DataRepository public constructor(application: Application) {
         insertAsyncTask(mGeraeteDao).execute(geraet)
     }
 
+    fun delete(geraet:Geraete) {
+        deleteAsyncTask(mGeraeteDao).execute(geraet)
+    }
+
+    fun update(geraet:Geraete) {
+        updateAsyncTask(mGeraeteDao).execute(geraet)
+    }
+
     companion object {
         class insertAsyncTask(dao: GerateDAO) : AsyncTask<Geraete, Void, Void>() {
             private  var mAsyncTaskDAO: GerateDAO = dao
@@ -31,6 +39,39 @@ class DataRepository public constructor(application: Application) {
 
 
         }
+
+        class deleteAsyncTask(dao: GerateDAO) : AsyncTask<Geraete, Void, Void>() {
+            private  var mAsyncTaskDAO: GerateDAO = dao
+
+
+            override fun doInBackground(vararg params: Geraete): Void? {
+                mAsyncTaskDAO.delete(params[0])
+                return null
+            }
+
+
+
+        }
+
+        class updateAsyncTask(dao: GerateDAO) : AsyncTask<Geraete, Void, Void>() {
+            private  var mAsyncTaskDAO: GerateDAO = dao
+
+
+            override fun doInBackground(vararg params: Geraete): Void? {
+                mAsyncTaskDAO.updateGeraet(params[0])
+                return null
+            }
+
+
+
+        }
+
+
+    }
+
+
+
+
     }
 
 
@@ -40,4 +81,3 @@ class DataRepository public constructor(application: Application) {
 
 
 
-}

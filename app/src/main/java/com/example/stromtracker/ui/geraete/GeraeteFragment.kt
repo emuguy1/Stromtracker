@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -63,14 +64,18 @@ class GeraeteFragment : Fragment() {
         //geraeteViewModel= ViewModelProvider(this).get(GeraeteViewModel::class.java)
 
         geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+
         geraeteViewModel.getAllGeraete().observe(
             viewLifecycleOwner,
-            object : Observer<List<Geraete?>?> {
+            Observer { geraete ->
+                if (geraete != null) {
 
-
-                override fun onChanged(geraete: List<Geraete?>?) {
-                    if(geraete != null) {
                         Log.d("TAG", geraete.toString())
+
+                    if (geraete.isEmpty()) {
+                        geraeteViewModel.insertGeraet(Geraete("test", 0, 0, 0, 0, 0, 0, false))
+                        geraeteViewModel.insertGeraet(Geraete("test2", 0, 0, 0, 0, 0, 0, false))
+
 
                     }
                 }

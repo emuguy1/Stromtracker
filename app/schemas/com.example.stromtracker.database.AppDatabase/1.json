@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "c551442493fbb52ba975d5d5f2a41dfd",
+    "entities": [
+      {
+        "tableName": "Geraete",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromollast` INTEGER NOT NULL, `stromStandBy` INTEGER NOT NULL, `betriebszeit` INTEGER NOT NULL, `urlaubsmodus` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "geraeteID",
+            "columnName": "geraeteID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "kategorieID",
+            "columnName": "kategorieID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "raumID",
+            "columnName": "raumID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "haushaltID",
+            "columnName": "haushaltID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stromVollast",
+            "columnName": "stromollast",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stromStandBy",
+            "columnName": "stromStandBy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "betriebszeit",
+            "columnName": "betriebszeit",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urlaubsmodus",
+            "columnName": "urlaubsmodus",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "geraeteID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c551442493fbb52ba975d5d5f2a41dfd')"
+    ]
+  }
+}

@@ -27,6 +27,18 @@ import com.example.stromtracker.database.*;
         return list
     }
 
+     fun insertGeraet(g:Geraete) {
+         repo.insert(g)
+     }
+
+     fun deleteGeraet(g:Geraete) {
+         repo.delete(g)
+     }
+
+     fun updatetGeraet(g:Geraete) {
+         repo.update(g)
+     }
+
         /*
 
     fun setGereateList(geraet:Geraete) {
