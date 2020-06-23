@@ -26,14 +26,11 @@ class KategorienEditFragment : Fragment(){
 
         val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
         //TODO Icons richtig anzeigen lassen (aktuell als Int)
-        val icons = arrayOf<Int>(R.drawable.ic_menu_geraete, R.drawable.ic_menu_camera)
+        val icons = arrayOf<Int>(R.drawable.ic_monitor, R.drawable.ic_refrigerator)
         val spinner: Spinner = root.findViewById(R.id.kategorie_edit_icon_spinner)
 
-        val adapter =ArrayAdapter(
-                root.context,
-                android.R.layout.simple_spinner_dropdown_item,
-                icons
-        )
+        val adapter = SimpleImageArrayAdapter(requireContext(), icons)
+        adapter.setDropDownViewResource(R.layout.fragment_kategorien_spinner_row)
         spinner.adapter=adapter
 
         return root
