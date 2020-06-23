@@ -34,7 +34,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text=""
-                android:hint="z.B. Haushalt"
+                android:hint="@string/haushaltedithint_name"
+                android:autofillHints="@string/haushaltedithint_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewHaushaltsname" />
 
@@ -57,7 +58,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="in Cent z.B. 26,62"
+                android:hint="@string/haushaltedithint_strompreis"
+                android:autofillHints="@string/haushaltedithint_strompreis"
                 android:inputType="numberDecimal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/haushalttextViewStrompreisErstellen" />
@@ -82,7 +84,8 @@
                 android:layout_marginTop="20dp"
                 android:ems="10"
                 android:inputType="number"
-                android:hint="z.B. 2"
+                android:hint="@string/haushaltedithint_personen"
+                android:autofillHints="@string/haushaltedithint_personen"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/haushalttextViewPersonenErstellen" />
 
@@ -105,7 +108,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="in kWh"
+                android:hint="@string/haushaltedithint_stand"
+                android:autofillHints="@string/haushaltedithint_stand"
                 android:inputType="numberDecimal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/haushalttextZählerstand" />
@@ -128,7 +132,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="DD.MM.JJJJ"
+                android:hint="@string/haushaltedithint_datum"
+                android:autofillHints="@string/haushaltedithint_datum"
                 android:inputType="date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/haushalttextdatum" />
@@ -151,7 +156,8 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="20dp"
-                android:hint="80 für 80%"
+                android:hint="@string/haushaltedithint_strommix"
+                android:autofillHints="@string/haushaltedithint_strommix"
                 android:inputType="number"
                 app:layout_constraintStart_toEndOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/haushalteditTextdatum" />
