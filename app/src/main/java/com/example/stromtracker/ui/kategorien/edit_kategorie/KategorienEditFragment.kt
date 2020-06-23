@@ -25,7 +25,6 @@ class KategorienEditFragment : Fragment(){
             ViewModelProviders.of(this).get(KategorienNewViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
-        //TODO Icons richtig anzeigen lassen (aktuell als Int)
         val icons = arrayOf<Int>(R.drawable.ic_monitor, R.drawable.ic_refrigerator)
         val spinner: Spinner = root.findViewById(R.id.kategorie_edit_icon_spinner)
 
