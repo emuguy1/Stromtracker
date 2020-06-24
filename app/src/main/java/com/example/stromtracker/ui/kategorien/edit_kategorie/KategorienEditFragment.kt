@@ -64,7 +64,7 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
             R.id.kategorie_edit_button_loeschen -> {
                 Toast.makeText(v.context, "Löschen Button clicked.", Toast.LENGTH_SHORT).show()
