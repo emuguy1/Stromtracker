@@ -47,7 +47,7 @@ class KategorienNewFragment : Fragment(), View.OnClickListener {
         }
 
     override fun onClick(v : View) {
-        //switch-case in Kotlin: (Zur Unterscheidung der Buttons. Hier eigentlich nicht notwendig)
+        //switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
         when (v.id) {
             R.id.kategorie_new_button_abbrechen -> {
                 Toast.makeText(v.context, "Abbrechen Button clicked.", Toast.LENGTH_SHORT).show()
