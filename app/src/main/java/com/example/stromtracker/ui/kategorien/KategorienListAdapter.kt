@@ -51,6 +51,7 @@ class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView
                         "Position: %d is clicked.",
                         layoutPosition),
                     Toast.LENGTH_SHORT).show()
+                //neues Fragment erstellen, Beim Klick soll ja auf die Seite mit Kategorie Bearbeiten weitergeleitet werden
                 val frag = KategorienEditFragment()
                 //Fragment Manager aus Main Activity holen
                 val fragMan = mItemView.findFragment<KategorienFragment>().parentFragmentManager

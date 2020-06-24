@@ -53,7 +53,7 @@ class KategorienEditFragment : Fragment(), View.OnClickListener{
         when (v.id) {
             R.id.kategorie_edit_button_abbrechen -> {
                 Toast.makeText(v.context, "Abbrechen Button clicked.", Toast.LENGTH_SHORT).show()
-                //neues Fragment erstellen, Beim Klick soll ja auf die Seite zum neu erstellen weitergeleitet werden
+                //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
