@@ -12,8 +12,8 @@ interface GerateDAO {
     @Query("SELECT * FROM geraete WHERE geraeteID IN (:geraeteIDs)")
     fun loadAllByIds(geraeteIDs: IntArray): LiveData<List<Geraete>>
 
-    @Query("SELECT * FROM geraete WHERE name LIKE :name LIMIT 1")
-    fun findByName(name: String): Geraete
+    @Query("SELECT * FROM geraete WHERE name LIKE :name")
+    fun findByName(name: String): List<Geraete>
 
     @Insert
     fun insertAll(vararg geraete: Geraete)

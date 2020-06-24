@@ -9,11 +9,13 @@ data class Geraete(
     @ColumnInfo(name = "kategorieID") private var kategorieID: Int,
     @ColumnInfo(name = "raumID") private var raumID: Int,
     @ColumnInfo(name = "haushaltID") private var haushaltID: Int,
-    @ColumnInfo(name = "stromollast") private var stromVollast: Int,
+    @ColumnInfo(name = "stromVollast") private var stromVollast: Int,
 
     @ColumnInfo(name = "stromStandBy") private var stromStandBy: Int,
     @ColumnInfo(name = "betriebszeit") private var betriebszeit: Int,
-@ColumnInfo(name = "urlaubsmodus") private var urlaubsmodus: Boolean
+    @ColumnInfo(name = "urlaubsmodus") private var urlaubsmodus: Boolean,
+    @ColumnInfo(name = "notiz") private var notiz: String?
+
 ) {
     @PrimaryKey(autoGenerate = true) private var geraeteID: Int = 0
 
@@ -29,7 +31,7 @@ data class Geraete(
         return name
     }
 
-    fun setNamet(v:String) {
+    fun setName(v:String) {
         name = v
     }
 
@@ -89,6 +91,14 @@ data class Geraete(
 
     fun setUrlaubsmodus(b:Boolean) {
         urlaubsmodus = b
+    }
+
+    fun getNotiz():String? {
+        return notiz
+    }
+
+    fun setNotiz(s:String) {
+        notiz = s
     }
 
 
