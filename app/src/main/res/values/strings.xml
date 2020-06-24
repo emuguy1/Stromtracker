@@ -37,5 +37,11 @@
     <string name="haushaltdatum">Datum</string>
     <string name="haushaltzaehlerstand">Aktueller Zählerstand</string>
     <string name="haushaltökomix">Ökomix in %</string>
+    <string name="haushaltedithint_name">z.B. Haushalt</string>
+    <string name="haushaltedithint_strompreis">in Cent z.B. 26,62</string>
+    <string name="haushaltedithint_personen">z.B. 2</string>
+    <string name="haushaltedithint_stand">in kWh</string>
+    <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
+    <string name="haushaltedithint_strommix">80 für 80%</string>
 
 </resources>
