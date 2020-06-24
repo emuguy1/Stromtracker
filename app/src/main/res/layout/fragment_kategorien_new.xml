@@ -37,19 +37,40 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/kategorie_new_text"
+        android:id="@+id/kategorie_new_textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginLeft="176dp"
-        android:layout_marginTop="356dp"
-        android:layout_marginEnd="177dp"
-        android:layout_marginRight="177dp"
-        android:layout_marginBottom="356dp"
-        android:text="@string/kategorie_new_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/kategorie_edit_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/kategorie_new_editName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/hint_kategorie_input"
+        app:layout_constraintStart_toStartOf="@+id/kategorie_new_textName"
+        app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textName" />
+
+    <TextView
+        android:id="@+id/kategorie_new_textIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/kategorie_edit_icon"
+        app:layout_constraintStart_toStartOf="@+id/kategorie_new_editName"
+        app:layout_constraintTop_toBottomOf="@+id/kategorie_new_editName" />
+
+    <Spinner
+        android:id="@+id/kategorie_new_icon_spinner"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/kategorie_new_textIcon"
+        app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textIcon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

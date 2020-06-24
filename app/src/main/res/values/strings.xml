@@ -20,6 +20,7 @@
 
     <string name="hint_text">hint_text</string>
     <string name="hint_kategorie">Kategorie</string>
+    <string name="hint_kategorie_input">z.B. Fernseher</string>
 
     <string name="kategorie_new_text">Neue Kategorie erstellen</string>
     <string name="kategorie_edit_name">Name der Kategorie</string>

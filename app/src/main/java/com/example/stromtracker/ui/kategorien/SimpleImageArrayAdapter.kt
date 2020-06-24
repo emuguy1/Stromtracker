@@ -1,4 +1,4 @@
-package com.example.stromtracker.ui.kategorien.edit_kategorie
+package com.example.stromtracker.ui.kategorien
 
 import android.content.Context
 import android.util.AttributeSet
@@ -17,7 +17,7 @@ class SimpleImageArrayAdapter(context: Context, private var images: Array<Int>) 
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return this!!.getImageForPosition(position)!!
+        return getImageForPosition(position)!!
     }
 
     private fun getImageForPosition(position: Int): View? {
@@ -30,6 +30,7 @@ class SimpleImageArrayAdapter(context: Context, private var images: Array<Int>) 
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
         )
+
         return imageView
     }
 }
