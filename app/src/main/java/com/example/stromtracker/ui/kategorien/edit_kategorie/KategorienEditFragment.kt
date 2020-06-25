@@ -63,18 +63,16 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
         //switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
         when (v.id) {
             R.id.kategorie_edit_button_abbrechen -> {
-                Toast.makeText(v.context, "Abbrechen Button clicked.", Toast.LENGTH_SHORT).show()
                 //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
             R.id.kategorie_edit_button_loeschen -> {
-                Toast.makeText(v.context, "Löschen Button clicked.", Toast.LENGTH_SHORT).show()
-                val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
-                builder1.setMessage("Sind sie sicher, dass sie die Kategorie löschen wollen?")
-                builder1.setPositiveButton(
-                    "Ja",
+                val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
+                confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
+                confirmDeleteBuilder.setPositiveButton(
+                    R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
                         //Daten werden aus der Datenbank gelöscht
                         //TODO: Daten aus Datenbank löschen
@@ -86,19 +84,18 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
                         //und anschließend noch ein commit()
                         dialog.cancel() })
 
-                builder1.setNegativeButton(
-                    "Nein",
+                confirmDeleteBuilder.setNegativeButton(
+                    R.string.nein,
                     DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
 
-                val alert11: AlertDialog = builder1.create()
-                alert11.show()
+                val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
+                confirmDeleteDialog.show()
             }
             R.id.kategorie_edit_button_speichern -> {
-                Toast.makeText(v.context, "Speichern Button clicked.", Toast.LENGTH_SHORT).show()
                 //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
             else -> {
                 Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
