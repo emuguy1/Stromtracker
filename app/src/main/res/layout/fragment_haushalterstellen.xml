@@ -30,7 +30,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:text=""
             android:hint="@string/haushaltedithint_name"
             android:autofillHints="@string/haushaltedithint_name"

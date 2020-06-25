@@ -42,7 +42,8 @@ class HaushaltFragment: Fragment() {
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                .addToBackStack(null).commit();
                 //und anschließend noch ein commit()
 
             }
