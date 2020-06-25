@@ -46,12 +46,7 @@ class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView
 
         override fun onClick(v: View?) {
             if (v != null) {
-                Toast.makeText(v.context,
-                    String.format(
-                        Locale.GERMAN,
-                        "Position: %d is clicked.",
-                        layoutPosition),
-                    Toast.LENGTH_SHORT).show()
+                //layoutposition gibt an, welche Position geklickt wurde
                 //neues Fragment erstellen, Beim Klick soll ja auf die Seite mit Kategorie Bearbeiten weitergeleitet werden
                 val frag = KategorienEditFragment(mCardView.findViewById(R.id.kategorien_recycler_text))
                 //Fragment Manager aus Main Activity holen
