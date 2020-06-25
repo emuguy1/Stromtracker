@@ -4,20 +4,160 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGrey"
     tools:context=".ui.amortisationsrechnerPV.AmortisationsrechnerPVFragment">
 
-    <TextView
-        android:id="@+id/text_amortisationsrechnerPV"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="center_horizontal" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/amortPV_text_beschreibung"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/amortPV_text_beschreibung"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/amortPV_text_leistung"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/amortPV_text_leistung"
+                app:layout_constraintEnd_toEndOf="@+id/amortPV_text_beschreibung"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_text_beschreibung"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_text_beschreibung" />
+
+            <EditText
+                android:id="@+id/amortPV_edit_leistung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="305dp"
+                android:layout_marginRight="305dp"
+                android:hint="@string/amortPV_hint_leistung"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_text_leistung"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_text_leistung"
+                android:autofillHints="@string/amortPV_hint_leistung" />
+
+            <TextView
+                android:id="@+id/amortPV_text_anschaffung"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/amortPV_text_anschaffung"
+                app:layout_constraintEnd_toEndOf="@+id/amortPV_text_leistung"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_edit_leistung"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_edit_leistung" />
+
+            <EditText
+                android:id="@+id/amortPV_edit_anschaffung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="282dp"
+                android:layout_marginRight="282dp"
+                android:hint="@string/amortPV_hint_anschaffung"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_text_anschaffung"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_text_anschaffung"
+                android:autofillHints="@string/amortPV_hint_anschaffung" />
+
+            <TextView
+                android:id="@+id/amortPV_text_jahresertrag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/amortPV_text_jahresertrag"
+                app:layout_constraintEnd_toEndOf="@+id/amortPV_text_anschaffung"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_edit_anschaffung"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_edit_anschaffung" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/amortPV_text_jahresertrag"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_text_jahresertrag"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_text_jahresertrag">
+
+                <TextView
+                    android:id="@+id/amortPV_text_jahresertrag_zahl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/amortPV_hint_jahresertrag_zahl" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/amortPV_text_jahresertrag_beschreibung"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/amortPV_text_jahresertrag_beschreibung"
+                app:layout_constraintEnd_toEndOf="@+id/cardView"
+                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <TextView
+                android:id="@+id/amortPV_text_amortdauer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/amportPV_text_amortdauer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_text_jahresertrag_beschreibung"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_text_jahresertrag_beschreibung" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/amortPV_text_amortdauer"
+                app:layout_constraintTop_toBottomOf="@+id/amortPV_text_amortdauer">
+
+                <TextView
+                    android:id="@+id/amortPV_text_amortdauer_zahl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/amortPV_hint_amortdauer_zahl" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
