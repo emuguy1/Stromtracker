@@ -6,6 +6,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="ja">ja</string>
+    <string name="nein">nein</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_geraete">Geräte</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -43,5 +46,6 @@
     <string name="haushaltedithint_stand">in kWh</string>
     <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
     <string name="haushaltedithint_strommix">80 für 80%</string>
+    <string name="haushaltlöschenConfirm">Sind sie sicher, dass sie den Hauhalt löschen wollen?</string>
 
 </resources>

@@ -73,9 +73,9 @@ class HaushaltBearbeitenLoeschenFragment: Fragment() {
             if (view != null) {
                 //Bestätigungsdialog mithilfe von AlertDialog
                 val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
-                builder1.setMessage("Sind sie sicher, dass sie den Hauhalt löschen wollen?")
+                builder1.setMessage(R.string.haushaltlöschenConfirm )
                 builder1.setPositiveButton(
-                    "Ja",
+                    R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
                         //Daten werden aus der Datenbank gelöscht
                         //TODO: Daten aus Datenbank löschen
@@ -90,7 +90,7 @@ class HaushaltBearbeitenLoeschenFragment: Fragment() {
                         dialog.cancel() })
 
                 builder1.setNegativeButton(
-                    "Nein",
+                    R.string.nein,
                     DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
 
                 val alert11: AlertDialog = builder1.create()
