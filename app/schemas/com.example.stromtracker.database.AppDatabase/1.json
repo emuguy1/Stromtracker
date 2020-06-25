@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c551442493fbb52ba975d5d5f2a41dfd",
+    "identityHash": "438f208b7adec76b60a99c8144bcbdc4",
     "entities": [
       {
         "tableName": "Geraete",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromollast` INTEGER NOT NULL, `stromStandBy` INTEGER NOT NULL, `betriebszeit` INTEGER NOT NULL, `urlaubsmodus` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` INTEGER NOT NULL, `stromStandBy` INTEGER NOT NULL, `betriebszeit` INTEGER NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `notiz` TEXT)",
         "fields": [
           {
             "fieldPath": "geraeteID",
@@ -40,7 +40,7 @@
           },
           {
             "fieldPath": "stromVollast",
-            "columnName": "stromollast",
+            "columnName": "stromVollast",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -61,6 +61,12 @@
             "columnName": "urlaubsmodus",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "notiz",
+            "columnName": "notiz",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -71,12 +77,120 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Haushalt",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`haushaltID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `stromkosten` REAL NOT NULL, `bewohnerAnzahl` INTEGER NOT NULL, `zaehlerstand` REAL, `datum` INTEGER, `oekostrom` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "haushaltID",
+            "columnName": "haushaltID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stromkosten",
+            "columnName": "stromkosten",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bewohnerAnzahl",
+            "columnName": "bewohnerAnzahl",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zaehlerstand",
+            "columnName": "zaehlerstand",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "datum",
+            "columnName": "datum",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oekostrom",
+            "columnName": "oekostrom",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "haushaltID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Kategorie",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "kategorieID",
+            "columnName": "kategorieID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "kategorieID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Raum",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "raumID",
+            "columnName": "raumID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "raumID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c551442493fbb52ba975d5d5f2a41dfd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '438f208b7adec76b60a99c8144bcbdc4')"
     ]
   }
 }

@@ -5,7 +5,7 @@ import androidx.room.*
 
 
 @Dao
-interface GerateDAO {
+interface GeraeteDAO {
     @Query("SELECT * FROM geraete")
     fun getAll(): LiveData<List<Geraete>>
 
@@ -16,7 +16,7 @@ interface GerateDAO {
     fun findByName(name: String): List<Geraete>
 
     @Insert
-    fun insertAll(vararg geraete: Geraete)
+    fun insertGeraete(vararg geraete: Geraete)
 
     @Delete
     fun delete(geraete: Geraete)

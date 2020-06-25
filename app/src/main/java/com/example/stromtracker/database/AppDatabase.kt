@@ -7,16 +7,18 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
-@Database(entities = arrayOf(Geraete::class), version = 1)
+@Database(entities = arrayOf(Geraete::class, Haushalt::class, Kategorie::class, Raum::class), version = 1)
 @TypeConverters(DateConverters::class)
 
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun geraeteDao(): GerateDAO
-    private var instance: AppDatabase? = null
+    abstract fun geraeteDao(): GeraeteDAO
+    abstract fun haushaltDao(): HaushaltDAO
+    abstract fun kategorieDao():KategorieDAO
+    abstract fun raumDao():RaumDAO
 
     companion object {
-        private var INSTANCE: AppDatabase? = null
+        private   var INSTANCE: AppDatabase? = null
 
         open fun getInstance(context: Context): AppDatabase? {
 

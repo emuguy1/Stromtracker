@@ -13,7 +13,8 @@ import com.example.stromtracker.database.*;
  class GeraeteViewModel(application: Application) : AndroidViewModel(application) {
 
     var repo:DataRepository = DataRepository(application)
-    var list:LiveData<List<Geraete>> = repo.getAllGeraete()
+    var geraetelist:LiveData<List<Geraete>> = repo.getAllGeraete()
+     var haushaltlist:LiveData<List<Haushalt>> = repo.getAllHaushalt()
 
 
 
@@ -24,41 +25,28 @@ import com.example.stromtracker.database.*;
 
 
     fun getAllGeraete():LiveData<List<Geraete>> {
-        return list
+        return geraetelist
     }
 
+     fun getAllHaushalte():LiveData<List<Haushalt>> {
+         return haushaltlist
+     }
+
+     fun insertHaushalt(h:Haushalt) {
+         repo.insertHaushalt(h)
+     }
+
      fun insertGeraet(g:Geraete) {
-         repo.insert(g)
+         repo.insertGeraete(g)
      }
 
      fun deleteGeraet(g:Geraete) {
-         repo.delete(g)
+         repo.deleteGeraete(g)
      }
 
      fun updatetGeraet(g:Geraete) {
-         repo.update(g)
+         repo.updateGeraete(g)
      }
-
-        /*
-
-    fun setGereateList(geraet:Geraete) {
-        test.geraeteDao().insertAll(geraet)
-
-    }
-
-    fun getGereateList():List<Geraete> {
-        return test.geraeteDao().getAll()
-
-    }
-
-
-
-
-
-
-
-
-     */
 
 
 }

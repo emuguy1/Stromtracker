@@ -11,11 +11,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
+import com.example.stromtracker.database.Haushalt
 
 
 class GeraeteFragment : Fragment() {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
+    private  lateinit var geraeteList:List<Geraete>
+
+    fun setGeraeteList(list:List<Geraete>) {
+
+            geraeteList = list
+        Log.d("TAG", geraeteList.toString())
+        //Adapter setzen
+
+
+    }
 
 
     override fun onCreateView(
@@ -70,15 +81,17 @@ class GeraeteFragment : Fragment() {
             Observer { geraete ->
                 if (geraete != null) {
 
-                        Log.d("TAG", geraete.toString())
+                    setGeraeteList(geraete)
 
                     if (geraete.isEmpty()) {
-                        geraeteViewModel.insertGeraet(Geraete("test", 0, 0, 0, 0, 0, 0, false))
-                        geraeteViewModel.insertGeraet(Geraete("test2", 0, 0, 0, 0, 0, 0, false))
-
-
+                        geraeteViewModel.insertGeraet(Geraete("test", 0, 0, 0, 0, 0, 0, false, null))
+                        geraeteViewModel.insertGeraet(Geraete("test2", 0, 0, 0, 0, 0, 0, false, null))
                     }
+
+
                 }
             })
+
+
     }
 }

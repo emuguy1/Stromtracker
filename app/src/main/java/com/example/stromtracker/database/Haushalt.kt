@@ -62,6 +62,14 @@ data class Haushalt(
     fun setOekostrom(o:Boolean) {
         oekostrom = o
     }
+
+    fun getName(): String {
+        return name
+    }
+
+    fun setName(n: String) {
+        name = n
+    }
 }
 
 
