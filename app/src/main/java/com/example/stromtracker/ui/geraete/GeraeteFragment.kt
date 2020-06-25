@@ -12,12 +12,16 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.database.Raum
 
 
 class GeraeteFragment : Fragment() {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
     private  lateinit var geraeteList:List<Geraete>
+    private  lateinit var haushaltList:List<Haushalt>
+
 
     fun setGeraeteList(list:List<Geraete>) {
 
@@ -84,8 +88,12 @@ class GeraeteFragment : Fragment() {
                     setGeraeteList(geraete)
 
                     if (geraete.isEmpty()) {
-                        geraeteViewModel.insertGeraet(Geraete("test", 0, 0, 0, 0, 0, 0, false, null))
-                        geraeteViewModel.insertGeraet(Geraete("test2", 0, 0, 0, 0, 0, 0, false, null))
+                        geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
+                        geraeteViewModel.insertKategorie(Kategorie("test"))
+                        geraeteViewModel.insertRaum(Raum("test"))
+                        geraeteViewModel.insertGeraet(Geraete("test", 0, 0, 0, 10, 0, 0, false, null))
+
+
                     }
 
 
