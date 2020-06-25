@@ -134,12 +134,13 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="@string/amportPV_text_amortdauer"
+                android:text="@string/amortPV_text_amortdauer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/amortPV_text_jahresertrag_beschreibung"
                 app:layout_constraintTop_toBottomOf="@+id/amortPV_text_jahresertrag_beschreibung" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -155,6 +156,15 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/amortPV_hint_amortdauer_zahl" />
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/amortPV_text_amortdauer_beschreibung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/amortPV_text_amortdauer_beschreibung"
+                app:layout_constraintStart_toStartOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

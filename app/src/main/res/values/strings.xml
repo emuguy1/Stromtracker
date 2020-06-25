@@ -53,13 +53,14 @@
     <string name="amortPV_hint_leistung">z.B. 4.5</string>
     <string name="amortPV_hint_anschaffung">z.B. 6525</string>
     <string name="amortPV_hint_jahresertrag_zahl">z.B. 4550kWh</string>
+    <string name="amortPV_hint_amortdauer_zahl">z.B. 741 Tage</string>
     <string name="amortPV_text_beschreibung">Vereinfachte Bestimmung der Amortisationszeit für eine Photovoltaik-Anlage</string>
     <string name="amortPV_text_leistung">Wie hoch ist die Leistung der PV-Anlage in kWp?</string>
     <string name="amortPV_text_anschaffung">Anschaffungskosten in Euro</string>
-    <string name="amortPV_text_jahresertrag">Jahresertrag</string>
+    <string name="amortPV_text_jahresertrag">Jahresertrag in kWh</string>
     <string name="amortPV_text_jahresertrag_beschreibung">(durchschnittlicher Ertrag pro kWp in Deutschland * Leistung der PV in kWp)</string>
-    <string name="amportPV_text_amortdauer">Amortisationsdauer</string>
-    <string name="amortPV_hint_amortdauer_zahl">z.B. 741 Tage</string>
+    <string name="amortPV_text_amortdauer">Amortisationsdauer in Tagen</string>
+    <string name="amortPV_text_amortdauer_beschreibung">(basierend auf einer Vergütung von 9.03 Cent/kWh, Stand: Juli 2020)</string>
 
 
 </resources>
