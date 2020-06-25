@@ -22,6 +22,7 @@ import androidx.room.*;
         onDelete = ForeignKey.NO_ACTION
 )
 ])
+
     data class Geraete(
         @ColumnInfo(name = "name") private var name: String,
         @ColumnInfo(name = "kategorieID") private var kategorieID: Int,

@@ -23,7 +23,8 @@ interface GeraeteDAO {
      "), :stromVollast, :stromStandby, :betriebszeit, :urlaubsmodus; :notiz")
      fun insertGeraet(name:String, kategorieID:Int, raumID:Int, stromVollast:Int, stromStandby:Int, betriebszeit:Int, urlaubsmodus:Boolean, notiz:String?)
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(//onConflict = OnConflictStrategy.IGNORE
+        )
     fun insertGeraete(vararg geraete: Geraete)
 
 

@@ -86,12 +86,14 @@ class GeraeteFragment : Fragment() {
                 if (geraete != null) {
 
                     setGeraeteList(geraete)
+                    Log.d("TAGGeraete", geraete.toString())
 
                     if (geraete.isEmpty()) {
                         geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
                         geraeteViewModel.insertKategorie(Kategorie("test"))
                         geraeteViewModel.insertRaum(Raum("test"))
-                        geraeteViewModel.insertGeraet(Geraete("test", 0, 0, 0, 10, 0, 0, false, null))
+
+                        geraeteViewModel.insertGeraet(Geraete("test", 1, 1, 1, 10, 0, 0, false, null))
 
 
                     }
@@ -99,6 +101,24 @@ class GeraeteFragment : Fragment() {
 
                 }
             })
+
+        geraeteViewModel.getAllHaushalt().observe(
+            viewLifecycleOwner,
+            Observer { haushalte ->
+                if (haushalte != null) {
+
+                    Log.d("TAGHaushalt", haushalte.toString())
+
+
+
+
+                    }
+
+
+
+            })
+
+
 
 
     }
