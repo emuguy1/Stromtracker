@@ -21,7 +21,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:contentDescription="@string/addButtonHaushalt"
-        android:src="@drawable/ic_plus_icon"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:context=".ui.haushalt.HaushaltFragment" />
