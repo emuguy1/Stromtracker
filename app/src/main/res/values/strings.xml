@@ -52,9 +52,9 @@
 
     <string name="amortPV_hint_leistung">z.B. 4.5</string>
     <string name="amortPV_hint_anschaffung">z.B. 6525</string>
-    <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4550</string>
-    <string name="amortPV_hint_amortdauer_zahl">z.B. 741</string>
-    <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 1111.57</string>
+    <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4095</string>
+    <string name="amortPV_hint_amortdauer_zahl">z.B. 17.6</string>
+    <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 369.78</string>
     <string name="amortPV_text_beschreibung">Vereinfachte Bestimmung der Amortisationszeit für eine Photovoltaik-Anlage</string>
     <string name="amortPV_text_leistung">Leistung der PV-Anlage in kWp</string>
     <string name="amortPV_text_anschaffung">Anschaffungskosten in Euro</string>

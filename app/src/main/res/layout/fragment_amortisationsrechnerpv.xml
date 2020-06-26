@@ -36,6 +36,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:text="@string/amortPV_text_beschreibung"
+                    android:textSize="@dimen/content_text_big"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@string/amortPV_text_leistung"
+                    android:textSize="@dimen/content_text_normal"
                     app:layout_constraintEnd_toEndOf="@+id/amortPV_text_beschreibung"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_text_beschreibung"
@@ -61,6 +63,7 @@
                     android:autofillHints="@string/amortPV_hint_leistung"
                     android:hint="@string/amortPV_hint_leistung"
                     android:inputType="numberDecimal"
+                    android:textSize="@dimen/content_text_big"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_text_leistung"
@@ -72,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@string/amortPV_text_anschaffung"
+                    android:textSize="@dimen/content_text_normal"
                     app:layout_constraintEnd_toEndOf="@+id/amortPV_text_leistung"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_edit_leistung"
@@ -86,6 +90,7 @@
                     android:autofillHints="@string/amortPV_hint_anschaffung"
                     android:hint="@string/amortPV_hint_anschaffung"
                     android:inputType="number"
+                    android:textSize="@dimen/content_text_big"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_text_anschaffung"
@@ -97,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@string/amortPV_text_jahresertragkWh"
+                    android:textSize="@dimen/content_text_normal"
                     app:layout_constraintEnd_toEndOf="@+id/amortPV_text_anschaffung"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_edit_anschaffung"
@@ -115,7 +121,8 @@
                         android:id="@+id/amortPV_text_jahresertragkWh_zahl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/amortPV_hint_jahresertragkWh_zahl" />
+                        android:hint="@string/amortPV_hint_jahresertragkWh_zahl"
+                        android:textSize="@dimen/content_text_big"/>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -124,6 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/amortPV_text_jahresertragkWh_beschreibung"
+                    android:textSize="@dimen/content_text_smaller"
                     app:layout_constraintEnd_toEndOf="@+id/amortPV_card_jahresertragkWh"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_card_jahresertragkWh"
                     app:layout_constraintTop_toBottomOf="@+id/amortPV_card_jahresertragkWh" />
@@ -136,6 +144,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:text="@string/amortPV_text_jahresertragEuro"
+                    android:textSize="@dimen/content_text_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_text_jahresertragkWh_beschreibung"
@@ -156,7 +165,8 @@
                         android:id="@+id/amortPV_text_JahresertragEuro_zahl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/amortPV_hint_jahresertragEuro_zahl" />
+                        android:hint="@string/amortPV_hint_jahresertragEuro_zahl"
+                        android:textSize="@dimen/content_text_big"/>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -167,6 +177,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:text="@string/amortPV_text_amortdauer"
+                    android:textSize="@dimen/content_text_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_text_jahresertragkWh_beschreibung"
                     app:layout_constraintTop_toBottomOf="@+id/amortPV_card_jahresertragEuro" />
@@ -186,7 +197,8 @@
                         android:id="@+id/amortPV_text_amortdauer_zahl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/amortPV_hint_amortdauer_zahl" />
+                        android:hint="@string/amortPV_hint_amortdauer_zahl"
+                        android:textSize="@dimen/content_text_big"/>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -198,6 +210,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/amortPV_text_amortdauer_beschreibung"
+                    android:textSize="@dimen/content_text_smaller"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/amortPV_card_amortdauer"
