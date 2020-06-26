@@ -51,4 +51,19 @@
     <string name="haushaltedithint_strommix">80 für 80%</string>
     <string name="haushaltlöschenConfirm">Sind sie sicher, dass sie den Hauhalt löschen wollen?</string>
 
+    <string name="amortPV_hint_leistung">z.B. 4.5</string>
+    <string name="amortPV_hint_anschaffung">z.B. 6525</string>
+    <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4095</string>
+    <string name="amortPV_hint_amortdauer_zahl">z.B. 17.6</string>
+    <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 369.78</string>
+    <string name="amortPV_text_beschreibung">Vereinfachte Bestimmung der Amortisationszeit für eine Photovoltaik-Anlage</string>
+    <string name="amortPV_text_leistung">Leistung der PV-Anlage in kWp</string>
+    <string name="amortPV_text_anschaffung">Anschaffungskosten in Euro</string>
+    <string name="amortPV_text_jahresertragkWh">Jahresertrag in kWh</string>
+    <string name="amortPV_text_jahresertragkWh_beschreibung">(basierend auf durchschnittlichem Ertrag in Deutschland von 910kWh pro 1kWp im Jahr, Stand: Juli 2020)</string>
+    <string name="amortPV_text_amortdauer">Amortisationsdauer in Jahren</string>
+    <string name="amortPV_text_amortdauer_beschreibung">(basierend auf einer Vergütung von 9.03 Cent/kWh, Stand: Juli 2020)</string>
+    <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
+
+
 </resources>
