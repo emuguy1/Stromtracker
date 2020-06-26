@@ -54,7 +54,9 @@
         android:layout_marginTop="8dp"
         android:hint="@string/hint_kategorie_input"
         app:layout_constraintStart_toStartOf="@+id/kategorie_new_textName"
-        app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textName" />
+        app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textName"
+        android:inputType="text"
+        android:autofillHints="@string/hint_kategorie_input"/>
 
     <TextView
         android:id="@+id/kategorie_new_textIcon"

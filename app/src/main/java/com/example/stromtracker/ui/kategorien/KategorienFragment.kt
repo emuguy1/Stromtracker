@@ -61,7 +61,6 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         //switch-case in Kotlin: (Zur Unterscheidung der Buttons. Hier eigentlich nicht notwendig)
         when (v.id) {
             R.id.kategorie_button_add -> {
-                Toast.makeText(v.context, "Add Button clicked.", Toast.LENGTH_SHORT).show()
                 //neues Fragment erstellen, Beim Klick soll ja auf die Seite zum neu erstellen weitergeleitet werden
                 val frag = KategorienNewFragment()
                 //Fragment Manager aus Main Activity holen
