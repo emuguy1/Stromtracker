@@ -59,7 +59,7 @@
     <string name="amortPV_text_leistung">Leistung der PV-Anlage in kWp</string>
     <string name="amortPV_text_anschaffung">Anschaffungskosten in Euro</string>
     <string name="amortPV_text_jahresertragkWh">Jahresertrag in kWh</string>
-    <string name="amortPV_text_jahresertragkWh_beschreibung">(durchschnittlicher Ertrag pro kWp in Deutschland * Leistung der PV in kWp)</string>
+    <string name="amortPV_text_jahresertragkWh_beschreibung">(basierend auf durchschnittlichem Ertrag in Deutschland von 910kWh pro 1kWp im Jahr, Stand: Juli 2020)</string>
     <string name="amortPV_text_amortdauer">Amortisationsdauer in Jahren</string>
     <string name="amortPV_text_amortdauer_beschreibung">(basierend auf einer Vergütung von 9.03 Cent/kWh, Stand: Juli 2020)</string>
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
