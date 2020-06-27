@@ -63,12 +63,14 @@ class AmortisationsrechnerPVFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {
                 val AK:Int? = editAK.text.toString().toIntOrNull()
                 val leistung:Double? = editLeistung.text.toString().toDoubleOrNull()
-                if(AK != null)
+                if(AK != null) {
                     if (leistung != null) {
-                        val amortDouble = (AK / (leistung * durchschnittErtragDE * durchschnittVerguetungDE))
+                        val amortDouble =
+                            (AK / (leistung * durchschnittErtragDE * durchschnittVerguetungDE))
                         //Ausgabe mit 3 Nachkommastellen
                         outAmort.text = String.format("%.3f", amortDouble)
                     }
+                }
                 else
                     outAmort.text = null
             }
