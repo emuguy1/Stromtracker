@@ -25,6 +25,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonAdd: FloatingActionButton
     private lateinit var myDataset : Array<String>
     private lateinit var root:View
+    private val iconArray:Array<Int> = arrayOf<Int>(R.drawable.ic_monitor, R.drawable.ic_refrigerator)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +60,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
                     }
 
                     //RecyclerView mit geholten Daten aus DB initialisieren
-                    viewAdapter = KategorienListAdapter(kategorienViewModel.getAllKategorie().value!!)
+                    viewAdapter = KategorienListAdapter(kategorienViewModel.getAllKategorie().value!!, iconArray)
                     viewManager = LinearLayoutManager(this.context)
                     recyclerView = root.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
                         setHasFixedSize(true)
@@ -78,7 +79,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         when (v.id) {
             R.id.kategorie_button_add -> {
                 //neues Fragment erstellen, Beim Klick soll ja auf die Seite zum neu erstellen weitergeleitet werden
-                val frag = KategorienNewFragment()
+                val frag = KategorienNewFragment(iconArray)
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.

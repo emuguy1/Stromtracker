@@ -14,9 +14,10 @@ import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
 
-class KategorienNewFragment : Fragment(), View.OnClickListener {
+class KategorienNewFragment(private val iconArray : Array<Int>) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
         private lateinit var katViewModel: KategorienViewModel
         private lateinit var inputName: EditText
+        private var selectedIcon : Int = 0
 
         override fun onCreateView(
             inflater: LayoutInflater,
@@ -34,10 +35,11 @@ class KategorienNewFragment : Fragment(), View.OnClickListener {
             val adapter =
                 SimpleImageArrayAdapter(
                     requireContext(),
-                    icons
+                    iconArray
                 )
             adapter.setDropDownViewResource(R.layout.fragment_kategorien_spinner_row)
             spinner.adapter=adapter
+            spinner.onItemSelectedListener=this
 
             //Button Funktion zuweisen
             val abbrBtn = root.findViewById<Button>(R.id.kategorie_new_button_abbrechen)
@@ -56,6 +58,16 @@ class KategorienNewFragment : Fragment(), View.OnClickListener {
         katViewModel = ViewModelProviders.of(this).get(KategorienViewModel::class.java)
     }
 
+    override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        selectedIcon = pos
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
+    }
+
     override fun onClick(v : View) {
         //Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
@@ -72,7 +84,7 @@ class KategorienNewFragment : Fragment(), View.OnClickListener {
                 if(inputName.text.toString() != "") {
                     //Zuerst Daten in DB speichern
                     //Neue Kategorie anlegen, die gleich Insertet wird
-                    val newKategorie:Kategorie = Kategorie(inputName.text.toString())
+                    val newKategorie:Kategorie = Kategorie(inputName.text.toString(), selectedIcon)
                     Toast.makeText(this.context, newKategorie.toString(), Toast.LENGTH_SHORT).show()
                     //In DB speichern
                     katViewModel.insertKategorie(newKategorie)

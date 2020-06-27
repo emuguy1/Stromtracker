@@ -16,7 +16,7 @@ import com.example.stromtracker.ui.kategorien.edit_kategorie.KategorienEditFragm
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import java.util.*
 
-class KategorienListAdapter(private val myKategorien: List<Kategorie>) : RecyclerView.Adapter<KategorienListAdapter.KategorienViewHolder>() {
+class KategorienListAdapter(private val myKategorien: List<Kategorie>, private val iconArray:Array<Int>) : RecyclerView.Adapter<KategorienListAdapter.KategorienViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): KategorienListAdapter.KategorienViewHolder {
@@ -49,7 +49,7 @@ class KategorienListAdapter(private val myKategorien: List<Kategorie>) : Recycle
             if (v != null) {
                 //layoutposition gibt an, welche Position geklickt wurde
                 //neues Fragment erstellen, Beim Klick auf eine Kategorie soll ja auf die Seite mit Kategorie Bearbeiten weitergeleitet werden
-                val frag = KategorienEditFragment(myKategorien[layoutPosition])
+                val frag = KategorienEditFragment(myKategorien[layoutPosition], iconArray)
                 //Fragment Manager aus Main Activity holen
                 val fragMan = mItemView.findFragment<KategorienFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
