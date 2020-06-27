@@ -90,10 +90,10 @@ class GeraeteFragment : Fragment() {
 
                     if (geraete.isEmpty()) {
                         geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
-                        geraeteViewModel.insertKategorie(Kategorie("test"))
+                        geraeteViewModel.insertKategorie(Kategorie("test", null))
                         geraeteViewModel.insertRaum(Raum("test"))
 
-                        geraeteViewModel.insertGeraet(Geraete("test", 1, 1, 1, 10, 0, 0, false, null))
+                        geraeteViewModel.insertGeraet(Geraete("test", 1, 1, 1, 10.0, 0.0, 0.0, false, null))
 
 
                     }
