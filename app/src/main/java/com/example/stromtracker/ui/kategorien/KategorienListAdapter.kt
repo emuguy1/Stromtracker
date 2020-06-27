@@ -11,11 +11,12 @@ import androidx.core.view.get
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.edit_kategorie.KategorienEditFragment
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import java.util.*
 
-class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView.Adapter<KategorienListAdapter.KategorienViewHolder>() {
+class KategorienListAdapter(private val myKategorien: List<Kategorie>) : RecyclerView.Adapter<KategorienListAdapter.KategorienViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): KategorienListAdapter.KategorienViewHolder {
@@ -29,9 +30,9 @@ class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: KategorienViewHolder, position: Int) {
-        holder.mTextView.text= myDataset[position]
+        holder.mTextView.text= myKategorien[position].getName()
     }
-    override fun getItemCount() = myDataset.size
+    override fun getItemCount() = myKategorien.size
 
     inner class KategorienViewHolder(val mItemView:View) : RecyclerView.ViewHolder(mItemView), View.OnClickListener {
 
@@ -47,8 +48,8 @@ class KategorienListAdapter(private val myDataset: Array<String>) : RecyclerView
         override fun onClick(v: View?) {
             if (v != null) {
                 //layoutposition gibt an, welche Position geklickt wurde
-                //neues Fragment erstellen, Beim Klick soll ja auf die Seite mit Kategorie Bearbeiten weitergeleitet werden
-                val frag = KategorienEditFragment(mCardView.findViewById(R.id.kategorien_recycler_text))
+                //neues Fragment erstellen, Beim Klick auf eine Kategorie soll ja auf die Seite mit Kategorie Bearbeiten weitergeleitet werden
+                val frag = KategorienEditFragment(myKategorien[layoutPosition])
                 //Fragment Manager aus Main Activity holen
                 val fragMan = mItemView.findFragment<KategorienFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.

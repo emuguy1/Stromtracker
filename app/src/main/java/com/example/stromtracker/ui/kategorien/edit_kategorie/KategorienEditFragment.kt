@@ -11,15 +11,16 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.KategorienFragment
 import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
 
-class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
+class KategorienEditFragment(curr :Kategorie) : Fragment(), View.OnClickListener{
     private lateinit var katViewModel: KategorienViewModel
-    var currText = curr.text
-    lateinit var currName : EditText
+    private var currKategorie : Kategorie = curr
+    private lateinit var currNameEdit : EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +32,8 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
             ViewModelProviders.of(this).get(KategorienViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
-        currName = root.findViewById<EditText>(R.id.kategorie_edit_editName)
-        currName.setText(currText)
+        currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_editName)
+        currNameEdit.setText(currKategorie.getName())
 
         val icons = arrayOf<Int>(R.drawable.ic_monitor, R.drawable.ic_refrigerator)
         val spinner: Spinner = root.findViewById(R.id.kategorie_edit_icon_spinner)
@@ -73,7 +74,7 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
                         //Daten werden aus der Datenbank gelöscht
-                        //TODO: Daten aus Datenbank löschen
+                        katViewModel.deleteKategorie(currKategorie)
                         //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
                         //neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = KategorienFragment()
@@ -90,10 +91,19 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
                 confirmDeleteDialog.show()
             }
             R.id.kategorie_edit_button_speichern -> {
-                //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
-                val frag = KategorienFragment()
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                if(currNameEdit.text.isNotEmpty()) {
+                    currKategorie.setName(currNameEdit.text.toString())
+                    //Daten werden in der DB gespeichert
+                    katViewModel.updateKategorie(currKategorie)
+                    //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                    val frag = KategorienFragment()
+                    //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                        .addToBackStack(null).commit()
+                }
+                else {
+                    Toast.makeText(this.context, R.string.kategorie_new_ungültiger_Wert, Toast.LENGTH_SHORT).show()
+                }
             }
             else -> {
                 Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
