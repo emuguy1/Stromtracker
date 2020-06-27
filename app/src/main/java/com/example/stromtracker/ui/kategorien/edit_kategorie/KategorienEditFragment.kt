@@ -11,15 +11,13 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
-import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.kategorien.KategorienFragment
+import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
-import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
-import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewViewModel
 import java.util.*
 
 class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
-    private lateinit var katViewModel: KategorienNewViewModel
+    private lateinit var katViewModel: KategorienViewModel
     var currText = curr.text
     lateinit var currName : EditText
 
@@ -30,7 +28,7 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
     ): View? {
 
         katViewModel =
-            ViewModelProviders.of(this).get(KategorienNewViewModel::class.java)
+            ViewModelProviders.of(this).get(KategorienViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
         currName = root.findViewById<EditText>(R.id.kategorie_edit_editName)
