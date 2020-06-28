@@ -40,7 +40,8 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
         //Daten für Recyclerview holen / erstellen
         //TODO Bestehende Kategorien holen und hier einfügen
-        myDataset = arrayOf("Kat1", "Kat2", "Kat3", "Kat4", "Kat5", "Kat6", "Kat7", "Kat8", "Kat9", "Kat10")
+        myDataset = arrayOf("Kat1", "Kat2", "Kat3", "Kat4"//, "Kat5", "Kat6", "Kat7", "Kat8", "Kat9", "Kat10"
+                )
 
         //RecyclerView initialisieren
         viewAdapter = KategorienListAdapter(myDataset)
