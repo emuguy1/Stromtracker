@@ -33,9 +33,6 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        //View Model zuweisen, benötigt für DB Zugriff
-        kategorienViewModel = ViewModelProviders.of(this).get(KategorienViewModel::class.java)
-
         //root festlegen -> root ist ConstraintLayout
         root = inflater.inflate(R.layout.fragment_kategorien, container, false)
 
@@ -47,6 +44,9 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        //View Model zuweisen, benötigt für DB Zugriff
+        kategorienViewModel = ViewModelProviders.of(this).get(KategorienViewModel::class.java)
 
         kategorienViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
