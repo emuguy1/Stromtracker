@@ -30,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/kategorien_image"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="@dimen/recycler_kat_icon"
+                android:layout_height="@dimen/recycler_kat_icon"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
@@ -45,6 +45,8 @@
                 android:id="@+id/kategorien_recycler_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
@@ -56,8 +58,10 @@
                 android:textSize="@dimen/content_text_bigger"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.334"
                 app:layout_constraintStart_toEndOf="@+id/kategorien_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.529" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

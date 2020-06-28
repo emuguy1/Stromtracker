@@ -44,7 +44,7 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
             )
         adapter.setDropDownViewResource(R.layout.fragment_kategorien_spinner_row)
         spinner.adapter=adapter
-        selectedIcon = currKategorie.getIcon()!!
+        selectedIcon = currKategorie.getIcon()
         spinner.setSelection(selectedIcon)
         spinner.onItemSelectedListener = this
 

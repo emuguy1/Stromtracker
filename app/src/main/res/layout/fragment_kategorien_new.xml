@@ -69,8 +69,8 @@
 
     <Spinner
         android:id="@+id/kategorie_new_icon_spinner"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="@dimen/spinner_icon_width"
+        android:layout_height="@dimen/spinner_icon_height"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/kategorie_new_textIcon"
         app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textIcon" />

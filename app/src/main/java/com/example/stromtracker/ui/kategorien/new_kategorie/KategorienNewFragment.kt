@@ -28,8 +28,6 @@ class KategorienNewFragment(private val iconArray : Array<Int>) : Fragment(), Vi
 
             val root = inflater.inflate(R.layout.fragment_kategorien_new, container, false)
 
-            //Spinner mit Icons aufbauen
-            val icons = arrayOf<Int>(R.drawable.ic_monitor, R.drawable.ic_refrigerator)
             val spinner: Spinner = root.findViewById(R.id.kategorie_new_icon_spinner)
 
             val adapter =
