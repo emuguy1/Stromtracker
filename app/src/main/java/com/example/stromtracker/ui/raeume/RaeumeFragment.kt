@@ -13,8 +13,8 @@ import com.example.stromtracker.R
 import com.example.stromtracker.ui.haushalt.haushaltErstellen.HaushaltErstellenFragment
 
 
-//deklariert Haushaltfragment als Unterklasse von Fragment
-class HaushaltFragment: Fragment() {
+//deklariert Raeumefragment als Unterklasse von Fragment
+class RaeumeFragment: Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
 
     override fun onCreateView(
@@ -28,8 +28,8 @@ class HaushaltFragment: Fragment() {
 
         //Recyclerview, wo eine Liste aller Haushalte angezeigt wird. Alles weitere wird in ListAdapterHaushalt gesteuert
         val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewHaushalt)
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.adapter = ListAdapterRaeume()
+        //recyclerView.layoutManager = LinearLayoutManager(this.context)
+        //recyclerView.adapter = ListAdapterRaeume()
 
         //Floating Action Button zum erstellen neuer Haushalte
         //Floating actionbutton finden

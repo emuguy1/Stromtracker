@@ -7,15 +7,15 @@ import android.widget.TextView
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
-import com.example.stromtracker.ui.haushalt.ListAdapterHaushalt
+import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment
 
-class ListAdapterRaeume() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolder>() {
+class ListAdapterraeume() : RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
     private val data =
-        List(10) { ("Raum " + (it + 1).toString()) }
-
+        List(10) { ("Haushalt " + (it+1).toString()) }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item_raeume, parent, false)
+
         return ViewHolder(view)
     }
 
@@ -33,20 +33,17 @@ class ListAdapterRaeume() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolder>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        var textView: TextView = itemView.findViewById(R.id.textview_haushalt)
-
+        var textView: TextView = itemView.findViewById(R.id.textview_raeume)
         init {
             textView.setOnClickListener(this)
         }
-
         override fun onClick(view: View?) {
             if (view != null) {
-                val frag = HaushaltBearbeitenLoeschenFragment()
+                val frag = RaeumeBearbeitenLoeschenFragment()
                 //Fragment Manager aus Main Activity holen
-                val fragMan = view.findFragment<HaushaltFragment>().parentFragmentManager
+                val fragMan = view.findFragment<RaeumeFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                    .addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
         }
     }
