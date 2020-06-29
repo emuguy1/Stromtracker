@@ -16,11 +16,13 @@ import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class KategorienFragment : Fragment(), View.OnClickListener {
 
     private lateinit var kategorienViewModel: KategorienViewModel
+    private lateinit var myKategorien : ArrayList<Kategorie>
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -36,9 +38,19 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         //root festlegen -> root ist ConstraintLayout
         root = inflater.inflate(R.layout.fragment_kategorien, container, false)
+
+        myKategorien = ArrayList()
+
+        //RecyclerView mit geholten Daten aus DB initialisieren
+        viewAdapter = KategorienListAdapter(myKategorien, iconArray)
+        viewManager = LinearLayoutManager(this.context)
+        recyclerView = root.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
 
         //Buttons finden und Click Listener zuweisen
         buttonAdd = root.findViewById(R.id.kategorie_button_add)
@@ -51,7 +63,6 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
         //View Model zuweisen, benötigt für DB Zugriff
         kategorienViewModel = ViewModelProviders.of(this).get(KategorienViewModel::class.java)
-
         kategorienViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorien ->
@@ -61,24 +72,16 @@ class KategorienFragment : Fragment(), View.OnClickListener {
                         initKategorien()
                     }
                     Log.d("TAGkategorien", kategorien.toString())
-
-                    //Kategorien alphabetisch sortieren.
-                    var sortedKat : List<Kategorie> = kategorienViewModel.getAllKategorie().value!!
-                    sortedKat = sortedKat.sortedWith(
-                        compareBy({it.getName().toLowerCase(Locale.ROOT)}, {it.getKategorieID()})
+                    myKategorien.clear()
+                    val tempKat = kategorienViewModel.getAllKategorie().value!!
+                    //Kategorien sortiert einfügen
+                    myKategorien.addAll(
+                        tempKat.sortedWith(
+                            compareBy({it.getName().toLowerCase(Locale.ROOT)}, {it.getKategorieID()})
+                        )
                     )
-                    Log.d("SORTEDkat", sortedKat.toString())
-
-                    //RecyclerView mit geholten Daten aus DB initialisieren
-                    viewAdapter = KategorienListAdapter(sortedKat, iconArray)
-                    viewManager = LinearLayoutManager(this.context)
-                    recyclerView = root.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
-                        setHasFixedSize(true)
-                        layoutManager = viewManager
-                        adapter = viewAdapter
-                    }
+                    viewAdapter.notifyDataSetChanged()
                 }
-
             }
         )
     }
