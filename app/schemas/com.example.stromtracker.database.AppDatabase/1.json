@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "33f34be0ce86bb297c4002dd6300586b",
+    "identityHash": "5f754c8fa9657e9062022eddcb3f0afb",
     "entities": [
       {
         "tableName": "Geraete",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` INTEGER NOT NULL, `stromStandBy` INTEGER NOT NULL, `betriebszeit` INTEGER NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "geraeteID",
@@ -41,19 +41,19 @@
           {
             "fieldPath": "stromVollast",
             "columnName": "stromVollast",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "stromStandBy",
             "columnName": "stromStandBy",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "betriebszeit",
             "columnName": "betriebszeit",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -195,7 +195,7 @@
       },
       {
         "tableName": "Kategorie",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `icon` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "kategorieID",
@@ -208,6 +208,12 @@
             "columnName": "name",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "icon",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -249,7 +255,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '33f34be0ce86bb297c4002dd6300586b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f754c8fa9657e9062022eddcb3f0afb')"
     ]
   }
 }

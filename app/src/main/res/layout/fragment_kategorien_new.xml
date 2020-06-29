@@ -8,8 +8,8 @@
         android:id="@+id/kategorie_new_button_speichern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/button_speichern"
@@ -21,8 +21,8 @@
         android:id="@+id/kategorie_new_button_abbrechen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorDarkGreen"
         android:text="@string/button_abbrechen"
@@ -63,9 +63,10 @@
 
     <Spinner
         android:id="@+id/kategorie_new_icon_spinner"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="@dimen/spinner_icon_width"
+        android:layout_height="@dimen/spinner_icon_height"
         android:layout_marginTop="8dp"
+        android:dropDownWidth="@dimen/spinner_icon_dropdown_width"
         app:layout_constraintStart_toStartOf="@+id/kategorie_new_textIcon"
         app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textIcon" />
 

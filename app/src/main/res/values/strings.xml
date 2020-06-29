@@ -29,6 +29,7 @@
     <string name="kategorie_edit_name">Name der Kategorie</string>
     <string name="kategorie_edit_icon">Icon wählen</string>
     <string name="kategorie_edit_LöschenConfirm">Sind sie sicher, dass sie die Kategorie löschen wollen?</string>
+    <string name="kategorie_new_ungültiger_Wert">Bitte einen gültigen Namen eingeben</string>
 
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>

@@ -28,10 +28,10 @@ import androidx.room.*;
         @ColumnInfo(name = "kategorieID") private var kategorieID: Int,
         @ColumnInfo(name = "raumID") private var raumID: Int,
         @ColumnInfo(name = "haushaltID") private var haushaltID: Int,
-        @ColumnInfo(name = "stromVollast") private var stromVollast: Int,
+        @ColumnInfo(name = "stromVollast") private var stromVollast: Double,
 
-        @ColumnInfo(name = "stromStandBy") private var stromStandBy: Int,
-        @ColumnInfo(name = "betriebszeit") private var betriebszeit: Int,
+        @ColumnInfo(name = "stromStandBy") private var stromStandBy: Double,
+        @ColumnInfo(name = "betriebszeit") private var betriebszeit: Double,
         @ColumnInfo(name = "urlaubsmodus") private var urlaubsmodus: Boolean,
         @ColumnInfo(name = "notiz") private var notiz: String?
 )
@@ -57,11 +57,11 @@ import androidx.room.*;
             name = v
         }
 
-        fun getStromVollast():Int {
+        fun getStromVollast():Double {
             return stromVollast
         }
 
-        fun setStromVollast(v:Int) {
+        fun setStromVollast(v:Double) {
             stromVollast = v
         }
 
@@ -91,19 +91,19 @@ import androidx.room.*;
             haushaltID = r
         }
 
-        fun getStromStandBy():Int {
+        fun getStromStandBy():Double {
             return stromStandBy
         }
 
-        fun setStromStandBy(r:Int) {
+        fun setStromStandBy(r:Double) {
             stromStandBy = r
         }
 
-        fun getBetriebszeit():Int {
+        fun getBetriebszeit():Double {
             return betriebszeit
         }
 
-        fun setBetriebszeit(r:Int) {
+        fun setBetriebszeit(r:Double) {
             betriebszeit = r
         }
 
