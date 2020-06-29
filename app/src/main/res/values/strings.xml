@@ -50,16 +50,16 @@
     <string name="haushaltedithint_strommix">80 für 80%</string>
     <string name="haushaltlöschenConfirm">Sind sie sicher, dass sie den Hauhalt löschen wollen?</string>
 
-    <string name="amortPV_hint_leistung">z.B. 4</string>
-    <string name="amortPV_hint_anschaffung">z.B. 8000</string>
-    <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 3640</string>
-    <string name="amortPV_hint_amortdauer_zahl">z.B. 12.966</string>
-    <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 328.69</string>
-    <string name="amortPV_hint_kwh_pro_kwp">z.B. 910</string>
+    <string name="amortPV_hint_leistung">z.B. 4.5</string>
+    <string name="amortPV_hint_anschaffung">z.B. 10000</string>
+    <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4500</string>
+    <string name="amortPV_hint_amortdauer_zahl">z.B. 13.110</string>
+    <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 406.35</string>
+    <string name="amortPV_hint_kwh_pro_kwp">z.B. 1000</string>
     <string name="amortPV_hint_verguetung">z. B. 9.03</string>
     <string name="amortPV_hint_eigenverbrauch">z. B. 30%</string>
     <string name="amortPV_hint_preis_kwh">z. B. 26.40</string>
-    <string name="amortPV_edit_kwh_pro_kwp">910</string>
+    <string name="amortPV_edit_kwh_pro_kwp">1000</string>
     <string name="amortPV_edit_verguetung">9.03</string>
     <string name="amortPV_edit_eigenverbrauch">30</string>
     <string name="amortPV_edit_preis_kwh">26.4</string>
@@ -69,10 +69,13 @@
     <string name="amortPV_text_jahresertragkWh">Jahresertrag in kWh</string>
     <string name="amortPV_text_amortdauer">Amortisationsdauer in Jahren</string>
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
-    <string name="amortPV_text_kwh_pro_kwp">Ertrag in kWh pro kWp</string>
+    <string name="amortPV_text_kwh_pro_kwp">Ertrag pro kWp in kWh</string>
+    <string name="amortPV_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro Jahr produziert.
+        Im Süden Deutschlands beträgt dieser ca. 1020 und im Norden ca. 900 kWh/kWp)</string>
     <string name="amortPV_text_verguetung">Vergütung pro kWh in Cent</string>
     <string name="amortPV_text_eigenverbrauch">Eigenverbrauch in %</string>
-    <string name="amortPV_text_preis_kwh">Preis pro kWh in Cent</string>
+    <string name="amortPV_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
+    <string name="amortPV_text_preis_kwh">Aktueller Preis für eine kWh in Cent</string>
 
 
 </resources>

@@ -12,6 +12,7 @@
     <dimen name="content_text_normal">16sp</dimen>
     <dimen name="content_text_small">14sp</dimen>
     <dimen name="content_text_smaller">12sp</dimen>
+    <dimen name="content_text_smallest">10sp</dimen>
 
 
     <dimen name="spinner_icon_dropdown_width">64dp</dimen>
@@ -22,6 +23,6 @@
 
     <dimen name="recycler_kat_icon">40dp</dimen>
 
-    <dimen name="amortPV_margin_top">8dp</dimen>
+    <dimen name="amortPV_margin_top">16dp</dimen>
     <dimen name="amortPV_editNumbers">100dp</dimen>
 </resources>
