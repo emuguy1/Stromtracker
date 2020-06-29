@@ -11,7 +11,7 @@ import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbe
 
 class ListAdapterraeume() : RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
     private val data =
-        List(10) { ("Haushalt " + (it+1).toString()) }
+        List(10) { ("Raum " + (it+1).toString()) }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item_raeume, parent, false)

@@ -4,8 +4,5 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class RaeumeErstellenViewModel : ViewModel() {
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Räume_Erstellen Fragment"
-    }
-    val text: LiveData<String> = _text
+
 }

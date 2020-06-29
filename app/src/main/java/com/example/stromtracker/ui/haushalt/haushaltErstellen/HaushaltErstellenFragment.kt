@@ -29,7 +29,7 @@ class HaushaltErstellenFragment: Fragment() {
 
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
-        val savebutton: View = root.findViewById(R.id.kategorie_new_button_speichern)
+        val savebutton: View = root.findViewById(R.id.haushalt_button_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
@@ -49,7 +49,7 @@ class HaushaltErstellenFragment: Fragment() {
 
         //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
         //finde den abbrechen button
-        val abortbutton: View = root.findViewById(R.id.kategorie_new_button_abbrechen)
+        val abortbutton: View = root.findViewById(R.id.haushalt_button_abbrechen)
         //Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {

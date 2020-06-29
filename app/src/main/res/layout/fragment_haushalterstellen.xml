@@ -161,7 +161,7 @@
             app:layout_constraintTop_toBottomOf="@+id/haushalteditTextdatum" />
 
         <Button
-            android:id="@+id/kategorie_new_button_speichern"
+            android:id="@+id/haushalt_button_speichern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -179,7 +179,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <Button
-            android:id="@+id/kategorie_new_button_abbrechen"
+            android:id="@+id/haushalt_button_abbrechen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="296dp"

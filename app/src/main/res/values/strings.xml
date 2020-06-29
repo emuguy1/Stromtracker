@@ -64,6 +64,9 @@
     <string name="amortPV_text_amortdauer">Amortisationsdauer in Jahren</string>
     <string name="amortPV_text_amortdauer_beschreibung">(basierend auf einer Vergütung von 9.03 Cent/kWh, Stand: Juli 2020)</string>
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
+    <string name="raeumname">Name des Raums</string>
+    <string name="raumedithint_name">z.B. Wohnzimmer</string>
+    <string name="raumlöschenConfirm">Sind sie sicher, dass sie diesen Raum löschen wollen?</string>
 
 
 </resources>

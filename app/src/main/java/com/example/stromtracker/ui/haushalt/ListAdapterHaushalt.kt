@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
@@ -13,6 +14,7 @@ class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolde
     private val data =
         List(10) { ("Haushalt " + (it+1).toString()) }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item_haushalt, parent, false)
 
@@ -33,9 +35,11 @@ class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolde
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
+
+        var listcard: CardView = itemView.findViewById(R.id.haushalt_recycler_card)
         var textView: TextView = itemView.findViewById(R.id.textview_haushalt)
         init {
-            textView.setOnClickListener(this)
+            listcard.setOnClickListener(this)
         }
         override fun onClick(view: View?) {
             if (view != null) {
@@ -46,5 +50,6 @@ class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
         }
+
     }
 }
