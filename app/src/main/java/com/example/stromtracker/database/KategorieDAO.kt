@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao interface KategorieDAO {
-        @Query("SELECT * FROM kategorie")
+        @Query("SELECT * FROM kategorie ORDER BY name ASC")
         fun getAll(): LiveData<List<Kategorie>>
 
         @Query("SELECT * FROM kategorie WHERE kategorieID IN (:kategorieID)")

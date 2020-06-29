@@ -73,13 +73,8 @@ class KategorienFragment : Fragment(), View.OnClickListener {
                     }
                     Log.d("TAGkategorien", kategorien.toString())
                     myKategorien.clear()
-                    val tempKat = kategorienViewModel.getAllKategorie().value!!
-                    //Kategorien sortiert einfügen
-                    myKategorien.addAll(
-                        tempKat.sortedWith(
-                            compareBy({it.getName().toLowerCase(Locale.ROOT)}, {it.getKategorieID()})
-                        )
-                    )
+                    myKategorien.addAll(kategorien)
+
                     viewAdapter.notifyDataSetChanged()
                 }
             }
