@@ -66,6 +66,18 @@
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
 
     <string name="geraete_hint"> Gerät </string>
+    <string name="geraet_new_TextName">Name</string>
+    <string name="geraet_new_TextRaum">Raum</string>
+    <string name="geraet_new_TextKategorie">Kategorie</string>
+    <string name="geraet_new_TextVolllast">Vollast-Verbrauch</string>
+    <string name="geraet_new_TextZeit">Zeit</string>
+    <string name="geraet_new_TextStandBy">StandBy-Verbrauch</string>
+    <string name="geraet_new_TextUrlaubsmodus">Urlaubsmodus</string>
+    <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben</string>
+    <string name="geraet_new_name">Name</string>
+
+
+
 
 
 </resources>

@@ -36,4 +36,8 @@ data class Kategorie(
         icon = i
     }
 
+    override fun toString():String {
+        return name
+    }
+
 }

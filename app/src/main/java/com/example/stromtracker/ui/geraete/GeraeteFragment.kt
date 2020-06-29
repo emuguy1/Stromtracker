@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,7 +16,10 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class GeraeteFragment : Fragment(), View.OnClickListener {
@@ -28,6 +31,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var buttonAdd:FloatingActionButton
     private lateinit var root:View
+    private lateinit var kategorieList:ArrayList<Kategorie>
+    private lateinit var raumList:ArrayList<Raum>
 
 
 
@@ -43,6 +48,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonAdd = root.findViewById(R.id.button_geraete_add)
         buttonAdd.setOnClickListener(this)
         geraeteList = ArrayList()
+        kategorieList = ArrayList()
+        raumList = ArrayList()
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = GeraeteListAdapter(geraeteList)
@@ -69,7 +76,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
-
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
@@ -79,13 +85,29 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     if (geraete.isEmpty()) {
                         geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
                         geraeteViewModel.insertKategorie(Kategorie("test", null))
-                        geraeteViewModel.insertRaum(Raum("test"))
-
-                        geraeteViewModel.insertGeraet(Geraete("test", 1, 1, 1, 10.0, 0.0, 0.0, false, null))
-
-
+                        geraeteViewModel.insertRaum(Raum("test", 1))
                     }
 
+
+                }
+            })
+
+        geraeteViewModel.getAllRaeume().observe(
+            viewLifecycleOwner,
+            Observer { raeume ->
+                if (raeume != null) {
+                    raumList.clear()
+                    raumList.addAll(raeume)
+
+                }
+            })
+
+        geraeteViewModel.getAllKategorie().observe(
+            viewLifecycleOwner,
+            Observer { kategorie ->
+                if (kategorie != null) {
+                    kategorieList.clear()
+                    kategorieList.addAll(kategorie)
 
                 }
             })
@@ -98,7 +120,18 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v : View) {
-        //Neues-Geraet-Erstellen
+        when(v.id) {
+            R.id.button_geraete_add -> {
+                val frag = GeraeteNewFragment(kategorieList, raumList)
+                val fragMan = parentFragmentManager
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+
+            }
+
+            else -> {
+                Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 

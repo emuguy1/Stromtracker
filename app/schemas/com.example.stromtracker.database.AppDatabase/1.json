@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "353a35e890e1e2ad09adce144eb0cd5c",
+    "identityHash": "4e9eccf706106c9c405899a3b59b8623",
     "entities": [
       {
         "tableName": "Geraete",
@@ -227,7 +227,7 @@
       },
       {
         "tableName": "Raum",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "raumID",
@@ -240,6 +240,12 @@
             "columnName": "name",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "haushaltID",
+            "columnName": "haushaltID",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -248,14 +254,35 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_Raum_haushaltID",
+            "unique": false,
+            "columnNames": [
+              "haushaltID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Raum_haushaltID` ON `${TABLE_NAME}` (`haushaltID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Haushalt",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "haushaltID"
+            ],
+            "referencedColumns": [
+              "haushaltID"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '353a35e890e1e2ad09adce144eb0cd5c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4e9eccf706106c9c405899a3b59b8623')"
     ]
   }
 }
