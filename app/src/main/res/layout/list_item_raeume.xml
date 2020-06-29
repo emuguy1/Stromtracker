@@ -8,7 +8,7 @@
     android:background="@color/colorBackgroundGrey">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/haushalt_recycler_card"
+        android:id="@+id/raeume_recycler_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/recyclerview_marginLeft"
@@ -31,7 +31,7 @@
             android:background="@color/colorWhite">
 
             <TextView
-                android:id="@+id/textview_haushalt"
+                android:id="@+id/textview_raeume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -41,15 +41,15 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/colorWhite"
-                android:drawableStart="@drawable/ic_menu_haushalt"
-                android:drawableLeft="@drawable/ic_menu_haushalt"
-                android:drawablePadding="5dp"
                 android:gravity="left"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:drawableLeft="@drawable/ic_menu_raeume_klein"
+                android:drawableStart="@drawable/ic_menu_raeume_klein"
+                android:drawablePadding="5dp"
                 tools:ignore="RtlHardcoded" />
 
 
