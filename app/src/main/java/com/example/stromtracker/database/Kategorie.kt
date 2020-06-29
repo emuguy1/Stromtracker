@@ -5,7 +5,7 @@ import androidx.room.*;
 @Entity
 data class Kategorie(
     @ColumnInfo(name = "name") private var name: String,
-    @ColumnInfo(name = "icon") private var icon: Int?
+    @ColumnInfo(name = "icon") private var icon: Int
 
     )
 {
@@ -28,7 +28,7 @@ data class Kategorie(
         name = n
     }
 
-    fun getIcon():Int? {
+    fun getIcon():Int {
         return icon
     }
 
