@@ -70,7 +70,7 @@
     <string name="amortPV_text_amortdauer">Amortisationsdauer in Jahren</string>
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
     <string name="amortPV_text_kwh_pro_kwp">Ertrag pro kWp in kWh</string>
-    <string name="amortPV_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro Jahr produziert.
+    <string name="amortPV_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro kWp (Nennleistung) im Jahr produziert.
         Im Süden Deutschlands beträgt dieser ca. 1020 und im Norden ca. 900 kWh/kWp)</string>
     <string name="amortPV_text_verguetung">Vergütung pro kWh in Cent</string>
     <string name="amortPV_text_eigenverbrauch">Eigenverbrauch in %</string>
