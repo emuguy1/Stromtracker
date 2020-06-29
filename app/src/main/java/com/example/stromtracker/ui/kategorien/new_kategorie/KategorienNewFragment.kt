@@ -83,7 +83,6 @@ class KategorienNewFragment(private val iconArray : Array<Int>) : Fragment(), Vi
                     //Zuerst Daten in DB speichern
                     //Neue Kategorie anlegen, die gleich Insertet wird
                     val newKategorie:Kategorie = Kategorie(inputName.text.toString(), selectedIcon)
-                    Toast.makeText(this.context, newKategorie.toString(), Toast.LENGTH_SHORT).show()
                     //In DB speichern
                     katViewModel.insertKategorie(newKategorie)
                     //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden

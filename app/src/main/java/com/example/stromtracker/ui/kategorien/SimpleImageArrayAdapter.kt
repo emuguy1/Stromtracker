@@ -24,6 +24,8 @@ class SimpleImageArrayAdapter(context: Context, private var images: Array<Int>) 
         val width = parent.resources.getDimension(R.dimen.spinner_icon_dropdown_width)
         //Hier wird die Höhe und Breite der DropdownBilder festgelegt
         imageView.layoutParams = ViewGroup.LayoutParams(width.toInt(), height.toInt())
+        val padding = 15
+        imageView.setPadding(padding, padding, padding, padding)
         imageView.setImageResource(images.get(position))
 
 

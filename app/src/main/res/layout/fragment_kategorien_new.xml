@@ -72,6 +72,7 @@
         android:layout_width="@dimen/spinner_icon_width"
         android:layout_height="@dimen/spinner_icon_height"
         android:layout_marginTop="8dp"
+        android:dropDownWidth="@dimen/spinner_icon_dropdown_width"
         app:layout_constraintStart_toStartOf="@+id/kategorie_new_textIcon"
         app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textIcon" />
 

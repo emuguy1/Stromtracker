@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.lifecycle.Observer
 import java.util.*
+
 
 class KategorienFragment : Fragment(), View.OnClickListener {
 
@@ -23,9 +25,11 @@ class KategorienFragment : Fragment(), View.OnClickListener {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var buttonAdd: FloatingActionButton
-    private lateinit var myDataset : Array<String>
     private lateinit var root:View
-    private val iconArray:Array<Int> = arrayOf<Int>(R.drawable.ic_monitor, R.drawable.ic_refrigerator)
+    private val iconArray:Array<Int> = arrayOf<Int>(
+        R.drawable.ic_kategorien_monitor, R.drawable.ic_kategorien_joystick, R.drawable.ic_kategorien_speaker,
+        R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
+        R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,15 +56,21 @@ class KategorienFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { kategorien ->
                 if (kategorien != null) {
-                    Log.d("TAGkategorien", kategorien.toString())
-                    //StringArray mit Kategorien initialisieren
-                    myDataset = emptyArray()
-                    for(element in kategorien) {
-                        myDataset += element.getName()
+                    if(kategorien.isEmpty()) {
+                        //Fügt Standardeinträge zu den Kategorien hinzu, diese sind editier- und löschbar
+                        initKategorien()
                     }
+                    Log.d("TAGkategorien", kategorien.toString())
+
+                    //Kategorien alphabetisch sortieren.
+                    var sortedKat : List<Kategorie> = kategorienViewModel.getAllKategorie().value!!
+                    sortedKat = sortedKat.sortedWith(
+                        compareBy({it.getName().toLowerCase(Locale.ROOT)}, {it.getKategorieID()})
+                    )
+                    Log.d("SORTEDkat", sortedKat.toString())
 
                     //RecyclerView mit geholten Daten aus DB initialisieren
-                    viewAdapter = KategorienListAdapter(kategorienViewModel.getAllKategorie().value!!, iconArray)
+                    viewAdapter = KategorienListAdapter(sortedKat, iconArray)
                     viewManager = LinearLayoutManager(this.context)
                     recyclerView = root.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
                         setHasFixedSize(true)
@@ -71,7 +81,25 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
             }
         )
+    }
 
+    private fun initKategorien () {
+        var kat : Kategorie = Kategorie("Fernseher", 0)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Gaming", 1)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Unterhaltung", 2)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Kühlung", 3)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Kochen", 4)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Waschen", 5)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Lampen", 6)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Sonstiges", 7)
+        kategorienViewModel.insertKategorie(kat)
     }
 
     override fun onClick(v : View) {
