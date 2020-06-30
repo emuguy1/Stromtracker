@@ -24,7 +24,8 @@ class AmortisationsrechnerPVFragment : Fragment() {
 
     private lateinit var outJahresertragkWh: TextView
     private lateinit var outJahresertragEuro: TextView
-    private lateinit var outAmort: TextView
+    private lateinit var outAmortdauer: TextView
+    private lateinit var outAmortersparnis: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +43,8 @@ class AmortisationsrechnerPVFragment : Fragment() {
 
         outJahresertragkWh = root.findViewById(R.id.amortPV_text_jahresertragkWh_zahl)
         outJahresertragEuro= root.findViewById(R.id.amortPV_text_JahresertragEuro_zahl)
-        outAmort = root.findViewById(R.id.amortPV_text_amortdauer_zahl)
+        outAmortdauer = root.findViewById(R.id.amortPV_text_amortdauer_zahl)
+        outAmortersparnis = root.findViewById(R.id.amortPV_text_amort_ersparnis)
 
         addCustomTextChangedListener(editLeistung)
         addCustomTextChangedListener(editAK)
@@ -78,18 +80,18 @@ class AmortisationsrechnerPVFragment : Fragment() {
                         //Das Jahr wird immer auf ganze Zahlen abgerundet
                         val df = DecimalFormat("#")
                         df.roundingMode = RoundingMode.DOWN
-                        outStr = "Die PV-Anlage wird sich innerhalb von "+ df.format(amortDouble) +
-                                " Jahren und " + String.format("%.1f", (amortDouble.rem(1)*365)) +" Tagen amortisieren. Danach sparen sie "+
-                                JEeuro.toString()+ "€ im Jahr."
-                        outAmort.text = outStr
+                        outStr = df.format(amortDouble) + " Jahre und " + String.format("%.1f", (amortDouble.rem(1)*365)) + " Tage bis zur Amortisation"
+                        outAmortdauer.text = outStr
+                        outStr = "Danach: " + JEeuro.toString() + "€ Ersparnis im Jahr."
+                        outAmortersparnis.text = outStr
                     }
                     else {
                         outJahresertragEuro.text = null
-                        outAmort.text = null
+                        outAmortdauer.text = null
                     }
                 }
                 else {
-                    outAmort.text = null
+                    outAmortdauer.text = null
                     outJahresertragkWh.text = null
                     outJahresertragEuro.text = null
                 }

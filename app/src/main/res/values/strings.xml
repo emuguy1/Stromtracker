@@ -52,10 +52,12 @@
     <string name="haushaltedithint_strommix">80 für 80%</string>
     <string name="haushaltlöschenConfirm">Sind sie sicher, dass sie den Hauhalt löschen wollen?</string>
 
+
     <string name="amortPV_hint_leistung">z.B. 4.5</string>
     <string name="amortPV_hint_anschaffung">z.B. 9999</string>
     <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4500</string>
-    <string name="amortPV_hint_amortdauer_zahl">z.B. 13.110</string>
+    <string name="amortPV_hint_amortdauer_zahl">X Jahre und X Tage bis zur Amortisation.</string>
+    <string name="amortPV_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
     <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 406.35</string>
     <string name="amortPV_hint_kwh_pro_kwp">z.B. 1000</string>
     <string name="amortPV_hint_verguetung">z. B. 9.03</string>
@@ -69,7 +71,7 @@
     <string name="amortPV_text_leistung">Leistung der PV-Anlage</string>
     <string name="amortPV_text_anschaffung">Anschaffungskosten</string>
     <string name="amortPV_text_jahresertragkWh">Jahresertrag in kWh</string>
-    <string name="amortPV_text_amortdauer">Amortisationsdauer in Jahren</string>
+    <string name="amortPV_text_amortdauer">Amortisation</string>
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
     <string name="amortPV_text_kwh_pro_kwp">Ertrag pro kWp in kWh</string>
     <string name="amortPV_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro kWp (Nennleistung) im Jahr produziert.
