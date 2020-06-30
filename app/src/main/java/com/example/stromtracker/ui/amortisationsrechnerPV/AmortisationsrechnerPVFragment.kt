@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.stromtracker.R
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class AmortisationsrechnerPVFragment : Fragment() {
@@ -61,18 +63,30 @@ class AmortisationsrechnerPVFragment : Fragment() {
                 val vergütung:Double? = editVerguetung.text.toString().toDoubleOrNull()
                 val eigenverbrauch:Int? = editEigenverbrauch.text.toString().toIntOrNull()
                 val preisKwh:Double? = editPreisKwh.text.toString().toDoubleOrNull()
+
+                var outStr : String
                 if(leistung != null && ertrag != null && vergütung != null) {
-                    outJahresertragkWh.text = (leistung * ertrag).toInt().toString()
-                    val JEeuro : Double = (leistung * ertrag * vergütung/100)
-                    outJahresertragEuro.text = String.format("%.2f", JEeuro)
+                    outStr = (leistung * ertrag).toInt().toString() + " kWh"
+                    outJahresertragkWh.text = outStr
+
                     if (AK != null && eigenverbrauch != null && preisKwh != null) {
-                        val amortDouble =
-                            (AK / ((leistung * ertrag * vergütung/100 * (1-eigenverbrauch/100)) + (leistung * ertrag * preisKwh/100 * eigenverbrauch/100)))
-                        //Ausgabe mit 3 Nachkommastellen
-                        outAmort.text = String.format("%.3f", amortDouble)
+                        val JEeuro : Double = ((leistung * ertrag * vergütung/100 * (1-eigenverbrauch/100)) + (leistung * ertrag * preisKwh/100 * eigenverbrauch/100))
+                        outStr = String.format("%.2f", JEeuro)+" €"
+                        outJahresertragEuro.text = outStr
+
+                        val amortDouble = (AK / JEeuro)
+                        //Das Jahr wird immer auf ganze Zahlen abgerundet
+                        val df = DecimalFormat("#")
+                        df.roundingMode = RoundingMode.DOWN
+                        outStr = "Die PV-Anlage wird sich innerhalb von "+ df.format(amortDouble) +
+                                " Jahren und " + String.format("%.1f", (amortDouble.rem(1)*365)) +" Tagen amortisieren. Danach sparen sie "+
+                                JEeuro.toString()+ "€ im Jahr."
+                        outAmort.text = outStr
                     }
-                    else
+                    else {
+                        outJahresertragEuro.text = null
                         outAmort.text = null
+                    }
                 }
                 else {
                     outAmort.text = null

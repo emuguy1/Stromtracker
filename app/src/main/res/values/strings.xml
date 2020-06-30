@@ -53,7 +53,7 @@
     <string name="haushaltlöschenConfirm">Sind sie sicher, dass sie den Hauhalt löschen wollen?</string>
 
     <string name="amortPV_hint_leistung">z.B. 4.5</string>
-    <string name="amortPV_hint_anschaffung">z.B. 10000</string>
+    <string name="amortPV_hint_anschaffung">z.B. 9999</string>
     <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4500</string>
     <string name="amortPV_hint_amortdauer_zahl">z.B. 13.110</string>
     <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 406.35</string>
