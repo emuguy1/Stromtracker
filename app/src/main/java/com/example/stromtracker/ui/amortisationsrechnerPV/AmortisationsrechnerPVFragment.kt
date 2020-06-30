@@ -15,11 +15,14 @@ class AmortisationsrechnerPVFragment : Fragment() {
 
     private lateinit var editLeistung: EditText
     private lateinit var editAK: EditText
+    private lateinit var editErtrag : EditText
+    private lateinit var editVerguetung : EditText
+    private lateinit var editEigenverbrauch : EditText
+    private lateinit var editPreisKwh : EditText
+
     private lateinit var outJahresertragkWh: TextView
     private lateinit var outJahresertragEuro: TextView
     private lateinit var outAmort: TextView
-    private val durchschnittErtragDE = 910 //kWh pro Jahr pro kWp
-    private val durchschnittVerguetungDE : Double = 0.0903 // Ct/kWh Ab 01.07.2020 bis 10kWP
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,26 +33,49 @@ class AmortisationsrechnerPVFragment : Fragment() {
 
         editLeistung = root.findViewById(R.id.amortPV_edit_leistung)
         editAK = root.findViewById(R.id.amortPV_edit_anschaffung)
+        editErtrag = root.findViewById(R.id.amortPV_edit_kWh_pro_kWp)
+        editVerguetung = root.findViewById(R.id.amortPV_edit_vergütung)
+        editEigenverbrauch = root.findViewById(R.id.amortPV_edit_eigenverbrauch)
+        editPreisKwh = root.findViewById(R.id.amortPV_edit_preis_kwh)
+
         outJahresertragkWh = root.findViewById(R.id.amortPV_text_jahresertragkWh_zahl)
         outJahresertragEuro= root.findViewById(R.id.amortPV_text_JahresertragEuro_zahl)
         outAmort = root.findViewById(R.id.amortPV_text_amortdauer_zahl)
 
-        //Hier wird der Jahresertrag in kWh und in Euro jedes mal berechnet, wenn sich der Text des Leistungsinputs ändert
-        editLeistung.addTextChangedListener(object : TextWatcher {
+        editLeistung = addCustomTextChangedListener(editLeistung)
+        editAK = addCustomTextChangedListener(editAK)
+        addCustomTextChangedListener(editErtrag)
+        addCustomTextChangedListener(editVerguetung)
+        addCustomTextChangedListener(editEigenverbrauch)
+        addCustomTextChangedListener(editPreisKwh)
+
+        return root
+    }
+
+    fun addCustomTextChangedListener(edit:EditText) : EditText {
+        edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
+                val AK:Int? = editAK.text.toString().toIntOrNull()
                 val leistung:Double? = editLeistung.text.toString().toDoubleOrNull()
-                if(leistung != null) {
-                    outJahresertragkWh.text = (leistung * durchschnittErtragDE).toInt().toString()
-                    val JEeuro : Double = (leistung * durchschnittErtragDE * durchschnittVerguetungDE)
+                val ertrag:Int? = editErtrag.text.toString().toIntOrNull()
+                val vergütung:Double? = editVerguetung.text.toString().toDoubleOrNull()
+                val eigenverbrauch:Int? = editEigenverbrauch.text.toString().toIntOrNull()
+                val preisKwh:Double? = editPreisKwh.text.toString().toDoubleOrNull()
+                if(leistung != null && ertrag != null && vergütung != null) {
+                    outJahresertragkWh.text = (leistung * ertrag).toInt().toString()
+                    val JEeuro : Double = (leistung * ertrag * vergütung/100)
                     outJahresertragEuro.text = String.format("%.2f", JEeuro)
-                    val AK:Int? = editAK.text.toString().toIntOrNull()
-                    if(AK!=null) {
-                        val amortDouble = (AK / (leistung * durchschnittErtragDE * durchschnittVerguetungDE))
+                    if (AK != null && eigenverbrauch != null && preisKwh != null) {
+                        val amortDouble =
+                            (AK / ((leistung * ertrag * vergütung/100 * (1-eigenverbrauch/100)) + (leistung * ertrag * preisKwh/100 * eigenverbrauch/100)))
                         //Ausgabe mit 3 Nachkommastellen
                         outAmort.text = String.format("%.3f", amortDouble)
                     }
+                    else
+                        outAmort.text = null
                 }
                 else {
+                    outAmort.text = null
                     outJahresertragkWh.text = null
                     outJahresertragEuro.text = null
                 }
@@ -57,27 +83,6 @@ class AmortisationsrechnerPVFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
         })
-
-        //Hier wird die Amortisationsdauer jedes mal berechnet, wenn sich der Text des Leistungsinputs ändert
-        editAK.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-                val AK:Int? = editAK.text.toString().toIntOrNull()
-                val leistung:Double? = editLeistung.text.toString().toDoubleOrNull()
-                if(AK != null) {
-                    if (leistung != null) {
-                        val amortDouble =
-                            (AK / (leistung * durchschnittErtragDE * durchschnittVerguetungDE))
-                        //Ausgabe mit 3 Nachkommastellen
-                        outAmort.text = String.format("%.3f", amortDouble)
-                    }
-                }
-                else
-                    outAmort.text = null
-            }
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
-        })
-
-        return root
+        return edit
     }
 }
