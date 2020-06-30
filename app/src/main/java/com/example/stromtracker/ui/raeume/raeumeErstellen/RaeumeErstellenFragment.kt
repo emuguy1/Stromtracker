@@ -1,4 +1,6 @@
-package com.example.stromtracker.ui.haushalt.haushaltErstellen
+package com.example.stromtracker.ui.raeume.raeumeErstellen
+
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
-import com.example.stromtracker.ui.haushalt.HaushaltFragment
-import com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenViewModel
+import com.example.stromtracker.ui.raeume.RaeumeFragment
 
-class HaushaltErstellenFragment: Fragment() {
-    private lateinit var haushalterstellenViewModel: HaushaltErstellenViewModel
+class RaeumeErstellenFragment: Fragment() {
+    private lateinit var raeumeerstellenViewModel: RaeumeErstellenViewModel
 
 
 
@@ -21,22 +22,22 @@ class HaushaltErstellenFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        haushalterstellenViewModel =
-            ViewModelProviders.of(this).get(HaushaltErstellenViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_haushalterstellen, container, false)
+        raeumeerstellenViewModel =
+            ViewModelProviders.of(this).get(RaeumeErstellenViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
 
 
 
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
-        val savebutton: View = root.findViewById(R.id.haushalt_button_speichern)
+        val savebutton: View = root.findViewById(R.id.raeume_new_button_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
                 //TODO: Die Daten in die RoomDatabase speichern
 
                 //neues Fragment erstellen auf das weitergeleitet werden soll
-                val frag = HaushaltFragment()
+                val frag = RaeumeFragment()
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
@@ -49,12 +50,12 @@ class HaushaltErstellenFragment: Fragment() {
 
         //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
         //finde den abbrechen button
-        val abortbutton: View = root.findViewById(R.id.haushalt_button_abbrechen)
+        val abortbutton: View = root.findViewById(R.id.raeume_new_button_abbrechen)
         //Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
                 //neues Fragment erstellen auf das weitergeleitet werden soll
-                val frag = HaushaltFragment()
+                val frag = RaeumeFragment()
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde

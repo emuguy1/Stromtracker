@@ -1,0 +1,261 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5f754c8fa9657e9062022eddcb3f0afb",
+    "entities": [
+      {
+        "tableName": "Geraete",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "geraeteID",
+            "columnName": "geraeteID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "kategorieID",
+            "columnName": "kategorieID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "raumID",
+            "columnName": "raumID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "haushaltID",
+            "columnName": "haushaltID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stromVollast",
+            "columnName": "stromVollast",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stromStandBy",
+            "columnName": "stromStandBy",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "betriebszeit",
+            "columnName": "betriebszeit",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urlaubsmodus",
+            "columnName": "urlaubsmodus",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notiz",
+            "columnName": "notiz",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "geraeteID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Geraete_kategorieID",
+            "unique": false,
+            "columnNames": [
+              "kategorieID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Geraete_kategorieID` ON `${TABLE_NAME}` (`kategorieID`)"
+          },
+          {
+            "name": "index_Geraete_haushaltID",
+            "unique": false,
+            "columnNames": [
+              "haushaltID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Geraete_haushaltID` ON `${TABLE_NAME}` (`haushaltID`)"
+          },
+          {
+            "name": "index_Geraete_raumID",
+            "unique": false,
+            "columnNames": [
+              "raumID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Geraete_raumID` ON `${TABLE_NAME}` (`raumID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Kategorie",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "kategorieID"
+            ],
+            "referencedColumns": [
+              "kategorieID"
+            ]
+          },
+          {
+            "table": "Haushalt",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "haushaltID"
+            ],
+            "referencedColumns": [
+              "haushaltID"
+            ]
+          },
+          {
+            "table": "Raum",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "raumID"
+            ],
+            "referencedColumns": [
+              "raumID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Haushalt",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`haushaltID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `stromkosten` REAL NOT NULL, `bewohnerAnzahl` INTEGER NOT NULL, `zaehlerstand` REAL, `datum` INTEGER, `oekostrom` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "haushaltID",
+            "columnName": "haushaltID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stromkosten",
+            "columnName": "stromkosten",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bewohnerAnzahl",
+            "columnName": "bewohnerAnzahl",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zaehlerstand",
+            "columnName": "zaehlerstand",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "datum",
+            "columnName": "datum",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oekostrom",
+            "columnName": "oekostrom",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "haushaltID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Kategorie",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `icon` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "kategorieID",
+            "columnName": "kategorieID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "icon",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "kategorieID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Raum",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "raumID",
+            "columnName": "raumID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "raumID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f754c8fa9657e9062022eddcb3f0afb')"
+    ]
+  }
+}

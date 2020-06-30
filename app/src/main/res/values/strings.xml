@@ -28,12 +28,14 @@
     <string name="kategorie_new_text">Neue Kategorie erstellen</string>
     <string name="kategorie_edit_name">Name der Kategorie</string>
     <string name="kategorie_edit_icon">Icon wählen</string>
+    <string name="kategorie_edit_LöschenConfirm">Sind sie sicher, dass sie die Kategorie löschen wollen?</string>
+    <string name="kategorie_new_ungültiger_Wert">Bitte einen gültigen Namen eingeben</string>
 
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
     <string name="button_loeschen">Löschen</string>
   
-    <string name="addButtonHaushalt">Add</string>
+    <string name="addButton">Add</string>
 
     <string name="haushaltstrompreis">Strompreis pro kWh</string>
     <string name="haushaltsname">Name des Haushalt</string>
@@ -76,6 +78,10 @@
     <string name="amortPV_text_eigenverbrauch">Eigenverbrauch in %</string>
     <string name="amortPV_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
     <string name="amortPV_text_preis_kwh">Aktueller Preis für eine kWh in Cent</string>
+
+    <string name="raeumname">Name des Raums</string>
+    <string name="raumedithint_name">z.B. Wohnzimmer</string>
+    <string name="raumlöschenConfirm">Sind sie sicher, dass sie diesen Raum löschen wollen?</string>
 
 
 </resources>
