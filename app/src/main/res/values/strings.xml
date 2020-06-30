@@ -76,6 +76,9 @@
     <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben</string>
     <string name="geraet_new_name">Name</string>
 
+    <string name="geraet_edit_confirm">Sind sie sicher, dass Sie das Gerät löschen wollen?</string>
+
+
 
 
 

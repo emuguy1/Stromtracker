@@ -52,7 +52,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         raumList = ArrayList()
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = GeraeteListAdapter(geraeteList)
+        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumList)
         recyclerView = root.findViewById<RecyclerView>(R.id.geraete_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -82,11 +82,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
                     Log.d("TAGGeraete", geraete.toString())
 
-                    if (geraete.isEmpty()) {
-                        geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
-                        geraeteViewModel.insertKategorie(Kategorie("test", null))
-                        geraeteViewModel.insertRaum(Raum("test", 1))
-                    }
+
 
 
                 }
@@ -98,6 +94,14 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 if (raeume != null) {
                     raumList.clear()
                     raumList.addAll(raeume)
+                    if(raeume.isEmpty()) {
+                        //nur zum testen
+                        geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
+                        geraeteViewModel.insertRaum(Raum("test", 1))
+                        geraeteViewModel.insertKategorie(Kategorie("test", null))
+
+
+                    }
 
                 }
             })
