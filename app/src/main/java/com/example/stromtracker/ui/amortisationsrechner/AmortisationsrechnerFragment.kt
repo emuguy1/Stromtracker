@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class AmortisationsrechnerFragment : Fragment() {
 
@@ -78,8 +80,11 @@ class AmortisationsrechnerFragment : Fragment() {
                     }
                     if(verbrAkt != null && verbrNeu != null && AK != null && verbrAkt > verbrNeu) {
                         val amortDouble = (AK/((verbrAkt-verbrNeu) * stromkosten / 100))
+                        //Das Jahr wird immer auf ganze Zahlen abgerundet
+                        val df = DecimalFormat("#")
+                        df.roundingMode = RoundingMode.DOWN
                         neuStr = "Das neue Gerät wird sich innerhalb von "+
-                                String.format("%.0f", amortDouble)+" Jahren und "+
+                                df.format(amortDouble)+" Jahren und "+
                                 String.format("%.1f", (amortDouble.rem(1)*365))+" Tagen amortisieren. Danach sparen sie "+
                                 String.format("%.2f", (verbrAkt-verbrNeu)*stromkosten/100)+ "€ Stromkosten pro Jahr."
                         outAmortdauer.text = neuStr
