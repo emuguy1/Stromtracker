@@ -26,6 +26,7 @@ class AmortisationsrechnerFragment : Fragment() {
     private lateinit var outKostenAkt : TextView
     private lateinit var outKostenNeu : TextView
     private lateinit var outAmortdauer : TextView
+    private lateinit var outAmortersparnis : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +46,7 @@ class AmortisationsrechnerFragment : Fragment() {
         outKostenAkt = root.findViewById(R.id.amort_text_kosten_akt_num)
         outKostenNeu = root.findViewById(R.id.amort_text_kosten_neu_num)
         outAmortdauer = root.findViewById(R.id.amort_text_amortdauer_num)
+        outAmortersparnis = root.findViewById(R.id.amort_text_amort_ersparnis_num)
 
         addCustomTextChangedListener(editVerbrauchAkt)
         addCustomTextChangedListener(editVerbrauchNeu)
@@ -83,19 +85,21 @@ class AmortisationsrechnerFragment : Fragment() {
                         //Das Jahr wird immer auf ganze Zahlen abgerundet
                         val df = DecimalFormat("#")
                         df.roundingMode = RoundingMode.DOWN
-                        neuStr = "Das neue Gerät wird sich innerhalb von "+
-                                df.format(amortDouble)+" Jahren und "+
-                                String.format("%.1f", (amortDouble.rem(1)*365))+" Tagen amortisieren. Danach sparen sie "+
-                                String.format("%.2f", (verbrAkt-verbrNeu)*stromkosten/100)+ "€ Stromkosten pro Jahr."
+                        neuStr = df.format(amortDouble)+" Jahre und "+ String.format("%.1f", (amortDouble.rem(1)*365)) + " Tage bis zur Amortisation."
                         outAmortdauer.text = neuStr
+                        neuStr = "Danach: " + String.format("%.2f", (verbrAkt-verbrNeu)*stromkosten/100) + "€ Ersparnis im Jahr."
+                        outAmortersparnis.text=neuStr
                     }
-                    else
+                    else {
                         outAmortdauer.text = null
+                        outAmortersparnis.text = null
+                    }
                 }
                 else {
                     outKostenAkt.text = null
                     outKostenNeu.text = null
                     outAmortdauer.text = null
+                    outAmortersparnis.text = null
                 }
             }
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
