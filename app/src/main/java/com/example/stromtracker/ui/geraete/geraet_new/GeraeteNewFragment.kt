@@ -38,6 +38,8 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
 
         val root = inflater.inflate(R.layout.fragment_geraete_new, container, false)
 
+        //TODO: Zwischen Haushalten unterscheiden!
+
         spinnerKat = root.findViewById(R.id.geraete_new_KategorieSpinner)
         val katAdapter: ArrayAdapter<Kategorie> =
             ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
@@ -84,11 +86,9 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
                 selectedKat = pos
             }
             else -> {
-                Toast.makeText(
-                    v.context,
-                    String.format(Locale.GERMAN, "%d was pressed.", v.id),
-                    Toast.LENGTH_SHORT
-                ).show()
+
+
+
 
             }
 
@@ -100,22 +100,52 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
         val fragMan = parentFragmentManager
         when(v.id) {
             R.id.geraete_new_save -> {
-                Log.d("TAG", inputStandBy.text.toString().toDouble().toString())
-                if(inputName.text.toString() != "" && inputStandBy.text.toString() != "" && inputVolllast.text.toString() != "" && inputZeit.toString() != "") {
-                    val geraet = Geraete(inputName.text.toString(), katList[selectedKat].getKategorieID(), raumList[selectedRoom].getRaumID(), raumList[selectedRoom].getHaushaltID()
-                        , inputVolllast.text.toString().toDouble(), inputStandBy.toString().toDouble(), inputZeit.toString().toDouble(), checkUrlaub.isChecked, null)
-                    geraeteViewModel.insertGeraet(geraet)
-                    val frag = GeraeteFragment()
-                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                //TODO: Zwischen Haushalten unterscheiden!
+                if (inputName.text.toString() != "" && inputStandBy.text.toString() != "" && inputVolllast.text.toString() != "" && inputZeit.toString() != "") {
 
+                    val volllast:Double? = inputVolllast.text.toString().toDoubleOrNull()
+                    val standby:Double? = inputStandBy.text.toString().toDoubleOrNull()
+                    val zeit:Double? = inputZeit.text.toString().toDoubleOrNull()
+
+                    if(volllast != null && standby != null && zeit != null) {
+                    Log.d("TAG", "hilfe")
+
+
+                    val jahresverbrauch: Double =
+                        (volllast * zeit + standby * (24.0 - zeit)) / 1000.0
+                        val geraet = Geraete(
+                            inputName.text.toString(),
+                            katList[selectedKat].getKategorieID(),
+                            raumList[selectedRoom].getRaumID(),
+                            raumList[selectedRoom].getHaushaltID()
+                            ,
+                            volllast,
+                            standby,
+                            zeit,
+                            checkUrlaub.isChecked,
+                            jahresverbrauch,
+                            null
+                        )
+                        geraeteViewModel.insertGeraet(geraet)
+                        val frag = GeraeteFragment()
+                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                        Log.d("TAG", "hilfe")
+
+                    }
+                    else {
+                        Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT).show()
+
+                    }
                 }
                 else {
                     Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT).show()
                 }
             }
-            else -> {
-                Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
+            R.id.geraete_new_button_abbrechen -> {
+                val frag = GeraeteFragment()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
+
 
 
         }

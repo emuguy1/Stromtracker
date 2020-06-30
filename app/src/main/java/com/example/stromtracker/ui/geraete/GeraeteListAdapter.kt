@@ -47,12 +47,14 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>): RecyclerView.A
 
         override fun onClick(v: View?) {
             if(v!=null) {
-                Toast.makeText(v.context,
+                /*Toast.makeText(v.context,
                     String.format(
                         Locale.GERMAN,
                         "Position: %d is clicked.",
                         layoutPosition),
                     Toast.LENGTH_SHORT).show()
+
+                 */
                 //editfragment adden
             }
         }

@@ -122,6 +122,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     override fun onClick(v : View) {
         when(v.id) {
             R.id.button_geraete_add -> {
+                //TODO: Zwischen Haushalten unterscheiden!
+
                 val frag = GeraeteNewFragment(kategorieList, raumList)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
@@ -129,7 +131,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             else -> {
-                Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
+                //Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
             }
         }
     }
