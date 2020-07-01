@@ -32,7 +32,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
     private val iconArray:Array<Int> = arrayOf<Int>(
         R.drawable.ic_kategorien_monitor, R.drawable.ic_kategorien_joystick, R.drawable.ic_kategorien_speaker,
         R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
-        R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug)
+        R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,6 +101,8 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         kat = Kategorie("Lampen", 6)
         kategorienViewModel.insertKategorie(kat)
         kat = Kategorie("Sonstiges", 7)
+        kategorienViewModel.insertKategorie(kat)
+        kat = Kategorie("Stromerzeugung", 8)
         kategorienViewModel.insertKategorie(kat)
     }
 
