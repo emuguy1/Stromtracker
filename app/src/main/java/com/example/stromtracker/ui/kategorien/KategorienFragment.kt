@@ -16,6 +16,7 @@ import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
+
 import kotlin.collections.ArrayList
 
 
@@ -73,7 +74,10 @@ class KategorienFragment : Fragment(), View.OnClickListener {
                     }
                     Log.d("TAGkategorien", kategorien.toString())
                     myKategorien.clear()
-                    myKategorien.addAll(kategorien)
+
+                    //Kategorien alphabetisch sortieren. Geht nicht in DB, da dort kein toLower Case angewendet wird
+                    // -> klein geschriebene Kategorien würden unter groß geschriebenen stehen
+                    myKategorien.addAll(kategorien.sortedWith(compareBy({it.getName().toLowerCase(Locale.ROOT)}, {it.getKategorieID()})))
 
                     viewAdapter.notifyDataSetChanged()
                 }
