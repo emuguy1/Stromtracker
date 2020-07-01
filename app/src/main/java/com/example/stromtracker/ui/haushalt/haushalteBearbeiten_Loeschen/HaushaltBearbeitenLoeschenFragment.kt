@@ -17,12 +17,10 @@ import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
 
@@ -52,7 +50,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
         personeneditfeld.setText(currHaushalt.getBewohnerAnzahl().toString())
         if(currHaushalt.getZaehlerstand()!=null&&currHaushalt.getDatum()!=null) {
             zaehlerstandeditfeld.setText(currHaushalt.getZaehlerstand().toString())
-            datumeditfeld.setText(SimpleDateFormat("dd.MM.yyyy").format(currHaushalt.getDatum()))
+            datumeditfeld.setText(SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).format(currHaushalt.getDatum()))
         }
         oekomixeditfeld.setChecked(currHaushalt.getOekostrom())
 
@@ -63,9 +61,10 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
+                //Schauen, dass alle Werte die gesetzt sein müssen gesetzt wurden
                 if(haushaltsnameneditfeld.text.isNotEmpty()&&personeneditfeld.text.isNotEmpty()&&strompreiseditfeld.text.isNotEmpty()) {
-                    //TODO: Schauen, dass alle Werte die gesetzt sein müssen gesetzt wurden
-                    //TODO: Die Daten in die RoomDatabase speichern
+
+                    //Die Daten in die RoomDatabase speichern
                     currHaushalt.setName(haushaltsnameneditfeld.text.toString())
                     currHaushalt.setBewohnerAnzahl(personeneditfeld.text.toString().toInt())
                     currHaushalt.setStromkosten(strompreiseditfeld.text.toString().toDouble())
@@ -74,8 +73,8 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
                         currHaushalt.setZaehlerstand(
                             zaehlerstandeditfeld.text.toString().toDouble()
                         )
-                        //TODO: Datum einfügen
-                        val tempDate= SimpleDateFormat("dd.MM.yyyy").parse(datumeditfeld.text.toString())
+                        // Datum einfügen
+                        val tempDate= SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).parse(datumeditfeld.text.toString())
                         currHaushalt.setDatum(tempDate)
                     }
 
