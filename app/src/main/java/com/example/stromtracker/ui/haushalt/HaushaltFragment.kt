@@ -41,7 +41,6 @@ class HaushaltFragment: Fragment() {
                         //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
                         initHaushalt()
                     }
-                    Log.d("TAGhaushalt", haushalte.toString())
                     datain.clear()
                     datain.addAll(haushalte)
 
@@ -54,13 +53,7 @@ class HaushaltFragment: Fragment() {
 
         var haushalt : Haushalt = Haushalt("Haushalt 1",12.5, 5, null, null, true )
         haushaltViewModel.insertHaushalt(haushalt)
-        haushalt = Haushalt("Haushalt 2",12.5, 5, null, null, true )
-        haushaltViewModel.insertHaushalt(haushalt)
-        haushalt= Haushalt("Haushalt 3",12.5, 5, null, null, true )
-        haushaltViewModel.insertHaushalt(haushalt)
-        haushalt= Haushalt("Haushalt 4",12.5, 5, null, null, true )
-        haushaltViewModel.insertHaushalt(haushalt)
-        haushalt= Haushalt("Haushalt 5",12.5, 5, null, null, true )
+        haushalt = Haushalt("Haushalt 2",12.5, 1, null, null, false )
         haushaltViewModel.insertHaushalt(haushalt)
     }
     override fun onCreateView(

@@ -151,13 +151,13 @@
 
             <CheckBox
                 android:id="@+id/haushalteditTextÖkostrommix"
-                android:layout_width="129dp"
-                android:layout_height="42dp"
+                android:layout_width="176dp"
+                android:layout_height="43dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="20dp"
-                android:hint="@string/haushaltedithint_strommix"
                 android:autofillHints="@string/haushaltedithint_strommix"
+                android:hint="@string/haushaltedithint_strommix"
                 app:layout_constraintStart_toEndOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/haushalteditTextdatum" />
 

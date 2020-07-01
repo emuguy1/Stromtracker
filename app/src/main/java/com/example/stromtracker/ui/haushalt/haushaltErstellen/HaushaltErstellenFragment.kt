@@ -13,7 +13,7 @@ import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import java.text.SimpleDateFormat
-import java.util.*
+
 
 class HaushaltErstellenFragment: Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
@@ -57,7 +57,7 @@ class HaushaltErstellenFragment: Fragment() {
 
                     if (datumeditfeld.text.isNotEmpty() && zaehlerstandeditfeld.text.isNotEmpty()) {
                         val zaehlerstand=zaehlerstandeditfeld.text.toString().toDouble()
-                        //TODO: Datum einfügen
+                        //Datum einfügen
                         val tempDateDate= SimpleDateFormat("dd.MM.yyyy").parse(datumeditfeld.text.toString())
                         newHaushalt= Haushalt(name,stromkosten,bewohner,zaehlerstand,tempDateDate,oekostrom)
                     }
