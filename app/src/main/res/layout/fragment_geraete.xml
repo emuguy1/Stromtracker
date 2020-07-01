@@ -7,11 +7,17 @@
     android:background="@color/colorBackgroundGrey"
     tools:context=".ui.geraete.GeraeteFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/geraete_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/geraete_sort_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,14 +25,95 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="3.5">
+
+            <Button
+                android:id="@+id/geraete_button_sort_name"
+                android:layout_gravity="left"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:text="Name"
+                android:orientation="horizontal"
+
+                android:textColor="@color/colorTextBlack"
+                 />
+
+
+
+            <Button
+                android:id="@+id/geraete_button_sort_raum"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textAlignment="center"
+
+
+
+
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/colorWhite"
+                android:text="Raum"
+                android:textColor="@color/colorTextBlack">
+
+
+
+            </Button>
+            <Button
+                android:id="@+id/geraete_button_sort_verbrauch"
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+
+
+
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:text="Verbrauch"
+
+                android:textColor="@color/colorTextBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0">
+
+            </Button>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/geraete_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/geraete_sort_card">
+
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_geraete_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="12dp"
         android:clickable="true"
         android:focusable="true"

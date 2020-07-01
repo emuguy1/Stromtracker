@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -33,6 +35,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var root:View
     private lateinit var kategorieList:ArrayList<Kategorie>
     private lateinit var raumList:ArrayList<Raum>
+    private lateinit var buttonSortVerbrauch: Button
+    private lateinit var buttonSortRaum: Button
+    private lateinit var buttonSortName: Button
 
 
 
@@ -47,9 +52,19 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         root = inflater.inflate(R.layout.fragment_geraete, container, false)
         buttonAdd = root.findViewById(R.id.button_geraete_add)
         buttonAdd.setOnClickListener(this)
+
+        buttonSortVerbrauch = root.findViewById(R.id.geraete_button_sort_verbrauch)
+        buttonSortVerbrauch.setOnClickListener(this)
+        buttonSortRaum = root.findViewById(R.id.geraete_button_sort_raum)
+        buttonSortName = root.findViewById(R.id.geraete_button_sort_name)
+
+
+
+
         geraeteList = ArrayList()
         kategorieList = ArrayList()
         raumList = ArrayList()
+
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumList)
@@ -81,10 +96,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     viewAdapter.notifyDataSetChanged();
 
                     Log.d("TAGGeraete", geraete.toString())
-
-
-
-
                 }
             })
 
@@ -124,13 +135,27 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v : View) {
+        Log.d("TAG", "onclick")
         when(v.id) {
             R.id.button_geraete_add -> {
+                Log.d("TAG", "onclick")
+
                 //TODO: Zwischen Haushalten unterscheiden!
 
                 val frag = GeraeteNewFragment(kategorieList, raumList)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+
+            }
+            R.id.geraete_button_sort_verbrauch -> {
+                Log.d("TAG", "servus")
+                var sortedVerbrauch = geraeteList.sortedWith(compareByDescending {it.getJahresverbrauch()})
+                Log.d("TAG", sortedVerbrauch.toString())
+                geraeteList.clear()
+                geraeteList.addAll(sortedVerbrauch)
+                viewAdapter.notifyDataSetChanged();
+
+
 
             }
 

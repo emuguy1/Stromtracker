@@ -112,7 +112,7 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
 
 
                     val jahresverbrauch: Double =
-                        (volllast * zeit + standby * (24.0 - zeit)) / 1000.0
+                        ((volllast * zeit + standby * (24.0 - zeit)) / 1000.0) * 365.0
                         val geraet = Geraete(
                             inputName.text.toString(),
                             katList[selectedKat].getKategorieID(),

@@ -114,7 +114,7 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
         when(v.id) {
             R.id.geraete_edit_save -> {
                 //TODO: Zwischen Haushalten unterscheiden!
-                if (inputName.text.toString() != "" && inputStandBy.text.toString() != "" && inputVolllast.text.toString() != "" && inputZeit.toString() != "") {
+                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeit.text.isNotEmpty()) {
 
                     val volllast:Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby:Double? = inputStandBy.text.toString().toDoubleOrNull()
@@ -124,7 +124,7 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
 
 
                         val jahresverbrauch: Double =
-                            (volllast * zeit + standby * (24.0 - zeit)) / 1000.0
+                            ((volllast * zeit + standby * (24.0 - zeit)) / 1000.0) * 365.0
                         Log.d("TAG", jahresverbrauch.toString())
 
                         currGeraet.setBetriebszeit(zeit)
