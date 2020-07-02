@@ -55,19 +55,32 @@
     <string name="leereFelderHaushalt">Eines der folgenden Felder ist leer. Bitte füllen Sie dieses aus, bevor Sie fortfahren: Name, Personenanzahl oder Strompreis</string>
 
     <string name="amortPV_hint_leistung">z.B. 4.5</string>
-    <string name="amortPV_hint_anschaffung">z.B. 6525</string>
-    <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4095</string>
-    <string name="amortPV_hint_amortdauer_zahl">z.B. 17.6</string>
-    <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 369.78</string>
-    <string name="amortPV_text_beschreibung">Vereinfachte Bestimmung der Amortisationszeit für eine Photovoltaik-Anlage</string>
+    <string name="amortPV_hint_anschaffung">z.B. 10000</string>
+    <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4500</string>
+    <string name="amortPV_hint_amortdauer_zahl">z.B. 13.110</string>
+    <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 406.35</string>
+    <string name="amortPV_hint_kwh_pro_kwp">z.B. 1000</string>
+    <string name="amortPV_hint_verguetung">z. B. 9.03</string>
+    <string name="amortPV_hint_eigenverbrauch">z. B. 30%</string>
+    <string name="amortPV_hint_preis_kwh">z. B. 26.40</string>
+    <string name="amortPV_edit_kwh_pro_kwp">1000</string>
+    <string name="amortPV_edit_verguetung">9.03</string>
+    <string name="amortPV_edit_eigenverbrauch">30</string>
+    <string name="amortPV_edit_preis_kwh">26.4</string>
+    <string name="amortPV_text_beschreibung">Bestimmung der Amortisationszeit für eine Photovoltaik-Anlage</string>
     <string name="amortPV_text_leistung">Leistung der PV-Anlage in kWp</string>
     <string name="amortPV_text_anschaffung">Anschaffungskosten in Euro</string>
     <string name="amortPV_text_jahresertragkWh">Jahresertrag in kWh</string>
-    <string name="amortPV_text_jahresertragkWh_beschreibung">(basierend auf durchschnittlichem Ertrag in Deutschland von 910kWh pro 1kWp im Jahr, Stand: Juli 2020)</string>
     <string name="amortPV_text_amortdauer">Amortisationsdauer in Jahren</string>
-    <string name="amortPV_text_amortdauer_beschreibung">(basierend auf einer Vergütung von 9.03 Cent/kWh, Stand: Juli 2020)</string>
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
-
+    <string name="amortPV_text_kwh_pro_kwp">Ertrag pro kWp in kWh</string>
+    <string name="amortPV_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro kWp (Nennleistung) im Jahr produziert.
+        Im Süden Deutschlands beträgt dieser ca. 1020 und im Norden ca. 900 kWh/kWp)</string>
+    <string name="amortPV_text_verguetung">Vergütung pro kWh in Cent</string>
+    <string name="amortPV_text_eigenverbrauch">Eigenverbrauch in %</string>
+    <string name="amortPV_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
+    <string name="amortPV_text_preis_kwh">Aktueller Preis für eine kWh in Cent</string>
+ 
     <string name="geraete_hint"> Gerät </string>
     <string name="geraet_new_TextName">Name</string>
     <string name="geraet_new_TextRaum">Raum</string>
@@ -78,13 +91,7 @@
     <string name="geraet_new_TextUrlaubsmodus">Urlaubsmodus</string>
     <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben</string>
     <string name="geraet_new_name">Name</string>
-
     <string name="geraet_edit_confirm">Sind sie sicher, dass Sie das Gerät löschen wollen?</string>
-
-
-
-
-
 
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
