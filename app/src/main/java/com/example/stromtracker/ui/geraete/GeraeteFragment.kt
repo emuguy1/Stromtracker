@@ -1,11 +1,14 @@
 package com.example.stromtracker.ui.geraete
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -35,6 +38,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var root:View
     private lateinit var kategorieList:ArrayList<Kategorie>
     private lateinit var raumList:ArrayList<Raum>
+    private lateinit var buttonSortVerbrauch: Button
+    private lateinit var buttonSortRaum: Button
+    private lateinit var buttonSortName: Button
 
 
 
@@ -51,9 +57,18 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonAddVerbraucher.setOnClickListener(this)
         buttonAddProduzent = root.findViewById(R.id.button_geraete_add_produzent)
         buttonAddProduzent.setOnClickListener(this)
+
+        buttonSortVerbrauch = root.findViewById(R.id.geraete_button_sort_verbrauch)
+        buttonSortVerbrauch.setOnClickListener(this)
+        buttonSortRaum = root.findViewById(R.id.geraete_button_sort_raum)
+        buttonSortRaum.setOnClickListener(this)
+        buttonSortName = root.findViewById(R.id.geraete_button_sort_name)
+        buttonSortName.setOnClickListener(this)
+
         geraeteList = ArrayList()
         kategorieList = ArrayList()
         raumList = ArrayList()
+
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumList)
@@ -76,7 +91,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
 
-        geraeteViewModel.getAllGeraete().observe(
+        geraeteViewModel.getAllVerbraucher().observe(
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
@@ -85,10 +100,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     viewAdapter.notifyDataSetChanged();
 
                     Log.d("TAGGeraete", geraete.toString())
-
-
-
-
                 }
             })
 
@@ -102,6 +113,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                         //nur zum testen
                         geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
                         geraeteViewModel.insertRaum(Raum("test", 1))
+                        geraeteViewModel.insertRaum(Raum("zet", 1))
+
                         geraeteViewModel.insertKategorie(Kategorie("test", null))
 
 
@@ -128,6 +141,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v : View) {
+        Log.d("TAG", "onclick")
         when(v.id) {
             R.id.button_geraete_add_verbraucher -> {
                 //TODO: Zwischen Haushalten unterscheiden!
@@ -140,7 +154,30 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
+            R.id.geraete_button_sort_verbrauch -> {
+                var sortedVerbrauch = geraeteList.sortedWith(compareByDescending {it.getJahresverbrauch()})
+                Log.d("TAG", sortedVerbrauch.toString())
+                geraeteList.clear()
+                geraeteList.addAll(sortedVerbrauch)
+                viewAdapter.notifyDataSetChanged();
+                buttonSortVerbrauch.setBackgroundColor(Color.LTGRAY)
+            }
 
+            R.id.geraete_button_sort_name -> {
+                var sortedName = geraeteList.sortedWith(compareBy{it.getName().toLowerCase()})
+                geraeteList.clear()
+                geraeteList.addAll(sortedName)
+                viewAdapter.notifyDataSetChanged();
+            }
+
+            R.id.geraete_button_sort_raum -> {
+                var sortedRaum = geraeteList.sortedWith(compareBy{raumList[it.getRaumID() - 1].getName().toLowerCase()})
+                Log.d("TAGSort", sortedRaum.toString())
+                geraeteList.clear()
+                geraeteList.addAll(sortedRaum)
+                viewAdapter.notifyDataSetChanged();
+
+            }
             else -> {
                 //Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
             }

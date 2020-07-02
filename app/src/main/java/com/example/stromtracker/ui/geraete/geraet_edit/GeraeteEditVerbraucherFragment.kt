@@ -91,7 +91,7 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
-        when (v.id) {
+        when (parent.id) {
             R.id.geraete_edit_RaumSpinner -> {
                 selectedRoom = pos
             }
@@ -114,7 +114,7 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
         when(v.id) {
             R.id.geraete_edit_save -> {
                 //TODO: Zwischen Haushalten unterscheiden!
-                if (inputName.text.toString() != "" && inputStandBy.text.toString() != "" && inputVolllast.text.toString() != "" && inputZeit.toString() != "") {
+                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeit.text.isNotEmpty()) {
 
                     val volllast:Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby:Double? = inputStandBy.text.toString().toDoubleOrNull()
@@ -124,7 +124,7 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
 
 
                         val jahresverbrauch: Double =
-                            (volllast * zeit + standby * (24.0 - zeit)) / 1000.0
+                            ((volllast * zeit + standby * (24.0 - zeit)) / 1000.0) * 365.0
                         Log.d("TAG", jahresverbrauch.toString())
 
                         currGeraet.setBetriebszeit(zeit)

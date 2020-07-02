@@ -78,7 +78,7 @@ class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, p
 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
-        when (v.id) {
+        when (parent.id) {
             R.id.geraete_new_RaumSpinner -> {
                 selectedRoom = pos
             }
@@ -108,11 +108,10 @@ class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, p
                     val zeit:Double? = inputZeit.text.toString().toDoubleOrNull()
 
                     if(volllast != null && standby != null && zeit != null) {
-                    Log.d("TAG", "hilfe")
 
 
                     val jahresverbrauch: Double =
-                        (volllast * zeit + standby * (24.0 - zeit)) / 1000.0
+                        ((volllast * zeit + standby * (24.0 - zeit)) / 1000.0) * 365.0
                         val geraet = Geraete(
                             inputName.text.toString(),
                             katList[selectedKat].getKategorieID(),
@@ -130,7 +129,6 @@ class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, p
                         geraeteViewModel.insertGeraet(geraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
-                        Log.d("TAG", "hilfe")
 
                     }
                     else {

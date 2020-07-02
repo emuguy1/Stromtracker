@@ -14,6 +14,7 @@ class DataRepository public constructor(application: Application) {
         private var mRaumDAO: RaumDAO = database!!.raumDao()
         private var mAllGeraete: LiveData<List<Geraete>> = mGeraeteDao.getAll()
         private var mAllProduzenten: LiveData<List<Geraete>> = mGeraeteDao.getAllProduzenten()
+        private var mAllVerbraucher: LiveData<List<Geraete>> = mGeraeteDao.getAllVerbraucher()
         private var mAllRaum: LiveData<List<Raum>> = mRaumDAO.getAll()
         private var mAllHaushalt: LiveData<List<Haushalt>> = mHaushaltDAO.getAll()
         private var mAllKategorie: LiveData<List<Kategorie>> = mKategorieDAO.getAll()
@@ -26,6 +27,10 @@ class DataRepository public constructor(application: Application) {
 
     fun getAllProduzenten():LiveData<List<Geraete>> {
         return mAllProduzenten
+    }
+
+    fun getAllVerbraucher():LiveData<List<Geraete>> {
+        return mAllVerbraucher
     }
 
     fun getAllRaeume():LiveData<List<Raum>> {

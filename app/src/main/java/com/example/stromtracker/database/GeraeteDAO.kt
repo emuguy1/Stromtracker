@@ -12,11 +12,17 @@ interface GeraeteDAO {
     @Query("SELECT * FROM geraete WHERE jahresverbrauch <= 0.0")
     fun getAllProduzenten(): LiveData<List<Geraete>>
 
+    @Query("SELECT * FROM geraete WHERE jahresverbrauch >= 0.0")
+    fun getAllVerbraucher(): LiveData<List<Geraete>>
+
+
     @Query("SELECT * FROM geraete WHERE geraeteID IN (:geraeteIDs)")
     fun loadAllByIds(geraeteIDs: IntArray): LiveData<List<Geraete>>
 
     @Query("SELECT * FROM geraete WHERE name LIKE :name")
     fun findByName(name: String): List<Geraete>
+
+
 
     /*@Insert
     fun insertGeraete(vararg geraete: Geraete)

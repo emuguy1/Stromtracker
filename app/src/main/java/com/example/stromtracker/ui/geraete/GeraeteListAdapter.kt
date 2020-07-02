@@ -36,15 +36,23 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val kat
 
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
         holder.mTextView.text = geraeteList[position].getName()
+        holder.mVerbrauchView.text = geraeteList[position].getJahresverbrauch().toString()
+        holder.mRaumView.text = raumList[geraeteList[position].getRaumID() - 1].getName()
+
+
 
     }
 
     inner class GeraeteViewHolder(mItemView:View): RecyclerView.ViewHolder(mItemView), View.OnClickListener {
         val mTextView:TextView
         val mCardView:CardView
+        val mVerbrauchView:TextView
+        val mRaumView:TextView
         init {
             mTextView = mItemView.findViewById(R.id.geraete_recycler_text)
+            mVerbrauchView = mItemView.findViewById(R.id.geraete_recycler_verbrauch)
             mCardView = mItemView.findViewById(R.id.geraete_recycler_card)
+            mRaumView = mItemView.findViewById(R.id.geraete_recycler_raum)
             mCardView.setOnClickListener(this)
         }
 
