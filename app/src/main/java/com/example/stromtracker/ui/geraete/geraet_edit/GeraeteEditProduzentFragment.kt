@@ -1,13 +1,12 @@
 package com.example.stromtracker.ui.geraete.geraet_edit
 
+import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
@@ -16,19 +15,18 @@ import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
-import java.util.*
-import kotlin.collections.ArrayList
 
+class GeraeteEditProduzentFragment (private val currGeraet:Geraete, private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>):
+    Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>):Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private lateinit var geraeteViewModel:GeraeteViewModel
-    private lateinit var inputName:EditText
-    private lateinit var inputVolllast:EditText
-    private lateinit var inputStandBy:EditText
-    private lateinit var inputZeit:EditText
-    private lateinit var spinnerRaum:Spinner
-    private lateinit var spinnerKat:Spinner
-    private lateinit var checkUrlaub:CheckBox
+    private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var inputName: EditText
+    private lateinit var inputProdProJahr: EditText
+    private lateinit var inputVerbrauch: EditText
+
+    private lateinit var spinnerRaum: Spinner
+    private lateinit var spinnerKat: Spinner
+
     private var selectedRoom:Int = 0
     private var selectedKat:Int = 0
 
@@ -38,44 +36,37 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_edit, container, false)
+        val root = inflater.inflate(R.layout.fragment_geraete_edit_produzent, container, false)
 
         //TODO: Zwischen Haushalten unterscheiden!
 
-        spinnerKat = root.findViewById(R.id.geraete_edit_KategorieSpinner)
+        spinnerKat = root.findViewById(R.id.geraete_edit_produzent_KategorieSpinner)
         val katAdapter: ArrayAdapter<Kategorie> =
             ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
         spinnerKat.adapter = katAdapter
         spinnerKat.onItemSelectedListener = this
-        spinnerKat.setSelection(currGeraet.getKategorieID() - 1)
+        spinnerKat.setSelection(currGeraet.getKategorieID()-1)
 
-        spinnerRaum = root.findViewById(R.id.geraete_edit_RaumSpinner)
+        spinnerRaum = root.findViewById(R.id.geraete_edit_produzent_RaumSpinner)
         val raumAdapter: ArrayAdapter<Raum> =
             ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
         spinnerRaum.onItemSelectedListener = this
-        spinnerRaum.setSelection(currGeraet.getRaumID() - 1)
+        spinnerRaum.setSelection(currGeraet.getRaumID()-1)
 
-        val abbrBtn = root.findViewById<Button>(R.id.geraete_edit_button_abbrechen)
+        val abbrBtn = root.findViewById<Button>(R.id.geraete_edit_produzent_button_abbrechen)
         abbrBtn.setOnClickListener(this)
-        val saveBtn = root.findViewById<Button>(R.id.geraete_edit_save)
+        val saveBtn = root.findViewById<Button>(R.id.geraete_edit_produzent_save)
         saveBtn.setOnClickListener(this)
-        val delBtn = root.findViewById<Button>(R.id.geraete_edit_delete)
+        val delBtn = root.findViewById<Button>(R.id.geraete_edit_produzent_button_loeschen)
         delBtn.setOnClickListener(this)
 
-
-        inputName = root.findViewById(R.id.geraete_edit_EditName)
+        inputName = root.findViewById(R.id.geraete_edit_produzent_EditName)
         inputName.setText(currGeraet.getName())
-        inputVolllast = root.findViewById(R.id.geraete_edit_EditVolllast)
-        inputVolllast.setText(currGeraet.getStromVollast().toString())
-        inputStandBy = root.findViewById(R.id.geraete_edit_EditStandBy)
-        inputStandBy.setText(currGeraet.getStromStandBy().toString())
-        inputZeit = root.findViewById(R.id.geraete_edit_EditZeit)
-        inputZeit.setText(currGeraet.getBetriebszeit().toString())
-
-        checkUrlaub = root.findViewById(R.id.geraete_checkbox)
-        checkUrlaub.isChecked = currGeraet.getUrlaubsmodus()
-
+        inputProdProJahr = root.findViewById(R.id.geraete_edit_produzent_EditProdProJahr)
+        inputProdProJahr.setText((currGeraet.getJahresverbrauch()*(-1)).toString())
+        inputVerbrauch = root.findViewById(R.id.geraete_edit_produzent_EditVerbrauch)
+        inputVerbrauch.setText(currGeraet.getEigenverbrauch().toString())
 
         return root
     }
@@ -100,9 +91,6 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
             }
             else -> {
 
-
-
-
             }
 
         }
@@ -112,34 +100,28 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
     override fun onClick(v: View) {
         val fragMan = parentFragmentManager
         when(v.id) {
-            R.id.geraete_edit_save -> {
+            R.id.geraete_edit_produzent_save -> {
                 //TODO: Zwischen Haushalten unterscheiden!
-                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeit.text.isNotEmpty()) {
+                if (inputName.text.isNotEmpty()  && inputProdProJahr.text.isNotEmpty()) {
 
-                    val volllast:Double? = inputVolllast.text.toString().toDoubleOrNull()
-                    val standby:Double? = inputStandBy.text.toString().toDoubleOrNull()
-                    val zeit:Double? = inputZeit.text.toString().toDoubleOrNull()
+                    val prodProJahr:Double? = inputProdProJahr.text.toString().toDoubleOrNull()
+                    val eigenverbrauch:Double? = inputVerbrauch.text.toString().toDoubleOrNull()
 
-                    if(volllast != null && standby != null && zeit != null) {
+                    if(prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0) {
 
+                        val jahresverbrauch: Double = prodProJahr * (-1)
 
-                        val jahresverbrauch: Double =
-                            ((volllast * zeit + standby * (24.0 - zeit)) / 1000.0) * 365.0
-                        Log.d("TAG", jahresverbrauch.toString())
-
-                        currGeraet.setBetriebszeit(zeit)
-                        currGeraet.setHaushaltID(raumList[selectedRoom].getHaushaltID())
-                        currGeraet.setJahresverbrauch(jahresverbrauch)
+                        currGeraet.setName(inputName.text.toString())
                         currGeraet.setKategorieID(katList[selectedKat].getKategorieID())
                         currGeraet.setRaumID(raumList[selectedRoom].getRaumID())
-                        currGeraet.setStromVollast(volllast)
-                        currGeraet.setStromStandBy(standby)
-                        currGeraet.setUrlaubsmodus(checkUrlaub.isChecked)
-                        currGeraet.setName(inputName.text.toString())
+                        currGeraet.setHaushaltID(raumList[selectedRoom].getHaushaltID())
+                        currGeraet.setJahresverbrauch(jahresverbrauch)
+                        currGeraet.setEigenverbrauch(eigenverbrauch)
 
                         geraeteViewModel.updateGeraet(currGeraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+
                     }
                     else {
                         Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT).show()
@@ -150,12 +132,11 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
                     Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT).show()
                 }
             }
-            R.id.geraete_edit_button_abbrechen -> {
+            R.id.geraete_edit_produzent_button_abbrechen -> {
                 val frag = GeraeteFragment()
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
-
-            R.id.geraete_edit_delete -> {
+            R.id.geraete_edit_produzent_button_loeschen -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
                 confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
                 confirmDeleteBuilder.setPositiveButton(
@@ -179,11 +160,7 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
                 confirmDeleteDialog.show()
             }
 
-
-
         }
 
     }
 }
-
-

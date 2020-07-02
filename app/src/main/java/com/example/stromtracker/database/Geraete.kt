@@ -34,6 +34,7 @@ import androidx.room.*;
         @ColumnInfo(name = "betriebszeit") private var betriebszeit: Double,
         @ColumnInfo(name = "urlaubsmodus") private var urlaubsmodus: Boolean,
         @ColumnInfo(name = "jahresverbrauch") private var jahresverbrauch: Double,
+        @ColumnInfo(name = "eigenverbrauch") private var eigenverbrauch: Double?,
         @ColumnInfo(name = "notiz") private var notiz: String?
 )
 
@@ -122,6 +123,14 @@ import androidx.room.*;
 
         fun setUrlaubsmodus(b:Boolean) {
             urlaubsmodus = b
+        }
+
+        fun getEigenverbrauch():Double? {
+            return eigenverbrauch
+        }
+
+        fun setEigenverbrauch(d:Double) {
+            eigenverbrauch = d
         }
 
         fun getNotiz():String? {

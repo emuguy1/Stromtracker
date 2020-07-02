@@ -19,8 +19,9 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
-import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewFragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
+import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
+import com.getbase.floatingactionbutton.FloatingActionButton
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,7 +33,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var buttonAdd:FloatingActionButton
+    private lateinit var buttonAddVerbraucher: FloatingActionButton
+    private lateinit var buttonAddProduzent: FloatingActionButton
     private lateinit var root:View
     private lateinit var kategorieList:ArrayList<Kategorie>
     private lateinit var raumList:ArrayList<Raum>
@@ -51,8 +53,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             savedInstanceState: Bundle?
     ): View? {
         root = inflater.inflate(R.layout.fragment_geraete, container, false)
-        buttonAdd = root.findViewById(R.id.button_geraete_add)
-        buttonAdd.setOnClickListener(this)
+        buttonAddVerbraucher = root.findViewById(R.id.button_geraete_add_verbraucher)
+        buttonAddVerbraucher.setOnClickListener(this)
+        buttonAddProduzent = root.findViewById(R.id.button_geraete_add_produzent)
+        buttonAddProduzent.setOnClickListener(this)
 
         buttonSortVerbrauch = root.findViewById(R.id.geraete_button_sort_verbrauch)
         buttonSortVerbrauch.setOnClickListener(this)
@@ -60,9 +64,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonSortRaum.setOnClickListener(this)
         buttonSortName = root.findViewById(R.id.geraete_button_sort_name)
         buttonSortName.setOnClickListener(this)
-
-
-
 
         geraeteList = ArrayList()
         kategorieList = ArrayList()
@@ -142,15 +143,16 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     override fun onClick(v : View) {
         Log.d("TAG", "onclick")
         when(v.id) {
-            R.id.button_geraete_add -> {
-                Log.d("TAG", "onclick")
-
+            R.id.button_geraete_add_verbraucher -> {
                 //TODO: Zwischen Haushalten unterscheiden!
-
-                val frag = GeraeteNewFragment(kategorieList, raumList)
+                val frag = GeraeteNewVerbraucherFragment(kategorieList, raumList)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
-
+            }
+            R.id.button_geraete_add_produzent -> {
+                val frag = GeraeteNewProduzentFragment(kategorieList, raumList)
+                val fragMan = parentFragmentManager
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
             R.id.geraete_button_sort_verbrauch -> {
                 var sortedVerbrauch = geraeteList.sortedWith(compareByDescending {it.getJahresverbrauch()})
@@ -176,7 +178,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 viewAdapter.notifyDataSetChanged();
 
             }
-
             else -> {
                 //Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
             }
