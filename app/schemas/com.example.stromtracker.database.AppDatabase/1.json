@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5f754c8fa9657e9062022eddcb3f0afb",
+    "identityHash": "b0fe6427a91f1e288d1af937824a0a06",
     "entities": [
       {
         "tableName": "Geraete",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `jahresverbrauch` REAL NOT NULL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "geraeteID",
@@ -60,6 +60,12 @@
             "fieldPath": "urlaubsmodus",
             "columnName": "urlaubsmodus",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "jahresverbrauch",
+            "columnName": "jahresverbrauch",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -195,7 +201,7 @@
       },
       {
         "tableName": "Kategorie",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `icon` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `icon` INTEGER)",
         "fields": [
           {
             "fieldPath": "kategorieID",
@@ -213,7 +219,7 @@
             "fieldPath": "icon",
             "columnName": "icon",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -227,7 +233,7 @@
       },
       {
         "tableName": "Raum",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "raumID",
@@ -240,6 +246,12 @@
             "columnName": "name",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "haushaltID",
+            "columnName": "haushaltID",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -248,14 +260,35 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_Raum_haushaltID",
+            "unique": false,
+            "columnNames": [
+              "haushaltID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Raum_haushaltID` ON `${TABLE_NAME}` (`haushaltID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Haushalt",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "haushaltID"
+            ],
+            "referencedColumns": [
+              "haushaltID"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f754c8fa9657e9062022eddcb3f0afb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0fe6427a91f1e288d1af937824a0a06')"
     ]
   }
 }

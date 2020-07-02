@@ -66,7 +66,7 @@ import com.example.stromtracker.database.*;
          repo.deleteGeraete(g)
      }
 
-     fun updatetGeraet(g:Geraete) {
+     fun updateGeraet(g:Geraete) {
          repo.updateGeraete(g)
      }
 

@@ -1,13 +1,18 @@
 package com.example.stromtracker.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity
+@Entity (indices = [Index("haushaltID")], foreignKeys = [
+    ForeignKey(
+        entity = Haushalt::class,
+        parentColumns = arrayOf("haushaltID"),
+        childColumns = arrayOf("haushaltID"),
+        onDelete = ForeignKey.NO_ACTION)]
+)
 data class Raum(
-    @ColumnInfo(name = "name") private var name: String
+    @ColumnInfo(name = "name") private var name: String,
+    @ColumnInfo(name = "haushaltID") private var haushaltID: Int
+
 ) {
     @PrimaryKey(autoGenerate = true)
     private var raumID: Int = 0
@@ -27,6 +32,20 @@ data class Raum(
     fun setName(n: String) {
         name = n
     }
+
+    fun getHaushaltID():Int {
+        return haushaltID
+    }
+
+    fun setHaushaltID(r:Int) {
+        haushaltID = r
+    }
+
+    override fun toString():String {
+        return name
+    }
+
+
 }
 
 

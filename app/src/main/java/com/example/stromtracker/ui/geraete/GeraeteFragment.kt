@@ -5,32 +5,43 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
+import android.widget.Button
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class GeraeteFragment : Fragment() {
+class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
-    private  lateinit var geraeteList:List<Geraete>
-    private  lateinit var haushaltList:List<Haushalt>
+    private  lateinit var geraeteList:ArrayList<Geraete>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var buttonAdd:FloatingActionButton
+    private lateinit var root:View
+    private lateinit var kategorieList:ArrayList<Kategorie>
+    private lateinit var raumList:ArrayList<Raum>
+    private lateinit var buttonSortVerbrauch: Button
+    private lateinit var buttonSortRaum: Button
+    private lateinit var buttonSortName: Button
 
 
-    fun setGeraeteList(list:List<Geraete>) {
-
-            geraeteList = list
-        Log.d("TAG", geraeteList.toString())
-        //Adapter setzen
 
 
-    }
 
 
     override fun onCreateView(
@@ -38,45 +49,41 @@ class GeraeteFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        root = inflater.inflate(R.layout.fragment_geraete, container, false)
+        buttonAdd = root.findViewById(R.id.button_geraete_add)
+        buttonAdd.setOnClickListener(this)
+
+        buttonSortVerbrauch = root.findViewById(R.id.geraete_button_sort_verbrauch)
+        buttonSortVerbrauch.setOnClickListener(this)
+        buttonSortRaum = root.findViewById(R.id.geraete_button_sort_raum)
+        buttonSortName = root.findViewById(R.id.geraete_button_sort_name)
 
 
 
 
-        //Log.d("TAG", ViewModelProvider(this).get(GeraeteViewModel.javaClass).toString())
+        geraeteList = ArrayList()
+        kategorieList = ArrayList()
+        raumList = ArrayList()
 
 
-
-        //GeraeteViewModel =
-         //     ViewModelProviders.of(this).get(com.example.stromtracker.ui.geraete.GeraeteViewModel::class.java)
-
-
-
-
-
-        val root = inflater.inflate(R.layout.fragment_geraete, container, false)
-
-
-
-    /*
-        geraeteViewModel.setGereateList(Geraete(1, "test", "test2"))
-        Log.d("TAG2", geraeteViewModel.getGereateList().toString())
-
-
-     */
-
-
-
-
+        viewManager = LinearLayoutManager(this.context)
+        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumList)
+        recyclerView = root.findViewById<RecyclerView>(R.id.geraete_recycler_view).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
 
 
 
         return root
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //geraeteViewModel= ViewModelProvider(this).get(GeraeteViewModel::class.java)
+
 
         geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
 
@@ -84,41 +91,79 @@ class GeraeteFragment : Fragment() {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
+                    geraeteList.clear()
+                    geraeteList.addAll(geraete)
+                    viewAdapter.notifyDataSetChanged();
 
-                    setGeraeteList(geraete)
                     Log.d("TAGGeraete", geraete.toString())
+                }
+            })
 
-                    if (geraete.isEmpty()) {
-                        geraeteViewModel.insertKategorie(Kategorie("test", 1))
-                        geraeteViewModel.insertRaum(Raum("test"))
-
-                        geraeteViewModel.insertGeraet(Geraete("test", 1, 1, 1, 10.0, 0.0, 0.0, false, null))
+        geraeteViewModel.getAllRaeume().observe(
+            viewLifecycleOwner,
+            Observer { raeume ->
+                if (raeume != null) {
+                    raumList.clear()
+                    raumList.addAll(raeume)
+                    if(raeume.isEmpty()) {
+                        //nur zum testen
+                        geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
+                        geraeteViewModel.insertRaum(Raum("test", 1))
+                        geraeteViewModel.insertKategorie(Kategorie("test", null))
 
 
                     }
-
 
                 }
             })
 
-        geraeteViewModel.getAllHaushalt().observe(
+        geraeteViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
-            Observer { haushalte ->
-                if (haushalte != null) {
+            Observer { kategorie ->
+                if (kategorie != null) {
+                    kategorieList.clear()
+                    kategorieList.addAll(kategorie)
 
-                    Log.d("TAGHaushalt", haushalte.toString())
-
-
-
-
-                    }
-
-
-
+                }
             })
+
+
 
 
 
 
     }
-}
+
+    override fun onClick(v : View) {
+        Log.d("TAG", "onclick")
+        when(v.id) {
+            R.id.button_geraete_add -> {
+                Log.d("TAG", "onclick")
+
+                //TODO: Zwischen Haushalten unterscheiden!
+
+                val frag = GeraeteNewFragment(kategorieList, raumList)
+                val fragMan = parentFragmentManager
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+
+            }
+            R.id.geraete_button_sort_verbrauch -> {
+                Log.d("TAG", "servus")
+                var sortedVerbrauch = geraeteList.sortedWith(compareByDescending {it.getJahresverbrauch()})
+                Log.d("TAG", sortedVerbrauch.toString())
+                geraeteList.clear()
+                geraeteList.addAll(sortedVerbrauch)
+                viewAdapter.notifyDataSetChanged();
+
+
+
+            }
+
+            else -> {
+                //Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    }
