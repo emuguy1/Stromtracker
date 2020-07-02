@@ -108,7 +108,6 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
                     val zeit:Double? = inputZeit.text.toString().toDoubleOrNull()
 
                     if(volllast != null && standby != null && zeit != null) {
-                    Log.d("TAG", "hilfe")
 
 
                     val jahresverbrauch: Double =
@@ -129,7 +128,6 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
                         geraeteViewModel.insertGeraet(geraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
-                        Log.d("TAG", "hilfe")
 
                     }
                     else {

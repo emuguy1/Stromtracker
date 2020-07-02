@@ -70,6 +70,10 @@ data class Haushalt(
     fun setName(n: String) {
         name = n
     }
+
+    override fun toString():String {
+        return name
+    }
 }
 
 
