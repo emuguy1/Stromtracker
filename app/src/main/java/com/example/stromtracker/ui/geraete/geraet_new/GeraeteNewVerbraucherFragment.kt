@@ -124,7 +124,7 @@ class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, p
                             zeit,
                             checkUrlaub.isChecked,
                             jahresverbrauch,
-                            0.0,
+                            null,
                             null
                         )
                         geraeteViewModel.insertGeraet(geraet)

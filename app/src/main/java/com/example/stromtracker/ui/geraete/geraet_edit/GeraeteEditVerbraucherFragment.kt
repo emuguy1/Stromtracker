@@ -20,7 +20,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>):Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>):Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var geraeteViewModel:GeraeteViewModel
     private lateinit var inputName:EditText
     private lateinit var inputVolllast:EditText

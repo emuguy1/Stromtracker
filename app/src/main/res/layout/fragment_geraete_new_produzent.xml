@@ -34,7 +34,7 @@
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditProdProJahr" />
 
         <TextView
-            android:id="@+id/geraet_new_produzent_TextName"
+            android:id="@+id/geraete_new_produzent_TextName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -51,8 +51,8 @@
             android:layout_marginTop="8dp"
             android:hint="@string/geraet_new_name"
             android:inputType="text"
-            app:layout_constraintStart_toStartOf="@+id/geraet_new_produzent_TextName"
-            app:layout_constraintTop_toBottomOf="@+id/geraet_new_produzent_TextName" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_TextName"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_TextName" />
 
         <TextView
             android:id="@+id/geraete_new_prduzent_TextRaum"
@@ -116,7 +116,7 @@
             android:id="@+id/geraete_new_produzent_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
@@ -125,7 +125,7 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditProdProJahr"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditVerbrauch"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
@@ -134,14 +134,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorDarkGreen"
             android:text="@string/button_abbrechen"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditProdProJahr"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditVerbrauch"
             app:layout_constraintVertical_bias="1.0" />
 
 
