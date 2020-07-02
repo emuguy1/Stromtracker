@@ -9,7 +9,7 @@ interface GeraeteDAO {
     @Query("SELECT * FROM geraete")
     fun getAll(): LiveData<List<Geraete>>
 
-    @Query("SELECT * FROM geraete WHERE jahresverbrauch <= 0.0")
+    @Query("SELECT * FROM geraete WHERE jahresverbrauch < 0.0")
     fun getAllProduzenten(): LiveData<List<Geraete>>
 
     @Query("SELECT * FROM geraete WHERE jahresverbrauch >= 0.0")
