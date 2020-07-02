@@ -109,7 +109,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                         //nur zum testen
                         geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
                         geraeteViewModel.insertRaum(Raum("test", 1))
-                        geraeteViewModel.insertKategorie(Kategorie("test", null))
 
 
                     }

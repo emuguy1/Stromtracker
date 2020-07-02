@@ -43,7 +43,7 @@ class ListAdapterHaushalt(private val datain: List<Haushalt>) : RecyclerView.Ada
         }
         override fun onClick(view: View?) {
             if (view != null) {
-                val frag = HaushaltBearbeitenLoeschenFragment(data[position])
+                val frag = HaushaltBearbeitenLoeschenFragment(data[layoutPosition])
                 //Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<HaushaltFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.

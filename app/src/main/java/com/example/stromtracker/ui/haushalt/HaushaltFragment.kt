@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.haushalt.haushaltErstellen.HaushaltErstellenFragment
 import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import java.time.LocalDate
@@ -53,16 +54,29 @@ class HaushaltFragment: Fragment() {
 
         var haushalt : Haushalt = Haushalt("Haushalt 1",12.5, 5, null, null, true )
         haushaltViewModel.insertHaushalt(haushalt)
+        //initRaum(haushalt)
         haushalt = Haushalt("Haushalt 2",12.5, 1, null, null, false )
         haushaltViewModel.insertHaushalt(haushalt)
+        //initRaum(haushalt)
+    }
+    private fun initRaum(haushalt: Haushalt){
+        //TODO: die HaushaltID bekommen. Das selbe auch bei Haushalterstellen fragment
+        val haushaltID=haushalt.getHaushaltID()
+        Log.d("HaushaltId", haushaltID.toString())
+        var tempraum= Raum("Wohnzimmer",haushaltID)
+        haushaltViewModel.insertRaum(tempraum)
+        tempraum= Raum("Küche",haushaltID)
+        haushaltViewModel.insertRaum(tempraum)
+        tempraum= Raum("Schlafzimmer",haushaltID)
+        haushaltViewModel.insertRaum(tempraum)
+        tempraum= Raum("Sonstige",haushaltID)
+        haushaltViewModel.insertRaum(tempraum)
     }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        haushaltViewModel =
-            ViewModelProviders.of(this).get(HaushaltViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_haushalt, container, false)//false weil es nur teil des root ist, aber nicht selber die root
         //Initalisieren der Datenliste und des ViewAdapters
         datain =ArrayList()

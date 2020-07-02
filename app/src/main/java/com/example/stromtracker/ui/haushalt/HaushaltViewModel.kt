@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.stromtracker.database.DataRepository
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.database.Raum
 
 class HaushaltViewModel(application:Application) : AndroidViewModel(application) {
     var repo: DataRepository = DataRepository(application)
@@ -17,12 +18,15 @@ class HaushaltViewModel(application:Application) : AndroidViewModel(application)
         return haushaltList
     }
     fun insertHaushalt(a: Haushalt) {
-        repo.insertHaushalt(a)
+        return repo.insertHaushalt(a)
     }
     fun updateHaushalt(a: Haushalt) {
         repo.updateHaushalt(a)
     }
     fun deleteHaushalt(a: Haushalt) {
         repo.deleteHaushalt(a)
+    }
+    fun insertRaum(r: Raum) {
+        repo.insertRaum(r)
     }
 }
