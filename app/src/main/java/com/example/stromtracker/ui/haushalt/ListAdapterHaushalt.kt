@@ -8,11 +8,11 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment
 
-class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolder>() {
-    private val data =
-        List(10) { ("Haushalt " + (it+1).toString()) }
+class ListAdapterHaushalt(private val datain: List<Haushalt>) : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolder>() {
+    private val data = datain
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,7 +27,7 @@ class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolde
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: String = data[position]
+        val item: String = data[position].getName()
         holder.textView.text = item
         holder.textView
 
@@ -43,7 +43,7 @@ class ListAdapterHaushalt() : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolde
         }
         override fun onClick(view: View?) {
             if (view != null) {
-                val frag = HaushaltBearbeitenLoeschenFragment()
+                val frag = HaushaltBearbeitenLoeschenFragment(data[position])
                 //Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<HaushaltFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.

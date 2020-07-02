@@ -38,7 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewHaushaltsname" />
 
         <TextView
-            android:id="@+id/haushalttextViewStrompreisErstellen"
+            android:id="@+id/haushalttextViewStrompreis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextHaushaltsname" />
 
         <EditText
-            android:id="@+id/haushalteditTextStrompreisErstellen"
+            android:id="@+id/haushalteditTextStrompreis"
             android:layout_width="160dp"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
@@ -60,7 +60,7 @@
             android:autofillHints="@string/haushaltedithint_strompreis"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalttextViewStrompreisErstellen" />
+            app:layout_constraintTop_toBottomOf="@+id/haushalttextViewStrompreis" />
 
         <TextView
             android:id="@+id/haushalttextViewPersonenErstellen"
@@ -71,7 +71,7 @@
             android:layout_marginTop="35dp"
             android:text="@string/haushaltspersonen"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalteditTextStrompreisErstellen" />
+            app:layout_constraintTop_toBottomOf="@+id/haushalteditTextStrompreis" />
 
         <EditText
             android:id="@+id/haushalteditTextPersonen"
@@ -147,16 +147,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/haushalteditTextdatum" />
 
-        <EditText
+        <CheckBox
             android:id="@+id/haushalteditTextÖkostrommix"
-            android:layout_width="129dp"
-            android:layout_height="42dp"
+            android:layout_width="190dp"
+            android:layout_height="40dp"
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/haushaltedithint_strommix"
             android:autofillHints="@string/haushaltedithint_strommix"
-            android:inputType="number"
+            android:hint="@string/haushaltedithint_strommix"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/haushalteditTextdatum" />
 
