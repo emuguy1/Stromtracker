@@ -33,6 +33,7 @@
 
             <Button
                 android:id="@+id/geraete_button_sort_name"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_gravity="left"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
@@ -52,6 +53,8 @@
             <Button
                 android:id="@+id/geraete_button_sort_raum"
                 android:layout_width="0dp"
+                style="?android:attr/buttonBarButtonStyle"
+
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_marginLeft="8dp"
@@ -76,6 +79,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:gravity="center"
+                style="?android:attr/buttonBarButtonStyle"
+
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
 

@@ -78,7 +78,7 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
-        when (v.id) {
+        when (parent.id) {
             R.id.geraete_new_RaumSpinner -> {
                 selectedRoom = pos
             }

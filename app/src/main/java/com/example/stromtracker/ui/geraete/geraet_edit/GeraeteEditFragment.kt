@@ -91,7 +91,7 @@ class GeraeteEditFragment(private val currGeraet:Geraete, private val katList: A
 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
-        when (v.id) {
+        when (parent.id) {
             R.id.geraete_edit_RaumSpinner -> {
                 selectedRoom = pos
             }

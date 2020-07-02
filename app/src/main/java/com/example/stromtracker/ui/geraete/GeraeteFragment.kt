@@ -1,5 +1,6 @@
 package com.example.stromtracker.ui.geraete
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,7 +57,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonSortVerbrauch = root.findViewById(R.id.geraete_button_sort_verbrauch)
         buttonSortVerbrauch.setOnClickListener(this)
         buttonSortRaum = root.findViewById(R.id.geraete_button_sort_raum)
+        buttonSortRaum.setOnClickListener(this)
         buttonSortName = root.findViewById(R.id.geraete_button_sort_name)
+        buttonSortName.setOnClickListener(this)
 
 
 
@@ -87,7 +90,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
 
-        geraeteViewModel.getAllGeraete().observe(
+        geraeteViewModel.getAllVerbraucher().observe(
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
@@ -109,6 +112,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                         //nur zum testen
                         geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
                         geraeteViewModel.insertRaum(Raum("test", 1))
+                        geraeteViewModel.insertRaum(Raum("zet", 1))
+
                         geraeteViewModel.insertKategorie(Kategorie("test", null))
 
 
@@ -148,14 +153,27 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
             }
             R.id.geraete_button_sort_verbrauch -> {
-                Log.d("TAG", "servus")
                 var sortedVerbrauch = geraeteList.sortedWith(compareByDescending {it.getJahresverbrauch()})
                 Log.d("TAG", sortedVerbrauch.toString())
                 geraeteList.clear()
                 geraeteList.addAll(sortedVerbrauch)
                 viewAdapter.notifyDataSetChanged();
+                buttonSortVerbrauch.setBackgroundColor(Color.LTGRAY)
+            }
 
+            R.id.geraete_button_sort_name -> {
+                var sortedName = geraeteList.sortedWith(compareBy{it.getName().toLowerCase()})
+                geraeteList.clear()
+                geraeteList.addAll(sortedName)
+                viewAdapter.notifyDataSetChanged();
+            }
 
+            R.id.geraete_button_sort_raum -> {
+                var sortedRaum = geraeteList.sortedWith(compareBy{raumList[it.getRaumID() - 1].getName().toLowerCase()})
+                Log.d("TAGSort", sortedRaum.toString())
+                geraeteList.clear()
+                geraeteList.addAll(sortedRaum)
+                viewAdapter.notifyDataSetChanged();
 
             }
 

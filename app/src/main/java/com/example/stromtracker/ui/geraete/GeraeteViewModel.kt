@@ -14,6 +14,8 @@ import com.example.stromtracker.database.*;
 
     var repo:DataRepository = DataRepository(application)
     var geraetelist:LiveData<List<Geraete>> = repo.getAllGeraete()
+     var verbraucherList:LiveData<List<Geraete>> = repo.getAllVerbraucher()
+
      var haushaltlist:LiveData<List<Haushalt>> = repo.getAllHaushalt()
      var kategorieList:LiveData<List<Kategorie>> = repo.getAllKategorie()
      var raumList:LiveData<List<Raum>> = repo.getAllRaeume()
@@ -31,6 +33,10 @@ import com.example.stromtracker.database.*;
     fun getAllGeraete():LiveData<List<Geraete>> {
         return geraetelist
     }
+
+     fun getAllVerbraucher():LiveData<List<Geraete>> {
+         return verbraucherList
+     }
 
 
 
