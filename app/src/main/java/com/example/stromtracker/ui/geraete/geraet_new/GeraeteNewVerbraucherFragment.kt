@@ -18,7 +18,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>):Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>):Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var geraeteViewModel:GeraeteViewModel
     private lateinit var inputName:EditText
     private lateinit var inputVolllast:EditText
@@ -36,7 +36,7 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_new, container, false)
+        val root = inflater.inflate(R.layout.fragment_geraete_new_verbraucher, container, false)
 
         //TODO: Zwischen Haushalten unterscheiden!
 
@@ -124,6 +124,7 @@ class GeraeteNewFragment(private val katList: ArrayList<Kategorie>, private val 
                             zeit,
                             checkUrlaub.isChecked,
                             jahresverbrauch,
+                            0.0,
                             null
                         )
                         geraeteViewModel.insertGeraet(geraet)

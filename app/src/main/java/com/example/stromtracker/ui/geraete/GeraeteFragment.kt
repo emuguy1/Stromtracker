@@ -16,7 +16,8 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
-import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewFragment
+import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
+import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
 import java.util.*
 import kotlin.collections.ArrayList
@@ -130,15 +131,14 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         when(v.id) {
             R.id.button_geraete_add_verbraucher -> {
                 //TODO: Zwischen Haushalten unterscheiden!
-
-                val frag = GeraeteNewFragment(kategorieList, raumList)
+                val frag = GeraeteNewVerbraucherFragment(kategorieList, raumList)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
-
             }
-
             R.id.button_geraete_add_produzent -> {
-
+                val frag = GeraeteNewProduzentFragment(kategorieList, raumList)
+                val fragMan = parentFragmentManager
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
 
             else -> {

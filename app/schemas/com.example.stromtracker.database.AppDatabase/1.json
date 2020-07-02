@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b0fe6427a91f1e288d1af937824a0a06",
+    "identityHash": "fb7c6408a51d0c05742a94cd166afd4b",
     "entities": [
       {
         "tableName": "Geraete",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `jahresverbrauch` REAL NOT NULL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `jahresverbrauch` REAL NOT NULL, `eigenverbrauch` REAL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "geraeteID",
@@ -67,6 +67,12 @@
             "columnName": "jahresverbrauch",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "eigenverbrauch",
+            "columnName": "eigenverbrauch",
+            "affinity": "REAL",
+            "notNull": false
           },
           {
             "fieldPath": "notiz",
@@ -288,7 +294,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0fe6427a91f1e288d1af937824a0a06')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fb7c6408a51d0c05742a94cd166afd4b')"
     ]
   }
 }
