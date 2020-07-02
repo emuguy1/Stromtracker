@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
@@ -29,19 +30,20 @@ class KategorienFragment : Fragment(), View.OnClickListener {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var buttonAdd: FloatingActionButton
     private lateinit var root:View
-    private val iconArray:Array<Int> = arrayOf<Int>(
-        R.drawable.ic_kategorien_monitor, R.drawable.ic_kategorien_joystick, R.drawable.ic_kategorien_speaker,
-        R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
-        R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
+    private lateinit var iconArray: Array<Int>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //IconArray initialisieren
+        val mainAct = requireActivity() as MainActivity
+        iconArray = mainAct.getIconArray()
+
         //root festlegen -> root ist ConstraintLayout
         root = inflater.inflate(R.layout.fragment_kategorien, container, false)
-
         myKategorien = ArrayList()
 
         //RecyclerView mit geholten Daten aus DB initialisieren
