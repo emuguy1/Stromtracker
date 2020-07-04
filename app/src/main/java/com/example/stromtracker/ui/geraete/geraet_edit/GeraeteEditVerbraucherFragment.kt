@@ -150,7 +150,7 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
 
             R.id.geraete_edit_delete -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                //TODO confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
+                confirmDeleteBuilder.setMessage(R.string.geraete_edit_confirmDelete)
                 confirmDeleteBuilder.setPositiveButton(
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
