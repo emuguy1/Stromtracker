@@ -58,7 +58,6 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val kat
 
         override fun onClick(v: View?) {
             if(v!=null) {
-                Log.d("TAG", layoutPosition.toString())
                 val frag = GeraeteEditVerbraucherFragment(geraeteList[layoutPosition], katList, raumList)
                 val fragMan = v.findFragment<GeraeteFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.

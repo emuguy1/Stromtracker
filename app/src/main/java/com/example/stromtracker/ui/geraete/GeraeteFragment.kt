@@ -1,14 +1,12 @@
 package com.example.stromtracker.ui.geraete
 
-import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,8 +20,6 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class GeraeteFragment : Fragment(), View.OnClickListener {
@@ -77,9 +73,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-
-
-
         return root
     }
 
@@ -99,7 +92,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     geraeteList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
 
-                    Log.d("TAGGeraete", geraete.toString())
                 }
             })
 
@@ -114,7 +106,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                         geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
                         geraeteViewModel.insertRaum(Raum("test", 1))
                         geraeteViewModel.insertRaum(Raum("zet", 1))
-
                         geraeteViewModel.insertKategorie(Kategorie("test", null))
 
 
@@ -141,7 +132,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v : View) {
-        Log.d("TAG", "onclick")
         when(v.id) {
             R.id.button_geraete_add_verbraucher -> {
                 //TODO: Zwischen Haushalten unterscheiden!
@@ -156,11 +146,13 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
             R.id.geraete_button_sort_verbrauch -> {
                 var sortedVerbrauch = geraeteList.sortedWith(compareByDescending {it.getJahresverbrauch()})
-                Log.d("TAG", sortedVerbrauch.toString())
                 geraeteList.clear()
                 geraeteList.addAll(sortedVerbrauch)
                 viewAdapter.notifyDataSetChanged();
-                buttonSortVerbrauch.setBackgroundColor(Color.LTGRAY)
+                buttonSortVerbrauch.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                buttonSortName.paintFlags = 0
+                buttonSortRaum.paintFlags = 0
+
             }
 
             R.id.geraete_button_sort_name -> {
@@ -168,6 +160,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 geraeteList.clear()
                 geraeteList.addAll(sortedName)
                 viewAdapter.notifyDataSetChanged();
+                buttonSortName.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                buttonSortVerbrauch.paintFlags = 0
+                buttonSortRaum.paintFlags = 0
             }
 
             R.id.geraete_button_sort_raum -> {
@@ -176,6 +171,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 geraeteList.clear()
                 geraeteList.addAll(sortedRaum)
                 viewAdapter.notifyDataSetChanged();
+                buttonSortRaum.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                buttonSortVerbrauch.paintFlags = 0
+                buttonSortName.paintFlags = 0
 
             }
             else -> {

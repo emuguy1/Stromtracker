@@ -99,10 +99,6 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
                 selectedKat = pos
             }
             else -> {
-
-
-
-
             }
 
         }
@@ -121,11 +117,8 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
                     val zeit:Double? = inputZeit.text.toString().toDoubleOrNull()
 
                     if(volllast != null && standby != null && zeit != null) {
-
-
                         val jahresverbrauch: Double =
                             ((volllast * zeit + standby * (24.0 - zeit)) / 1000.0) * 365.0
-                        Log.d("TAG", jahresverbrauch.toString())
 
                         currGeraet.setBetriebszeit(zeit)
                         currGeraet.setHaushaltID(raumList[selectedRoom].getHaushaltID())
@@ -157,18 +150,14 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
 
             R.id.geraete_edit_delete -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
+                //TODO confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
                 confirmDeleteBuilder.setPositiveButton(
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
                         //Daten werden aus der Datenbank gelöscht
                         geraeteViewModel.deleteGeraet(currGeraet)
-                        //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = GeraeteFragment()
-                        //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit();
-                        //und anschließend noch ein commit()
                         dialog.cancel() })
 
                 confirmDeleteBuilder.setNegativeButton(

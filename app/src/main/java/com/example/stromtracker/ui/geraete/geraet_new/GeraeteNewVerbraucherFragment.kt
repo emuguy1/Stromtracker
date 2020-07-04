@@ -86,10 +86,6 @@ class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, p
                 selectedKat = pos
             }
             else -> {
-
-
-
-
             }
 
         }
@@ -101,7 +97,7 @@ class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, p
         when(v.id) {
             R.id.geraete_new_save -> {
                 //TODO: Zwischen Haushalten unterscheiden!
-                if (inputName.text.toString() != "" && inputStandBy.text.toString() != "" && inputVolllast.text.toString() != "" && inputZeit.toString() != "") {
+                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeit.text.isNotEmpty()) {
 
                     val volllast:Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby:Double? = inputStandBy.text.toString().toDoubleOrNull()
@@ -145,11 +141,7 @@ class GeraeteNewVerbraucherFragment(private val katList: ArrayList<Kategorie>, p
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
 
-
-
         }
 
         }
     }
-
-

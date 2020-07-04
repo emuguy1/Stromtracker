@@ -12,12 +12,12 @@
         android:id="@+id/geraete_sort_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/geraet_sort_cardview_margin"
+        android:layout_marginLeft="@dimen/geraet_sort_cardview_margin"
+        android:layout_marginTop="@dimen/geraet_sort_cardview_margin"
+        android:layout_marginEnd="@dimen/geraet_sort_cardview_margin"
+        android:layout_marginRight="@dimen/geraet_sort_cardview_margin"
+        android:layout_marginBottom="@dimen/geraet_sort_cardview_margin"
         app:cardBackgroundColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,14 +36,14 @@
                 android:id="@+id/geraete_button_sort_name"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_gravity="left"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="@dimen/geraet_button_margin"
+                android:layout_marginRight="@dimen/geraet_button_margin"
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:text="Name"
+                android:text="@string/geraet_new_name"
                 android:orientation="horizontal"
 
                 android:textColor="@color/colorTextBlack"
@@ -58,8 +58,8 @@
 
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="@dimen/geraet_button_margin"
+                android:layout_marginRight="@dimen/geraet_button_margin"
                 android:textAlignment="center"
 
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:background="@color/colorWhite"
-                android:text="Raum"
+                android:text="@string/geraet_new_TextRaum"
                 android:textColor="@color/colorTextBlack">
 
 
@@ -82,14 +82,14 @@
                 android:gravity="center"
                 style="?android:attr/buttonBarButtonStyle"
 
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="@dimen/geraet_button_margin"
+                android:layout_marginRight="@dimen/geraet_button_margin"
 
 
 
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:text="Verbrauch"
+                android:text="@string/geraet_verbrauch"
 
                 android:textColor="@color/colorTextBlack"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -104,8 +104,8 @@
         android:id="@+id/geraete_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/geraet_cardview_margin"
+        android:layout_marginTop="@dimen/geraet_cardview_margin"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

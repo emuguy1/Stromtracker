@@ -75,14 +75,15 @@
     <string name="geraet_new_TextUrlaubsmodus">Urlaubsmodus</string>
     <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben</string>
     <string name="geraet_new_name">Name</string>
+    <string name="geraet_verbrauch">Verbrauch</string>
+
     <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr in kWh</string>
     <string name="geraet_new_produzent_verbrauch">Verbrauchte Energie in Prozent</string>
 
     <string name="geraet_edit_confirm">Sind sie sicher, dass Sie das Gerät löschen wollen?</string>
-
-
-
-
+    <string name="geraete_edit_vollastHint">z.B 180.0</string>
+    <string name="geraete_edit_zeitHint">z.B 8.0</string>
+    <string name="geraete_edit_standbyHint">z.B 10.5</string>
 
 
 </resources>
