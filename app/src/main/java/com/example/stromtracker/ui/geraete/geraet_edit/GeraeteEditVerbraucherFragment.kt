@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
+import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.GeraeteFragment

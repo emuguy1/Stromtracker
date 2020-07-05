@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,6 +21,7 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 
 
 class GeraeteFragment : Fragment(), View.OnClickListener {
@@ -37,6 +39,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortVerbrauch: Button
     private lateinit var buttonSortRaum: Button
     private lateinit var buttonSortName: Button
+    private lateinit var currHaushalt: Haushalt
 
 
 
@@ -64,6 +67,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         geraeteList = ArrayList()
         kategorieList = ArrayList()
         raumList = ArrayList()
+        val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
+
+        val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
+        currHaushalt = sp.selectedItem as Haushalt
+
 
 
         viewManager = LinearLayoutManager(this.context)
@@ -95,17 +103,20 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
-        geraeteViewModel.getAllRaeume().observe(
+        geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
                     raumList.clear()
                     raumList.addAll(raeume)
                     if(raeume.isEmpty()) {
-                        //nur zum testen
-                        geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
+                        //TODO entfernen
+
                         geraeteViewModel.insertRaum(Raum("test", 1))
                         geraeteViewModel.insertRaum(Raum("zet", 1))
+                        geraeteViewModel.insertRaum(Raum("tret", 2))
+
+
                         geraeteViewModel.insertKategorie(Kategorie("test", null))
 
 
