@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
@@ -27,6 +29,7 @@ import com.google.android.material.navigation.NavigationView
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private  lateinit var geraeteList:ArrayList<Geraete>
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -39,7 +42,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortVerbrauch: Button
     private lateinit var buttonSortRaum: Button
     private lateinit var buttonSortName: Button
-    private lateinit var currHaushalt: Haushalt
 
 
 
@@ -51,6 +53,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+        sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel::class.java)
+
         root = inflater.inflate(R.layout.fragment_geraete, container, false)
         buttonAddVerbraucher = root.findViewById(R.id.button_geraete_add_verbraucher)
         buttonAddVerbraucher.setOnClickListener(this)
@@ -67,10 +72,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         geraeteList = ArrayList()
         kategorieList = ArrayList()
         raumList = ArrayList()
-        val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
 
-        val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
-        currHaushalt = sp.selectedItem as Haushalt
+
+
+
 
 
 
@@ -88,12 +93,23 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        /*sharedViewModel.getHaushalt().observe(viewLifecycleOwner,
+            Observer { haushalt ->
+                if (haushalt != null) {
+
+                    currHaushalt = haushalt
+                    Log.d("TAG", currHaushalt.toString())
+                    viewAdapter.notifyDataSetChanged();
+
+                }
+            })
+
+         */
 
 
-        geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
 
-        geraeteViewModel.getAllVerbraucher().observe(
-            viewLifecycleOwner,
+        Transformations.switchMap(sharedViewModel.getHaushalt(), selectedHaushalt -> geraeteViewModel.getAllVerbraucherByHaushaltID(selectedHaushalt))
+        .observe(viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
                     geraeteList.clear()
@@ -103,7 +119,32 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
-        geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
+        Transformations.switchMap(sharedViewModel.getHaushalt()) {
+                haushalt -> geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
+        }.observe(viewLifecycleOwner,
+            Observer { raeume ->
+                if (raeume != null) {
+                    raumList.clear()
+                    raumList.addAll(raeume)
+                    Log.d("TAGRaum", raeume.toString())
+                    if(raeume.isEmpty()) {
+                        //TODO entfernen
+
+                        geraeteViewModel.insertRaum(Raum("test", 1))
+                        geraeteViewModel.insertRaum(Raum("zet", 1))
+                        geraeteViewModel.insertRaum(Raum("tret", 2))
+
+
+                        geraeteViewModel.insertKategorie(Kategorie("test", null))
+
+
+                    }
+
+                }
+            })
+
+
+        /*geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
@@ -125,12 +166,15 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
+         */
+
         geraeteViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorie ->
                 if (kategorie != null) {
                     kategorieList.clear()
                     kategorieList.addAll(kategorie)
+                    Log.d("TAGKategorie", kategorie.toString())
 
                 }
             })
@@ -145,7 +189,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     override fun onClick(v : View) {
         when(v.id) {
             R.id.button_geraete_add_verbraucher -> {
-                //TODO: Zwischen Haushalten unterscheiden!
                 val frag = GeraeteNewVerbraucherFragment(kategorieList, raumList)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
