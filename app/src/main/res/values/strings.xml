@@ -89,7 +89,8 @@
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
     <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
-
+    <string name="impexp_export">Export</string>
+    <string name="impexp_import">Import</string>
 
 
 </resources>

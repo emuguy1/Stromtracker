@@ -36,4 +36,7 @@
 
     <dimen name="amortPV_margin_top">16dp</dimen>
     <dimen name="amortPV_editNumbers">100dp</dimen>
+    <dimen name="DualButtonLeft">8dp</dimen>
+    <dimen name="DualButtonRight">8dp</dimen>
+    <dimen name="import_export_buttons_top">280dp</dimen>
 </resources>
