@@ -35,6 +35,10 @@ import com.example.stromtracker.database.*;
         return geraetelist
     }
 
+     fun getAllGeraeteByHaushaltID(id:Int):LiveData<List<Geraete>> {
+         return repo.getAllGeraeteByHaushaltID(id)
+     }
+
      fun getAllRaumByHaushaltID(id:Int):LiveData<List<Raum>> {
          return repo.getAllRaumByHaushaltID(id)
      }
