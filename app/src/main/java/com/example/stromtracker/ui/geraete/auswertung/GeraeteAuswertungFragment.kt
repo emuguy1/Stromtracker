@@ -14,6 +14,7 @@ import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.anychart.charts.Pie
 import com.anychart.enums.Align
 import com.anychart.enums.LegendLayout
 import com.example.stromtracker.R
@@ -33,6 +34,7 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
     private  lateinit var geraeteList:ArrayList<Geraete>
 
     private lateinit var anyChartVerbraucher: AnyChartView
+    private lateinit var anyChartProduzent : AnyChartView
     private lateinit var btnBack : Button
 
     override fun onCreateView(
@@ -48,7 +50,8 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
 
         geraeteList = ArrayList()
 
-        anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher) as AnyChartView
+        anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
+        anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
 
@@ -67,9 +70,25 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
                 if (geraete != null) {
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
-                    reloadVerbrauchsChart()
+                    reloadCharts()
                 }
             })
+    }
+
+    fun reloadCharts() {
+        reloadVerbrauchsChart()
+        reloadProduzentChart()
+    }
+
+    fun initPieChart(pie : Pie) : Pie{
+
+        pie.legend().title().enabled(true)
+        pie.legend().title().padding(0.0, 0.0, 10.0, 0.0)
+        pie.legend()
+            .position("center-bottom")
+            .itemsLayout(LegendLayout.HORIZONTAL)
+            .align(Align.CENTER)
+        return pie
     }
 
     fun reloadVerbrauchsChart() {
@@ -83,7 +102,8 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
         //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
         APIlib.getInstance().setActiveAnyChartView(anyChartVerbraucher)
 
-        val pie = AnyChart.pie()
+        var pie = AnyChart.pie()
+        pie = initPieChart(pie)
 
         val data: MutableList<DataEntry> = ArrayList()
         for (geraet in verbrauchsList)
@@ -91,16 +111,34 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
 
         pie.data(data)
         pie.title("Gesamtverbrauch")
-        pie.legend().title().enabled(true)
-        pie.legend().title()
-            .text("Verbraucher")
-            .padding(0.0, 0.0, 10.0, 0.0)
+        pie.legend().title().text("Verbraucher")
 
-        pie.legend()
-            .position("center-bottom")
-            .itemsLayout(LegendLayout.HORIZONTAL)
-            .align(Align.CENTER)
         anyChartVerbraucher.setChart(pie)
+    }
+
+    fun reloadProduzentChart() {
+        //Geräte nach Verbrauchern filtern
+        val produzentList = ArrayList<Geraete>()
+        for (geraet in geraeteList) {
+            if(geraet.getJahresverbrauch() < 0)
+                produzentList.add(geraet)
+        }
+
+        //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+        APIlib.getInstance().setActiveAnyChartView(anyChartProduzent)
+
+        var pie = AnyChart.pie()
+        pie = initPieChart(pie)
+
+        val data: MutableList<DataEntry> = ArrayList()
+        for (geraet in produzentList)
+            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()*(-1)))
+
+        pie.data(data)
+        pie.title("Gesamtproduktion")
+        pie.legend().title().text("Produzenten")
+
+        anyChartProduzent.setChart(pie)
     }
 
     override fun onClick(v: View) {
