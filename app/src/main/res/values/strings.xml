@@ -66,6 +66,7 @@
     <string name="amortPV_text_jahresertragEuro">Jahresertrag in Euro</string>
 
     <string name="geraete_hint">Gerät</string>
+    <string name="geraete_button_auswertung">Auswertung</string>
     <string name="geraete_text_verbraucher">Energieverbraucher</string>
     <string name="geraete_text_produzent">Energieproduzenten</string>
     <string name="geraet_new_TextName">Name</string>
@@ -87,7 +88,8 @@
     <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr in kWh</string>
     <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie in Prozent</string>
 
-
+    <string name="geraet_auswertung_button_back">Zurück</string>
+    <string name="geraet_auswertung_text_auswertung">Auswertung</string>
 
 
 </resources>

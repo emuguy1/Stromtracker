@@ -23,4 +23,6 @@
     <dimen name="geraet_edit_textview_margin">24dp</dimen>
     <dimen name="geraet_edit_editText_margin">8dp</dimen>
 
+    <dimen name="anyChart_height">400dp</dimen>
+
 </resources>

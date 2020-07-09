@@ -9,6 +9,7 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.anychart.APIlib
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
@@ -31,7 +32,7 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
     private lateinit var currHaushalt: Haushalt
     private  lateinit var geraeteList:ArrayList<Geraete>
 
-    private lateinit var anyChartView: AnyChartView
+    private lateinit var anyChartVerbraucher: AnyChartView
     private lateinit var btnBack : Button
 
     override fun onCreateView(
@@ -47,7 +48,7 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
 
         geraeteList = ArrayList()
 
-        anyChartView = root.findViewById(R.id.any_chart_view) as AnyChartView
+        anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher) as AnyChartView
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
 
@@ -79,6 +80,9 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
                 verbrauchsList.add(geraet)
         }
 
+        //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+        APIlib.getInstance().setActiveAnyChartView(anyChartVerbraucher)
+
         val pie = AnyChart.pie()
 
         val data: MutableList<DataEntry> = ArrayList()
@@ -96,7 +100,7 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
             .position("center-bottom")
             .itemsLayout(LegendLayout.HORIZONTAL)
             .align(Align.CENTER)
-        anyChartView.setChart(pie)
+        anyChartVerbraucher.setChart(pie)
     }
 
     override fun onClick(v: View) {
