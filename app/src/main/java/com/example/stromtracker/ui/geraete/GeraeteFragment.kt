@@ -19,7 +19,6 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
-import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
@@ -29,7 +28,7 @@ import com.google.android.material.navigation.NavigationView
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
-    private lateinit var sharedViewModel: SharedViewModel
+
     private  lateinit var geraeteList:ArrayList<Geraete>
     private lateinit var produzentList:ArrayList<Geraete>
     private lateinit var recyclerView: RecyclerView
