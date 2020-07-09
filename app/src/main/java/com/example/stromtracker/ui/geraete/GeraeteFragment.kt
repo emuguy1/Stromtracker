@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +49,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortProduktion_prod : Button
     private lateinit var buttonSortRaum_prod : Button
     private lateinit var buttonSortName_prod : Button
-    private lateinit var currHaushalt: Haushalt
 
 
 
@@ -84,8 +82,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonSortName_prod.setOnClickListener(this)
 
         geraeteList = ArrayList()
+        produzentList = ArrayList()
         kategorieList = ArrayList()
         raumList = ArrayList()
+
         val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
 
         val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
@@ -142,33 +142,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         )
 
         geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
-        Transformations.switchMap(sharedViewModel.getHaushalt()) {
-                haushalt -> geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
-        }.observe(viewLifecycleOwner,
-            Observer { raeume ->
-                if (raeume != null) {
-                    raumList.clear()
-                    raumList.addAll(raeume)
-                    Log.d("TAGRaum", raeume.toString())
-                    if(raeume.isEmpty()) {
-                        //TODO entfernen
-
-                        geraeteViewModel.insertRaum(Raum("test", 1))
-                        geraeteViewModel.insertRaum(Raum("zet", 1))
-                        geraeteViewModel.insertRaum(Raum("tret", 2))
-
-
-                        geraeteViewModel.insertKategorie(Kategorie("test", null))
-
-
-                    }
-
-                }
-            })
-
-
-        /*geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
-        geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
@@ -189,8 +162,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
                 }
             })
-
-         */
 
         geraeteViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
@@ -198,7 +169,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 if (kategorie != null) {
                     kategorieList.clear()
                     kategorieList.addAll(kategorie)
-                    Log.d("TAGKategorie", kategorie.toString())
 
                 }
             })

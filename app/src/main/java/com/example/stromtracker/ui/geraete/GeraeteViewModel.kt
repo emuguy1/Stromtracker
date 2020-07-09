@@ -42,9 +42,11 @@ import com.example.stromtracker.database.*;
      fun getAllVerbraucher():LiveData<List<Geraete>> {
          return verbraucherList
      }
+
      fun getAllProduzenten():LiveData<List<Geraete>> {
          return produzentenList
      }
+
 
 
 
