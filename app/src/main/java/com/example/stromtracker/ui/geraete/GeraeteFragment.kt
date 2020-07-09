@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProviders
@@ -23,7 +23,7 @@ import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
+import kotlin.collections.ArrayList
 
 
 class GeraeteFragment : Fragment(), View.OnClickListener {
@@ -92,6 +92,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        geraeteViewModel.insertRaum(Raum("servus", 1))
 
         /*sharedViewModel.getHaushalt().observe(viewLifecycleOwner,
             Observer { haushalt ->
@@ -106,10 +107,34 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
          */
 
+        val haushaltLive: LiveData<Haushalt> = sharedViewModel.getHaushalt()
+
+        val data = Transformations.switchMap(haushaltLive) {
+            geraeteViewModel.getAllVerbraucherByHaushaltID(it.getHaushaltID()) }/*.observe(
+            viewLifecycleOwner,
+            Observer { geraete ->
+                if (geraete != null) {
+                    geraeteList.clear()
+                    geraeteList.addAll(geraete)
+                    viewAdapter.notifyDataSetChanged();
+
+                }
+            })
+            */
+        data.observe(viewLifecycleOwner, Observer {  geraete ->
+            Log.d("TAGServus", geraete.toString())
+            if (geraete != null) {
+            geraeteList.clear()
+            geraeteList.addAll(geraete)
+            viewAdapter.notifyDataSetChanged();
+
+        }})
 
 
-        Transformations.switchMap(sharedViewModel.getHaushalt(), selectedHaushalt -> geraeteViewModel.getAllVerbraucherByHaushaltID(selectedHaushalt))
-        .observe(viewLifecycleOwner,
+
+
+
+        /*.observe(viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
                     geraeteList.clear()
@@ -119,9 +144,12 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
-        Transformations.switchMap(sharedViewModel.getHaushalt()) {
+         */
+
+        var data2:LiveData<List<Raum>> = Transformations.switchMap(sharedViewModel.getHaushalt()) {
                 haushalt -> geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
-        }.observe(viewLifecycleOwner,
+
+        }/*.observe(viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
                     raumList.clear()
@@ -142,9 +170,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
                 }
             })
+            */
 
 
-        /*geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
+
+        geraeteViewModel.getAllRaeume().observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
@@ -158,15 +188,12 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                         geraeteViewModel.insertRaum(Raum("tret", 2))
 
 
-                        geraeteViewModel.insertKategorie(Kategorie("test", null))
-
-
                     }
 
                 }
             })
 
-         */
+
 
         geraeteViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
@@ -174,7 +201,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 if (kategorie != null) {
                     kategorieList.clear()
                     kategorieList.addAll(kategorie)
-                    Log.d("TAGKategorie", kategorie.toString())
+                    if(kategorie.isEmpty()) {
+                        geraeteViewModel.insertKategorie(Kategorie("name", null))
+                    }
+                    Log.d("TAGKategorie", kategorieList.toString())
 
                 }
             })

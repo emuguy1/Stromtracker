@@ -12,19 +12,21 @@ import com.example.stromtracker.database.Haushalt
 
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
-    private val selectedHaushalt = MutableLiveData<Haushalt>()
+    private var selectedHaushalt = MutableLiveData<Haushalt>()
     var repo: DataRepository = DataRepository(application)
     var haushaltlist: LiveData<List<Haushalt>> = repo.getAllHaushalt()
 
 
 
     fun getHaushalt():MutableLiveData<Haushalt> {
-        Log.d("TAGHaushalt", selectedHaushalt.hasActiveObservers().toString())
+        Log.d("TAGShared", "returning selected Haushalt")
         return selectedHaushalt
     }
 
     fun setHaushalt(haushalt:Haushalt) {
+
         selectedHaushalt.value = haushalt
+
 
     }
 
