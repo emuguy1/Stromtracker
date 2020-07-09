@@ -87,7 +87,7 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+
     }
 
 
