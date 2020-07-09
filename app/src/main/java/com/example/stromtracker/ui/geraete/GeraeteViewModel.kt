@@ -35,17 +35,11 @@ import com.example.stromtracker.database.*;
     }
 
      fun getAllRaumByHaushaltID(id:Int):LiveData<List<Raum>> {
-
          return repo.getAllRaumByHaushaltID(id)
      }
 
      fun getAllVerbraucher():LiveData<List<Geraete>> {
          return verbraucherList
-     }
-
-     fun getAllVerbraucherByHaushaltID(id:Int):LiveData<List<Geraete>> {
-         Log.d("TAGModel", id.toString())
-         return repo.getAllVerbraucherByHaushaltID(id)
      }
 
 

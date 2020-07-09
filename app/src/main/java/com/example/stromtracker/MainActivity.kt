@@ -3,24 +3,28 @@ package com.example.stromtracker
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Spinner
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import com.example.stromtracker.database.DataRepository
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.ViewModelProviders
+import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
-import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
-import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        var sharedViewModel: SharedViewModel =  ViewModelProviders.of(this).get(SharedViewModel::class.java)
-
+        var geraeteViewModel: GeraeteViewModel =  ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
         val haushaltItems:ArrayList<Haushalt> = ArrayList()
 
 
@@ -46,31 +49,17 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
 
-
-        sharedViewModel.getAllHaushalt().observe(
+        geraeteViewModel.getAllHaushalt().observe(
             this,
             Observer { haushalte ->
                 if (haushalte != null) {
 
                     haushaltItems.clear()
                     haushaltItems.addAll(haushalte)
+                    sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
                     val adapter = ArrayAdapter<Haushalt>(this, android.R.layout.simple_spinner_dropdown_item, haushaltItems)
                     sp.adapter = adapter
-                    sp.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                        }
-
-                        override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
-                            sharedViewModel.setHaushalt(haushaltItems[pos])
-                            Log.d("TAGHaushaltMAIN", haushaltItems[pos].toString())
-                        }
-
-
-
-                    }
-
                 }
             })
 
