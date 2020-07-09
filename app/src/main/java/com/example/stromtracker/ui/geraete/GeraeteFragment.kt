@@ -18,6 +18,7 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
@@ -50,11 +51,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortRaum_prod : Button
     private lateinit var buttonSortName_prod : Button
 
-
-
-
-
-
+    private lateinit var buttonZuAuswertung : Button
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -80,6 +77,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonSortRaum_prod.setOnClickListener(this)
         buttonSortName_prod = root.findViewById(R.id.geraete_button_sort_name_prod)
         buttonSortName_prod.setOnClickListener(this)
+
+        buttonZuAuswertung = root.findViewById(R.id.geraete_button_auswertung)
+        buttonZuAuswertung.setOnClickListener(this)
 
         geraeteList = ArrayList()
         produzentList = ArrayList()
@@ -258,6 +258,12 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortProduktion_prod.paintFlags = 0
                 buttonSortName_prod.paintFlags = 0
 
+            }
+
+            R.id.geraete_button_auswertung -> {
+                val frag = GeraeteAuswertungFragment()
+                val fragMan = parentFragmentManager
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
 
             else -> {
