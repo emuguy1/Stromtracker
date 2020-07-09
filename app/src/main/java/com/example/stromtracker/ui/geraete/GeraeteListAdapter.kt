@@ -18,7 +18,7 @@ import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditProduzentFragm
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment
 import java.util.*
 
-class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>): RecyclerView.Adapter<GeraeteListAdapter.GeraeteViewHolder>() {
+class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>, private val raumListHaushalt:ArrayList<Raum>): RecyclerView.Adapter<GeraeteListAdapter.GeraeteViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -58,7 +58,7 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val kat
 
         override fun onClick(v: View?) {
             if(v!=null) {
-                val frag = GeraeteEditVerbraucherFragment(geraeteList[layoutPosition], katList, raumList)
+                val frag = GeraeteEditVerbraucherFragment(geraeteList[layoutPosition], katList, raumListHaushalt)
                 val fragMan = v.findFragment<GeraeteFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()

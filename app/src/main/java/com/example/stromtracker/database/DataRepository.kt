@@ -26,8 +26,9 @@ class DataRepository public constructor(application: Application) {
         return mAllGeraete
     }
 
-    //fun getAllGeraeteByHaushaltID():LiveData<List>
-
+    fun getAllVerbraucherByHaushaltID(haushaltID:Int):LiveData<List<Geraete>> {
+        return mGeraeteDao.getAllVerbraucherByHaushaltID(haushaltID)
+    }
     fun getAllRaumByHaushaltID(id:Int):LiveData<List<Raum>> {
         return mRaumDAO.loadAllByHaushaltID(id)
     }

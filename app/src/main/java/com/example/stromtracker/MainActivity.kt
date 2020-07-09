@@ -3,6 +3,8 @@ package com.example.stromtracker
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Spinner
@@ -20,10 +22,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import com.example.stromtracker.database.DataRepository
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +40,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         var geraeteViewModel: GeraeteViewModel =  ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+        var sharedViewModel: SharedViewModel =  ViewModelProviders.of(this).get(SharedViewModel::class.java)
+
+
+
         val haushaltItems:ArrayList<Haushalt> = ArrayList()
 
 
@@ -50,18 +58,33 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
 
-        geraeteViewModel.getAllHaushalt().observe(
-            this,
-            Observer { haushalte ->
-                if (haushalte != null) {
+        sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
 
-                    haushaltItems.clear()
-                    haushaltItems.addAll(haushalte)
-                    sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
-                    val adapter = ArrayAdapter<Haushalt>(this, android.R.layout.simple_spinner_dropdown_item, haushaltItems)
-                    sp.adapter = adapter
-                }
-            })
+
+            sharedViewModel.getAllHaushalt().observe(
+                this,
+                Observer { haushalte ->
+                    if (haushalte != null) {
+
+                        haushaltItems.clear()
+                        haushaltItems.addAll(haushalte)
+                        sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
+                        val adapter = ArrayAdapter<Haushalt>(this, android.R.layout.simple_spinner_dropdown_item, haushaltItems)
+                        sp.adapter = adapter
+                        sp.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+                            }
+
+                            override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
+                                sharedViewModel.setHaushalt(haushaltItems[pos])
+                            }
+
+
+
+                        }
+
+                    }
+                })
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

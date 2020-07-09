@@ -38,7 +38,6 @@ class GeraeteEditProduzentFragment (private val currGeraet:Geraete, private val 
 
         val root = inflater.inflate(R.layout.fragment_geraete_edit_produzent, container, false)
 
-        //TODO: Zwischen Haushalten unterscheiden!
 
         spinnerKat = root.findViewById(R.id.geraete_edit_produzent_KategorieSpinner)
         val katAdapter: ArrayAdapter<Kategorie> =

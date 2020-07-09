@@ -41,7 +41,6 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
 
         val root = inflater.inflate(R.layout.fragment_geraete_edit, container, false)
 
-        //TODO: Zwischen Haushalten unterscheiden!
 
         spinnerKat = root.findViewById(R.id.geraete_edit_KategorieSpinner)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -55,7 +54,16 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
             ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
         spinnerRaum.onItemSelectedListener = this
-        spinnerRaum.setSelection(currGeraet.getRaumID() - 1)
+        var count = 0
+        for(raum in raumList) {
+            if(raum.getRaumID() == currGeraet.getRaumID()) {
+                spinnerRaum.setSelection(count)
+                break
+            }
+            else {
+                count++
+            }
+        }
 
         val abbrBtn = root.findViewById<Button>(R.id.geraete_edit_button_abbrechen)
         abbrBtn.setOnClickListener(this)
@@ -110,7 +118,6 @@ class GeraeteEditVerbraucherFragment(private val currGeraet:Geraete, private val
         val fragMan = parentFragmentManager
         when(v.id) {
             R.id.geraete_edit_save -> {
-                //TODO: Zwischen Haushalten unterscheiden!
                 if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeit.text.isNotEmpty()) {
 
                     val volllast:Double? = inputVolllast.text.toString().toDoubleOrNull()

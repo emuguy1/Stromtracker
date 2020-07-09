@@ -33,6 +33,11 @@ import com.example.stromtracker.database.*;
     fun getAllGeraete():LiveData<List<Geraete>> {
         return geraetelist
     }
+     fun getAllVerbraucherByHaushaltID(id:Int):LiveData<List<Geraete>> {
+         Log.d("TAGModel", id.toString())
+         return repo.getAllVerbraucherByHaushaltID(id)
+     }
+
 
      fun getAllRaumByHaushaltID(id:Int):LiveData<List<Raum>> {
          return repo.getAllRaumByHaushaltID(id)
