@@ -18,7 +18,7 @@ import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditProduzentFragm
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment
 import java.util.*
 
-class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>, private val raumListHaushalt:ArrayList<Raum>): RecyclerView.Adapter<GeraeteListAdapter.GeraeteViewHolder>() {
+class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val katList: ArrayList<Kategorie>, private val raumListHaushalt: ArrayList<Raum>): RecyclerView.Adapter<GeraeteListAdapter.GeraeteViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -37,7 +37,13 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val kat
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
         holder.mTextView.text = geraeteList[position].getName()
         holder.mVerbrauchView.text = geraeteList[position].getJahresverbrauch().toString()
-        holder.mRaumView.text = raumList[geraeteList[position].getRaumID() - 1].getName()
+        val raumID = geraeteList[position].getRaumID()
+        for(raum in raumListHaushalt) {
+            if(raum.getRaumID() == raumID) {
+                holder.mRaumView.text = raum.getName()
+                break
+            }
+        }
 
 
 

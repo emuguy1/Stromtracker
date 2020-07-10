@@ -34,7 +34,6 @@ import com.example.stromtracker.database.*;
         return geraetelist
     }
      fun getAllVerbraucherByHaushaltID(id:Int):LiveData<List<Geraete>> {
-         Log.d("TAGModel", id.toString())
          return repo.getAllVerbraucherByHaushaltID(id)
      }
 

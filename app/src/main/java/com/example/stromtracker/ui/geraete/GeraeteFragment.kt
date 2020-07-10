@@ -45,7 +45,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortRaum: Button
     private lateinit var buttonSortName: Button
     private lateinit var sharedViewModel:SharedViewModel
-    private lateinit var raumList:ArrayList<Raum>
 
 
 
@@ -71,7 +70,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         geraeteList = ArrayList()
         kategorieList = ArrayList()
-        raumList = ArrayList()
         raumListHaushalt = ArrayList()
 
        /* val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
@@ -82,7 +80,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumList, raumListHaushalt)
+        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumListHaushalt)
         recyclerView = root.findViewById<RecyclerView>(R.id.geraete_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -141,19 +139,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
-        geraeteViewModel.getAllRaeume().observe(
-            viewLifecycleOwner,
-            Observer { raum ->
-                if (raum != null) {
-                    raumList.clear()
-                    raumList.addAll(raum)
-                    viewAdapter.notifyDataSetChanged();
-
-
-
-
-                }
-            })
 
 
 
@@ -212,7 +197,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum -> {
-                var sortedRaum = geraeteList.sortedWith(compareBy{raumList[it.getRaumID() - 1].getName().toLowerCase()})
+                //TODO sortieren über Name? Problem: Gerät zu dem jeweiligen Raum matchen, eventuell for Schleife
+                var sortedRaum = geraeteList.sortedWith(compareBy{it.getRaumID()})
                 geraeteList.clear()
                 geraeteList.addAll(sortedRaum)
                 viewAdapter.notifyDataSetChanged();
