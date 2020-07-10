@@ -84,4 +84,14 @@
     <string name="raumlöschenConfirm">Sind sie sicher, dass sie diesen Raum löschen wollen?</string>
 
 
+    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh in Cent</string>
+    <string name="verbrauchsrechner_LeistungkWh">Leistung in Watt</string>
+    <string name="verbrauchsrechner_Zeit_Leistung">Zeit unter Last</string>
+    <string name="verbrauchsrechner_Zeit_Standby">StandBy Zeit</string>
+    <string name="verbrauchsrechner_StandbyLeistung">StandBy-Leistung</string>
+    <string name="verbrauchsrechner_verbrauchjahr">Verbrauch/Jahr</string>
+    <string name="verbrauchsrechner_kostenJahr">"Kosten/ Jahr "</string>
+    <string name="verbrauchsrechner_kostenproJahrergebnis">"z.B. 300€ "</string>
+
+
 </resources>
