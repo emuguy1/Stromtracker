@@ -1,6 +1,7 @@
 package com.example.stromtracker.ui.geraete
 
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -67,6 +68,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonSortRaum.setOnClickListener(this)
         buttonSortName = root.findViewById(R.id.geraete_button_sort_name)
         buttonSortName.setOnClickListener(this)
+
+
+
+
 
         geraeteList = ArrayList()
         kategorieList = ArrayList()
@@ -183,6 +188,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortVerbrauch.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortName.paintFlags = 0
                 buttonSortRaum.paintFlags = 0
+                //TODO schönere Lösung?
+                buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
+                buttonSortName.typeface = Typeface.DEFAULT_BOLD
+                buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
+
 
             }
 
@@ -194,6 +204,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortName.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
                 buttonSortRaum.paintFlags = 0
+                buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
+                buttonSortName.typeface = Typeface.DEFAULT_BOLD
+                buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
             }
 
             R.id.geraete_button_sort_raum -> {
@@ -205,6 +218,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
                 buttonSortName.paintFlags = 0
+                buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
+                buttonSortName.typeface = Typeface.DEFAULT_BOLD
+                buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
 
             }
             else -> {
