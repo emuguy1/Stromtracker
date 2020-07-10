@@ -33,5 +33,6 @@
     <dimen name="verbrauchsrechner_marginTop">20dp</dimen>
     <dimen name="verbrauchsrechner_marginLeft1">20dp</dimen>
     <dimen name="verbrauchsrechner_marginLeft2">200dp</dimen>
+    <dimen name="verbrauchsrechner_marginTopEinheiten">35dp</dimen>
 
 </resources>
