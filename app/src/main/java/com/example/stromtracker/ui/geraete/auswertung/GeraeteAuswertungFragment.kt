@@ -20,6 +20,8 @@ import com.anychart.enums.LegendLayout
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import com.google.android.material.navigation.NavigationView
@@ -31,10 +33,14 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
     private lateinit var geraeteViewModel: GeraeteViewModel
 
     private lateinit var currHaushalt: Haushalt
-    private  lateinit var geraeteList:ArrayList<Geraete>
+    private lateinit var geraeteList:ArrayList<Geraete>
+    private lateinit var kategorieList : ArrayList<Kategorie>
+    private lateinit var raumList : ArrayList<Raum>
 
     private lateinit var anyChartVerbraucher: AnyChartView
     private lateinit var anyChartProduzent : AnyChartView
+    private lateinit var anyChartKategorie : AnyChartView
+    private lateinit var anyChartRaum : AnyChartView
     private lateinit var btnBack : Button
 
     override fun onCreateView(
@@ -49,9 +55,14 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
         currHaushalt = sp.selectedItem as Haushalt
 
         geraeteList = ArrayList()
+        kategorieList = ArrayList()
+        raumList = ArrayList()
 
         anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
         anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
+        anyChartKategorie = root.findViewById(R.id.any_chart_kategorie)
+        anyChartRaum = root.findViewById(R.id.any_chart_raum)
+
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
 
@@ -73,11 +84,33 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
                     reloadCharts()
                 }
             })
+        geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
+            viewLifecycleOwner,
+            Observer { raeume ->
+                if (raeume != null) {
+                    raumList.clear()
+                    raumList.addAll(raeume)
+                    reloadCharts()
+                }
+            }
+        )
+
+        geraeteViewModel.getAllKategorie().observe(
+            viewLifecycleOwner,
+            Observer { kategorien ->
+                if(kategorien != null) {
+                    kategorieList.clear()
+                    kategorieList.addAll(kategorien)
+                    reloadKategorieChart()
+                }
+            }
+        )
     }
 
     fun reloadCharts() {
         reloadVerbrauchsChart()
         reloadProduzentChart()
+        //reloadRaumChart()
     }
 
     fun initPieChart(pie : Pie) : Pie{
@@ -110,14 +143,16 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
             data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
 
         pie.data(data)
-        pie.title("Gesamtverbrauch")
+        pie.title("Gesamtverbrauch "
+                + String.format("%.2f", verbrauchsList.sumByDouble{ geraete -> geraete.getJahresverbrauch() })
+                + " kWh")
         pie.legend().title().text("Verbraucher")
 
         anyChartVerbraucher.setChart(pie)
     }
 
     fun reloadProduzentChart() {
-        //Geräte nach Verbrauchern filtern
+        //Geräte nach Produzenten filtern
         val produzentList = ArrayList<Geraete>()
         for (geraet in geraeteList) {
             if(geraet.getJahresverbrauch() < 0)
@@ -135,10 +170,43 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
             data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()*(-1)))
 
         pie.data(data)
-        pie.title("Gesamtproduktion")
+        pie.title("Gesamtproduktion "
+                + String.format("%.2f", produzentList.sumByDouble{ geraete -> geraete.getJahresverbrauch() }*(-1))
+                + " kWh")
         pie.legend().title().text("Produzenten")
 
         anyChartProduzent.setChart(pie)
+    }
+
+
+    fun reloadKategorieChart() {
+        val data: MutableList<DataEntry> = ArrayList()
+
+        //Geräte nach Kategorie Gruppieren, dann die Summe der Jahresverbrauche berechnen
+        //TODO Test mit mehreren Kategorien und mit Produzenten (diese sollten hier nicht angezeigt werden)
+        val sortedgeraete : Map<Int, List<Geraete>> = geraeteList.groupBy(keySelector = {it.getKategorieID()})
+        for ( kat in sortedgeraete) {
+            val currGeraeteInKat = kat.value
+            var sum : Double = 0.0
+            for (geraet in currGeraeteInKat) {
+                if(geraet.getJahresverbrauch() > 0)
+                    sum += geraet.getJahresverbrauch()
+            }
+            data.add(ValueDataEntry(kategorieList[currGeraeteInKat.first().getKategorieID()-1].getName(), sum))
+        }
+
+        //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+        APIlib.getInstance().setActiveAnyChartView(anyChartKategorie)
+
+        var pie = AnyChart.pie()
+        pie = initPieChart(pie)
+
+        pie.data(data)
+
+        pie.title("Gesamtverbrauch Kategorien")
+        pie.legend().title().text("Kategorien")
+
+        anyChartKategorie.setChart(pie)
     }
 
     override fun onClick(v: View) {

@@ -56,8 +56,31 @@
                     android:id="@+id/any_chart_produzent"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/anyChart_height"
-                    android:layout_margin="8dp" />
+                    android:layout_margin="@dimen/geraet_cardview_margin" />
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/geraet_cardview_margin">
+
+                <com.anychart.AnyChartView
+                    android:id="@+id/any_chart_kategorie"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/anyChart_height"
+                    android:layout_margin="@dimen/geraet_cardview_margin" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/geraet_cardview_margin">
+
+                <com.anychart.AnyChartView
+                    android:id="@+id/any_chart_raum"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/anyChart_height"
+                    android:layout_margin="@dimen/geraet_cardview_margin" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
