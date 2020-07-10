@@ -18,11 +18,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="572dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp">
 
                 <TextView
@@ -232,7 +233,20 @@
                         android:textColor="@color/colorTextBlack"
                         android:textSize="@dimen/content_text_big" />
                 </androidx.cardview.widget.CardView>
-
+                <TextView
+                    android:id="@+id/verbrauchsrechner_Warnung"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginLeft="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_warnung"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/verbrauchsrechner_card_kostenJahr"
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>

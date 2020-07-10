@@ -8,4 +8,5 @@
     <color name="colorDarkRed">#950000</color>
     <color name="colorDarkGreen">#005E04</color>
     <color name="colorTextBlack">#000000</color>
+    <color name="text_warnung">#FF0000</color>
 </resources>

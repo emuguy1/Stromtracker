@@ -24,6 +24,7 @@ class VerbrauchsrechnerFragment : Fragment() {
 
     private lateinit var verbrauchprojahr: TextView
     private lateinit var kostenprojahr: TextView
+    private lateinit var warnungstext: TextView
 
 
     override fun onCreateView(
@@ -40,7 +41,7 @@ class VerbrauchsrechnerFragment : Fragment() {
 
         verbrauchprojahr=root.findViewById(R.id.verbrauchsrechner_erg_verbrauchJahr)
         kostenprojahr=root.findViewById(R.id.verbrauchsrechner_erg_kostenJahr)
-
+        warnungstext=root.findViewById(R.id.verbrauchsrechner_Warnung)
 
         CustomTextListener(strompreis)
         CustomTextListener(leistungsverbrauch)
@@ -60,14 +61,28 @@ class VerbrauchsrechnerFragment : Fragment() {
                 var verbrauch:Double
                 var euro:Double
                 if(neustrompreis != null && lastverbrauch != null && volllastzeit != null) {
-                    verbrauch=(((lastverbrauch * volllastzeit)/1000)*365)
-                    euro= (((lastverbrauch * volllastzeit)/1000) * neustrompreis/100*365)
-                    if (standbystromverbrauch != null && standbydauer != null ) {
-                        verbrauch+=((standbystromverbrauch*standbydauer)/1000)*365
-                        euro=verbrauch*neustrompreis/100
+
+                    verbrauch = (((lastverbrauch * volllastzeit) / 1000) * 365)
+                    euro = (((lastverbrauch * volllastzeit) / 1000) * neustrompreis / 100 * 365)
+                    if(volllastzeit> 24) {
+                        warnungstext.text=String.format("Die Zeit unter Last überschreitet 24h! Sie beträgt: %.2f h",volllastzeit)
+                    }
+                    else{
+                        warnungstext.text=null
+                    }
+                    if (standbystromverbrauch != null && standbydauer != null) {
+                        verbrauch += ((standbystromverbrauch * standbydauer) / 1000) * 365
+                        euro = verbrauch * neustrompreis / 100
+                        if((volllastzeit+standbydauer)>24) {
+                            warnungstext.text=String.format("Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt: %.2f h",(volllastzeit+standbydauer))
+                        }
+                        else{
+                            warnungstext.text=null
+                        }
                     }
                     verbrauchprojahr.text = String.format("%.2f kWh pro Jahr", verbrauch)
                     kostenprojahr.text = String.format("%.2f € pro Jahr", euro)
+
                 }
                 else {
                     verbrauchprojahr.text = null
