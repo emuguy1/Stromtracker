@@ -85,13 +85,23 @@
 
 
     <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh in Cent</string>
-    <string name="verbrauchsrechner_LeistungkWh">Leistung in Watt</string>
+    <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
     <string name="verbrauchsrechner_Zeit_Leistung">Zeit unter Last</string>
     <string name="verbrauchsrechner_Zeit_Standby">StandBy Zeit</string>
-    <string name="verbrauchsrechner_StandbyLeistung">StandBy-Leistung</string>
+    <string name="verbrauchsrechner_StandbyLeistung">StandBy-Verbrauch</string>
     <string name="verbrauchsrechner_verbrauchjahr">Verbrauch/Jahr</string>
     <string name="verbrauchsrechner_kostenJahr">"Kosten/ Jahr "</string>
-    <string name="verbrauchsrechner_kostenproJahrergebnis">"z.B. 300€ "</string>
+    <string name="verbrauchsrechner_beispiel_stromkosten">z.B. 7.6</string>
+    <string name="verbrauchsrechner_beispiel_stromverbrauch">z.B.50</string>
+    <string name="verbrauchsrechner_beispiel_vollastzeit">z.B. 4</string>
+    <string name="verbrauchsrechner_beispiel_StandByverbrauch">z.B. 0.5</string>
+    <string name="verbrauchsrechner_beispiel_StandByZeit">z.B. 20</string>
+
+
+    <string name="Einheit_kWh">kWh</string>
+    <string name="Einheit_Watt">Watt</string>
+    <string name="Einheit_Cent">Cent</string>
+    <string name="Einheit_Stunden">h</string>
 
 
 </resources>

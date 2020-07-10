@@ -65,7 +65,7 @@ class VerbrauchsrechnerFragment : Fragment() {
                     verbrauch = (((lastverbrauch * volllastzeit) / 1000) * 365)
                     euro = (((lastverbrauch * volllastzeit) / 1000) * neustrompreis / 100 * 365)
                     if(volllastzeit> 24) {
-                        warnungstext.text=String.format("Die Zeit unter Last überschreitet 24h! Sie beträgt: %.2f h",volllastzeit)
+                        warnungstext.text=String.format("Die Zeit unter Last überschreitet 24h! Sie beträgt: %.1f h",volllastzeit)
                     }
                     else{
                         warnungstext.text=null
@@ -74,7 +74,7 @@ class VerbrauchsrechnerFragment : Fragment() {
                         verbrauch += ((standbystromverbrauch * standbydauer) / 1000) * 365
                         euro = verbrauch * neustrompreis / 100
                         if((volllastzeit+standbydauer)>24) {
-                            warnungstext.text=String.format("Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt: %.2f h",(volllastzeit+standbydauer))
+                            warnungstext.text=String.format("Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt: %.1f h",(volllastzeit+standbydauer))
                         }
                         else{
                             warnungstext.text=null
