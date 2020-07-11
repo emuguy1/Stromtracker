@@ -8,6 +8,7 @@
 
     <string name="ja">ja</string>
     <string name="nein">nein</string>
+    <string name="ok">OK</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_geraete">Geräte</string>
@@ -28,7 +29,7 @@
     <string name="kategorie_new_text">Neue Kategorie erstellen</string>
     <string name="kategorie_edit_name">Name der Kategorie</string>
     <string name="kategorie_edit_icon">Icon wählen</string>
-    <string name="kategorie_edit_LöschenConfirm">Sind sie sicher, dass sie die Kategorie löschen wollen?</string>
+    <string name="kategorie_edit_LöschenConfirm">Sind Sie sicher, dass Sie die Kategorie löschen wollen?</string>
     <string name="kategorie_new_ungültiger_Wert">Bitte einen gültigen Namen eingeben</string>
 
     <string name="button_abbrechen">Abbrechen</string>
@@ -43,15 +44,15 @@
     <string name="haushaltspersonen">Anzahl Personen</string>
     <string name="haushaltdatum">Datum</string>
     <string name="haushaltzaehlerstand">Aktueller Zählerstand</string>
-    <string name="haushaltökomix">Ökomix in %</string>
+    <string name="haushaltökomix">Ökomix?</string>
     <string name="haushaltedithint_name">z.B. Haushalt</string>
     <string name="haushaltedithint_strompreis">in Cent z.B. 26,62</string>
     <string name="haushaltedithint_personen">z.B. 2</string>
     <string name="haushaltedithint_stand">in kWh</string>
     <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
-    <string name="haushaltedithint_strommix">80 für 80%</string>
-    <string name="haushaltlöschenConfirm">Sind sie sicher, dass sie den Hauhalt löschen wollen?</string>
-
+    <string name="haushaltedithint_strommix">Auswählen bei Ökomstromvertrag</string>
+    <string name="haushaltlöschenConfirm">Sind Sie sicher, dass Sie den Hauhalt löschen wollen?</string>
+    <string name="leereFelderHaushalt">Eines der folgenden Felder ist leer. Bitte füllen Sie dieses aus, bevor Sie fortfahren: Name, Personenanzahl oder Strompreis</string>
 
     <string name="amort_pv_hint_leistung">z.B. 4.5</string>
     <string name="amort_pv_hint_anschaffung">z.B. 9999</string>
@@ -83,14 +84,33 @@
 
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
-    <string name="raumlöschenConfirm">Sind sie sicher, dass sie diesen Raum löschen wollen?</string>
+    <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
 
+    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh in Cent</string>
+    <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
+    <string name="verbrauchsrechner_Zeit_Leistung">Zeit unter Last</string>
+    <string name="verbrauchsrechner_Zeit_Standby">StandBy Zeit</string>
+    <string name="verbrauchsrechner_StandbyLeistung">StandBy-Verbrauch</string>
+    <string name="verbrauchsrechner_verbrauchjahr">Verbrauch/Jahr</string>
+    <string name="verbrauchsrechner_kostenJahr">"Kosten/ Jahr "</string>
+    <string name="verbrauchsrechner_beispiel_stromkosten">z.B. 7.6</string>
+    <string name="verbrauchsrechner_beispiel_stromverbrauch">z.B.50</string>
+    <string name="verbrauchsrechner_beispiel_vollastzeit">z.B. 4</string>
+    <string name="verbrauchsrechner_beispiel_StandByverbrauch">z.B. 0.5</string>
+    <string name="verbrauchsrechner_beispiel_StandByZeit">z.B. 20</string>
+
+    //TODO Einheitliche Verwendung
     <string name="text_kWh">kWh</string>
     <string name="text_euro">€</string>
     <string name="text_cent">Cent</string>
     <string name="text_kWp">kWp</string>
     <string name="text_kWh_pro_kWp">kWh/kWp</string>
     <string name="text_prozent">%</string>
+
+    <string name="Einheit_kWh">kWh</string>
+    <string name="Einheit_Watt">Watt</string>
+    <string name="Einheit_Cent">Cent</string>
+    <string name="Einheit_Stunden">h</string>
 
     <string name="amort_text_beschreibung">Bestimmung der Amortisationszeit beim Verlgeich zweier Geräte</string>
     <string name="amort_text_verbrauch_akt">Verbrauch des aktuellen Gerätes pro Jahr</string>

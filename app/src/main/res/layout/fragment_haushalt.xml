@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.haushalt.HaushaltFragment">
+    tools:context=".ui.haushalt.HaushaltFragment"
+    android:background="@color/colorBackgroundGrey">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHaushalt"

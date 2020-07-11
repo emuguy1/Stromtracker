@@ -79,10 +79,10 @@ class KategorienNewFragment(private val iconArray : Array<Int>) : Fragment(), Vi
             }
             R.id.kategorie_new_button_speichern -> {
 
-                if(inputName.text.toString() != "") {
+                if(inputName.text.isNotEmpty()) {
                     //Zuerst Daten in DB speichern
                     //Neue Kategorie anlegen, die gleich Insertet wird
-                    val newKategorie:Kategorie = Kategorie(inputName.text.toString(), selectedIcon)
+                    val newKategorie = Kategorie(inputName.text.toString(), selectedIcon)
                     //In DB speichern
                     katViewModel.insertKategorie(newKategorie)
                     //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
