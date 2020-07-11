@@ -33,7 +33,7 @@ class AmortisationsrechnerPVFragment : Fragment() {
 
         editLeistung = root.findViewById(R.id.amortPV_edit_leistung)
         editAK = root.findViewById(R.id.amortPV_edit_anschaffung)
-        editErtrag = root.findViewById(R.id.amortPV_edit_kWh_pro_kWp)
+        editErtrag = root.findViewById(R.id.amortPV_edit_ertrag)
         editVerguetung = root.findViewById(R.id.amortPV_edit_vergütung)
         editEigenverbrauch = root.findViewById(R.id.amortPV_edit_eigenverbrauch)
         editPreisKwh = root.findViewById(R.id.amortPV_edit_preis_kwh)
@@ -42,8 +42,8 @@ class AmortisationsrechnerPVFragment : Fragment() {
         outJahresertragEuro= root.findViewById(R.id.amortPV_text_JahresertragEuro_zahl)
         outAmort = root.findViewById(R.id.amortPV_text_amortdauer_zahl)
 
-        editLeistung = addCustomTextChangedListener(editLeistung)
-        editAK = addCustomTextChangedListener(editAK)
+        addCustomTextChangedListener(editLeistung)
+        addCustomTextChangedListener(editAK)
         addCustomTextChangedListener(editErtrag)
         addCustomTextChangedListener(editVerguetung)
         addCustomTextChangedListener(editEigenverbrauch)

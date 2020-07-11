@@ -29,10 +29,16 @@
     <dimen name="recycler_kat_icon">40dp</dimen>
 
     <dimen name="amortPV_margin_top">16dp</dimen>
-    <dimen name="amortPV_editNumbers">100dp</dimen>
+    <dimen name="amortPV_edit_numbers">80dp</dimen>
+    <dimen name="amortPV_edit_measure_margin_top">12dp</dimen>
+
     <dimen name="verbrauchsrechner_marginTop">20dp</dimen>
     <dimen name="verbrauchsrechner_marginLeft1">20dp</dimen>
     <dimen name="verbrauchsrechner_marginLeft2">200dp</dimen>
     <dimen name="verbrauchsrechner_marginTopEinheiten">35dp</dimen>
+
+    <dimen name="amort_margin_top">16dp</dimen>
+    <dimen name="amort_edit_measure_margin_top">12dp</dimen>
+    <dimen name="amort_edit_numbers">80dp</dimen>
 
 </resources>
