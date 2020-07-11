@@ -81,7 +81,8 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
                 if (geraete != null) {
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
-                    reloadCharts()
+                    reloadVerbrauchsChart()
+                    reloadProduzentChart()
                 }
             })
         geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
@@ -90,7 +91,7 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
                 if (raeume != null) {
                     raumList.clear()
                     raumList.addAll(raeume)
-                    reloadCharts()
+                    reloadRaumChart()
                 }
             }
         )
@@ -105,12 +106,6 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
                 }
             }
         )
-    }
-
-    fun reloadCharts() {
-        reloadVerbrauchsChart()
-        reloadProduzentChart()
-        //reloadRaumChart()
     }
 
     fun initPieChart(pie : Pie) : Pie{
@@ -192,7 +187,8 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
                 if(geraet.getJahresverbrauch() > 0)
                     sum += geraet.getJahresverbrauch()
             }
-            data.add(ValueDataEntry(kategorieList[currGeraeteInKat.first().getKategorieID()-1].getName(), sum))
+            if(sum > 0)
+                data.add(ValueDataEntry(kategorieList[currGeraeteInKat.first().getKategorieID()-1].getName(), sum))
         }
 
         //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
@@ -207,6 +203,36 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
         pie.legend().title().text("Kategorien")
 
         anyChartKategorie.setChart(pie)
+    }
+
+    fun reloadRaumChart() {
+        val data: MutableList<DataEntry> = ArrayList()
+
+        //Geräte nach Raum Gruppieren, dann die Summe der Jahresverbrauche berechnen
+        val sortedgeraete : Map<Int, List<Geraete>> = geraeteList.groupBy(keySelector = {it.getRaumID()})
+        for ( raum in sortedgeraete) {
+            val currGeraeteInRaum = raum.value
+            var sum : Double = 0.0
+            for (geraet in currGeraeteInRaum) {
+                if(geraet.getJahresverbrauch() > 0)
+                    sum += geraet.getJahresverbrauch()
+            }
+            if(sum > 0)
+                data.add(ValueDataEntry(raumList[currGeraeteInRaum.first().getRaumID()-1].getName(), sum))
+        }
+
+        //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+        APIlib.getInstance().setActiveAnyChartView(anyChartRaum)
+
+        var pie = AnyChart.pie()
+        pie = initPieChart(pie)
+
+        pie.data(data)
+
+        pie.title("Gesamtverbrauch Räume")
+        pie.legend().title().text("Räume")
+
+        anyChartRaum.setChart(pie)
     }
 
     override fun onClick(v: View) {
