@@ -66,4 +66,7 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 
+    //Floatin Action Menu
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
 }

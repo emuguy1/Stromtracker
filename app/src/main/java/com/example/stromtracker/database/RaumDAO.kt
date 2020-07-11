@@ -10,6 +10,9 @@ import androidx.room.*
     @Query("SELECT * FROM raum WHERE raumID IN (:raumID)")
     fun loadAllByIds(raumID: IntArray): LiveData<List<Raum>>
 
+    @Query("SELECT * FROM raum WHERE haushaltID = :haushaltID")
+    fun loadAllByHaushaltID(haushaltID:Int): LiveData<List<Raum>>
+
     @Query("SELECT * FROM raum WHERE name LIKE :name LIMIT 1")
     fun findByName(name: String): Raum
 
@@ -24,4 +27,6 @@ import androidx.room.*
 
     @Update
     fun updateRaum(raum: Raum)
+
+
 }

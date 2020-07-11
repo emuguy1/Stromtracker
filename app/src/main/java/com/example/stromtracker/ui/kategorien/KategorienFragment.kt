@@ -48,6 +48,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
         //RecyclerView mit geholten Daten aus DB initialisieren
         viewAdapter = KategorienListAdapter(myKategorien, iconArray)
+
         viewManager = LinearLayoutManager(this.context)
         recyclerView = root.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
             setHasFixedSize(true)
@@ -57,7 +58,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
         //Buttons finden und Click Listener zuweisen
         buttonAdd = root.findViewById(R.id.kategorie_button_add)
-        buttonAdd.setOnClickListener(this)
+        buttonAdd.setOnClickListener(this)    
         return root
     }
 

@@ -80,8 +80,39 @@
     <string name="amortPV_text_eigenverbrauch">Eigenverbrauch in %</string>
     <string name="amortPV_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
     <string name="amortPV_text_preis_kwh">Aktueller Preis für eine kWh in Cent</string>
- 
-    <string name="geraete_hint"> Gerät </string>
+
+
+    <string name="amort_pv_hint_leistung">z.B. 4.5</string>
+    <string name="amort_pv_hint_anschaffung">z.B. 9999</string>
+    <string name="amort_pv_hint_jahresertragkWh_zahl">z.B. 4500</string>
+    <string name="amort_pv_hint_amortdauer_zahl">X Jahre und X Tage bis zur Amortisation.</string>
+    <string name="amort_pv_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
+    <string name="amort_pv_hint_jahresertragEuro_zahl">z.B. 406.35</string>
+    <string name="amort_pv_hint_kwh_pro_kwp">z.B. 1000</string>
+    <string name="amort_pv_hint_verguetung">z. B. 9.03</string>
+    <string name="amort_pv_hint_eigenverbrauch">z. B. 30%</string>
+    <string name="amort_pv_hint_preis_kwh">z. B. 26.40</string>
+    <string name="amort_pv_edit_kwh_pro_kwp">1000</string>
+    <string name="amort_pv_edit_verguetung">9.03</string>
+    <string name="amort_pv_edit_eigenverbrauch">30</string>
+    <string name="amort_pv_edit_preis_kwh">26.4</string>
+    <string name="amort_pv_text_beschreibung">Bestimmung der Amortisationszeit für eine Photovoltaik-Anlage</string>
+    <string name="amort_pv_text_leistung">Leistung der PV-Anlage</string>
+    <string name="amort_pv_text_anschaffung">Anschaffungskosten</string>
+    <string name="amort_pv_text_jahresertragkWh">Jahresertrag in kWh</string>
+    <string name="amort_pv_text_amortdauer">Amortisation</string>
+    <string name="amort_pv_text_jahresertragEuro">Jahresertrag in Euro</string>
+    <string name="amort_pv_text_kwh_pro_kwp">Ertrag pro kWp in kWh</string>
+    <string name="amort_pv_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro kWp (Nennleistung) im Jahr produziert.
+        Im Süden Deutschlands beträgt dieser ca. 1020 und im Norden ca. 900 kWh/kWp)</string>
+    <string name="amort_pv_text_verguetung">Vergütung pro kWh</string>
+    <string name="amort_pv_text_eigenverbrauch">Eigenverbrauch</string>
+    <string name="amort_pv_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
+    <string name="amort_pv_text_preis_kwh">Aktueller Preis für eine kWh</string>
+
+    <string name="geraete_hint">Gerät</string>
+    <string name="geraete_text_verbraucher">Energieverbraucher</string>
+    <string name="geraete_text_produzent">Energieproduzenten</string>
     <string name="geraet_new_TextName">Name</string>
     <string name="geraet_new_TextRaum">Raum</string>
     <string name="geraet_new_TextKategorie">Kategorie</string>
@@ -89,14 +120,63 @@
     <string name="geraet_new_TextZeit">Betriebszeit in h/Tag</string>
     <string name="geraet_new_TextStandBy">StandBy-Verbrauch in Watt</string>
     <string name="geraet_new_TextUrlaubsmodus">Urlaubsmodus</string>
-    <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben</string>
+    <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben.</string>
     <string name="geraet_new_name">Name</string>
-    <string name="geraet_edit_confirm">Sind sie sicher, dass Sie das Gerät löschen wollen?</string>
+    <string name="geraet_verbrauch">Verbrauch</string>
+    <string name="geraet_produktion">Produktion</string>
+    <string name="geraete_edit_vollastHint">z.B 180.0</string>
+    <string name="geraete_edit_zeitHint">z.B 8.0</string>
+    <string name="geraete_edit_standbyHint">z.B 10.5</string>
+    <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
+
+    <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr in kWh</string>
+    <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie in Prozent</string>
+
+
 
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
     <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
 
 
+    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh in Cent</string>
+    <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
+    <string name="verbrauchsrechner_Zeit_Leistung">Zeit unter Last</string>
+    <string name="verbrauchsrechner_Zeit_Standby">StandBy Zeit</string>
+    <string name="verbrauchsrechner_StandbyLeistung">StandBy-Verbrauch</string>
+    <string name="verbrauchsrechner_verbrauchjahr">Verbrauch/Jahr</string>
+    <string name="verbrauchsrechner_kostenJahr">"Kosten/ Jahr "</string>
+    <string name="verbrauchsrechner_beispiel_stromkosten">z.B. 7.6</string>
+    <string name="verbrauchsrechner_beispiel_stromverbrauch">z.B.50</string>
+    <string name="verbrauchsrechner_beispiel_vollastzeit">z.B. 4</string>
+    <string name="verbrauchsrechner_beispiel_StandByverbrauch">z.B. 0.5</string>
+    <string name="verbrauchsrechner_beispiel_StandByZeit">z.B. 20</string>
+
+    //TODO Einheitliche Verwendung
+    <string name="text_kWh">kWh</string>
+    <string name="text_euro">€</string>
+    <string name="text_cent">Cent</string>
+    <string name="text_kWp">kWp</string>
+    <string name="text_kWh_pro_kWp">kWh/kWp</string>
+    <string name="text_prozent">%</string>
+
+    <string name="Einheit_kWh">kWh</string>
+    <string name="Einheit_Watt">Watt</string>
+    <string name="Einheit_Cent">Cent</string>
+    <string name="Einheit_Stunden">h</string>
+
+    <string name="amort_text_beschreibung">Bestimmung der Amortisationszeit beim Verlgeich zweier Geräte</string>
+    <string name="amort_text_verbrauch_akt">Verbrauch des aktuellen Gerätes pro Jahr</string>
+    <string name="amort_text_verbrauch_neu">Verbrauch des neuen Gerätes pro Jahr</string>
+    <string name="amort_text_anschaffung_neu">Anschaffungskosten des neuen Gerätes</string>
+    <string name="amort_text_strompreis">Aktueller Strompreis pro kWh</string>
+    <string name="amort_edit_strompreis">26.4</string>
+    <string name="amort_text_kosten_akt">Aktuelle Kosten pro Jahr</string>
+    <string name="amort_text_kosten_neu">Neue Kosten pro Jahr</string>
+    <string name="amort_text_amortdauer">Amortisation</string>
+    <string name="amort_text_hinweis_berechnung">Diese Berechnung ist vereinfacht. Für genauere Bestimmung der Amortisationsdauer müssen Kosten für
+        Austausch und Montage, Lebensdauer, Zinsen und der Wiederverkaufswert des aktuellen Gerätes berücksichtigt werden.</string>
+    <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
+    <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
 
 </resources>
