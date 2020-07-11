@@ -89,7 +89,6 @@ class GeraeteFragment : Fragment() {
                     Log.d("TAGGeraete", geraete.toString())
 
                     if (geraete.isEmpty()) {
-                        geraeteViewModel.insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false))
                         geraeteViewModel.insertKategorie(Kategorie("test", 1))
                         geraeteViewModel.insertRaum(Raum("test"))
 
