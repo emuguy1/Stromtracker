@@ -12,7 +12,6 @@ import com.example.stromtracker.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-
 class AmortisationsrechnerPVFragment : Fragment() {
 
     private lateinit var editLeistung: EditText
@@ -59,46 +58,50 @@ class AmortisationsrechnerPVFragment : Fragment() {
     fun addCustomTextChangedListener(edit:EditText) : EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                val AK:Int? = editAK.text.toString().toIntOrNull()
+                val ak:Int? = editAK.text.toString().toIntOrNull()
                 val leistung:Double? = editLeistung.text.toString().toDoubleOrNull()
                 val ertrag:Int? = editErtrag.text.toString().toIntOrNull()
-                val vergütung:Double? = editVerguetung.text.toString().toDoubleOrNull()
+                val verguetung:Double? = editVerguetung.text.toString().toDoubleOrNull()
                 val eigenverbrauch:Int? = editEigenverbrauch.text.toString().toIntOrNull()
                 val preisKwh:Double? = editPreisKwh.text.toString().toDoubleOrNull()
 
-                var outStr : String
-                if(leistung != null && ertrag != null && vergütung != null) {
-                    outStr = (leistung * ertrag).toInt().toString() + " kWh"
-                    outJahresertragkWh.text = outStr
-
-                    if (AK != null && eigenverbrauch != null && preisKwh != null) {
-                        val JEeuro : Double = ((leistung * ertrag * vergütung/100 * (1-eigenverbrauch/100)) + (leistung * ertrag * preisKwh/100 * eigenverbrauch/100))
-                        outStr = String.format("%.2f", JEeuro)+" €"
-                        outJahresertragEuro.text = outStr
-
-                        val amortDouble = (AK / JEeuro)
-                        //Das Jahr wird immer auf ganze Zahlen abgerundet
-                        val df = DecimalFormat("#")
-                        df.roundingMode = RoundingMode.DOWN
-                        outStr = df.format(amortDouble) + " Jahre und " + String.format("%.1f", (amortDouble.rem(1)*365)) + " Tage bis zur Amortisation"
-                        outAmortdauer.text = outStr
-                        outStr = "Danach: " + JEeuro.toString() + "€ Ersparnis im Jahr."
-                        outAmortersparnis.text = outStr
-                    }
-                    else {
-                        outJahresertragEuro.text = null
-                        outAmortdauer.text = null
-                    }
-                }
-                else {
-                    outAmortdauer.text = null
-                    outJahresertragkWh.text = null
-                    outJahresertragEuro.text = null
-                }
+                updateOutputs(ak, leistung, ertrag, verguetung, eigenverbrauch, preisKwh)
             }
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
         })
         return edit
+    }
+
+    fun updateOutputs(ak : Int?, leistung : Double?, ertrag : Int?, verguetung : Double?, eigenverbrauch : Int?, preisKwh : Double?) {
+        var outStr : String
+        if(leistung != null && ertrag != null && verguetung != null) {
+            outStr = (leistung * ertrag).toInt().toString() + " kWh"
+            outJahresertragkWh.text = outStr
+
+            if (ak != null && eigenverbrauch != null && preisKwh != null) {
+                val JEeuro : Double = ((leistung * ertrag * verguetung/100 * (1-eigenverbrauch/100)) + (leistung * ertrag * preisKwh/100 * eigenverbrauch/100))
+                outStr = String.format("%.2f", JEeuro)+" €"
+                outJahresertragEuro.text = outStr
+
+                val amortDouble = (ak / JEeuro)
+                //Das Jahr wird immer auf ganze Zahlen abgerundet
+                val df = DecimalFormat("#")
+                df.roundingMode = RoundingMode.DOWN
+                outStr = df.format(amortDouble) + " Jahre und " + String.format("%.1f", (amortDouble.rem(1)*365)) + " Tage bis zur Amortisation"
+                outAmortdauer.text = outStr
+                outStr = "Danach: " + JEeuro.toString() + "€ Ersparnis im Jahr."
+                outAmortersparnis.text = outStr
+            }
+            else {
+                outJahresertragEuro.text = null
+                outAmortdauer.text = null
+            }
+        }
+        else {
+            outAmortdauer.text = null
+            outJahresertragkWh.text = null
+            outJahresertragEuro.text = null
+        }
     }
 }
