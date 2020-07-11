@@ -16,7 +16,10 @@ import androidx.fragment.app.findFragment
 import com.example.stromtracker.R
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
+import kotlin.math.roundToLong
 
 class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val katList: ArrayList<Kategorie>, private val raumListHaushalt: ArrayList<Raum>): RecyclerView.Adapter<GeraeteListAdapter.GeraeteViewHolder>() {
     override fun onCreateViewHolder(
@@ -36,7 +39,7 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val kat
 
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
         holder.mTextView.text = geraeteList[position].getName()
-        holder.mVerbrauchView.text = geraeteList[position].getJahresverbrauch().toString()
+        holder.mVerbrauchView.text = String.format("%.2f", geraeteList[position].getJahresverbrauch())
         val raumID = geraeteList[position].getRaumID()
         for(raum in raumListHaushalt) {
             if(raum.getRaumID() == raumID) {
@@ -44,7 +47,16 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val kat
                 break
             }
         }
-
+        //TODO: Nach merge Icon-Array aus Main Activity holen, val mainAct = requireActivity() as MainActivity; val iconArray : Array<Int> = mainAct.getIconArray()
+        //Implementierung hier vorerst mit einem Standard-Icon
+        val iconArray: Array<Int> = arrayOf(R.drawable.ic_refrigerator)
+        val katID = geraeteList[position].getKategorieID()
+        for(kategorie in katList) {
+            if(kategorie.getKategorieID() == katID) {
+                holder.mKatView.setImageResource(iconArray[0]) //TODO iconArray[kategorie.getIcon]
+                break
+            }
+        }
 
 
     }
@@ -54,11 +66,13 @@ class GeraeteListAdapter(private val geraeteList: List<Geraete>, private val kat
         val mCardView:CardView
         val mVerbrauchView:TextView
         val mRaumView:TextView
+        val mKatView:ImageView
         init {
             mTextView = mItemView.findViewById(R.id.geraete_recycler_text)
             mVerbrauchView = mItemView.findViewById(R.id.geraete_recycler_verbrauch)
             mCardView = mItemView.findViewById(R.id.geraete_recycler_card)
             mRaumView = mItemView.findViewById(R.id.geraete_recycler_raum)
+            mKatView = mItemView.findViewById(R.id.geraete_recycler_image)
             mCardView.setOnClickListener(this)
         }
 
