@@ -30,16 +30,16 @@ class HaushaltErstellenFragment: Fragment() {
         val root = inflater.inflate(R.layout.fragment_haushalterstellen, container, false)
 
         //Die einzelnen Felder finden:
-        val haushaltsnameneditfeld=root.findViewById<EditText>(R.id.editTextHaushaltsname)
-        val strompreiseditfeld=root.findViewById<EditText>(R.id.haushalteditTextStrompreis)
-        val personeneditfeld=root.findViewById<EditText>(R.id.haushalteditTextPersonen)
-        val zaehlerstandeditfeld=root.findViewById<EditText>(R.id.haushalteditTextZählerstand)
-        val datumeditfeld=root.findViewById<EditText>(R.id.haushalteditTextdatum)
-        val oekomixeditfeld=root.findViewById<CheckBox>(R.id.haushalteditTextÖkostrommix)
+        val haushaltsnameneditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_erstellen_name)
+        val strompreiseditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_erstellen_strompreis)
+        val personeneditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_erstellen_anzahl_personen)
+        val zaehlerstandeditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_erstellen_zaehlerstand)
+        val datumeditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_erstellen_datum)
+        val oekomixeditfeld=root.findViewById<CheckBox>(R.id.check_box_haushalt_erstellen_oekostrom)
 
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
-        val savebutton: View = root.findViewById(R.id.haushalt_button_speichern)
+        val savebutton: View = root.findViewById(R.id.button_haushalt_erstellen_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
@@ -83,7 +83,7 @@ class HaushaltErstellenFragment: Fragment() {
 
         //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
         //finde den abbrechen button
-        val abortbutton: View = root.findViewById(R.id.haushalt_button_abbrechen)
+        val abortbutton: View = root.findViewById(R.id.button_haushalt_erstellen_abbrechen)
         //Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
