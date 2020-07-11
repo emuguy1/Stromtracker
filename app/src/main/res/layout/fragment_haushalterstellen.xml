@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
-    tools:context=".ui.haushalt.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment">
+    tools:context=".ui.haushalt.haushaltErstellen.HaushaltErstellenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/textViewHaushaltsname"
+            android:id="@+id/text_view_haushalt_erstellen_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -23,7 +23,7 @@
 
 
         <EditText
-            android:id="@+id/editTextHaushaltsname"
+            android:id="@+id/edit_text_haushalt_erstellen_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -35,10 +35,10 @@
             android:hint="@string/haushaltedithint_name"
             android:autofillHints="@string/haushaltedithint_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewHaushaltsname" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_name" />
 
         <TextView
-            android:id="@+id/haushalttextViewStrompreis"
+            android:id="@+id/text_view_haushalt_erstellen_strompreis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -46,10 +46,10 @@
             android:layout_marginTop="35dp"
             android:text="@string/haushaltstrompreis"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextHaushaltsname" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_name" />
 
         <EditText
-            android:id="@+id/haushalteditTextStrompreis"
+            android:id="@+id/edit_text_haushalt_erstellen_strompreis"
             android:layout_width="160dp"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
@@ -60,10 +60,10 @@
             android:autofillHints="@string/haushaltedithint_strompreis"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalttextViewStrompreis" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_strompreis" />
 
         <TextView
-            android:id="@+id/haushalttextViewPersonenErstellen"
+            android:id="@+id/text_view_haushalt_erstellen_anzahl_personen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -71,10 +71,10 @@
             android:layout_marginTop="35dp"
             android:text="@string/haushaltspersonen"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalteditTextStrompreis" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_strompreis" />
 
         <EditText
-            android:id="@+id/haushalteditTextPersonen"
+            android:id="@+id/edit_text_haushalt_erstellen_anzahl_personen"
             android:layout_width="161dp"
             android:layout_height="46dp"
             android:layout_marginStart="20dp"
@@ -85,10 +85,10 @@
             android:hint="@string/haushaltedithint_personen"
             android:autofillHints="@string/haushaltedithint_personen"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalttextViewPersonenErstellen" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_anzahl_personen" />
 
         <TextView
-            android:id="@+id/haushalttextZählerstand"
+            android:id="@+id/text_view_haushalt_erstellen_zaehlerstand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -96,10 +96,10 @@
             android:layout_marginTop="35dp"
             android:text="@string/haushaltzaehlerstand"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalteditTextPersonen" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_anzahl_personen" />
 
         <EditText
-            android:id="@+id/haushalteditTextZählerstand"
+            android:id="@+id/edit_text_haushalt_erstellen_zaehlerstand"
             android:layout_width="167dp"
             android:layout_height="41dp"
             android:layout_marginStart="20dp"
@@ -110,9 +110,9 @@
             android:autofillHints="@string/haushaltedithint_stand"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalttextZählerstand" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_zaehlerstand" />
         <TextView
-            android:id="@+id/haushalttextdatum"
+            android:id="@+id/text_view_haushalt_erstellen_datum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -120,10 +120,10 @@
             android:layout_marginTop="35dp"
             android:text="@string/haushaltdatum"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalteditTextZählerstand" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_zaehlerstand" />
 
         <EditText
-            android:id="@+id/haushalteditTextdatum"
+            android:id="@+id/edit_text_haushalt_erstellen_datum"
             android:layout_width="169dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
@@ -134,10 +134,10 @@
             android:autofillHints="@string/haushaltedithint_datum"
             android:inputType="date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalttextdatum" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_datum" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/text_view_haushalt_erstellen_oekostrom"
             android:layout_width="81dp"
             android:layout_height="29dp"
             android:layout_marginStart="20dp"
@@ -145,10 +145,10 @@
             android:layout_marginTop="32dp"
             android:text="@string/haushaltökomix"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haushalteditTextdatum" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_datum" />
 
         <CheckBox
-            android:id="@+id/haushalteditTextÖkostrommix"
+            android:id="@+id/check_box_haushalt_erstellen_oekostrom"
             android:layout_width="190dp"
             android:layout_height="40dp"
             android:layout_marginStart="12dp"
@@ -156,11 +156,11 @@
             android:layout_marginTop="20dp"
             android:autofillHints="@string/haushaltedithint_strommix"
             android:hint="@string/haushaltedithint_strommix"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/haushalteditTextdatum" />
+            app:layout_constraintStart_toEndOf="@+id/text_view_haushalt_erstellen_oekostrom"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_datum" />
 
         <Button
-            android:id="@+id/haushalt_button_speichern"
+            android:id="@+id/button_haushalt_erstellen_speichern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
@@ -172,10 +172,10 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_oekostrom" />
 
         <Button
-            android:id="@+id/haushalt_button_abbrechen"
+            android:id="@+id/button_haushalt_erstellen_abbrechen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -187,7 +187,7 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_oekostrom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
