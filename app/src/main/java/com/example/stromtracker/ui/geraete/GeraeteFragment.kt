@@ -125,14 +125,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
-                    if (geraeteList.isEmpty()) {
-                        geraeteViewModel.insertKategorie(Kategorie("test", 1))
-                        geraeteViewModel.insertRaum(Raum("test"))
 
-                        geraeteViewModel.insertGeraet(Geraete("test", 1, 1, 1, 10.0, 0.0, 0.0, false, null))
-
-
-                    }
 
 
 
@@ -156,19 +149,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 if (raeume != null) {
                     raumList.clear()
                     raumList.addAll(raeume)
-                    if (raeume.isEmpty()) {
-                        //TODO entfernen
-
-                        geraeteViewModel.insertRaum(Raum("test", 1))
-                        geraeteViewModel.insertRaum(Raum("zet", 1))
-                        geraeteViewModel.insertRaum(Raum("tret", 2))
-
-
-                        geraeteViewModel.insertKategorie(Kategorie("test", null))
-
-
-                    }
-
                 }
             })
 
