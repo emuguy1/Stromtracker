@@ -47,7 +47,7 @@
 
                 <EditText
                     android:id="@+id/amort_edit_verbrauch_akt"
-                    android:layout_width="@dimen/amort_editNumbers"
+                    android:layout_width="@dimen/amort_edit_numbers"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
@@ -76,7 +76,7 @@
 
                 <EditText
                     android:id="@+id/amort_edit_verbrauch_neu"
-                    android:layout_width="@dimen/amort_editNumbers"
+                    android:layout_width="@dimen/amort_edit_numbers"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
@@ -105,7 +105,7 @@
 
                 <EditText
                     android:id="@+id/amort_edit_anschaffung"
-                    android:layout_width="@dimen/amort_editNumbers"
+                    android:layout_width="@dimen/amort_edit_numbers"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
@@ -144,7 +144,7 @@
 
                 <EditText
                     android:id="@+id/amort_edit_strompreis"
-                    android:layout_width="@dimen/amort_editNumbers"
+                    android:layout_width="@dimen/amort_edit_numbers"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:text="@string/amort_edit_strompreis"
