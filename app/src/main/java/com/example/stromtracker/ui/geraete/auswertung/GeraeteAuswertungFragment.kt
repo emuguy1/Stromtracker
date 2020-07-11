@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.anychart.APIlib
 import com.anychart.AnyChart
@@ -27,15 +26,13 @@ import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import com.google.android.material.navigation.NavigationView
 
 
-class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
+class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete>, private val produzentList : ArrayList<Geraete>, private val kategorieList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>)
+    : Fragment() , View.OnClickListener{
 
     private lateinit var root:View
     private lateinit var geraeteViewModel: GeraeteViewModel
 
     private lateinit var currHaushalt: Haushalt
-    private lateinit var geraeteList:ArrayList<Geraete>
-    private lateinit var kategorieList : ArrayList<Kategorie>
-    private lateinit var raumList : ArrayList<Raum>
 
     private lateinit var anyChartVerbraucher: AnyChartView
     private lateinit var anyChartProduzent : AnyChartView
@@ -54,14 +51,15 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
         val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
         currHaushalt = sp.selectedItem as Haushalt
 
-        geraeteList = ArrayList()
-        kategorieList = ArrayList()
-        raumList = ArrayList()
-
         anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
         anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
         anyChartKategorie = root.findViewById(R.id.any_chart_kategorie)
         anyChartRaum = root.findViewById(R.id.any_chart_raum)
+
+        reloadVerbrauchsChart()
+        reloadProduzentChart()
+        reloadKategorieChart()
+        reloadRaumChart()
 
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
@@ -73,39 +71,6 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
-
-        //Alle Geräte des aktuellen Haushalts aus DB holen
-        geraeteViewModel.getAllGeraeteByHaushaltID(currHaushalt.getHaushaltID()).observe(
-            viewLifecycleOwner,
-            Observer { geraete ->
-                if (geraete != null) {
-                    geraeteList.clear()
-                    geraeteList.addAll(geraete)
-                    reloadVerbrauchsChart()
-                    reloadProduzentChart()
-                }
-            })
-        geraeteViewModel.getAllRaumByHaushaltID(currHaushalt.getHaushaltID()).observe(
-            viewLifecycleOwner,
-            Observer { raeume ->
-                if (raeume != null) {
-                    raumList.clear()
-                    raumList.addAll(raeume)
-                    reloadRaumChart()
-                }
-            }
-        )
-
-        geraeteViewModel.getAllKategorie().observe(
-            viewLifecycleOwner,
-            Observer { kategorien ->
-                if(kategorien != null) {
-                    kategorieList.clear()
-                    kategorieList.addAll(kategorien)
-                    reloadKategorieChart()
-                }
-            }
-        )
     }
 
     fun initPieChart(pie : Pie) : Pie{
@@ -120,12 +85,10 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
     }
 
     fun reloadVerbrauchsChart() {
-        //Geräte nach Verbrauchern filtern
-        val verbrauchsList = ArrayList<Geraete>()
-        for (geraet in geraeteList) {
-            if(geraet.getJahresverbrauch() > 0)
-                verbrauchsList.add(geraet)
-        }
+        //Geräte nach Verbrauchern filtern & data vorbereiten
+        val data: MutableList<DataEntry> = ArrayList()
+        for (geraet in verbraucherList)
+            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
 
         //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
         APIlib.getInstance().setActiveAnyChartView(anyChartVerbraucher)
@@ -133,13 +96,9 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
         var pie = AnyChart.pie()
         pie = initPieChart(pie)
 
-        val data: MutableList<DataEntry> = ArrayList()
-        for (geraet in verbrauchsList)
-            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
-
         pie.data(data)
         pie.title("Gesamtverbrauch "
-                + String.format("%.2f", verbrauchsList.sumByDouble{ geraete -> geraete.getJahresverbrauch() })
+                + String.format("%.2f", verbraucherList.sumByDouble{ geraete -> geraete.getJahresverbrauch() })
                 + " kWh")
         pie.legend().title().text("Verbraucher")
 
@@ -147,22 +106,16 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
     }
 
     fun reloadProduzentChart() {
-        //Geräte nach Produzenten filtern
-        val produzentList = ArrayList<Geraete>()
-        for (geraet in geraeteList) {
-            if(geraet.getJahresverbrauch() < 0)
-                produzentList.add(geraet)
-        }
+        //Geräte nach Produzenten filtern & data vorbereiten
+        val data: MutableList<DataEntry> = ArrayList()
+        for (geraet in produzentList)
+            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()*(-1)))
 
         //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
         APIlib.getInstance().setActiveAnyChartView(anyChartProduzent)
 
         var pie = AnyChart.pie()
         pie = initPieChart(pie)
-
-        val data: MutableList<DataEntry> = ArrayList()
-        for (geraet in produzentList)
-            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()*(-1)))
 
         pie.data(data)
         pie.title("Gesamtproduktion "
@@ -179,13 +132,12 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
 
         //Geräte nach Kategorie Gruppieren, dann die Summe der Jahresverbrauche berechnen
         //TODO Test mit mehreren Kategorien und mit Produzenten (diese sollten hier nicht angezeigt werden)
-        val sortedgeraete : Map<Int, List<Geraete>> = geraeteList.groupBy(keySelector = {it.getKategorieID()})
+        val sortedgeraete : Map<Int, List<Geraete>> = verbraucherList.groupBy(keySelector = {it.getKategorieID()})
         for ( kat in sortedgeraete) {
             val currGeraeteInKat = kat.value
             var sum : Double = 0.0
             for (geraet in currGeraeteInKat) {
-                if(geraet.getJahresverbrauch() > 0)
-                    sum += geraet.getJahresverbrauch()
+                sum += geraet.getJahresverbrauch()
             }
             if(sum > 0)
                 data.add(ValueDataEntry(kategorieList[currGeraeteInKat.first().getKategorieID()-1].getName(), sum))
@@ -209,13 +161,12 @@ class GeraeteAuswertungFragment : Fragment() , View.OnClickListener{
         val data: MutableList<DataEntry> = ArrayList()
 
         //Geräte nach Raum Gruppieren, dann die Summe der Jahresverbrauche berechnen
-        val sortedgeraete : Map<Int, List<Geraete>> = geraeteList.groupBy(keySelector = {it.getRaumID()})
+        val sortedgeraete : Map<Int, List<Geraete>> = verbraucherList.groupBy(keySelector = {it.getRaumID()})
         for ( raum in sortedgeraete) {
             val currGeraeteInRaum = raum.value
             var sum : Double = 0.0
             for (geraet in currGeraeteInRaum) {
-                if(geraet.getJahresverbrauch() > 0)
-                    sum += geraet.getJahresverbrauch()
+                sum += geraet.getJahresverbrauch()
             }
             if(sum > 0)
                 data.add(ValueDataEntry(raumList[currGeraeteInRaum.first().getRaumID()-1].getName(), sum))

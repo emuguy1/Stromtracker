@@ -29,7 +29,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
 
-    private  lateinit var geraeteList:ArrayList<Geraete>
+    private  lateinit var verbraucherList:ArrayList<Geraete>
     private lateinit var produzentList:ArrayList<Geraete>
     private lateinit var recyclerView: RecyclerView
     private lateinit var produzentRecyclerView: RecyclerView
@@ -81,7 +81,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonZuAuswertung = root.findViewById(R.id.geraete_button_auswertung)
         buttonZuAuswertung.setOnClickListener(this)
 
-        geraeteList = ArrayList()
+        verbraucherList = ArrayList()
         produzentList = ArrayList()
         kategorieList = ArrayList()
         raumList = ArrayList()
@@ -94,7 +94,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumList)
+        viewAdapter = GeraeteListAdapter(verbraucherList, kategorieList, raumList)
         recyclerView = root.findViewById<RecyclerView>(R.id.geraete_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -123,8 +123,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
-                    geraeteList.clear()
-                    geraeteList.addAll(geraete)
+                    verbraucherList.clear()
+                    verbraucherList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
 
                 }
@@ -194,9 +194,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
             R.id.geraete_button_sort_verbrauch -> {
-                var sortedVerbrauch = geraeteList.sortedWith(compareByDescending {it.getJahresverbrauch()})
-                geraeteList.clear()
-                geraeteList.addAll(sortedVerbrauch)
+                var sortedVerbrauch = verbraucherList.sortedWith(compareByDescending {it.getJahresverbrauch()})
+                verbraucherList.clear()
+                verbraucherList.addAll(sortedVerbrauch)
                 viewAdapter.notifyDataSetChanged();
                 buttonSortVerbrauch.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortName.paintFlags = 0
@@ -205,9 +205,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_name -> {
-                var sortedName = geraeteList.sortedWith(compareBy{it.getName().toLowerCase()})
-                geraeteList.clear()
-                geraeteList.addAll(sortedName)
+                var sortedName = verbraucherList.sortedWith(compareBy{it.getName().toLowerCase()})
+                verbraucherList.clear()
+                verbraucherList.addAll(sortedName)
                 viewAdapter.notifyDataSetChanged();
                 buttonSortName.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
@@ -215,10 +215,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum -> {
-                var sortedRaum = geraeteList.sortedWith(compareBy{raumList[it.getRaumID() - 1].getName().toLowerCase()})
+                var sortedRaum = verbraucherList.sortedWith(compareBy{raumList[it.getRaumID() - 1].getName().toLowerCase()})
                 Log.d("TAGSort", sortedRaum.toString())
-                geraeteList.clear()
-                geraeteList.addAll(sortedRaum)
+                verbraucherList.clear()
+                verbraucherList.addAll(sortedRaum)
                 viewAdapter.notifyDataSetChanged();
                 buttonSortRaum.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
@@ -261,7 +261,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_auswertung -> {
-                val frag = GeraeteAuswertungFragment()
+                val frag = GeraeteAuswertungFragment(verbraucherList, produzentList, kategorieList, raumList)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
