@@ -27,13 +27,10 @@ import com.google.android.material.navigation.NavigationView
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
-<<<<<<< HEAD
-    private lateinit var geraeteList: ArrayList<Geraete>
-=======
 
     private  lateinit var geraeteList:ArrayList<Geraete>
     private lateinit var produzentList:ArrayList<Geraete>
->>>>>>> 47fae29ea5688febfbbad261f732f3cf8ebd6317
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var produzentRecyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -267,3 +264,4 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         }
     }
 }
+

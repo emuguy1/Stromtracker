@@ -12,16 +12,10 @@ import com.example.stromtracker.database.*;
 
 class GeraeteViewModel(application: Application) : AndroidViewModel(application) {
 
-<<<<<<< HEAD
-    var repo: DataRepository = DataRepository(application)
-    var geraetelist: LiveData<List<Geraete>> = repo.getAllGeraete()
-    var verbraucherList: LiveData<List<Geraete>> = repo.getAllVerbraucher()
-=======
     var repo:DataRepository = DataRepository(application)
     var geraetelist:LiveData<List<Geraete>> = repo.getAllGeraete()
      var verbraucherList:LiveData<List<Geraete>> = repo.getAllVerbraucher()
      var produzentenList:LiveData<List<Geraete>> = repo.getAllProduzenten()
->>>>>>> 47fae29ea5688febfbbad261f732f3cf8ebd6317
 
     var haushaltlist: LiveData<List<Haushalt>> = repo.getAllHaushalt()
     var kategorieList: LiveData<List<Kategorie>> = repo.getAllKategorie()
@@ -42,17 +36,14 @@ class GeraeteViewModel(application: Application) : AndroidViewModel(application)
         return repo.getAllRaumByHaushaltID(id)
     }
 
-<<<<<<< HEAD
     fun getAllVerbraucher(): LiveData<List<Geraete>> {
         return verbraucherList
     }
-=======
      fun getAllProduzenten():LiveData<List<Geraete>> {
          return produzentenList
      }
 
 
->>>>>>> 47fae29ea5688febfbbad261f732f3cf8ebd6317
 
 
     fun getAllKategorie(): LiveData<List<Kategorie>> {

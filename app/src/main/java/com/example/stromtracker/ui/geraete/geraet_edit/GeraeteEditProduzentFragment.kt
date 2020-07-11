@@ -83,7 +83,7 @@ class GeraeteEditProduzentFragment (private val currGeraet:Geraete, private val 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
-<<<<<<< HEAD
+
            /* R.id.geraete_edit_RaumSpinner -> {
 =======
             R.id.geraete_edit_produzent_RaumSpinner -> {
