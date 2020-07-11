@@ -2,7 +2,8 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fb7c6408a51d0c05742a94cd166afd4b",
+    "identityHash": "5f754c8fa9657e9062022eddcb3f0afb",
+
     "entities": [
       {
         "tableName": "Geraete",
@@ -207,7 +208,7 @@
       },
       {
         "tableName": "Kategorie",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `icon` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kategorieID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `icon` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "kategorieID",
@@ -225,7 +226,7 @@
             "fieldPath": "icon",
             "columnName": "icon",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -294,7 +295,9 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fb7c6408a51d0c05742a94cd166afd4b')"
+
     ]
   }
 }

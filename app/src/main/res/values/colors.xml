@@ -9,9 +9,12 @@
     <color name="colorDarkGreen">#005E04</color>
     <color name="colorTextBlack">#000000</color>
 
+
     //Farbgebung für das Floating Action Button Menu
     <color name="half_black">#808080</color>
     <color name="white">#fafafa</color>
     <color name="white_pressed">#f1f1f1</color>
     <color name="black_semi_transparent">#B2000000</color>
+    <color name="text_warnung">#FF0000</color>
+
 </resources>

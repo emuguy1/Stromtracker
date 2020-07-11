@@ -11,17 +11,16 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
-import com.example.stromtracker.ui.haushalt.HaushaltFragment
+import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.KategorienFragment
+import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
-import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
-import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewViewModel
 import java.util.*
 
-class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
-    private lateinit var katViewModel: KategorienNewViewModel
-    var currText = curr.text
-    lateinit var currName : EditText
+class KategorienEditFragment(private var currKategorie: Kategorie, private val iconArray : Array<Int>) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener{
+    private lateinit var katViewModel: KategorienViewModel
+    private lateinit var currNameEdit : EditText
+    private var selectedIcon : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,22 +29,24 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
     ): View? {
 
         katViewModel =
-            ViewModelProviders.of(this).get(KategorienNewViewModel::class.java)
+            ViewModelProviders.of(this).get(KategorienViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
-        currName = root.findViewById<EditText>(R.id.kategorie_edit_editName)
-        currName.setText(currText)
+        currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_editName)
+        currNameEdit.setText(currKategorie.getName())
 
-        val icons = arrayOf<Int>(R.drawable.ic_monitor, R.drawable.ic_refrigerator)
         val spinner: Spinner = root.findViewById(R.id.kategorie_edit_icon_spinner)
 
         val adapter =
             SimpleImageArrayAdapter(
                 requireContext(),
-                icons
+                iconArray
             )
         adapter.setDropDownViewResource(R.layout.fragment_kategorien_spinner_row)
         spinner.adapter=adapter
+        selectedIcon = currKategorie.getIcon()
+        spinner.setSelection(selectedIcon)
+        spinner.onItemSelectedListener = this
 
         val abbrBtn = root.findViewById<Button>(R.id.kategorie_edit_button_abbrechen)
         abbrBtn.setOnClickListener(this)
@@ -55,6 +56,16 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
         saveBtn.setOnClickListener(this)
 
         return root
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        selectedIcon = pos
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
     }
 
     override fun onClick(v : View) {
@@ -75,7 +86,7 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
                         //Daten werden aus der Datenbank gelöscht
-                        //TODO: Daten aus Datenbank löschen
+                        katViewModel.deleteKategorie(currKategorie)
                         //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
                         //neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = KategorienFragment()
@@ -92,10 +103,20 @@ class KategorienEditFragment(curr :TextView) : Fragment(), View.OnClickListener{
                 confirmDeleteDialog.show()
             }
             R.id.kategorie_edit_button_speichern -> {
-                //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
-                val frag = KategorienFragment()
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                if(currNameEdit.text.isNotEmpty()) {
+                    currKategorie.setName(currNameEdit.text.toString())
+                    currKategorie.setIcon(selectedIcon)
+                    //Daten werden in der DB gespeichert
+                    katViewModel.updateKategorie(currKategorie)
+                    //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                    val frag = KategorienFragment()
+                    //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                        .addToBackStack(null).commit()
+                }
+                else {
+                    Toast.makeText(this.context, R.string.kategorie_new_ungültiger_Wert, Toast.LENGTH_SHORT).show()
+                }
             }
             else -> {
                 Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()

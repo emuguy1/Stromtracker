@@ -120,9 +120,21 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
+
+            
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
+                    if (geraeteList.isEmpty()) {
+                        geraeteViewModel.insertKategorie(Kategorie("test", 1))
+                        geraeteViewModel.insertRaum(Raum("test"))
+
+                        geraeteViewModel.insertGeraet(Geraete("test", 1, 1, 1, 10.0, 0.0, 0.0, false, null))
+
+
+                    }
+
+
 
                 }
             })
