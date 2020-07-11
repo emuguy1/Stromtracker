@@ -1,33 +1,23 @@
 package com.example.stromtracker.ui.haushalt
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
-import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.haushalt.haushaltErstellen.HaushaltErstellenFragment
-import com.example.stromtracker.ui.kategorien.KategorienViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
 
 //deklariert Haushaltfragment als Unterklasse von Fragment
 class HaushaltFragment: Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
     private lateinit var datain: ArrayList<Haushalt>
     private lateinit var viewAdapter : RecyclerView.Adapter<*>
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -43,14 +33,12 @@ class HaushaltFragment: Fragment() {
                     }
                     datain.clear()
                     datain.addAll(haushalte)
-
                     viewAdapter.notifyDataSetChanged()
                 }
             }
         )
     }
     private fun initHaushalt () {
-
         var haushalt : Haushalt = Haushalt("Haushalt 1",12.5, 5, null, null, true )
         haushaltViewModel.insertHaushalt(haushalt)
         haushalt = Haushalt("Haushalt 2",12.5, 1, null, null, false )
@@ -64,6 +52,7 @@ class HaushaltFragment: Fragment() {
         haushaltViewModel =
             ViewModelProviders.of(this).get(HaushaltViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_haushalt, container, false)//false weil es nur teil des root ist, aber nicht selber die root
+
         //Initalisieren der Datenliste und des ViewAdapters
         datain =ArrayList()
         viewAdapter=ListAdapterHaushalt(datain)
@@ -87,13 +76,8 @@ class HaushaltFragment: Fragment() {
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                 .addToBackStack(null).commit();
                 //und anschließend noch ein commit()
-
             }
-
         }
         return root
     }
-
 }
-
-
