@@ -75,6 +75,7 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
 
     fun initPieChart(pie : Pie) : Pie{
 
+        pie.labels().position("outside")
         pie.legend().title().enabled(true)
         pie.legend().title().padding(0.0, 0.0, 10.0, 0.0)
         pie.legend()
