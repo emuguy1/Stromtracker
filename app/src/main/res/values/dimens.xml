@@ -12,6 +12,21 @@
     <dimen name="content_text_normal">16sp</dimen>
     <dimen name="content_text_small">14sp</dimen>
     <dimen name="content_text_smaller">12sp</dimen>
+
+
+
+    <dimen name="spinner_geraet_dropdown_width">64dp</dimen>
+    <dimen name="spinner_geraet_width">96dp</dimen>
+    <dimen name="spinner_geraet_height">18dp</dimen>
+    <dimen name="spinner_geraet_margin_bottom">8dp</dimen>
+    <dimen name="geraet_sort_cardview_margin">8dp</dimen>
+    <dimen name="geraet_button_margin">8dp</dimen>
+    <dimen name="geraet_cardview_margin">8dp</dimen>
+    <dimen name="geraet_edit_textview_margin">24dp</dimen>
+    <dimen name="geraet_edit_editText_margin">8dp</dimen>
+
+
+
     <dimen name="content_text_smallest">10sp</dimen>
   
     <dimen name="recyclerview_marginLeft">8dp</dimen>
@@ -42,3 +57,4 @@
     <dimen name="amort_edit_numbers">80dp</dimen>
 
 </resources>
+

@@ -82,9 +82,34 @@
     <string name="amort_pv_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
     <string name="amort_pv_text_preis_kwh">Aktueller Preis für eine kWh</string>
 
+    <string name="geraete_hint">Gerät</string>
+    <string name="geraete_text_verbraucher">Energieverbraucher</string>
+    <string name="geraete_text_produzent">Energieproduzenten</string>
+    <string name="geraet_new_TextName">Name</string>
+    <string name="geraet_new_TextRaum">Raum</string>
+    <string name="geraet_new_TextKategorie">Kategorie</string>
+    <string name="geraet_new_TextVolllast">Vollast-Verbrauch in Watt</string>
+    <string name="geraet_new_TextZeit">Betriebszeit in h/Tag</string>
+    <string name="geraet_new_TextStandBy">StandBy-Verbrauch in Watt</string>
+    <string name="geraet_new_TextUrlaubsmodus">Urlaubsmodus</string>
+    <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben.</string>
+    <string name="geraet_new_name">Name</string>
+    <string name="geraet_verbrauch">Verbrauch</string>
+    <string name="geraet_produktion">Produktion</string>
+    <string name="geraete_edit_vollastHint">z.B 180.0</string>
+    <string name="geraete_edit_zeitHint">z.B 8.0</string>
+    <string name="geraete_edit_standbyHint">z.B 10.5</string>
+    <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
+
+    <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr in kWh</string>
+    <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie in Prozent</string>
+
+
+
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
     <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
+
 
     <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh in Cent</string>
     <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
