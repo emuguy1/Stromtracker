@@ -16,6 +16,7 @@ import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
 import com.anychart.enums.Align
 import com.anychart.enums.LegendLayout
+import com.anychart.enums.Orientation
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
@@ -75,13 +76,14 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
 
     fun initPieChart(pie : Pie) : Pie{
 
-        pie.labels().position("outside")
+        //pie.labels().position("outside")
         pie.legend().title().enabled(true)
-        pie.legend().title().padding(0.0, 0.0, 10.0, 0.0)
+        pie.legend().title().padding(10.0, 0.0, 0.0, 0.0)
         pie.legend()
-            .position("center-bottom")
-            .itemsLayout(LegendLayout.HORIZONTAL)
-            .align(Align.CENTER)
+            .position(Orientation.RIGHT)
+            .itemsLayout(LegendLayout.VERTICAL)
+            .align(Align.TOP)
+
         return pie
     }
 
