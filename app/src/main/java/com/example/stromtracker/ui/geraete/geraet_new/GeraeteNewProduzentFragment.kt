@@ -75,12 +75,14 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
-            R.id.geraete_new_RaumSpinner -> {
+            /*R.id.geraete_new_RaumSpinner -> {
                 selectedRoom = pos
             }
             R.id.geraete_new_KategorieSpinner -> {
                 selectedKat = pos
             }
+
+             */
             else -> {
 
             }
@@ -140,5 +142,3 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
 
     }
 }
-
-

@@ -83,12 +83,18 @@ class GeraeteEditProduzentFragment (private val currGeraet:Geraete, private val 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
+<<<<<<< HEAD
+           /* R.id.geraete_edit_RaumSpinner -> {
+=======
             R.id.geraete_edit_produzent_RaumSpinner -> {
+>>>>>>> 47fae29ea5688febfbbad261f732f3cf8ebd6317
                 selectedRoom = pos
             }
             R.id.geraete_edit_produzent_KategorieSpinner -> {
                 selectedKat = pos
             }
+
+            */
             else -> {
 
             }
