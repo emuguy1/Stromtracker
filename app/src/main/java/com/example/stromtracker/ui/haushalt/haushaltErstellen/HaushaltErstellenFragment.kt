@@ -1,6 +1,7 @@
 package com.example.stromtracker.ui.haushalt.haushaltErstellen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import java.text.SimpleDateFormat
@@ -66,6 +68,19 @@ class HaushaltErstellenFragment: Fragment() {
                     }
                     //Haushalt in Room Datenbank speichern
                     haushaltViewModel.insertHaushalt(newHaushalt)
+
+                    //Haushaltid holen und standardräume einfügen
+                    //val haushaltID=haushaltViewModel.insertHaushalt(newHaushalt)
+                    //Log.d("HaushaltId", haushaltID.toString())
+                    //var tempraum= Raum("Wohnzimmer",haushaltID)
+                    //haushaltViewModel.insertRaum(tempraum)
+                    //tempraum= Raum("Küche",haushaltID)
+                    //haushaltViewModel.insertRaum(tempraum)
+                    //tempraum= Raum("Schlafzimmer",haushaltID)
+                    //haushaltViewModel.insertRaum(tempraum)
+                    //tempraum= Raum("Sonstige",haushaltID)
+                    //haushaltViewModel.insertRaum(tempraum)
+
                     //neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = HaushaltFragment()
                     //Fragment Manager aus Main Activity holen

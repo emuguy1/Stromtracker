@@ -28,7 +28,7 @@
 
 
     <dimen name="content_text_smallest">10sp</dimen>
-  
+
     <dimen name="recyclerview_marginLeft">8dp</dimen>
     <dimen name="recyclerview_marginRight">8dp</dimen>
     <dimen name="recyclerview_marginTop">8dp</dimen>

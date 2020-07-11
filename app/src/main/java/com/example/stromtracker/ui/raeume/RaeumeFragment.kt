@@ -1,35 +1,75 @@
 package com.example.stromtracker.ui.raeume
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import com.example.stromtracker.ui.raeume.raeumeErstellen.RaeumeErstellenFragment
+import com.google.android.material.navigation.NavigationView
 
 
 //deklariert Raeumefragment als Unterklasse von Fragment
 class RaeumeFragment: Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
+    private lateinit var datain: ArrayList<Raum>
+    private lateinit var viewAdapter : RecyclerView.Adapter<*>
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        //View Model zuweisen, benötigt für DB Zugriff
+        raeumeViewModel = ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
+        raeumeViewModel.getAllRaeume().observe(
+            viewLifecycleOwner,
+            //TODO: Nur Räume die im eigenen Haushalt sind dürfen angezeigt werden
+            Observer { raeume ->
+                if (raeume != null) {
+                    if(raeume.isEmpty()) {
+                        //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
+                        initRaum()
+                    }
+                    datain.clear()
+                    datain.addAll(raeume)
+
+                    viewAdapter.notifyDataSetChanged()
+                }
+            }
+        )
+    }
+    private fun initRaum () {
+        var raum: Raum = Raum("Wohnzimmer",1)
+        raeumeViewModel.insertRaeume(raum)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        raeumeViewModel =
-            ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_raeume, container, false)//false weil es nur teil des root ist, aber nicht selber die root
 
+
+
+
+        datain=ArrayList()
         //Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
         val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewRaeume)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.adapter = ListAdapterraeume()
+        viewAdapter=ListAdapterraeume(datain)
+        recyclerView.adapter = viewAdapter
 
         //Floating Action Button zum erstellen neuer Raeume
         //Floating actionbutton finden
