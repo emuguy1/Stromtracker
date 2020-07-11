@@ -34,17 +34,17 @@ class AmortisationsrechnerPVFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_amortisationsrechnerpv, container, false)
 
-        editLeistung = root.findViewById(R.id.amortPV_edit_leistung)
-        editAK = root.findViewById(R.id.amortPV_edit_anschaffung)
-        editErtrag = root.findViewById(R.id.amortPV_edit_ertrag)
-        editVerguetung = root.findViewById(R.id.amortPV_edit_vergütung)
-        editEigenverbrauch = root.findViewById(R.id.amortPV_edit_eigenverbrauch)
-        editPreisKwh = root.findViewById(R.id.amortPV_edit_preis_kwh)
+        editLeistung = root.findViewById(R.id.amort_pv_edit_leistung)
+        editAK = root.findViewById(R.id.amort_pv_edit_anschaffung)
+        editErtrag = root.findViewById(R.id.amort_pv_edit_ertrag)
+        editVerguetung = root.findViewById(R.id.amort_pv_edit_vergütung)
+        editEigenverbrauch = root.findViewById(R.id.amort_pv_edit_eigenverbrauch)
+        editPreisKwh = root.findViewById(R.id.amort_pv_edit_preis_kwh)
 
-        outJahresertragkWh = root.findViewById(R.id.amortPV_text_jahresertragkWh_zahl)
-        outJahresertragEuro= root.findViewById(R.id.amortPV_text_JahresertragEuro_zahl)
-        outAmortdauer = root.findViewById(R.id.amortPV_text_amortdauer_zahl)
-        outAmortersparnis = root.findViewById(R.id.amortPV_text_amort_ersparnis)
+        outJahresertragkWh = root.findViewById(R.id.amort_pv_text_jahresertragkWh_zahl)
+        outJahresertragEuro= root.findViewById(R.id.amort_pv_text_JahresertragEuro_zahl)
+        outAmortdauer = root.findViewById(R.id.amort_pv_text_amortdauer_zahl)
+        outAmortersparnis = root.findViewById(R.id.amort_pv_text_amort_ersparnis)
 
         addCustomTextChangedListener(editLeistung)
         addCustomTextChangedListener(editAK)
