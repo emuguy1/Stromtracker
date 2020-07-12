@@ -15,7 +15,7 @@ import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.getbase.floatingactionbutton.AddFloatingActionButton
 import java.util.*
 
 import kotlin.collections.ArrayList
@@ -28,7 +28,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var buttonAdd: FloatingActionButton
+    private lateinit var buttonAdd: AddFloatingActionButton
     private lateinit var root:View
     private lateinit var iconArray: Array<Int>
 

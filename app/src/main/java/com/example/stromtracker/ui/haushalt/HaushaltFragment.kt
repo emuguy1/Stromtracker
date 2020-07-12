@@ -64,7 +64,7 @@ class HaushaltFragment: Fragment() {
 
         //Floating Action Button zum erstellen neuer Haushalte
         //Floating actionbutton finden
-        val fab: View = root.findViewById(R.id.fab)
+        val fab: View = root.findViewById(R.id.haushalt_fab)
         //Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {

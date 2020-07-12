@@ -13,20 +13,16 @@
         android:layout_height="match_parent"
         tools:context=".ui.raeume.RaeumeFragment"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <com.getbase.floatingactionbutton.AddFloatingActionButton
+        android:id="@+id/raeume_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:contentDescription="@string/addButton"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/colorWhite"
+        app:fab_colorNormal="@color/white"
+        app:fab_colorPressed="@color/white_pressed"
+        app:fab_plusIconColor="@color/half_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:context=".ui.raeume.RaeumeFragment" />
+        tools:context=".ui.raeume.RaeumeFragment"/>
 
 
 
