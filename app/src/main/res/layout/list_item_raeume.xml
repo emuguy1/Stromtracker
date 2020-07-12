@@ -8,7 +8,7 @@
     android:background="@color/colorBackgroundGrey">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/raeume_recycler_card"
+        android:id="@+id/recycler_card_raeume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/recyclerview_marginLeft"
@@ -31,7 +31,7 @@
             android:background="@color/colorWhite">
 
             <TextView
-                android:id="@+id/textview_raeume"
+                android:id="@+id/text_view_raeume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

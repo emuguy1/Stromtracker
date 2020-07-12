@@ -31,15 +31,15 @@ class VerbrauchsrechnerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_verbrauchsrechner, container, false)
-        strompreis=root.findViewById(R.id.verbrauchsrechner_Strompreispkwh_input)
-        leistungsverbrauch=root.findViewById(R.id.verbrauchsrechner_Leistungkwh_input)
-        standbyverbrauch=root.findViewById(R.id.verbrauchsrechner_StandByLeistungpkwh_input)
-        standbyzeit=root.findViewById(R.id.verbrauchsrechner_StandByLeistungZeitpkwh_input)
-        lastzeit=root.findViewById(R.id.verbrauchsrechner_Leistungzeitpkwh_input)
+        strompreis=root.findViewById(R.id.edit_text_verbrauchsrechner_strompreis_kwh_input)
+        leistungsverbrauch=root.findViewById(R.id.edit_text_verbrauchsrechner_leistung_kwh_input)
+        standbyverbrauch=root.findViewById(R.id.edit_text_verbrauchsrechner_stand_by_leistung_kwh_input)
+        standbyzeit=root.findViewById(R.id.edit_text_verbrauchsrechner_stand_by_leistung_zeit_kwh_input)
+        lastzeit=root.findViewById(R.id.edit_text_verbrauchsrechner_leistung_zeit_kwh_input)
 
-        verbrauchprojahr=root.findViewById(R.id.verbrauchsrechner_erg_verbrauchJahr)
-        kostenprojahr=root.findViewById(R.id.verbrauchsrechner_erg_kostenJahr)
-        warnungstext=root.findViewById(R.id.verbrauchsrechner_Warnung)
+        verbrauchprojahr=root.findViewById(R.id.text_view_verbrauchsrechner_erg_verbrauch_jahr)
+        kostenprojahr=root.findViewById(R.id.text_view_verbrauchsrechner_erg_kosten_jahr)
+        warnungstext=root.findViewById(R.id.text_view_verbrauchsrechner_warnung)
 
         CustomTextListener(strompreis)
         CustomTextListener(leistungsverbrauch)
