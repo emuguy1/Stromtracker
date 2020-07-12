@@ -64,6 +64,17 @@
                 android:layout_margin="@dimen/geraet_cardview_margin">
 
                 <com.anychart.AnyChartView
+                    android:id="@+id/any_chart_verbr_minus_prod"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/anyChart_height" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/geraet_cardview_margin">
+
+                <com.anychart.AnyChartView
                     android:id="@+id/any_chart_produzent"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/anyChart_height"

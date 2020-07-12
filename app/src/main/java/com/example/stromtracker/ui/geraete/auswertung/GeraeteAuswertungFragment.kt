@@ -14,6 +14,7 @@ import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
+import com.anychart.charts.Waterfall
 import com.anychart.enums.Align
 import com.anychart.enums.LegendLayout
 import com.anychart.enums.Orientation
@@ -38,6 +39,7 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
 
     private lateinit var anyChartVerbraucher: AnyChartView
     private lateinit var anyChartProduziertVerbrauch : AnyChartView
+    private lateinit var anyChartVerbrMinusProd : AnyChartView
     private lateinit var anyChartProduzent : AnyChartView
     private lateinit var anyChartKategorie : AnyChartView
     private lateinit var anyChartRaum : AnyChartView
@@ -56,12 +58,14 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
 
         anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
         anyChartProduziertVerbrauch = root.findViewById(R.id.any_chart_produziert_verbrauch)
+        anyChartVerbrMinusProd = root.findViewById(R.id.any_chart_verbr_minus_prod)
         anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
         anyChartKategorie = root.findViewById(R.id.any_chart_kategorie)
         anyChartRaum = root.findViewById(R.id.any_chart_raum)
 
         reloadVerbrauchsChart()
         reloadProduziertVerbrauchChart()
+        reloadVerbrMinusProdChart()
         reloadProduzentChart()
         reloadKategorieChart()
         reloadRaumChart()
@@ -79,8 +83,6 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
     }
 
     fun initPieChart(pie : Pie) : Pie{
-
-        //pie.labels().position("outside")
         pie.legend().title().enabled(true)
         pie.legend().title().padding(10.0, 0.0, 0.0, 0.0)
         pie.legend()
@@ -91,9 +93,30 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
         return pie
     }
 
+    fun initWaterfallChart(wat : Waterfall) : Waterfall {
+        wat.yAxis(0).labels().format("{%Value}{scale:(1)(1)|(kWh)}")
+        wat.labels().enabled(true)
+
+        wat.labels().format(
+            "function() {\n" +
+                    "      if (this['isTotal']) {\n" +
+                    "        return anychart.format.number(this.absolute, {\n" +
+                    "          scale: true\n" +
+                    "        })\n" +
+                    "      }\n" +
+                    "\n" +
+                    "      return anychart.format.number(this.value, {\n" +
+                    "        scale: true\n" +
+                    "      })\n" +
+                    "    }")
+
+        return wat
+    }
+
     fun reloadVerbrauchsChart() {
         //Geräte nach Verbrauchern filtern & data vorbereiten
         val data: MutableList<DataEntry> = ArrayList()
+        data.add(ValueDataEntry("Start", 0))
         for (geraet in verbraucherList)
             data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
 
@@ -129,6 +152,28 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
         pie.legend().title().text("Produzenten")
 
         anyChartProduziertVerbrauch.setChart(pie)
+    }
+
+    fun reloadVerbrMinusProdChart() {
+        val data: MutableList<DataEntry> = ArrayList()
+        for(geraet in verbraucherList)
+            data.add((ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch())))
+        for(geraet in produzentList)
+            data.add(ValueDataEntry(geraet.getName(), getProdVerbrauch(geraet)*(-1)))
+        APIlib.getInstance().setActiveAnyChartView(anyChartVerbrMinusProd)
+
+        var wat = AnyChart.waterfall()
+        wat = initWaterfallChart(wat)
+
+        val end = DataEntry()
+        end.setValue("x", "End")
+        end.setValue("isTotal", true)
+        data.add(end)
+        wat.data(data)
+        wat.title("Verbrauch - Produktion")
+        wat.legend().title().text("Produzenten")
+
+        anyChartVerbrMinusProd.setChart(wat)
     }
 
     fun getProdVerbrauch (geraet : Geraete) : Double {
