@@ -82,6 +82,11 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
         geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
     }
 
+    fun getProdVerbrauch (geraet : Geraete) : Double {
+        return geraet.getJahresverbrauch().withSign(1)*geraet.getEigenverbrauch()!! / 100
+    }
+
+
     fun initPieChart(pie : Pie) : Pie{
         pie.legend().title().enabled(true)
         pie.legend().title().padding(10.0, 0.0, 0.0, 0.0)
@@ -91,26 +96,6 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
             .align(Align.TOP)
 
         return pie
-    }
-
-    fun initWaterfallChart(wat : Waterfall) : Waterfall {
-        wat.yAxis(0).labels().format("{%Value}{scale:(1)(1)|(kWh)}")
-        wat.labels().enabled(true)
-
-        wat.labels().format(
-            "function() {\n" +
-                    "      if (this['isTotal']) {\n" +
-                    "        return anychart.format.number(this.absolute, {\n" +
-                    "          scale: true\n" +
-                    "        })\n" +
-                    "      }\n" +
-                    "\n" +
-                    "      return anychart.format.number(this.value, {\n" +
-                    "        scale: true\n" +
-                    "      })\n" +
-                    "    }")
-
-        return wat
     }
 
     fun reloadVerbrauchsChart() {
@@ -156,28 +141,26 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
 
     fun reloadVerbrMinusProdChart() {
         val data: MutableList<DataEntry> = ArrayList()
-        for(geraet in verbraucherList)
-            data.add((ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch())))
-        for(geraet in produzentList)
-            data.add(ValueDataEntry(geraet.getName(), getProdVerbrauch(geraet)*(-1)))
+        var tempSum = verbraucherList.sumByDouble{ geraete -> geraete.getJahresverbrauch() }
+        data.add(ValueDataEntry("Verbraucher", tempSum))
+
+        tempSum = produzentList.sumByDouble{ geraete -> getProdVerbrauch(geraete) }.withSign(-1)
+        data.add(ValueDataEntry("Produzenten", tempSum))
+
         APIlib.getInstance().setActiveAnyChartView(anyChartVerbrMinusProd)
 
         var wat = AnyChart.waterfall()
-        wat = initWaterfallChart(wat)
+        wat.yAxis(0).labels().format("{%Value}{scale:(1)(1)|(kWh)}")
+        wat.labels().enabled(true)
 
         val end = DataEntry()
-        end.setValue("x", "End")
+        end.setValue("x", "Ergebnis")
         end.setValue("isTotal", true)
         data.add(end)
         wat.data(data)
         wat.title("Verbrauch - Produktion")
-        wat.legend().title().text("Produzenten")
 
         anyChartVerbrMinusProd.setChart(wat)
-    }
-
-    fun getProdVerbrauch (geraet : Geraete) : Double {
-        return geraet.getJahresverbrauch().withSign(1)*geraet.getEigenverbrauch()!! / 100
     }
 
     fun reloadProduzentChart() {
