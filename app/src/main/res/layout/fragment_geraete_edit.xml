@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
         <TextView
             android:id="@+id/geraete_edit_text_name"
             android:layout_width="wrap_content"
@@ -204,7 +202,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/geraete_checkbox"
             />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

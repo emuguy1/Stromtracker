@@ -5,18 +5,20 @@ import com.example.stromtracker.database.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import com.example.stromtracker.R
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment
 import java.util.*
+import kotlin.math.withSign
 
 class GeraeteListAdapter(
     private val geraeteList: List<Geraete>,
     private val katList: ArrayList<Kategorie>,
     private val raumListHaushalt: ArrayList<Raum>
+
 ) : RecyclerView.Adapter<GeraeteListAdapter.GeraeteViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,6 +32,7 @@ class GeraeteListAdapter(
     override fun getItemCount(): Int {
         return geraeteList.size
     }
+
 
 
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {

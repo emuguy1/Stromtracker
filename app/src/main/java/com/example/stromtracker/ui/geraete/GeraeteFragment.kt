@@ -27,19 +27,32 @@ import com.getbase.floatingactionbutton.FloatingActionButton
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
-    private lateinit var geraeteList: ArrayList<Geraete>
+    private lateinit var geraeteList:ArrayList<Geraete>
+    private lateinit var produzentList:ArrayList<Geraete>
+
     private lateinit var recyclerView: RecyclerView
+    private lateinit var produzentRecyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var produzentViewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var produzentViewManager: RecyclerView.LayoutManager
+    
     private lateinit var buttonAddVerbraucher: FloatingActionButton
     private lateinit var buttonAddProduzent: FloatingActionButton
     private lateinit var root: View
     private lateinit var kategorieList: ArrayList<Kategorie>
+
     private lateinit var raumListHaushalt: ArrayList<Raum>
     private lateinit var buttonSortVerbrauch: Button
     private lateinit var buttonSortRaum: Button
     private lateinit var buttonSortName: Button
     private lateinit var sharedViewModel: SharedViewModel
+
+    private lateinit var buttonSortProduktion_prod : Button
+    private lateinit var buttonSortRaum_prod : Button
+    private lateinit var buttonSortName_prod : Button
+
+
 
 
     override fun onCreateView(
@@ -60,7 +73,15 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonSortName = root.findViewById(R.id.geraete_button_sort_name)
         buttonSortName.setOnClickListener(this)
 
+        buttonSortProduktion_prod = root.findViewById(R.id.geraete_button_sort_produktion_prod)
+        buttonSortProduktion_prod.setOnClickListener(this)
+        buttonSortRaum_prod = root.findViewById(R.id.geraete_button_sort_raum_prd)
+        buttonSortRaum_prod.setOnClickListener(this)
+        buttonSortName_prod = root.findViewById(R.id.geraete_button_sort_name_prod)
+        buttonSortName_prod.setOnClickListener(this)
+
         geraeteList = ArrayList()
+        produzentList = ArrayList()
         kategorieList = ArrayList()
         raumListHaushalt = ArrayList()
 
@@ -70,6 +91,14 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
+        }
+
+        produzentViewManager = LinearLayoutManager(this.context)
+        produzentViewAdapter = GeraeteListAdapter(produzentList, kategorieList, raumList)
+        produzentRecyclerView = root.findViewById<RecyclerView>(R.id.produzent_recycler_view).apply {
+            setHasFixedSize(true)
+            layoutManager = produzentViewManager
+            adapter = produzentViewAdapter
         }
         return root
     }
@@ -89,11 +118,14 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
+
+            
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
                 }
             })
+      
         val raumDataHaushalt: LiveData<List<Raum>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
                 (geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID()))
@@ -108,6 +140,16 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
+        geraeteViewModel.getAllProduzenten().observe(
+            viewLifecycleOwner,
+            Observer { produzenten ->
+                if(produzenten != null) {
+                    produzentList.clear()
+                    produzentList.addAll(produzenten)
+                    produzentViewAdapter.notifyDataSetChanged()
+                }
+            }
+        )
         geraeteViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorie ->
@@ -117,6 +159,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     viewAdapter.notifyDataSetChanged();
                 }
             })
+
     }
 
     override fun onClick(v: View) {
@@ -162,8 +205,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum -> {
+
                 //TODO sortieren über Name? Problem: Gerät zu dem jeweiligen Raum matchen, eventuell for Schleife
                 var sortedRaum = geraeteList.sortedWith(compareBy { it.getRaumID() })
+
+
                 geraeteList.clear()
                 geraeteList.addAll(sortedRaum)
                 viewAdapter.notifyDataSetChanged();
@@ -174,6 +220,41 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortName.typeface = Typeface.DEFAULT_BOLD
                 buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
             }
+
+            R.id.geraete_button_sort_produktion_prod -> {
+
+                val sortedProduzent = produzentList.sortedWith(compareBy { it.getJahresverbrauch() })
+                produzentList.clear()
+                produzentList.addAll(sortedProduzent)
+                produzentViewAdapter.notifyDataSetChanged()
+
+                buttonSortProduktion_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                buttonSortName_prod.paintFlags = 0
+                buttonSortRaum_prod.paintFlags = 0
+
+            }
+
+            R.id.geraete_button_sort_name_prod -> {
+                val sortedName = produzentList.sortedWith(compareBy{it.getName().toLowerCase()})
+                produzentList.clear()
+                produzentList.addAll(sortedName)
+                produzentViewAdapter.notifyDataSetChanged();
+                buttonSortName_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                buttonSortProduktion_prod.paintFlags = 0
+                buttonSortRaum_prod.paintFlags = 0
+            }
+
+            R.id.geraete_button_sort_raum_prd -> {
+                val sortedRaum = produzentList.sortedWith(compareBy{produzentList[it.getRaumID() - 1].getName().toLowerCase()})
+                produzentList.clear()
+                produzentList.addAll(sortedRaum)
+                produzentViewAdapter.notifyDataSetChanged();
+                buttonSortRaum_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                buttonSortProduktion_prod.paintFlags = 0
+                buttonSortName_prod.paintFlags = 0
+
+            }
+
             else -> {
             }
         }

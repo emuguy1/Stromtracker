@@ -181,6 +181,7 @@ class GeraeteEditVerbraucherFragment(
                 val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
                 confirmDeleteDialog.show()
             }
+
         }
 
     }

@@ -1,22 +1,21 @@
-package com.example.stromtracker.ui.haushalt
+package com.example.stromtracker.ui.raeume
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
-import com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment
+import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment
 
-class ListAdapterHaushalt(private val datain: List<Haushalt>) : RecyclerView.Adapter<ListAdapterHaushalt.ViewHolder>() {
-    private val data = datain
+class ListAdapterraeume(private val datain: List<Raum>) : RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
+    private val data =datain
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.list_item_haushalt, parent, false)
+        val view = layoutInflater.inflate(R.layout.list_item_raeume, parent, false)
 
         return ViewHolder(view)
     }
@@ -27,7 +26,7 @@ class ListAdapterHaushalt(private val datain: List<Haushalt>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: String = data[position].getName()
+        val item: String = data[position].toString()
         holder.textView.text = item
         holder.textView
 
@@ -35,21 +34,18 @@ class ListAdapterHaushalt(private val datain: List<Haushalt>) : RecyclerView.Ada
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-
-        var listcard: CardView = itemView.findViewById(R.id.haushalt_recycler_card)
-        var textView: TextView = itemView.findViewById(R.id.textview_haushalt)
+        var textView: TextView = itemView.findViewById(R.id.textview_raeume)
         init {
-            listcard.setOnClickListener(this)
+            textView.setOnClickListener(this)
         }
         override fun onClick(view: View?) {
             if (view != null) {
-                val frag = HaushaltBearbeitenLoeschenFragment(data[layoutPosition])
+                val frag = RaeumeBearbeitenLoeschenFragment(data[layoutPosition])
                 //Fragment Manager aus Main Activity holen
-                val fragMan = view.findFragment<HaushaltFragment>().parentFragmentManager
+                val fragMan = view.findFragment<RaeumeFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
         }
-
     }
 }
