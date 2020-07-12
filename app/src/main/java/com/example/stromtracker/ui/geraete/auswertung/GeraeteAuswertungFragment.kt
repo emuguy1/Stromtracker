@@ -25,6 +25,7 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import com.google.android.material.navigation.NavigationView
+import kotlin.math.withSign
 
 
 class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete>, private val produzentList : ArrayList<Geraete>, private val kategorieList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>)
@@ -36,6 +37,7 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
     private lateinit var currHaushalt: Haushalt
 
     private lateinit var anyChartVerbraucher: AnyChartView
+    private lateinit var anyChartProduziertVerbrauch : AnyChartView
     private lateinit var anyChartProduzent : AnyChartView
     private lateinit var anyChartKategorie : AnyChartView
     private lateinit var anyChartRaum : AnyChartView
@@ -53,11 +55,13 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
         currHaushalt = sp.selectedItem as Haushalt
 
         anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
+        anyChartProduziertVerbrauch = root.findViewById(R.id.any_chart_produziert_verbrauch)
         anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
         anyChartKategorie = root.findViewById(R.id.any_chart_kategorie)
         anyChartRaum = root.findViewById(R.id.any_chart_raum)
 
         reloadVerbrauchsChart()
+        reloadProduziertVerbrauchChart()
         reloadProduzentChart()
         reloadKategorieChart()
         reloadRaumChart()
@@ -108,11 +112,34 @@ class GeraeteAuswertungFragment (private val verbraucherList : ArrayList<Geraete
         anyChartVerbraucher.setChart(pie)
     }
 
+    fun reloadProduziertVerbrauchChart() {
+        val data: MutableList<DataEntry> = ArrayList()
+        for(geraet in produzentList)
+            data.add(ValueDataEntry(geraet.getName(), getProdVerbrauch(geraet)))
+        APIlib.getInstance().setActiveAnyChartView(anyChartProduziertVerbrauch)
+
+        var pie = AnyChart.pie()
+        pie = initPieChart(pie)
+
+        pie.data(data)
+        pie.title("Produzierte Energie, die verbraucht wird "
+                + String.format("%.2f",
+            produzentList.sumByDouble{ geraete -> getProdVerbrauch(geraete) })
+                + " kWh")
+        pie.legend().title().text("Produzenten")
+
+        anyChartProduziertVerbrauch.setChart(pie)
+    }
+
+    fun getProdVerbrauch (geraet : Geraete) : Double {
+        return geraet.getJahresverbrauch().withSign(1)*geraet.getEigenverbrauch()!! / 100
+    }
+
     fun reloadProduzentChart() {
         //Geräte nach Produzenten filtern & data vorbereiten
         val data: MutableList<DataEntry> = ArrayList()
         for (geraet in produzentList)
-            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()*(-1)))
+            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch().withSign(1)))
 
         //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
         APIlib.getInstance().setActiveAnyChartView(anyChartProduzent)
