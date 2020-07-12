@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                 android:layout_margin="@dimen/geraet_cardview_margin">
 
                 <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_produziert_verbrauch"
+                    android:id="@+id/any_chart_kategorie"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/anyChart_height" />
             </androidx.cardview.widget.CardView>
@@ -64,7 +64,7 @@
                 android:layout_margin="@dimen/geraet_cardview_margin">
 
                 <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_verbr_minus_prod"
+                    android:id="@+id/any_chart_raum"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/anyChart_height" />
             </androidx.cardview.widget.CardView>
@@ -87,7 +87,7 @@
                 android:layout_margin="@dimen/geraet_cardview_margin">
 
                 <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_kategorie"
+                    android:id="@+id/any_chart_produziert_verbrauch"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/anyChart_height"
                     android:layout_margin="@dimen/geraet_cardview_margin" />
@@ -99,7 +99,7 @@
                 android:layout_margin="@dimen/geraet_cardview_margin">
 
                 <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_raum"
+                    android:id="@+id/any_chart_verbr_minus_prod"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/anyChart_height"
                     android:layout_margin="@dimen/geraet_cardview_margin" />
