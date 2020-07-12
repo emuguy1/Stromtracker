@@ -53,8 +53,6 @@ class GeraeteListAdapter(
                 break
             }
         }
-
-
     }
 
     inner class GeraeteViewHolder(mItemView: View) : RecyclerView.ViewHolder(mItemView),

@@ -3,7 +3,6 @@ package com.example.stromtracker.ui.geraete
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,7 +92,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
-
                 }
             })
         val raumDataHaushalt: LiveData<List<Raum>> =
@@ -107,15 +105,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     raumListHaushalt.clear()
                     raumListHaushalt.addAll(raum)
                     viewAdapter.notifyDataSetChanged();
-
-                    if (raum.isEmpty()) {
-                        geraeteViewModel.insertRaum(Raum("test", 1))
-                        geraeteViewModel.insertRaum(Raum("zet", 1))
-                        geraeteViewModel.insertRaum(Raum("tret", 2))
-
-                        geraeteViewModel.insertKategorie(Kategorie("test", null))
-                    }
-
                 }
             })
 
@@ -184,7 +173,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName.typeface = Typeface.DEFAULT_BOLD
                 buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
-
             }
             else -> {
             }

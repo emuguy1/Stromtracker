@@ -185,6 +185,3 @@ class GeraeteEditVerbraucherFragment(
 
     }
 }
-
-
-

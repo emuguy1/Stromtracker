@@ -52,7 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         fun prepopulateDb(context: Context, db: AppDatabase) {
-            db.haushaltDao().insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false), Haushalt("test2", 0.0, 1, 0.0, null, false))
+            db.haushaltDao().insertHaushalt(Haushalt("test1", 0.0, 1, 0.0, null, false), Haushalt("test2", 0.0, 1, 0.0, null, false))
         }
     }
 
