@@ -94,7 +94,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         }
 
         produzentViewManager = LinearLayoutManager(this.context)
-        produzentViewAdapter = GeraeteListAdapter(produzentList, kategorieList, raumList)
+        produzentViewAdapter = GeraeteListAdapter(produzentList, kategorieList, raumListHaushalt)
         produzentRecyclerView = root.findViewById<RecyclerView>(R.id.produzent_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = produzentViewManager
@@ -128,7 +128,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
       
         val raumDataHaushalt: LiveData<List<Raum>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                (geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID()))
+                geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
             }
         raumDataHaushalt.observe(
             viewLifecycleOwner,
@@ -231,6 +231,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortProduktion_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortName_prod.paintFlags = 0
                 buttonSortRaum_prod.paintFlags = 0
+                buttonSortRaum_prod.typeface = Typeface.DEFAULT_BOLD
+                buttonSortProduktion_prod.typeface = Typeface.DEFAULT_BOLD
+                buttonSortName_prod.typeface = Typeface.DEFAULT_BOLD
 
             }
 
@@ -242,6 +245,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortName_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0
                 buttonSortRaum_prod.paintFlags = 0
+                buttonSortRaum_prod.typeface = Typeface.DEFAULT_BOLD
+                buttonSortProduktion_prod.typeface = Typeface.DEFAULT_BOLD
+                buttonSortName_prod.typeface = Typeface.DEFAULT_BOLD
             }
 
             R.id.geraete_button_sort_raum_prd -> {
@@ -252,6 +258,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0
                 buttonSortName_prod.paintFlags = 0
+                buttonSortRaum_prod.typeface = Typeface.DEFAULT_BOLD
+                buttonSortProduktion_prod.typeface = Typeface.DEFAULT_BOLD
+                buttonSortName_prod.typeface = Typeface.DEFAULT_BOLD
 
             }
 

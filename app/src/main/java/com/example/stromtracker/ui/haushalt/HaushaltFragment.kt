@@ -27,10 +27,6 @@ class HaushaltFragment: Fragment() {
             viewLifecycleOwner,
             Observer { haushalte ->
                 if (haushalte != null) {
-                    if(haushalte.isEmpty()) {
-                        //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
-                        initHaushalt()
-                    }
                     datain.clear()
                     datain.addAll(haushalte)
                     viewAdapter.notifyDataSetChanged()
@@ -38,12 +34,7 @@ class HaushaltFragment: Fragment() {
             }
         )
     }
-    private fun initHaushalt () {
-        var haushalt : Haushalt = Haushalt("Haushalt 1",12.5, 5, null, null, true )
-        haushaltViewModel.insertHaushalt(haushalt)
-        haushalt = Haushalt("Haushalt 2",12.5, 1, null, null, false )
-        haushaltViewModel.insertHaushalt(haushalt)
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

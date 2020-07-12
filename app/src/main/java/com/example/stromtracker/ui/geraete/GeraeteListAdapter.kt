@@ -5,6 +5,7 @@ import com.example.stromtracker.database.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -48,7 +49,7 @@ class GeraeteListAdapter(
         }
         //TODO: Nach merge Icon-Array aus Main Activity holen, val mainAct = requireActivity() as MainActivity; val iconArray : Array<Int> = mainAct.getIconArray()
         //Implementierung hier vorerst mit einem Standard-Icon
-        val iconArray: Array<Int> = arrayOf(R.drawable.ic_refrigerator)
+        val iconArray: Array<Int> = arrayOf(R.drawable.ic_kategorien_refrigerator)
         val katID = geraeteList[position].getKategorieID()
         for (kategorie in katList) {
             if (kategorie.getKategorieID() == katID) {

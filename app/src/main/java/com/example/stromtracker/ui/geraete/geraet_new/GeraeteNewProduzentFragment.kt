@@ -86,11 +86,7 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
 
              */
             else -> {
-
             }
-
-             */
-
         }
     }
 
