@@ -26,12 +26,11 @@ class HaushaltFragment: Fragment() {
     private var isinit: Boolean =false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d("TAGdatavergleich", "activity")
         super.onActivityCreated(savedInstanceState)
-        //View Model zuweisen, benötigt für DB Zugriff
+        //Main Activity holen um auf die Haushaltliste in der MainActivity zugreifen zu können
         mainact = requireActivity() as MainActivity
+        //View Model zuweisen, benötigt für DB Zugriff
         haushaltViewModel = ViewModelProviders.of(this).get(HaushaltViewModel::class.java)
-
 
         haushaltViewModel.getAllHaushalt().observe(
             viewLifecycleOwner,
@@ -42,12 +41,12 @@ class HaushaltFragment: Fragment() {
                         initHaushalt()
                         isinit=true
                     }
+                    //die alte Haushaltliste aus Main Activity holen, um zu schauen,
+                    // welcher Haushalt erzeugt wurde und dem dann Standardräume hinzuzufügen
                     datatemp=mainact.getOldHaushaltList()
-                    if(haushalte != null) {
-                        Log.d("TAGdatavergleich", datatemp.toString())
-                    }
                     datain.clear()
                     datain.addAll(haushalte)
+                    //Die Haushaltliste in Main Activity erneuern.
                     mainact.setOldHaushaltList(datain)
                     if(isinit&&datain.size>0){ //Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt werden.
                         // Hier nach leer initialisierung und sobald das ganze in die Datenbank gekommen ist,deswegen wird hier gewartet, bis datain bei einem element ist,
@@ -55,33 +54,26 @@ class HaushaltFragment: Fragment() {
                         initRaeume(datain[datain.size-1].getHaushaltID())
                         isinit=false
                     }
-
-                    if(datain!=null) {
-                        Log.d("TAGdatavergleich2", datain.toString())
-                    }
+                    //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
                     if(datain.size>datatemp.size){
-                        Log.d("TAGdatavergleich3", datain[(datain.size)-1].getName())
-                        Log.d("TAGdatavergleich3", datain[(datain.size)-1].getHaushaltID().toString())
                         initRaeume(datain[datain.size-1].getHaushaltID())
                     }
-
                     viewAdapter.notifyDataSetChanged()
                 }
             }
         )
     }
+
     private fun initHaushalt () {
-        var haushalt : Haushalt = Haushalt("Haushalt 2",12.5, 5, null, null, true )
+        var haushalt : Haushalt = Haushalt("Haushalt",12.5, 5, null, null, true )
         haushaltViewModel.insertHaushalt(haushalt)
     }
     private fun initRaeume(hausid: Int){
-        var newraum= Raum("Schlafzimmer"+hausid,hausid)
+        var newraum= Raum("Schlafzimmer",hausid)
         haushaltViewModel.insertRaum(newraum)
-        newraum=Raum("Wohnzimmer"+hausid,hausid)
+        newraum=Raum("Wohnzimmer",hausid)
         haushaltViewModel.insertRaum(newraum)
-        newraum=Raum("Küche"+hausid,hausid)
-        haushaltViewModel.insertRaum(newraum)
-        newraum=Raum("Sonstige"+hausid,hausid)
+        newraum=Raum("Sonstige",hausid)
         haushaltViewModel.insertRaum(newraum)
     }
     override fun onCreateView(
