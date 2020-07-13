@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import com.example.stromtracker.R
+import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment
 import java.util.*
 import kotlin.math.withSign
@@ -34,18 +35,11 @@ class GeraeteListAdapter(
         return geraeteList.size
     }
 
-
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
         holder.mTextView.text = geraeteList[position].getName()
         //.withSign(1) lässt den "Verbrauch" bzw. die Produktion von Produzenten positiv anzeigen, da diese als negativer Verbrauch in der DB gespeichert ist
         holder.mVerbrauchView.text =
-            geraeteList[position].getJahresverbrauch().withSign(1).toString()
-        holder.mRaumView.text = raumList[geraeteList[position].getRaumID() - 1].getName()
-
-    override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
-        holder.mTextView.text = geraeteList[position].getName()
-        holder.mVerbrauchView.text =
-            String.format("%.2f", geraeteList[position].getJahresverbrauch())
+            String.format("%.2f", geraeteList[position].getJahresverbrauch().withSign(1))
         val raumID = geraeteList[position].getRaumID()
         for (raum in raumListHaushalt) {
             if (raum.getRaumID() == raumID) {
@@ -83,18 +77,19 @@ class GeraeteListAdapter(
         }
 
         override fun onClick(v: View?) {
+            val frag : Fragment
             if (v != null) {
                 if (geraeteList[layoutPosition].getJahresverbrauch() < 0)
                     frag = GeraeteEditProduzentFragment(
                         geraeteList[layoutPosition],
                         katList,
-                        raumList
+                        raumListHaushalt
                     )
                 else
                     frag = GeraeteEditVerbraucherFragment(
                         geraeteList[layoutPosition],
                         katList,
-                        raumList
+                        raumListHaushalt
                     )
                 val fragMan = v.findFragment<GeraeteFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
