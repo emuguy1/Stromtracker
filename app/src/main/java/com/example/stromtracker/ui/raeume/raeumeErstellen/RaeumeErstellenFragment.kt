@@ -35,9 +35,9 @@ class RaeumeErstellenFragment: Fragment() {
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
-                //TODO:Haushaltid aus der Mainactivity bekommen
                 //Die Daten in die RoomDatabase speichern
                 val raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
+                //TODO:Haushaltid aus der Mainactivity bekommen
                 val raum:Raum= Raum(raumnameneditfeld.text.toString(),1)
                 raeumeViewModel.insertRaeume(raum)
                 //neues Fragment erstellen auf das weitergeleitet werden soll

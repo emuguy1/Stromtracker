@@ -24,15 +24,11 @@ class RaeumeFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
         //View Model zuweisen, benötigt für DB Zugriff
         raeumeViewModel = ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
-        raeumeViewModel.getAllRaeume().observe(
+        //TODO: Get Haushalt ID aus Spinner und setze sie in untenstehenden Befehl ein
+        raeumeViewModel.getAllRaeumeById(1).observe(
             viewLifecycleOwner,
-            //TODO: Nur Räume die im eigenen Haushalt sind dürfen angezeigt werden
             Observer { raeume ->
                 if (raeume != null) {
-                    if(raeume.isEmpty()) {
-                        //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
-                        initRaum()
-                    }
                     datain.clear()
                     datain.addAll(raeume)
 
@@ -41,10 +37,7 @@ class RaeumeFragment: Fragment() {
             }
         )
     }
-    private fun initRaum () {
-        var raum: Raum = Raum("Wohnzimmer",1)
-        raeumeViewModel.insertRaeume(raum)
-    }
+
 
 
     override fun onCreateView(

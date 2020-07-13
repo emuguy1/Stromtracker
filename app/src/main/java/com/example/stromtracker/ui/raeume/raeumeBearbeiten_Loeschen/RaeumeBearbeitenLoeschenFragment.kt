@@ -18,6 +18,9 @@ import com.example.stromtracker.ui.raeume.RaeumeViewModel
 //deklariert Raeumefragment als Unterklasse von Fragment
 class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
+    private lateinit var savebutton:View
+    private lateinit var abortbutton:View
+    private lateinit var deletebutton:View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,15 +30,21 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
         raeumeViewModel =
             ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_raeume_bearbeiten_loeschen, container, false)//false weil es nur teil des root ist, aber nicht selber die root
+        //finde die buttons
+        savebutton = root.findViewById(R.id.button_raeume_bearbeiten_speichern)
+        abortbutton = root.findViewById(R.id.button_raeume_bearbeiten_abbrechen)
+        deletebutton = root.findViewById(R.id.button_raeume_bearbeiten_loeschen)
 
         // Die Daten aus der RoomDatabse holen und in die Felder schreiben
         val raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_bearbeiten_name)
         raumnameneditfeld.setText(currRaum.getName())
 
-
+        if(currRaum.getName()=="Sonstiges"){
+            savebutton.visibility=View.INVISIBLE
+            deletebutton.visibility=View.INVISIBLE
+        }
         //Speicher Button zum speichern der eingegebenen Daten
-        //finde den save button
-        val savebutton: View = root.findViewById(R.id.button_raeume_bearbeiten_speichern)
+
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
@@ -55,8 +64,6 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
         }
 
         //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
-        //finde den abbrechen button
-        val abortbutton: View = root.findViewById(R.id.button_raeume_bearbeiten_abbrechen)
         //Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
@@ -72,8 +79,6 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
 
         }
         //Delete Button zum löschen des Raums
-        // löschen button
-        val deletebutton: View = root.findViewById(R.id.button_raeume_bearbeiten_loeschen)
         //Click listener setzen
         deletebutton.setOnClickListener { view ->
             if (view != null) {
@@ -94,6 +99,7 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
                         //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
                         //und anschließend noch ein commit()
+                        //TODO: get Geräte by Raumname und schiebe enthaltene Geräte in Raum Sonstiges des Haushaltes
                         dialog.cancel() })
 
                 builder1.setNegativeButton(
