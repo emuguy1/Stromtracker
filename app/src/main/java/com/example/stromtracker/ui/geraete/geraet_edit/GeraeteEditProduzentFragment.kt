@@ -42,7 +42,6 @@ class GeraeteEditProduzentFragment(
 
         val root = inflater.inflate(R.layout.fragment_geraete_edit_produzent, container, false)
 
-
         spinnerKat = root.findViewById(R.id.geraete_edit_produzent_KategorieSpinner)
         val katAdapter: ArrayAdapter<Kategorie> =
             ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
@@ -80,25 +79,18 @@ class GeraeteEditProduzentFragment(
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
-           /* R.id.geraete_edit_RaumSpinner -> {
-
             R.id.geraete_edit_produzent_RaumSpinner -> {
-
                 selectedRoom = pos
             }
             R.id.geraete_edit_produzent_KategorieSpinner -> {
                 selectedKat = pos
             }
-             */
-
             else -> {
-
             }
 
         }

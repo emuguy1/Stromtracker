@@ -35,6 +35,12 @@ class GeraeteListAdapter(
     }
 
 
+    override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
+        holder.mTextView.text = geraeteList[position].getName()
+        //.withSign(1) lässt den "Verbrauch" bzw. die Produktion von Produzenten positiv anzeigen, da diese als negativer Verbrauch in der DB gespeichert ist
+        holder.mVerbrauchView.text =
+            geraeteList[position].getJahresverbrauch().withSign(1).toString()
+        holder.mRaumView.text = raumList[geraeteList[position].getRaumID() - 1].getName()
 
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
         holder.mTextView.text = geraeteList[position].getName()
@@ -78,11 +84,18 @@ class GeraeteListAdapter(
 
         override fun onClick(v: View?) {
             if (v != null) {
-                val frag = GeraeteEditVerbraucherFragment(
-                    geraeteList[layoutPosition],
-                    katList,
-                    raumListHaushalt
-                )
+                if (geraeteList[layoutPosition].getJahresverbrauch() < 0)
+                    frag = GeraeteEditProduzentFragment(
+                        geraeteList[layoutPosition],
+                        katList,
+                        raumList
+                    )
+                else
+                    frag = GeraeteEditVerbraucherFragment(
+                        geraeteList[layoutPosition],
+                        katList,
+                        raumList
+                    )
                 val fragMan = v.findFragment<GeraeteFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)

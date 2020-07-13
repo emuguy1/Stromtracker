@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment
 
@@ -34,7 +33,7 @@ class ListAdapterraeume(private val datain: List<Raum>) : RecyclerView.Adapter<L
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        var textView: TextView = itemView.findViewById(R.id.textview_raeume)
+        var textView: TextView = itemView.findViewById(R.id.text_view_raeume)
         init {
             textView.setOnClickListener(this)
         }

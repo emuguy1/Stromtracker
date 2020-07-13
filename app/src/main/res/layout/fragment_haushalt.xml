@@ -8,13 +8,13 @@
     android:background="@color/colorBackgroundGrey">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHaushalt"
+        android:id="@+id/recycler_view_haushalt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.haushalt.HaushaltFragment"/>
 
     <com.getbase.floatingactionbutton.AddFloatingActionButton
-        android:id="@+id/haushalt_fab"
+        android:id="@+id/fab_haushalt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:fab_colorNormal="@color/white"

@@ -59,14 +59,14 @@ class RaeumeFragment: Fragment() {
 
         datain=ArrayList()
         //Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewRaeume)
+        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_raeume)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         viewAdapter=ListAdapterraeume(datain)
         recyclerView.adapter = viewAdapter
 
         //Floating Action Button zum erstellen neuer Raeume
         //Floating actionbutton finden
-        val fab: View = root.findViewById(R.id.raeume_fab)
+        val fab: View = root.findViewById(R.id.fab_raeume)
         //Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {

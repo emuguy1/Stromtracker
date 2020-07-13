@@ -49,13 +49,13 @@ class HaushaltFragment: Fragment() {
         viewAdapter=ListAdapterHaushalt(datain)
 
         //Recyclerview, wo eine Liste aller Haushalte angezeigt wird. Alles weitere wird in ListAdapterHaushalt gesteuert
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewHaushalt)
+        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_haushalt)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = viewAdapter
 
         //Floating Action Button zum erstellen neuer Haushalte
         //Floating actionbutton finden
-        val fab: View = root.findViewById(R.id.haushalt_fab)
+        val fab: View = root.findViewById(R.id.fab_haushalt)
         //Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {
