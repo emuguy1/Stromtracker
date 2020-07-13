@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
         R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
 
+    private lateinit var oldhaushaltList: ArrayList<Haushalt>
+    private lateinit var newhaushaltList: ArrayList<Haushalt>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,9 +69,10 @@ class MainActivity : AppCompatActivity() {
                     sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
                     val adapter = ArrayAdapter<Haushalt>(this, android.R.layout.simple_spinner_dropdown_item, haushaltItems)
                     sp.adapter = adapter
+                    newhaushaltList=haushaltItems
                 }
             })
-
+        setOldHaushaltList(haushaltItems)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
@@ -82,6 +85,16 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
 
+    }
+
+    fun getOldHaushaltList() : ArrayList<Haushalt>{
+        return oldhaushaltList
+    }
+    fun setOldHaushaltList(new :ArrayList<Haushalt>){
+        oldhaushaltList=new
+    }
+    fun getNewHaushaltList() :ArrayList<Haushalt>{
+        return newhaushaltList
     }
 
     fun getIconArray () : Array<Int> {
