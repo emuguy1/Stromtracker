@@ -14,6 +14,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
@@ -52,6 +53,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortRaum_prod : Button
     private lateinit var buttonSortName_prod : Button
 
+    private lateinit var iconArray: Array<Int>
+
 
 
 
@@ -85,8 +88,13 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         kategorieList = ArrayList()
         raumListHaushalt = ArrayList()
 
+        var  mainAct = requireActivity() as MainActivity
+        iconArray = mainAct.getIconArray()
+
+
+
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumListHaushalt)
+        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumListHaushalt, iconArray)
         recyclerView = root.findViewById<RecyclerView>(R.id.geraete_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -94,7 +102,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         }
 
         produzentViewManager = LinearLayoutManager(this.context)
-        produzentViewAdapter = GeraeteListAdapter(produzentList, kategorieList, raumListHaushalt)
+        produzentViewAdapter = GeraeteListAdapter(produzentList, kategorieList, raumListHaushalt, iconArray)
         produzentRecyclerView = root.findViewById<RecyclerView>(R.id.produzent_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = produzentViewManager
@@ -109,6 +117,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
         sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel::class.java)
+
 
         val geraeteData: LiveData<List<Geraete>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->

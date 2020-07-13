@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
+import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment
@@ -19,7 +20,8 @@ import kotlin.math.withSign
 class GeraeteListAdapter(
     private val geraeteList: List<Geraete>,
     private val katList: ArrayList<Kategorie>,
-    private val raumListHaushalt: ArrayList<Raum>
+    private val raumListHaushalt: ArrayList<Raum>,
+    private val iconArray: Array<Int>
 
 ) : RecyclerView.Adapter<GeraeteListAdapter.GeraeteViewHolder>() {
     override fun onCreateViewHolder(
@@ -47,13 +49,10 @@ class GeraeteListAdapter(
                 break
             }
         }
-        //TODO: Nach merge Icon-Array aus Main Activity holen, val mainAct = requireActivity() as MainActivity; val iconArray : Array<Int> = mainAct.getIconArray()
-        //Implementierung hier vorerst mit einem Standard-Icon
-        val iconArray: Array<Int> = arrayOf(R.drawable.ic_kategorien_refrigerator)
         val katID = geraeteList[position].getKategorieID()
         for (kategorie in katList) {
             if (kategorie.getKategorieID() == katID) {
-                holder.mKatView.setImageResource(iconArray[0]) //TODO iconArray[kategorie.getIcon]
+                holder.mKatView.setImageResource(iconArray[kategorie.getIcon()])
                 break
             }
         }
@@ -77,7 +76,7 @@ class GeraeteListAdapter(
         }
 
         override fun onClick(v: View?) {
-            val frag : Fragment
+            val frag: Fragment
             if (v != null) {
                 if (geraeteList[layoutPosition].getJahresverbrauch() < 0)
                     frag = GeraeteEditProduzentFragment(

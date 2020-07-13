@@ -85,10 +85,10 @@
 
             <Spinner
                 android:id="@+id/geraete_edit_produzent_RaumSpinner"
-                android:layout_width="@dimen/spinner_geraet_width"
-                android:layout_height="@dimen/spinner_geraet_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content"
                 android:layout_marginTop="8dp"
-                android:dropDownWidth="@dimen/spinner_geraet_dropdown_width"
                 app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_TextRaum"
                 app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_TextRaum" />
 
@@ -103,10 +103,11 @@
 
             <Spinner
                 android:id="@+id/geraete_edit_produzent_KategorieSpinner"
-                android:layout_width="@dimen/spinner_geraet_width"
-                android:layout_height="@dimen/spinner_geraet_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content"
                 android:layout_marginTop="8dp"
-                android:dropDownWidth="@dimen/spinner_geraet_dropdown_width"
+
                 app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_TextKategorie"
                 app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_TextKategorie" />
 

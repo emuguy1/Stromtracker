@@ -29,10 +29,6 @@ class RaeumeFragment: Fragment() {
             //TODO: Nur Räume die im eigenen Haushalt sind dürfen angezeigt werden
             Observer { raeume ->
                 if (raeume != null) {
-                    if(raeume.isEmpty()) {
-                        //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
-                        initRaum()
-                    }
                     datain.clear()
                     datain.addAll(raeume)
 
@@ -41,10 +37,7 @@ class RaeumeFragment: Fragment() {
             }
         )
     }
-    private fun initRaum () {
-        var raum: Raum = Raum("Wohnzimmer",1)
-        raeumeViewModel.insertRaeume(raum)
-    }
+
 
 
     override fun onCreateView(
