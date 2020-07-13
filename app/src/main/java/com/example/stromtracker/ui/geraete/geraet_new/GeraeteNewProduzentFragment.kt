@@ -69,22 +69,18 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
-            /*R.id.geraete_new_RaumSpinner -> {
+            R.id.geraete_new_produzent_RaumSpinner -> {
                 selectedRoom = pos
             }
-            R.id.geraete_new_KategorieSpinner -> {
+            R.id.geraete_new_produzent_KategorieSpinner -> {
                 selectedKat = pos
             }
-
-             */
             else -> {
-
             }
 
         }
