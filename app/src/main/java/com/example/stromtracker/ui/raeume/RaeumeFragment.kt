@@ -1,24 +1,17 @@
 package com.example.stromtracker.ui.raeume
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
-import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import com.example.stromtracker.ui.raeume.raeumeErstellen.RaeumeErstellenFragment
-import com.google.android.material.navigation.NavigationView
 
 
 //deklariert Raeumefragment als Unterklasse von Fragment
@@ -66,14 +59,14 @@ class RaeumeFragment: Fragment() {
 
         datain=ArrayList()
         //Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerViewRaeume)
+        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_raeume)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         viewAdapter=ListAdapterraeume(datain)
         recyclerView.adapter = viewAdapter
 
         //Floating Action Button zum erstellen neuer Raeume
         //Floating actionbutton finden
-        val fab: View = root.findViewById(R.id.fab)
+        val fab: View = root.findViewById(R.id.fab_raeume)
         //Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {

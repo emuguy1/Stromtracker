@@ -1,6 +1,5 @@
 package com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen
 
-
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
@@ -19,13 +18,8 @@ import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-
 class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,12 +31,12 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
         val root = inflater.inflate(R.layout.fragment_haushalt_bearbeiten_loeschen, container, false)
 
         //Die einzelnen Felder finden:
-        val haushaltsnameneditfeld=root.findViewById<EditText>(R.id.editTextHaushaltsname)
-        val strompreiseditfeld=root.findViewById<EditText>(R.id.haushalteditTextStrompreis)
-        val personeneditfeld=root.findViewById<EditText>(R.id.haushalteditTextPersonen)
-        val zaehlerstandeditfeld=root.findViewById<EditText>(R.id.haushalteditTextZählerstand)
-        val datumeditfeld=root.findViewById<EditText>(R.id.haushalteditTextdatum)
-        val oekomixeditfeld=root.findViewById<CheckBox>(R.id.haushalteditTextÖkostrommix)
+        val haushaltsnameneditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_name)
+        val strompreiseditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_strompreis)
+        val personeneditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_anzahl_personen)
+        val zaehlerstandeditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_zaehlerstand)
+        val datumeditfeld=root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_datum)
+        val oekomixeditfeld=root.findViewById<CheckBox>(R.id.check_box_haushalt_bearbeiten_oekostrom)
 
         //Die Daten aus der RoomDatabse holen und in die Felder schreiben
         haushaltsnameneditfeld.setText(currHaushalt.getName())
@@ -54,15 +48,16 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
         }
         oekomixeditfeld.setChecked(currHaushalt.getOekostrom())
 
-
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
-        val savebutton: View = root.findViewById(R.id.haushalt_button_speichern)
+        val savebutton: View = root.findViewById(R.id.button_haushalt_bearbeiten_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
                 //Schauen, dass alle Werte die gesetzt sein müssen gesetzt wurden
-                if(haushaltsnameneditfeld.text.isNotEmpty()&&personeneditfeld.text.isNotEmpty()&&strompreiseditfeld.text.isNotEmpty()) {
+                if(haushaltsnameneditfeld.text.isNotEmpty() &&
+                    personeneditfeld.text.isNotEmpty() &&
+                    strompreiseditfeld.text.isNotEmpty()) {
 
                     //Die Daten in die RoomDatabase speichern
                     currHaushalt.setName(haushaltsnameneditfeld.text.toString())
@@ -77,7 +72,6 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
                         val tempDate= SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).parse(datumeditfeld.text.toString())
                         currHaushalt.setDatum(tempDate)
                     }
-
                     haushaltViewModel.updateHaushalt(currHaushalt)
                     //neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = HaushaltFragment()
@@ -92,14 +86,11 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
                     Toast.makeText(this.context, R.string.leereFelderHaushalt, Toast.LENGTH_SHORT).show()
 
                 }
-
             }
-
         }
-
         //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
         //finde den abbrechen button
-        val abortbutton: View = root.findViewById(R.id.haushalt_button_abbrechen)
+        val abortbutton: View = root.findViewById(R.id.button_haushalt_bearbeiten_abbrechen)
         //Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
@@ -110,13 +101,11 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
                 //und anschließend noch ein commit()
-
             }
-
         }
         //Delete Button zum löschen des ausgewählten Haushalts
         //finde den löschen button
-        val deletebutton: View = root.findViewById(R.id.haushalt_button_Loeschen)
+        val deletebutton: View = root.findViewById(R.id.button_haushalt_bearbeiten_loeschen)
         //Click listener setzen
         deletebutton.setOnClickListener { view ->
             if (view != null) {
@@ -137,22 +126,13 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
                         //und anschließend noch ein commit()
                         dialog.cancel() })
-
                 builder1.setNegativeButton(
                     R.string.nein,
                     DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
-
                 val alert11: AlertDialog = builder1.create()
                 alert11.show()
-
-
             }
-
         }
-
         return root
     }
-
 }
-
-

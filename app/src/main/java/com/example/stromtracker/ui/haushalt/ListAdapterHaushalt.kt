@@ -36,8 +36,8 @@ class ListAdapterHaushalt(private val datain: List<Haushalt>) : RecyclerView.Ada
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        var listcard: CardView = itemView.findViewById(R.id.haushalt_recycler_card)
-        var textView: TextView = itemView.findViewById(R.id.textview_haushalt)
+        var listcard: CardView = itemView.findViewById(R.id.recycler_card_haushalt)
+        var textView: TextView = itemView.findViewById(R.id.text_view_haushalt)
         init {
             listcard.setOnClickListener(this)
         }

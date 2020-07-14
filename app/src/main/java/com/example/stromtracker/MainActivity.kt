@@ -1,6 +1,7 @@
 package com.example.stromtracker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -16,32 +17,58 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import com.example.stromtracker.database.DataRepository
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.ViewModelProviders
+import com.example.stromtracker.database.Geraete
+import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private lateinit var sp:Spinner
+
     private val iconArrayList:Array<Int> =
         arrayOf(R.drawable.ic_kategorien_monitor, R.drawable.ic_kategorien_joystick, R.drawable.ic_kategorien_speaker,
-            R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
-            R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
+        R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
+        R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        var geraeteViewModel: GeraeteViewModel =  ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+        val haushaltItems:ArrayList<Haushalt> = ArrayList()
+
+
+
 
 
         setSupportActionBar(toolbar)
 
+
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        val items = arrayOf("Haushalt1", "Haushalt2", "Haushalt3", "Haushalt4")
 
-        val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items)
-        sp.adapter = adapter
+        geraeteViewModel.getAllHaushalt().observe(
+            this,
+            Observer { haushalte ->
+                if (haushalte != null) {
 
+                    haushaltItems.clear()
+                    haushaltItems.addAll(haushalte)
+                    sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
+                    val adapter = ArrayAdapter<Haushalt>(this, android.R.layout.simple_spinner_dropdown_item, haushaltItems)
+                    sp.adapter = adapter
+                }
+            })
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

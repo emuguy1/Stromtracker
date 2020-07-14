@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
@@ -33,13 +31,13 @@ class RaeumeErstellenFragment: Fragment() {
 
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
-        val savebutton: View = root.findViewById(R.id.raeume_new_button_speichern)
+        val savebutton: View = root.findViewById(R.id.button_raeume_erstellen_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
                 //TODO:Haushaltid aus der Mainactivity bekommen
                 //Die Daten in die RoomDatabase speichern
-                val raumnameneditfeld=root.findViewById<EditText>(R.id.editTextRaumname)
+                val raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
                 val raum:Raum= Raum(raumnameneditfeld.text.toString(),1)
                 raeumeViewModel.insertRaeume(raum)
                 //neues Fragment erstellen auf das weitergeleitet werden soll
@@ -56,7 +54,7 @@ class RaeumeErstellenFragment: Fragment() {
 
         //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
         //finde den abbrechen button
-        val abortbutton: View = root.findViewById(R.id.raeume_new_button_abbrechen)
+        val abortbutton: View = root.findViewById(R.id.button_raeume_erstellen_abbrechen)
         //Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
