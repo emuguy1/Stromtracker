@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.anychart.APIlib
@@ -36,12 +37,20 @@ class GeraeteAuswertungFragment(
     private val raumList: ArrayList<Raum>
 ) : Fragment(), View.OnClickListener {
 
+    //Quelle (Stand 07.2020): https://www.stromvergleich.de/durchschnittlicher-stromverbrauch
+    private val dsBasisDeutschland : Double = 500.0
+    private val dsVerbrauchDeutschland : Double = 1000.0
+
+    private var anzPersonen : Int = 1
+    private var gesamtverbrauch : Double = 0.0
+
     private lateinit var root: View
     private lateinit var geraeteViewModel: GeraeteViewModel
 
     private lateinit var currHaushalt: Haushalt
 
     private lateinit var anyChartVerbraucher: AnyChartView
+    private lateinit var textAvg : TextView
     private lateinit var anyChartProduziertVerbrauch: AnyChartView
     private lateinit var anyChartVerbrMinusProd: AnyChartView
     private lateinit var anyChartProduzent: AnyChartView
@@ -59,6 +68,7 @@ class GeraeteAuswertungFragment(
         val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
         val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
         currHaushalt = sp.selectedItem as Haushalt
+        anzPersonen = currHaushalt.getBewohnerAnzahl()
 
         anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
         anyChartProduziertVerbrauch = root.findViewById(R.id.any_chart_produziert_verbrauch)
@@ -66,6 +76,7 @@ class GeraeteAuswertungFragment(
         anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
         anyChartKategorie = root.findViewById(R.id.any_chart_kategorie)
         anyChartRaum = root.findViewById(R.id.any_chart_raum)
+        textAvg = root.findViewById(R.id.geraete_auswertung_text_durchschnitt)
 
         reloadVerbrauchsChart()
         reloadProduziertVerbrauchChart()
@@ -73,6 +84,8 @@ class GeraeteAuswertungFragment(
         reloadProduzentChart()
         reloadKategorieChart()
         reloadRaumChart()
+
+        textAvg.text = generateDurchschnittText(gesamtverbrauch)
 
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
@@ -105,7 +118,6 @@ class GeraeteAuswertungFragment(
     fun reloadVerbrauchsChart() {
         //Geräte nach Verbrauchern filtern & data vorbereiten
         val data: MutableList<DataEntry> = ArrayList()
-        data.add(ValueDataEntry("Start", 0))
         for (geraet in verbraucherList)
             data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
 
@@ -117,11 +129,10 @@ class GeraeteAuswertungFragment(
             pie = initPieChart(pie)
 
             pie.data(data)
+            gesamtverbrauch = roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
             pie.title(
                 "Gesamtverbrauch "
-                        + String.format(
-                    "%.2f",
-                    verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
+                        + roundTo2Decimal(gesamtverbrauch)
                         + " kWh"
             )
             pie.legend().title().text("Verbraucher")
@@ -146,8 +157,7 @@ class GeraeteAuswertungFragment(
             pie.data(data)
             pie.title(
                 "Produzierte Energie, die verbraucht wird "
-                        + String.format("%.2f",
-                    produzentList.sumByDouble { geraete -> getProdVerbrauch(geraete) })
+                        + roundTo2Decimal(produzentList.sumByDouble { geraete -> getProdVerbrauch(geraete) })
                         + " kWh"
             )
             pie.legend().title().text("Produzenten")
@@ -169,7 +179,7 @@ class GeraeteAuswertungFragment(
         if (data.isNotEmpty()) {
             APIlib.getInstance().setActiveAnyChartView(anyChartVerbrMinusProd)
 
-            var wat = AnyChart.waterfall()
+            val wat = AnyChart.waterfall()
             wat.yAxis(0).labels().format("{%Value}{scale:(1)(1)|(kWh)}")
             wat.labels().enabled(true)
 
@@ -201,10 +211,7 @@ class GeraeteAuswertungFragment(
             pie.data(data)
             pie.title(
                 "Gesamtproduktion "
-                        + String.format(
-                    "%.2f",
-                    produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() } * (-1)
-                )
+                        + roundTo2Decimal(produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() } * (-1))
                         + " kWh"
             )
             pie.legend().title().text("Produzenten")
@@ -287,7 +294,34 @@ class GeraeteAuswertungFragment(
 
             anyChartRaum.setChart(pie)
         } else
-            anyChartRaum.visibility = View.INVISIBLE
+            anyChartRaum.visibility = View.GONE
+    }
+
+    fun generateDurchschnittText (verbr : Double) : String{
+        val proPerson : Double = roundTo2Decimal(gesamtverbrauch / anzPersonen)
+        val dsGes : Double = roundTo2Decimal (dsVerbrauchDeutschland * anzPersonen + dsBasisDeutschland)
+        var prozent = roundTo2Decimal(gesamtverbrauch / dsGes)
+        var str : String =
+            "Der durchschnittliche Basisverbrauch pro Haushalt liegt in Deutschland bei $dsBasisDeutschland kWh/Jahr " +
+                    "und der Verbrauch pro Person bei $dsVerbrauchDeutschland kWh/Jahr.\n" +
+                    "Im aktuellen Haushalt befinden sich $anzPersonen Personen " +
+                    "mit einem Gesamtverbrauch von $gesamtverbrauch kWh. " +
+                    "Daraus ergibt sich ein Verbrauch von $proPerson kWh pro Person.\n"
+        if(prozent > 1.0) {
+            prozent = (prozent % 1) * 100
+            str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% höher als der Durchschnitt."
+        }
+        else if(prozent == 1.0)
+            str += "Somit liegt der Verbrauch genau im Durchschnitt."
+        else {
+            prozent = (1-prozent) * 100
+            str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% geringer als der Durchschnitt."
+        }
+        return str
+    }
+
+    fun roundTo2Decimal(num : Double) : Double {
+        return String.format("%.2f", num).toDouble()
     }
 
     override fun onClick(v: View) {
