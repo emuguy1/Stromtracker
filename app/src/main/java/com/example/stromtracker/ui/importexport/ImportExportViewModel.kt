@@ -18,8 +18,6 @@ class ImportExportViewModel(application: Application) : AndroidViewModel(applica
         return geraetelist
     }
 
-
-
     fun getAllKategorie():LiveData<List<Kategorie>> {
         return kategorieList
     }
@@ -47,14 +45,5 @@ class ImportExportViewModel(application: Application) : AndroidViewModel(applica
     fun insertGeraet(g: Geraete) {
         repo.insertGeraete(g)
     }
-
-    fun deleteGeraet(g: Geraete) {
-        repo.deleteGeraete(g)
-    }
-
-    fun updateGeraet(g: Geraete) {
-        repo.updateGeraete(g)
-    }
-
 
 }
