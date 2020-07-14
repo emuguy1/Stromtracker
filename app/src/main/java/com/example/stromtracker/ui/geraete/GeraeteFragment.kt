@@ -28,8 +28,8 @@ import com.getbase.floatingactionbutton.FloatingActionButton
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
-    private lateinit var geraeteList:ArrayList<Geraete>
-    private lateinit var produzentList:ArrayList<Geraete>
+    private lateinit var geraeteList: ArrayList<Geraete>
+    private lateinit var produzentList: ArrayList<Geraete>
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var produzentRecyclerView: RecyclerView
@@ -37,7 +37,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var produzentViewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var produzentViewManager: RecyclerView.LayoutManager
-    
+
     private lateinit var buttonAddVerbraucher: FloatingActionButton
     private lateinit var buttonAddProduzent: FloatingActionButton
     private lateinit var root: View
@@ -49,14 +49,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortName: Button
     private lateinit var sharedViewModel: SharedViewModel
 
-    private lateinit var buttonSortProduktion_prod : Button
-    private lateinit var buttonSortRaum_prod : Button
-    private lateinit var buttonSortName_prod : Button
+    private lateinit var buttonSortProduktion_prod: Button
+    private lateinit var buttonSortRaum_prod: Button
+    private lateinit var buttonSortName_prod: Button
 
     private lateinit var iconArray: Array<Int>
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,7 +85,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         kategorieList = ArrayList()
         raumListHaushalt = ArrayList()
 
-        var  mainAct = requireActivity() as MainActivity
+        var mainAct = requireActivity() as MainActivity
         iconArray = mainAct.getIconArray()
 
 
@@ -102,12 +99,14 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         }
 
         produzentViewManager = LinearLayoutManager(this.context)
-        produzentViewAdapter = GeraeteListAdapter(produzentList, kategorieList, raumListHaushalt, iconArray)
-        produzentRecyclerView = root.findViewById<RecyclerView>(R.id.produzent_recycler_view).apply {
-            setHasFixedSize(true)
-            layoutManager = produzentViewManager
-            adapter = produzentViewAdapter
-        }
+        produzentViewAdapter =
+            GeraeteListAdapter(produzentList, kategorieList, raumListHaushalt, iconArray)
+        produzentRecyclerView =
+            root.findViewById<RecyclerView>(R.id.produzent_recycler_view).apply {
+                setHasFixedSize(true)
+                layoutManager = produzentViewManager
+                adapter = produzentViewAdapter
+            }
         return root
     }
 
@@ -128,13 +127,13 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             Observer { geraete ->
                 if (geraete != null) {
 
-            
+
                     geraeteList.clear()
                     geraeteList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
                 }
             })
-      
+
         val raumDataHaushalt: LiveData<List<Raum>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
                 geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
@@ -152,7 +151,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         geraeteViewModel.getAllProduzenten().observe(
             viewLifecycleOwner,
             Observer { produzenten ->
-                if(produzenten != null) {
+                if (produzenten != null) {
                     produzentList.clear()
                     produzentList.addAll(produzenten)
                     produzentViewAdapter.notifyDataSetChanged()
@@ -211,6 +210,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName.typeface = Typeface.DEFAULT_BOLD
                 buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
+
+
             }
 
             R.id.geraete_button_sort_raum -> {
@@ -232,7 +233,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
             R.id.geraete_button_sort_produktion_prod -> {
 
-                val sortedProduzent = produzentList.sortedWith(compareBy { it.getJahresverbrauch() })
+                val sortedProduzent =
+                    produzentList.sortedWith(compareBy { it.getJahresverbrauch() })
                 produzentList.clear()
                 produzentList.addAll(sortedProduzent)
                 produzentViewAdapter.notifyDataSetChanged()
@@ -247,7 +249,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_name_prod -> {
-                val sortedName = produzentList.sortedWith(compareBy{it.getName().toLowerCase()})
+                val sortedName = produzentList.sortedWith(compareBy { it.getName().toLowerCase() })
                 produzentList.clear()
                 produzentList.addAll(sortedName)
                 produzentViewAdapter.notifyDataSetChanged();
@@ -260,7 +262,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum_prd -> {
-                val sortedRaum = produzentList.sortedWith(compareBy{produzentList[it.getRaumID() - 1].getName().toLowerCase()})
+                val sortedRaum = produzentList.sortedWith(compareBy {
+                    produzentList[it.getRaumID() - 1].getName().toLowerCase()
+                })
                 produzentList.clear()
                 produzentList.addAll(sortedRaum)
                 produzentViewAdapter.notifyDataSetChanged();

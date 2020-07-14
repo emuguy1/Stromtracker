@@ -44,7 +44,9 @@ abstract class AppDatabase : RoomDatabase() {
             ).addCallback(object : Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
-                    Thread(Runnable { prepopulateDb(context, getInstance(context)) }).start()
+                    Thread(Runnable { prepopulateDb(context, getInstance(context)) }
+                    ).start()
+
                 }
             })
                 .build()
@@ -71,6 +73,7 @@ abstract class AppDatabase : RoomDatabase() {
                 Kategorie("Lampen", 6),
                 Kategorie("Stromerzeugung", 8)
             )
+            return
 
         }
     }

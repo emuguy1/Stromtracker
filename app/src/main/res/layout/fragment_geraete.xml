@@ -50,10 +50,9 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight ="1"
                         android:layout_marginLeft="@dimen/geraet_button_margin"
                         android:layout_marginRight="@dimen/geraet_button_margin"
-                        />
+                        android:layout_weight="1" />
 
                     <Button
                         android:id="@+id/geraete_button_sort_name"
@@ -68,7 +67,9 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:text="@string/geraet_new_name"
-                        android:textColor="@color/colorTextBlack" />
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/geraet_text_sort_button"
+                        />
 
 
                     <Button
@@ -81,12 +82,12 @@
                         android:layout_marginLeft="@dimen/geraet_button_margin"
                         android:layout_marginRight="@dimen/geraet_button_margin"
                         android:layout_weight="1.75"
+                        android:textSize="@dimen/geraet_text_sort_button"
 
 
                         android:background="@color/colorWhite"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="@string/geraet_new_TextRaum"
-                        android:textAlignment="center"
                         android:textColor="@color/colorTextBlack">
 
 
@@ -99,15 +100,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="@dimen/geraet_button_margin"
-
                         android:layout_marginRight="@dimen/geraet_button_margin"
                         android:layout_weight="1.75"
-
-
                         android:background="@color/colorWhite"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="@string/geraet_verbrauch"
-
+                        android:textSize="@dimen/geraet_text_sort_button"
                         android:textColor="@color/colorTextBlack"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0">
@@ -170,10 +168,9 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight ="1"
                         android:layout_marginLeft="@dimen/geraet_button_margin"
                         android:layout_marginRight="@dimen/geraet_button_margin"
-                        />
+                        android:layout_weight="1" />
 
                     <Button
                         android:id="@+id/geraete_button_sort_name_prod"
@@ -188,6 +185,8 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:text="@string/geraet_new_name"
+                        android:textSize="@dimen/geraet_text_sort_button"
+
 
                         android:textColor="@color/colorTextBlack" />
 
@@ -202,6 +201,8 @@
                         android:layout_marginLeft="@dimen/geraet_button_margin"
                         android:layout_marginRight="@dimen/geraet_button_margin"
                         android:layout_weight="1.75"
+                        android:textSize="@dimen/geraet_text_sort_button"
+
 
 
                         android:background="@color/colorWhite"
@@ -228,6 +229,7 @@
                         android:background="@color/colorWhite"
                         android:gravity="center"
                         android:text="@string/geraet_produktion"
+                        android:textSize="@dimen/geraet_text_sort_button"
 
                         android:textColor="@color/colorTextBlack"
                         fab:layout_constraintEnd_toEndOf="parent"

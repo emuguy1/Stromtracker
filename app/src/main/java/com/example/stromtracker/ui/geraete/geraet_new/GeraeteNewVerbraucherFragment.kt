@@ -60,7 +60,7 @@ class GeraeteNewVerbraucherFragment(
         inputStandBy = root.findViewById(R.id.geraete_new_edit_standBy)
         inputZeit = root.findViewById(R.id.geraete_new_edit_zeit)
 
-        checkUrlaub = root.findViewById(R.id.geraete_checkbox)
+        checkUrlaub = root.findViewById(R.id.geraete_new_checkbox)
 
         return root
     }

@@ -82,7 +82,7 @@ class GeraeteEditVerbraucherFragment(
         inputZeit = root.findViewById(R.id.geraete_edit_edit_zeit)
         inputZeit.setText(currGeraet.getBetriebszeit().toString())
 
-        checkUrlaub = root.findViewById(R.id.geraete_checkbox)
+        checkUrlaub = root.findViewById(R.id.geraete_edit_checkbox)
         checkUrlaub.isChecked = currGeraet.getUrlaubsmodus()
 
 
