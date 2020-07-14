@@ -182,5 +182,7 @@
         Austausch und Montage, Lebensdauer, Zinsen und der Wiederverkaufswert des aktuellen Gerätes berücksichtigt werden.</string>
     <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
+    <string name="geraet_text_notiz">Notizen (optional)</string>
+    <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
 
 </resources>

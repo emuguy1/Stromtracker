@@ -26,6 +26,7 @@ class GeraeteNewVerbraucherFragment(
     private lateinit var inputStandBy: EditText
     private lateinit var inputZeitVolllast: EditText
     private lateinit var inputZeitStandBy: EditText
+    private lateinit var inputNotiz: EditText
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
     private lateinit var checkUrlaub: CheckBox
@@ -62,6 +63,7 @@ class GeraeteNewVerbraucherFragment(
         inputStandBy = root.findViewById(R.id.geraete_new_edit_standBy)
         inputZeitVolllast = root.findViewById(R.id.geraete_new_edit_zeit_volllast)
         inputZeitStandBy = root.findViewById(R.id.geraete_new_edit_zeit_standBy)
+        inputNotiz = root.findViewById(R.id.geraete_new_edit_notiz)
 
         checkUrlaub = root.findViewById(R.id.geraete_new_checkbox)
 
@@ -101,9 +103,14 @@ class GeraeteNewVerbraucherFragment(
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
                     val zeitVolllast: Double? = inputZeitVolllast.text.toString().toDoubleOrNull()
                     val zeitStandBy: Double? = inputZeitStandBy.text.toString().toDoubleOrNull()
+                    var notiz: String? = inputNotiz.text.toString()
 
-                    if (volllast != null && standby != null && zeitVolllast != null && zeitStandBy != null) {
+
+                    if (volllast != null && standby != null && zeitVolllast != null && zeitStandBy != null && notiz != null) {
                         //TODO magic numbers
+                        if(notiz.isEmpty()) {
+                            notiz = null
+                        }
 
                         if (zeitStandBy <= 24.0 && zeitVolllast <= 24.0 && (zeitStandBy + zeitVolllast) <= 24.0) {
                             val jahresverbrauch =
@@ -121,7 +128,7 @@ class GeraeteNewVerbraucherFragment(
                                 checkUrlaub.isChecked,
                                 jahresverbrauch,
                                 null,
-                                null
+                                notiz
                             )
                             geraeteViewModel.insertGeraet(geraet)
                             val frag = GeraeteFragment()

@@ -29,6 +29,7 @@ class GeraeteEditVerbraucherFragment(
     private lateinit var inputStandBy: EditText
     private lateinit var inputZeitVolllast: EditText
     private lateinit var inputZeitStandBy: EditText
+    private lateinit var inputNotiz: EditText
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
     private lateinit var checkUrlaub: CheckBox
@@ -82,6 +83,11 @@ class GeraeteEditVerbraucherFragment(
         inputStandBy.setText(currGeraet.getStromStandBy().toString())
         inputZeitVolllast = root.findViewById(R.id.geraete_edit_edit_zeit_volllast)
         inputZeitVolllast.setText(currGeraet.getBetriebszeit().toString())
+        inputNotiz = root.findViewById(R.id.geraete_edit_edit_notiz)
+        if(currGeraet.getNotiz() != null) {
+            inputNotiz.setText(currGeraet.getNotiz())
+        }
+
 
         inputZeitStandBy = root.findViewById(R.id.geraete_edit_edit_zeit_standBy)
         inputZeitStandBy.setText(currGeraet.getBetriebszeitStandBy().toString())
@@ -125,13 +131,16 @@ class GeraeteEditVerbraucherFragment(
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
                     val zeitVolllast: Double? = inputZeitVolllast.text.toString().toDoubleOrNull()
                     val zeitStandBy: Double? = inputZeitStandBy.text.toString().toDoubleOrNull()
+                    var notiz:String? = inputNotiz.text.toString()
 
-                    if (volllast != null && standby != null && zeitVolllast != null && zeitStandBy != null) {
+                    if (volllast != null && standby != null && zeitVolllast != null && zeitStandBy != null && notiz != null) {
                         if (zeitStandBy <= 24.0 && zeitVolllast <= 24.0 && (zeitStandBy + zeitVolllast) <= 24.0) {
                             //TODO magic numbers
                             val jahresverbrauch =
                                 (((volllast * zeitVolllast) + (zeitStandBy * standby)) / 1000.0) * 365.0
-
+                            if(notiz.isEmpty()) {
+                                notiz = null
+                            }
 
                             currGeraet.setBetriebszeit(zeitVolllast)
                             currGeraet.setBetriebszeitStandBy(zeitStandBy)
@@ -143,6 +152,7 @@ class GeraeteEditVerbraucherFragment(
                             currGeraet.setStromStandBy(standby)
                             currGeraet.setUrlaubsmodus(checkUrlaub.isChecked)
                             currGeraet.setName(inputName.text.toString())
+                            currGeraet.setNotiz(notiz)
 
                             geraeteViewModel.updateGeraet(currGeraet)
                             val frag = GeraeteFragment()

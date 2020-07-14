@@ -136,7 +136,7 @@ data class Geraete(
         return notiz
     }
 
-    fun setNotiz(s: String) {
+    fun setNotiz(s: String?) {
         notiz = s
     }
 
