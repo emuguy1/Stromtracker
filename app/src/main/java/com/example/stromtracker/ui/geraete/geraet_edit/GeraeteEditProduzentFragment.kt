@@ -38,8 +38,6 @@ class GeraeteEditProduzentFragment (private val currGeraet:Geraete, private val 
 
         val root = inflater.inflate(R.layout.fragment_geraete_edit_produzent, container, false)
 
-        //TODO: Zwischen Haushalten unterscheiden!
-
         spinnerKat = root.findViewById(R.id.geraete_edit_produzent_KategorieSpinner)
         val katAdapter: ArrayAdapter<Kategorie> =
             ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
@@ -77,7 +75,6 @@ class GeraeteEditProduzentFragment (private val currGeraet:Geraete, private val 
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
 
@@ -90,7 +87,6 @@ class GeraeteEditProduzentFragment (private val currGeraet:Geraete, private val 
                 selectedKat = pos
             }
             else -> {
-
             }
 
         }

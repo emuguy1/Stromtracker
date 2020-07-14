@@ -11,10 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
         <TextView
-            android:id="@+id/geraet_edit_TextName"
+            android:id="@+id/geraete_edit_text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/geraet_edit_textview_margin"
@@ -25,64 +23,63 @@
             android:layout_marginLeft="@dimen/geraet_edit_textview_margin" />
 
         <EditText
-            android:id="@+id/geraete_edit_EditName"
+            android:id="@+id/geraete_edit_edit_name"
             android:hint="@string/geraet_new_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/geraet_edit_editText_margin"
-            app:layout_constraintStart_toStartOf="@+id/geraet_edit_TextName"
-            app:layout_constraintTop_toBottomOf="@+id/geraet_edit_TextName"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_name"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_name"
             android:inputType="text"
             />
 
         <TextView
-            android:id="@+id/geraete_edit_TextRaum"
+            android:id="@+id/geraete_edit_text_raum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
             android:text="@string/geraet_new_TextRaum"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_EditName"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_EditName" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_name" />
 
         <Spinner
-            android:id="@+id/geraete_edit_RaumSpinner"
+            android:id="@+id/geraete_edit_raum_spinner"
             android:layout_width="@dimen/spinner_geraet_width"
             android:layout_height="@dimen/spinner_geraet_height"
             android:layout_marginTop="@dimen/geraet_edit_editText_margin"
             android:dropDownWidth="@dimen/spinner_geraet_dropdown_width"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_TextRaum"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_TextRaum"/>
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_raum"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_raum"/>
 
         <TextView
-            android:id="@+id/geraete_edit_TextKategorie"
+            android:id="@+id/geraete_edit_text_kategorie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
             android:text="@string/geraet_new_TextKategorie"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_RaumSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_RaumSpinner" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_raum_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_raum_spinner" />
 
         <Spinner
-            android:id="@+id/geraete_edit_KategorieSpinner"
+            android:id="@+id/geraete_edit_kategorie_spinner"
             android:layout_width="@dimen/spinner_geraet_width"
             android:layout_height="@dimen/spinner_geraet_height"
             android:layout_marginTop="@dimen/geraet_edit_editText_margin"
             android:dropDownWidth="@dimen/spinner_geraet_dropdown_width"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_TextKategorie"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_TextKategorie"/>
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_kategorie"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_kategorie"/>
 
         <TextView
-            android:id="@+id/geraete_edit_TextVolllast"
+            android:id="@+id/geraete_edit_text_volllast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
             android:text="@string/geraet_new_TextVolllast"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_KategorieSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_KategorieSpinner" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_kategorie_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_kategorie_spinner" />
 
         <TextView
-            android:id="@+id/geraete_edit_TextZeit"
-
+            android:id="@+id/geraete_edit_text_zeit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="232dp"
@@ -93,12 +90,12 @@
             android:text="@string/geraet_new_TextZeit"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/geraete_edit_TextVolllast"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_KategorieSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_KategorieSpinner" />
+            app:layout_constraintRight_toLeftOf="@+id/geraete_edit_text_volllast"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_kategorie_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_kategorie_spinner" />
 
         <EditText
-            android:id="@+id/geraete_edit_EditVolllast"
+            android:id="@+id/geraete_edit_edit_volllast"
             android:inputType="numberDecimal"
 
             android:layout_width="wrap_content"
@@ -106,13 +103,13 @@
 
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/geraet_edit_editText_margin"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_TextVolllast"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_TextVolllast"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_volllast"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_volllast"
             />
 
 
         <EditText
-            android:id="@+id/geraete_edit_EditZeit"
+            android:id="@+id/geraete_edit_edit_zeit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="240dp"
@@ -122,21 +119,21 @@
             android:layout_marginTop="@dimen/geraet_edit_editText_margin"
             android:inputType="numberDecimal"
             android:hint="@string/geraete_edit_zeitHint"
-            app:layout_constraintRight_toLeftOf="@+id/geraete_edit_EditVolllast"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_TextVolllast"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_TextVolllast" />
+            app:layout_constraintRight_toLeftOf="@+id/geraete_edit_edit_volllast"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_volllast"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_volllast" />
 
         <TextView
-            android:id="@+id/geraete_edit_TextStandBy"
+            android:id="@+id/geraete_edit_text_standBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
             android:text="@string/geraet_new_TextStandBy"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_EditVolllast"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_EditVolllast" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_volllast"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_volllast" />
 
         <EditText
-            android:id="@+id/geraete_edit_EditStandBy"
+            android:id="@+id/geraete_edit_edit_standBy"
             android:inputType="numberDecimal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -144,8 +141,8 @@
             android:hint="@string/geraete_edit_standbyHint"
 
 
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_TextStandBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_TextStandBy" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_standBy"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standBy" />
 
         <CheckBox android:id="@+id/geraete_checkbox"
             android:layout_width="wrap_content"
@@ -153,8 +150,8 @@
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
 
             android:text="@string/geraet_new_TextUrlaubsmodus"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_EditStandBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_EditStandBy"/>
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_standBy"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_standBy"/>
 
         <Button
             android:id="@+id/geraete_edit_save"
@@ -205,7 +202,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/geraete_checkbox"
             />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

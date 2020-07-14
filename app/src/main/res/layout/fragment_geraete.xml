@@ -271,7 +271,6 @@
         android:layout_alignParentBottom="true"
         android:clickable="false"
         android:focusable="true"
-        android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -293,7 +292,7 @@
             android:id="@+id/button_geraete_add_verbraucher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/ic_menu_geraete"
+            app:fab_icon="@drawable/ic_kategorien_plug"
             fab:fab_colorNormal="@color/white"
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_title="Verbraucher" />

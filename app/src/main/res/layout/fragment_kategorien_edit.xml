@@ -41,42 +41,36 @@
         android:id="@+id/kategorie_edit_button_speichern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="296dp"
-        android:layout_marginLeft="296dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/button_speichern"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/kategorie_edit_button_abbrechen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="288dp"
-        android:layout_marginRight="296dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorDarkGreen"
         android:text="@string/button_abbrechen"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/kategorie_edit_button_loeschen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorDarkRed"
         android:text="@string/button_loeschen"
@@ -87,9 +81,10 @@
 
     <Spinner
         android:id="@+id/kategorie_edit_icon_spinner"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="@dimen/spinner_icon_width"
+        android:layout_height="@dimen/spinner_icon_height"
         android:layout_marginTop="8dp"
+        android:dropDownWidth="@dimen/spinner_icon_dropdown_width"
         app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textIcon"
         app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textIcon" />
 
