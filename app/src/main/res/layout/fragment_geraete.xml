@@ -60,7 +60,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:layout_marginLeft="@dimen/geraet_button_margin"
                         android:layout_marginRight="@dimen/geraet_button_margin"
                         android:layout_weight="2.625"
                         android:background="@color/colorWhite"
@@ -79,7 +78,6 @@
 
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginLeft="@dimen/geraet_button_margin"
                         android:layout_marginRight="@dimen/geraet_button_margin"
                         android:layout_weight="1.75"
                         android:textSize="@dimen/geraet_text_sort_button"
@@ -87,7 +85,7 @@
 
                         android:background="@color/colorWhite"
                         android:gravity="center_vertical"
-                        android:text="@string/geraet_new_TextRaum"
+                        android:text="@string/geraet_text_raum"
                         android:textColor="@color/colorTextBlack">
 
 
@@ -99,7 +97,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="@dimen/geraet_button_margin"
                         android:layout_marginRight="@dimen/geraet_button_margin"
                         android:layout_weight="1.75"
                         android:background="@color/colorWhite"
@@ -206,9 +203,8 @@
 
 
                         android:background="@color/colorWhite"
-                        android:gravity="center"
-                        android:text="@string/geraet_new_TextRaum"
-                        android:textAlignment="center"
+                        android:gravity="center_vertical"
+                        android:text="@string/geraet_text_raum"
                         android:textColor="@color/colorTextBlack">
 
 
@@ -227,7 +223,7 @@
 
 
                         android:background="@color/colorWhite"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="@string/geraet_produktion"
                         android:textSize="@dimen/geraet_text_sort_button"
 

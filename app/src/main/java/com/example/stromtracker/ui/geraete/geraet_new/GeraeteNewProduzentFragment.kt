@@ -110,6 +110,7 @@ class GeraeteNewProduzentFragment(
                             0.0,
                             0.0,
                             0.0,
+                            0.0,
                             false,
                             jahresverbrauch,
                             eigenverbrauch,

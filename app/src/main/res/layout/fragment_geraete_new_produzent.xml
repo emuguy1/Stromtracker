@@ -40,7 +40,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
-            android:text="@string/geraet_new_TextName"
+            android:text="@string/geraet_new_text_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/geraet_new_TextRaum"
+            android:text="@string/geraet_text_raum"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_EditName"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditName" />
 
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/geraet_new_TextKategorie"
+            android:text="@string/geraet_text_kategorie"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_RaumSpinner"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_RaumSpinner" />
 
