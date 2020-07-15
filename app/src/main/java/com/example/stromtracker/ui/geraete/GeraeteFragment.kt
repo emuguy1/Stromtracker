@@ -18,6 +18,7 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
@@ -28,7 +29,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
 
-    private  lateinit var geraeteList:ArrayList<Geraete>
+    private  lateinit var verbraucherList:ArrayList<Geraete>
     private lateinit var produzentList:ArrayList<Geraete>
 
     private lateinit var recyclerView: RecyclerView
@@ -51,7 +52,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortRaum_prod : Button
     private lateinit var buttonSortName_prod : Button
 
-
+    private lateinit var buttonZuAuswertung : Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,7 +79,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         buttonSortName_prod = root.findViewById(R.id.geraete_button_sort_name_prod)
         buttonSortName_prod.setOnClickListener(this)
 
-        geraeteList = ArrayList()
+        buttonZuAuswertung = root.findViewById(R.id.geraete_button_auswertung)
+        buttonZuAuswertung.setOnClickListener(this)
+
+        verbraucherList = ArrayList()
         produzentList = ArrayList()
         kategorieList = ArrayList()
         raumList = ArrayList()
@@ -91,7 +95,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = GeraeteListAdapter(geraeteList, kategorieList, raumList)
+        viewAdapter = GeraeteListAdapter(verbraucherList, kategorieList, raumList)
         recyclerView = root.findViewById<RecyclerView>(R.id.geraete_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -120,15 +124,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
-
-            
-                    geraeteList.clear()
-                    geraeteList.addAll(geraete)
+                    verbraucherList.clear()
+                    verbraucherList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
-
-
-
-
                 }
             })
 
@@ -182,9 +180,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
             R.id.geraete_button_sort_verbrauch -> {
                 var sortedVerbrauch =
-                    geraeteList.sortedWith(compareByDescending { it.getJahresverbrauch() })
-                geraeteList.clear()
-                geraeteList.addAll(sortedVerbrauch)
+                    verbraucherList.sortedWith(compareByDescending { it.getJahresverbrauch() })
+                verbraucherList.clear()
+                verbraucherList.addAll(sortedVerbrauch)
                 viewAdapter.notifyDataSetChanged();
                 buttonSortVerbrauch.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortName.paintFlags = 0
@@ -193,9 +191,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_name -> {
-                var sortedName = geraeteList.sortedWith(compareBy { it.getName().toLowerCase() })
-                geraeteList.clear()
-                geraeteList.addAll(sortedName)
+                var sortedName = verbraucherList.sortedWith(compareBy{it.getName().toLowerCase()})
+                verbraucherList.clear()
+                verbraucherList.addAll(sortedName)
                 viewAdapter.notifyDataSetChanged();
                 buttonSortName.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
@@ -203,12 +201,12 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum -> {
-                var sortedRaum = geraeteList.sortedWith(compareBy {
+                var sortedRaum = verbraucherList.sortedWith(compareBy {
                     raumList[it.getRaumID() - 1].getName().toLowerCase()
                 })
                 Log.d("TAGSort", sortedRaum.toString())
-                geraeteList.clear()
-                geraeteList.addAll(sortedRaum)
+                verbraucherList.clear()
+                verbraucherList.addAll(sortedRaum)
                 viewAdapter.notifyDataSetChanged();
                 buttonSortRaum.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
@@ -250,10 +248,15 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
             }
 
+            R.id.geraete_button_auswertung -> {
+                val frag = GeraeteAuswertungFragment(verbraucherList, produzentList, kategorieList, raumList)
+                val fragMan = parentFragmentManager
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+            }
+
             else -> {
                 //Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
             }
         }
     }
 }
-
