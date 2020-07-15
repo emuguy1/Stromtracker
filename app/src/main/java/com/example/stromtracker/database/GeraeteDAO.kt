@@ -16,9 +16,7 @@ interface GeraeteDAO {
     fun getAllVerbraucher(): LiveData<List<Geraete>>
 
     @Query("SELECT * FROM geraete WHERE jahresverbrauch >= 0.0 AND haushaltID = :haushaltID")
-    fun getAllVerbraucherByHaushaltID(haushaltID:Int): LiveData<List<Geraete>>
-
-
+    fun getAllVerbraucherByHaushaltID(haushaltID: Int): LiveData<List<Geraete>>
 
 
     @Query("SELECT * FROM geraete WHERE geraeteID IN (:geraeteIDs)")
@@ -28,19 +26,8 @@ interface GeraeteDAO {
     fun findByName(name: String): List<Geraete>
 
 
-
-    /*@Insert
+    @Insert
     fun insertGeraete(vararg geraete: Geraete)
-    */
-     /*@Query("INSERT INTO geraete(name, kategorieID, raumID, haushaltID, stromVollast, stromStandBy, betriebszeit, urlaubsmodus, notiz) VALUES " +
-             "(':name, (SELECT kategorieID FROM kategorie WHERE kategorieID = :kategorieID, (SELECT raumID FROM raum WHERE raumID = :raumID, (SELECt haushaltID FROM haushalt WHERE haushaltID = :haushaltID" +
-     "), :stromVollast, :stromStandby, :betriebszeit, :urlaubsmodus; :notiz")
-     fun insertGeraet(name:String, kategorieID:Int, raumID:Int, stromVollast:Int, stromStandby:Int, betriebszeit:Int, urlaubsmodus:Boolean, notiz:String?)
-     */
-    @Insert(//onConflict = OnConflictStrategy.IGNORE
-        )
-    fun insertGeraete(vararg geraete: Geraete)
-
 
     @Delete
     fun delete(geraete: Geraete)
