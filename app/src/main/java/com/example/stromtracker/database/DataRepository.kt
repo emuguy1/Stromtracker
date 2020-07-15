@@ -50,7 +50,7 @@ class DataRepository public constructor(application: Application) {
         return mAllHaushalt
     }
 
-    fun getUrlaub():LiveData<List<Urlaub>> {
+    fun getAllUrlaub():LiveData<List<Urlaub>> {
         return mAllUrlaub
     }
 
