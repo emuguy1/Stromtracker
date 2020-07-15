@@ -2,8 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5f754c8fa9657e9062022eddcb3f0afb",
-
+    "identityHash": "7baba03b3b6582503249e75328e30161",
     "entities": [
       {
         "tableName": "Geraete",
@@ -240,7 +239,7 @@
       },
       {
         "tableName": "Raum",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "raumID",
@@ -280,7 +279,7 @@
         "foreignKeys": [
           {
             "table": "Haushalt",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "haushaltID"
@@ -295,9 +294,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fb7c6408a51d0c05742a94cd166afd4b')"
-
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7baba03b3b6582503249e75328e30161')"
     ]
   }
 }
