@@ -81,7 +81,6 @@ class HaushaltFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("TAGdatavergleich", "View")
         haushaltViewModel =
             ViewModelProviders.of(this).get(HaushaltViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_haushalt, container, false)//false weil es nur teil des root ist, aber nicht selber die root
@@ -111,7 +110,6 @@ class HaushaltFragment: Fragment() {
                 //und anschließend noch ein commit()
             }
         }
-        Log.d("TAGdatavergleich", "View2")
         return root
     }
 }
