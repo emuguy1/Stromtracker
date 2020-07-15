@@ -69,18 +69,6 @@ class HaushaltErstellenFragment: Fragment() {
                     //Haushalt in Room Datenbank speichern
                     haushaltViewModel.insertHaushalt(newHaushalt)
 
-                    //Haushaltid holen und standardräume einfügen
-                    //val haushaltID=haushaltViewModel.insertHaushalt(newHaushalt)
-                    //Log.d("HaushaltId", haushaltID.toString())
-                    //var tempraum= Raum("Wohnzimmer",haushaltID)
-                    //haushaltViewModel.insertRaum(tempraum)
-                    //tempraum= Raum("Küche",haushaltID)
-                    //haushaltViewModel.insertRaum(tempraum)
-                    //tempraum= Raum("Schlafzimmer",haushaltID)
-                    //haushaltViewModel.insertRaum(tempraum)
-                    //tempraum= Raum("Sonstige",haushaltID)
-                    //haushaltViewModel.insertRaum(tempraum)
-
                     //neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = HaushaltFragment()
                     //Fragment Manager aus Main Activity holen
@@ -106,7 +94,7 @@ class HaushaltErstellenFragment: Fragment() {
                 val frag = HaushaltFragment()
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
                 //und anschließend noch ein commit()
             }
