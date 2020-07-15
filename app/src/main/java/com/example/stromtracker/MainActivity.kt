@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
         R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
 
+    private lateinit var oldhaushaltList: ArrayList<Haushalt>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +46,7 @@ class MainActivity : AppCompatActivity() {
         var geraeteViewModel: GeraeteViewModel =  ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
         val haushaltItems:ArrayList<Haushalt> = ArrayList()
 
-
-
-
-
         setSupportActionBar(toolbar)
-
-
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -67,8 +62,12 @@ class MainActivity : AppCompatActivity() {
                     sp= navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
                     val adapter = ArrayAdapter<Haushalt>(this, android.R.layout.simple_spinner_dropdown_item, haushaltItems)
                     sp.adapter = adapter
+
                 }
             })
+
+        //Alte Haushaltliste initialisieren um damit auf neue Haushalte überprüfen
+        setOldHaushaltList(haushaltItems)
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -81,13 +80,17 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
     }
 
+    fun getOldHaushaltList() : ArrayList<Haushalt>{
+        return oldhaushaltList
+    }
+    fun setOldHaushaltList(new :ArrayList<Haushalt>){
+        oldhaushaltList=new
+    }
     fun getIconArray () : Array<Int> {
         return iconArrayList
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -99,5 +102,4 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
 }
