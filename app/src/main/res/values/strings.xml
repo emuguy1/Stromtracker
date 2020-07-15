@@ -10,7 +10,7 @@
     <string name="nein">nein</string>
     <string name="ok">OK</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_urlaub">Urlaubsmodus</string>
     <string name="menu_geraete">Geräte</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_haushalt">Haushalt</string>

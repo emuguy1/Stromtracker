@@ -49,8 +49,8 @@
         android:title="@string/menu_importexport" />
 
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_urlaub"
+            android:icon="@drawable/ic_menu_urlaub"
+            android:title="@string/menu_urlaub" />
     </group>
 </menu>

@@ -1,13 +1,9 @@
 package com.example.stromtracker
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Spinner
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,11 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
-import com.example.stromtracker.database.DataRepository
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.ViewModelProviders
-import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
@@ -73,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home, R.id.nav_geraete,
+            R.id.nav_urlaub, R.id.nav_geraete,
             R.id.nav_haushalt,R.id.nav_haushalt, R.id.nav_geraete,
             R.id.nav_kategorien,R.id.nav_raeume,R.id.nav_verbrauchsrechner,
             R.id.nav_amortisationsrechner,R.id.nav_amortisationsrechnerPV,
