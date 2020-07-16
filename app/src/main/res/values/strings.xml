@@ -190,6 +190,9 @@
         und kann im Nachhinein nicht mehr geändert werden.
         Dabei wird der StandBy Verbrauch auf einen Tag hochgerechnet,
         falls dieser null ist wird das Ergebnis des Produkts von Vollast-Verbrauch und Betriebszeit verwendet.</string>
+    <string name="urlaub_hint_Urlaub">Urlaub</string>
+    <string name="urlaub_recycler_hint_von">von DD.MM.JJJJ</string>
+    <string name="urlaub_recycler_hint_bis">bis DD.MM.JJJJ</string>
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
