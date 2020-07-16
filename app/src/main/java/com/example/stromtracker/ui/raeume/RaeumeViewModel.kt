@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.stromtracker.database.DataRepository
+import com.example.stromtracker.database.Geraete
 
 import com.example.stromtracker.database.Raum
 
@@ -24,5 +25,10 @@ class RaeumeViewModel (application: Application) : AndroidViewModel(application)
     fun deleteRaeume(a: Raum) {
         repo.deleteRaum(a)
     }
-
+    fun getAllGeraeteByHaushaltId(a:Int):LiveData<List<Geraete>>{
+        return repo.getAllGeraeteByHaushaltID(a)
+    }
+    fun updateGeraet(g: Geraete){
+        repo.updateGeraete(g)
+    }
 }

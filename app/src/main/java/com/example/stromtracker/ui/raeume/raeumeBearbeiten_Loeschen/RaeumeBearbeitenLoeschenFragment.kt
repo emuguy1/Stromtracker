@@ -3,20 +3,24 @@ package com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Geraete
+import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.RaeumeFragment
 import com.example.stromtracker.ui.raeume.RaeumeViewModel
 
 
 //deklariert Raeumefragment als Unterklasse von Fragment
-class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
+class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum,private var currHaushalt: Haushalt): Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
     private lateinit var savebutton:View
     private lateinit var abortbutton:View
@@ -88,6 +92,49 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
                 builder1.setPositiveButton(
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
+
+                        //TODO: get Geräte by Raumname und schiebe enthaltene Geräte in Raum Sonstiges des Haushaltes
+                        //Holen der Raumliste, um den Raum Sonstiges zu finden, um alle Geräte,
+                        // die im aktuellen Raum entalten sind, der gelöscht werden soll und deren Raum ID auf den
+                        // Sonstigen Raum zu ändern
+                        var haushaltraeumelist: ArrayList<Raum>
+                        haushaltraeumelist=ArrayList()
+                        raeumeViewModel.getAllRaeumeById(currHaushalt.getHaushaltID()).observe(
+                            viewLifecycleOwner,
+                            Observer { raeume ->
+                                if (raeume != null) {
+                                    haushaltraeumelist.clear()
+                                    haushaltraeumelist.addAll(raeume)
+                                }
+                            })
+                        var sonstigesraumid=0
+                        for (raeume in haushaltraeumelist){
+                            if(raeume.getName()=="Sonstiges") {
+                                sonstigesraumid = raeume.getRaumID()
+                                Log.d("sonstigesraumid",sonstigesraumid.toString())
+                            }
+                        }
+                        //Jetzt alle Geräte bekommen, die auf den aktuellen Raum verweisen
+                        val raumgeraetelist: ArrayList<Geraete>
+                        raumgeraetelist=ArrayList()
+                        raeumeViewModel.getAllGeraeteByHaushaltId(currHaushalt.getHaushaltID()).observe(
+                            viewLifecycleOwner,
+                            Observer { geraete ->
+                                if (geraete != null) {
+                                    raumgeraetelist.clear()
+                                    raumgeraetelist.addAll(geraete)
+                                }
+                            })
+                        //Jetzt nach alle Geräte aus dem Haushalt vergleichen
+                        for(geraet in raumgeraetelist){
+                            if(geraet.getRaumID()==currRaum.getRaumID()){
+                                //Geraete Id auf den Sonstiges Raum setzen, der ja nicht gelöscht werden kann und
+                                //der automatisch erzeugt wird und nicht gelöscht werden kann oder der Name geändert werden kann
+                                Log.d("gefundene Geräte",geraet.toString())
+                                geraet.setRaumID(sonstigesraumid)
+                                raeumeViewModel.updateGeraet(geraet)
+                            }
+                        }
                         //Daten werden aus der Datenbank gelöscht
                         //Daten aus Datenbank löschen
                         raeumeViewModel.deleteRaeume(currRaum)
@@ -99,7 +146,6 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
                         //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
                         //und anschließend noch ein commit()
-                        //TODO: get Geräte by Raumname und schiebe enthaltene Geräte in Raum Sonstiges des Haushaltes
                         dialog.cancel() })
 
                 builder1.setNegativeButton(

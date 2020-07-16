@@ -7,10 +7,11 @@ import android.widget.TextView
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment
 
-class ListAdapterraeume(private val datain: List<Raum>) : RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
+class ListAdapterraeume(private val datain: List<Raum>,private val currHaushalt: Haushalt) : RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
     private val data =datain
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -39,7 +40,7 @@ class ListAdapterraeume(private val datain: List<Raum>) : RecyclerView.Adapter<L
         }
         override fun onClick(view: View?) {
             if (view != null) {
-                val frag = RaeumeBearbeitenLoeschenFragment(data[layoutPosition])
+                val frag = RaeumeBearbeitenLoeschenFragment(data[layoutPosition],currHaushalt)
                 //Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<RaeumeFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
