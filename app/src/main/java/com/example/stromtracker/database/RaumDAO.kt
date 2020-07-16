@@ -3,7 +3,8 @@ package com.example.stromtracker.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
-@Dao interface RaumDAO {
+@Dao
+interface RaumDAO {
     @Query("SELECT * FROM raum")
     fun getAll(): LiveData<List<Raum>>
 
@@ -11,7 +12,7 @@ import androidx.room.*
     fun loadAllByIds(raumID: IntArray): LiveData<List<Raum>>
 
     @Query("SELECT * FROM raum WHERE haushaltID = :haushaltID")
-    fun loadAllByHaushaltID(haushaltID:Int): LiveData<List<Raum>>
+    fun loadAllByHaushaltID(haushaltID: Int): LiveData<List<Raum>>
 
     @Query("SELECT * FROM raum WHERE name LIKE :name LIMIT 1")
     fun findByName(name: String): Raum
@@ -27,6 +28,4 @@ import androidx.room.*
 
     @Update
     fun updateRaum(raum: Raum)
-
-
 }

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
@@ -15,15 +15,15 @@ import com.example.stromtracker.ui.raeume.raeumeErstellen.RaeumeErstellenFragmen
 
 
 //deklariert Raeumefragment als Unterklasse von Fragment
-class RaeumeFragment: Fragment() {
+class RaeumeFragment : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
     private lateinit var datain: ArrayList<Raum>
-    private lateinit var viewAdapter : RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //View Model zuweisen, benötigt für DB Zugriff
-        raeumeViewModel = ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
+        raeumeViewModel = ViewModelProvider(this).get(RaeumeViewModel::class.java)
         raeumeViewModel.getAllRaeume().observe(
             viewLifecycleOwner,
             //TODO: Nur Räume die im eigenen Haushalt sind dürfen angezeigt werden
@@ -43,16 +43,18 @@ class RaeumeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_raeume, container, false)//false weil es nur teil des root ist, aber nicht selber die root
+        val root = inflater.inflate(
+            R.layout.fragment_raeume,
+            container,
+            false
+        )//false weil es nur teil des root ist, aber nicht selber die root
 
 
-
-
-        datain=ArrayList()
+        datain = ArrayList()
         //Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_raeume)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        viewAdapter=ListAdapterraeume(datain)
+        viewAdapter = ListAdapterraeume(datain)
         recyclerView.adapter = viewAdapter
 
         //Floating Action Button zum erstellen neuer Raeume
@@ -77,5 +79,3 @@ class RaeumeFragment: Fragment() {
     }
 
 }
-
-

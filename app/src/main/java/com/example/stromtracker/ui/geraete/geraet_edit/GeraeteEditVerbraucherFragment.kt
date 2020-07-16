@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import android.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
@@ -84,7 +84,7 @@ class GeraeteEditVerbraucherFragment(
         inputZeitVolllast = root.findViewById(R.id.geraete_edit_edit_zeit_volllast)
         inputZeitVolllast.setText(currGeraet.getBetriebszeit().toString())
         inputNotiz = root.findViewById(R.id.geraete_edit_edit_notiz)
-        if(currGeraet.getNotiz() != null) {
+        if (currGeraet.getNotiz() != null) {
             inputNotiz.setText(currGeraet.getNotiz())
         }
 
@@ -100,7 +100,7 @@ class GeraeteEditVerbraucherFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -131,14 +131,14 @@ class GeraeteEditVerbraucherFragment(
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
                     val zeitVolllast: Double? = inputZeitVolllast.text.toString().toDoubleOrNull()
                     val zeitStandBy: Double? = inputZeitStandBy.text.toString().toDoubleOrNull()
-                    var notiz:String? = inputNotiz.text.toString()
+                    var notiz: String? = inputNotiz.text.toString()
 
                     if (volllast != null && standby != null && zeitVolllast != null && zeitStandBy != null && notiz != null) {
                         if (zeitStandBy <= 24.0 && zeitVolllast <= 24.0 && (zeitStandBy + zeitVolllast) <= 24.0) {
                             //TODO magic numbers
                             val jahresverbrauch =
                                 (((volllast * zeitVolllast) + (zeitStandBy * standby)) / 1000.0) * 365.0
-                            if(notiz.isEmpty()) {
+                            if (notiz.isEmpty()) {
                                 notiz = null
                             }
 

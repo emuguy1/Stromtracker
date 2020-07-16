@@ -31,15 +31,17 @@ class VerbrauchsrechnerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_verbrauchsrechner, container, false)
-        strompreis=root.findViewById(R.id.edit_text_verbrauchsrechner_strompreis_kwh_input)
-        leistungsverbrauch=root.findViewById(R.id.edit_text_verbrauchsrechner_leistung_kwh_input)
-        standbyverbrauch=root.findViewById(R.id.edit_text_verbrauchsrechner_stand_by_leistung_kwh_input)
-        standbyzeit=root.findViewById(R.id.edit_text_verbrauchsrechner_stand_by_leistung_zeit_kwh_input)
-        lastzeit=root.findViewById(R.id.edit_text_verbrauchsrechner_leistung_zeit_kwh_input)
+        strompreis = root.findViewById(R.id.edit_text_verbrauchsrechner_strompreis_kwh_input)
+        leistungsverbrauch = root.findViewById(R.id.edit_text_verbrauchsrechner_leistung_kwh_input)
+        standbyverbrauch =
+            root.findViewById(R.id.edit_text_verbrauchsrechner_stand_by_leistung_kwh_input)
+        standbyzeit =
+            root.findViewById(R.id.edit_text_verbrauchsrechner_stand_by_leistung_zeit_kwh_input)
+        lastzeit = root.findViewById(R.id.edit_text_verbrauchsrechner_leistung_zeit_kwh_input)
 
-        verbrauchprojahr=root.findViewById(R.id.text_view_verbrauchsrechner_erg_verbrauch_jahr)
-        kostenprojahr=root.findViewById(R.id.text_view_verbrauchsrechner_erg_kosten_jahr)
-        warnungstext=root.findViewById(R.id.text_view_verbrauchsrechner_warnung)
+        verbrauchprojahr = root.findViewById(R.id.text_view_verbrauchsrechner_erg_verbrauch_jahr)
+        kostenprojahr = root.findViewById(R.id.text_view_verbrauchsrechner_erg_kosten_jahr)
+        warnungstext = root.findViewById(R.id.text_view_verbrauchsrechner_warnung)
 
         CustomTextListener(strompreis)
         CustomTextListener(leistungsverbrauch)
@@ -48,47 +50,53 @@ class VerbrauchsrechnerFragment : Fragment() {
         CustomTextListener(lastzeit)
         return root
     }
-    fun CustomTextListener(edit:EditText) : EditText {
+
+    fun CustomTextListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                val neustrompreis:Double? = strompreis.text.toString().toDoubleOrNull()
-                val lastverbrauch:Double? = leistungsverbrauch.text.toString().toDoubleOrNull()
-                val standbystromverbrauch:Double? = standbyverbrauch.text.toString().toDoubleOrNull()
-                val volllastzeit:Double? = lastzeit.text.toString().toDoubleOrNull()
-                val standbydauer:Double? = standbyzeit.text.toString().toDoubleOrNull()
-                var verbrauch:Double
-                var euro:Double
-                if(neustrompreis != null && lastverbrauch != null && volllastzeit != null) {
+                val neustrompreis: Double? = strompreis.text.toString().toDoubleOrNull()
+                val lastverbrauch: Double? = leistungsverbrauch.text.toString().toDoubleOrNull()
+                val standbystromverbrauch: Double? =
+                    standbyverbrauch.text.toString().toDoubleOrNull()
+                val volllastzeit: Double? = lastzeit.text.toString().toDoubleOrNull()
+                val standbydauer: Double? = standbyzeit.text.toString().toDoubleOrNull()
+                var verbrauch: Double
+                var euro: Double
+                if (neustrompreis != null && lastverbrauch != null && volllastzeit != null) {
 
                     verbrauch = (((lastverbrauch * volllastzeit) / 1000) * 365)
                     euro = (((lastverbrauch * volllastzeit) / 1000) * neustrompreis / 100 * 365)
-                    if(volllastzeit> 24) {
-                        warnungstext.text=String.format("Die Zeit unter Last überschreitet 24h! Sie beträgt: %.1f h",volllastzeit)
-                    }
-                    else{
-                        warnungstext.text=null
+                    if (volllastzeit > 24) {
+                        warnungstext.text = String.format(
+                            "Die Zeit unter Last überschreitet 24h! Sie beträgt: %.1f h",
+                            volllastzeit
+                        )
+                    } else {
+                        warnungstext.text = null
                     }
                     if (standbystromverbrauch != null && standbydauer != null) {
                         verbrauch += ((standbystromverbrauch * standbydauer) / 1000) * 365
                         euro = verbrauch * neustrompreis / 100
-                        if((volllastzeit+standbydauer)>24) {
-                            warnungstext.text=String.format("Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt: %.1f h",(volllastzeit+standbydauer))
-                        }
-                        else{
-                            warnungstext.text=null
+                        if ((volllastzeit + standbydauer) > 24) {
+                            warnungstext.text = String.format(
+                                "Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt: %.1f h",
+                                (volllastzeit + standbydauer)
+                            )
+                        } else {
+                            warnungstext.text = null
                         }
                     }
                     verbrauchprojahr.text = String.format("%.2f kWh pro Jahr", verbrauch)
                     kostenprojahr.text = String.format("%.2f € pro Jahr", euro)
 
-                }
-                else {
+                } else {
                     verbrauchprojahr.text = null
                     kostenprojahr.text = null
                 }
             }
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
         return edit
 

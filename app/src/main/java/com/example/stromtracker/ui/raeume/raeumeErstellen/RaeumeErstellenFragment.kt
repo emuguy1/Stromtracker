@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.RaeumeFragment
 import com.example.stromtracker.ui.raeume.RaeumeViewModel
 
-class RaeumeErstellenFragment: Fragment() {
+class RaeumeErstellenFragment : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
-
 
 
     override fun onCreateView(
@@ -24,9 +23,8 @@ class RaeumeErstellenFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         raeumeViewModel =
-            ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
+            ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
-
 
 
         //Speicher Button zum speichern der eingegebenen Daten
@@ -37,8 +35,9 @@ class RaeumeErstellenFragment: Fragment() {
             if (view != null) {
                 //TODO:Haushaltid aus der Mainactivity bekommen
                 //Die Daten in die RoomDatabase speichern
-                val raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
-                val raum:Raum= Raum(raumnameneditfeld.text.toString(),1)
+                val raumnameneditfeld =
+                    root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
+                val raum: Raum = Raum(raumnameneditfeld.text.toString(), 1)
                 raeumeViewModel.insertRaeume(raum)
                 //neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = RaeumeFragment()

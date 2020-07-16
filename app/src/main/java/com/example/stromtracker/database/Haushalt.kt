@@ -13,53 +13,54 @@ data class Haushalt(
     @ColumnInfo(name = "datum") private var datum: Date?,
     @ColumnInfo(name = "oekostrom") private var oekostrom: Boolean
 ) {
-    @PrimaryKey(autoGenerate = true) private var haushaltID: Int = 0
+    @PrimaryKey(autoGenerate = true)
+    private var haushaltID: Int = 0
 
-    fun getHaushaltID():Int {
+    fun getHaushaltID(): Int {
         return haushaltID
     }
 
-    fun setHaushaltID(v:Int) {
+    fun setHaushaltID(v: Int) {
         haushaltID = v
     }
 
-    fun getStromkosten():Double {
+    fun getStromkosten(): Double {
         return stromkosten
     }
 
-    fun setStromkosten(s:Double) {
+    fun setStromkosten(s: Double) {
         stromkosten = s
     }
 
-    fun getBewohnerAnzahl():Int {
+    fun getBewohnerAnzahl(): Int {
         return bewohnerAnzahl
     }
 
-    fun setBewohnerAnzahl(b:Int) {
+    fun setBewohnerAnzahl(b: Int) {
         bewohnerAnzahl = b
     }
 
-    fun getZaehlerstand():Double? {
+    fun getZaehlerstand(): Double? {
         return zaehlerstand
     }
 
-    fun setZaehlerstand(z:Double) {
+    fun setZaehlerstand(z: Double) {
         zaehlerstand = z
     }
 
-    fun getDatum():Date? {
+    fun getDatum(): Date? {
         return datum
     }
 
-    fun setDatum(d:Date) {
+    fun setDatum(d: Date) {
         datum = d
     }
 
-    fun getOekostrom():Boolean {
+    fun getOekostrom(): Boolean {
         return oekostrom
     }
 
-    fun setOekostrom(o:Boolean) {
+    fun setOekostrom(o: Boolean) {
         oekostrom = o
     }
 
@@ -71,10 +72,7 @@ data class Haushalt(
         name = n
     }
 
-    override fun toString():String {
+    override fun toString(): String {
         return name
     }
 }
-
-
-

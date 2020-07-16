@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.RaeumeFragment
@@ -16,7 +16,7 @@ import com.example.stromtracker.ui.raeume.RaeumeViewModel
 
 
 //deklariert Raeumefragment als Unterklasse von Fragment
-class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
+class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum) : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
 
     override fun onCreateView(
@@ -25,11 +25,15 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         raeumeViewModel =
-            ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_raeume_bearbeiten_loeschen, container, false)//false weil es nur teil des root ist, aber nicht selber die root
+            ViewModelProvider(this).get(RaeumeViewModel::class.java)
+        val root = inflater.inflate(
+            R.layout.fragment_raeume_bearbeiten_loeschen,
+            container,
+            false
+        )//false weil es nur teil des root ist, aber nicht selber die root
 
         // Die Daten aus der RoomDatabse holen und in die Felder schreiben
-        val raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_bearbeiten_name)
+        val raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_bearbeiten_name)
         raumnameneditfeld.setText(currRaum.getName())
 
 
@@ -47,7 +51,8 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit();
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit();
                 //und anschließend noch ein commit()
 
             }
@@ -79,7 +84,7 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
             if (view != null) {
                 //Bestätigungsdialog mithilfe von AlertDialog
                 val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
-                builder1.setMessage(R.string.raumlöschenConfirm )
+                builder1.setMessage(R.string.raumlöschenConfirm)
                 builder1.setPositiveButton(
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
@@ -94,7 +99,8 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum): Fragment() {
                         //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
                         //und anschließend noch ein commit()
-                        dialog.cancel() })
+                        dialog.cancel()
+                    })
 
                 builder1.setNegativeButton(
                     R.string.nein,
