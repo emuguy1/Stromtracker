@@ -186,13 +186,14 @@
     <string name="urlaub_text_datum_bis">Ende des Urlaubs</string>
     <string name="urlaub_hint_tage">Der Urlaub dauert insgesamt X Tage</string>
     <string name="urlaub_hint_verbrauch">Währenddessen werden X kWh, also Y € gespart</string>
-    <string name="urlaub_text_hinweis">Der Verbrauch während des Urlaubs basiert auf der aktuellen Konfiguration der Geräte
+    <string name="urlaub_text_hinweis">Der Verbrauch während des Urlaubs basiert auf der Konfiguration der Geräte zum Zeitpunkt des Erstellens
         und kann im Nachhinein nicht mehr geändert werden.
         Dabei wird der StandBy Verbrauch auf einen Tag hochgerechnet,
         falls dieser null ist wird das Ergebnis des Produkts von Vollast-Verbrauch und Betriebszeit verwendet.</string>
     <string name="urlaub_hint_Urlaub">Urlaub</string>
     <string name="urlaub_recycler_hint_von">von DD.MM.JJJJ</string>
     <string name="urlaub_recycler_hint_bis">bis DD.MM.JJJJ</string>
+    <string name="urlaub_edit_LöschenConfirm">Sind Sie sicher, dass Sie den Urlaub löschen wollen?</string>
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>

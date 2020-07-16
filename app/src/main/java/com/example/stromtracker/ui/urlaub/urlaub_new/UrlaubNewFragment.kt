@@ -3,6 +3,7 @@ package com.example.stromtracker.ui.urlaub.urlaub_new
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,29 +18,33 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
 import com.example.stromtracker.ui.urlaub.UrlaubFragment
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.centToEuro
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.dateTimeToDays
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.dayLen
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.wattToKW
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.yearToDay
 import com.example.stromtracker.ui.urlaub.UrlaubViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UrlaubNewFragment(private val geraete : List<Geraete>, private val currHaushalt : Haushalt) : Fragment(), View.OnClickListener {
+class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaushalt: Haushalt) :
+    Fragment(), View.OnClickListener {
 
-    private lateinit var urlaubViewModel : UrlaubViewModel
+    private lateinit var urlaubViewModel: UrlaubViewModel
 
-    private var gesamtverbrauchNeuPT : Double = 0.0
-    private var gesamtverbrauchAktPJ : Double = 0.0
-    private val dateLength = 10
-    private val dateTimeToDays = 1000*60*60*24
-    private val dayLen = 24
+    private var gesamtverbrauchNeuPT: Double = 0.0
+    private var gesamtverbrauchAktPT: Double = 0.0
 
-    private lateinit var name : EditText
-    private lateinit var start : EditText
-    private lateinit var ende : EditText
+    private lateinit var name: EditText
+    private lateinit var start: EditText
+    private lateinit var ende: EditText
 
-    private lateinit var outTage : TextView
-    private lateinit var outErsparnis : TextView
+    private lateinit var outTage: TextView
+    private lateinit var outErsparnis: TextView
 
-    private lateinit var btnAbbrechen : Button
-    private lateinit var btnSpeichern : Button
+    private lateinit var btnAbbrechen: Button
+    private lateinit var btnSpeichern: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,101 +75,90 @@ class UrlaubNewFragment(private val geraete : List<Geraete>, private val currHau
         return root
     }
 
-    fun addCustomTextChangedListener(edit:EditText) : EditText {
-            edit.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable) {
-                    if(checkDates(start, ende)) {
-                        val start =
-                            SimpleDateFormat(
-                                "dd.MM.yyyy",
-                                Locale.GERMAN
-                            ).parse(start.text.toString())
-                        val ende =
-                            SimpleDateFormat(
-                                "dd.MM.yyyy",
-                                Locale.GERMAN
-                            ).parse(ende.text.toString())
-                        updateOutputs(start, ende)
-                    }
+    private fun loadGesamtverbrauch() {
+        for (geraet in geraete) {
+            if (geraet.getUrlaubsmodus() == false) {
+                if (geraet.getStromStandBy() != null)    //TODO && geraet.getStandByZeit != null
+                    gesamtverbrauchNeuPT += geraet.getStromStandBy() * dayLen
+                else {
+                    gesamtverbrauchNeuPT += geraet.getStromVollast() * geraet.getBetriebszeit() as Double
                 }
+            }
+            gesamtverbrauchAktPT += geraet.getJahresverbrauch()
+        }
+        //Beide werden nun einheitlich gespeichert, als kWh pro Tag
+        Log.d("verbrProTag", gesamtverbrauchAktPT.toString()+" (aktuell) "+gesamtverbrauchNeuPT+" (neu)")
+        gesamtverbrauchNeuPT *= wattToKW
+        gesamtverbrauchAktPT *= yearToDay
+        Log.d("verbrProTag", gesamtverbrauchAktPT.toString()+" (aktuell) "+gesamtverbrauchNeuPT+" (neu)")
+    }
 
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
+    private fun addCustomTextChangedListener(edit: EditText): EditText {
+        edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (UrlaubCompanion.checkDates(start, ende)) {
+                    val start =
+                        SimpleDateFormat(
+                            "dd.MM.yyyy",
+                            Locale.GERMAN
+                        ).parse(start.text.toString())
+                    val ende =
+                        SimpleDateFormat(
+                            "dd.MM.yyyy",
+                            Locale.GERMAN
+                        ).parse(ende.text.toString())
+                    updateOutputs(start, ende)
                 }
+            }
 
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            })
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
         return edit
     }
 
-    fun updateOutputs (st : Date?, end : Date?) {
-        var neuStr : String
-        if(st != null && end != null) {
-            val countTage : Long = end.time/dateTimeToDays - st.time/dateTimeToDays + 1
+    fun updateOutputs(st: Date?, end: Date?) {
+        var neuStr: String
+        if (st != null && end != null) {
+            val countTage: Long = end.time / dateTimeToDays - st.time / dateTimeToDays + 1
             neuStr = "Der Urlaub dauert insgesamt $countTage Tage"
             outTage.text = neuStr
-            val diffkWh = (gesamtverbrauchAktPJ/countTage - gesamtverbrauchNeuPT*countTage) / 1000
-            val diffEuro = diffkWh * currHaushalt.getStromkosten() / 100
-            neuStr = "Währenddessen werden "+ String.format("%.2f", diffkWh) +"kWh, also "+ String.format("%.2f", diffEuro)+"€ gespart"
+            val diffkWh = (gesamtverbrauchAktPT - gesamtverbrauchNeuPT) * countTage
+            val diffEuro = diffkWh * currHaushalt.getStromkosten() * centToEuro
+            neuStr = "Währenddessen werden " + String.format(
+                "%.2f",
+                diffkWh
+            ) + "kWh, also " + String.format("%.2f", diffEuro) + "€ gespart"
             outErsparnis.text = neuStr
-        }
-        else {
+        } else {
             outTage.text = null
             outErsparnis.text = null
         }
     }
 
-    fun checkDates (st : EditText, end : EditText) : Boolean {
-        if(st.text.isNotEmpty() && end.text.isNotEmpty()) {
-            if(st.text.length == dateLength && end.text.length == dateLength) {
-                //TODO String richtig überprüfen ob er wirklich ein gültiges Datum ist, ggf. try - catch
-                val tempSt = SimpleDateFormat(
-                    "dd.MM.yyyy",
-                    Locale.GERMAN
-                ).parse(st.text.toString())
-                val tempEnd = SimpleDateFormat(
-                    "dd.MM.yyyy",
-                    Locale.GERMAN
-                ).parse(end.text.toString())
-                if(tempSt != null && tempEnd != null) {
-                    if (tempSt.before(tempEnd))
-                        return true
-                }
-            }
-        }
-        return false
-    }
-
-    fun loadGesamtverbrauch () {
-        for (geraet in geraete) {
-            if(geraet.getUrlaubsmodus() == false) {
-                if(geraet.getStromStandBy() != null)    //TODO && geraet.getStandByZeit != null
-                    gesamtverbrauchNeuPT += geraet.getStromStandBy() * dayLen
-                else {
-                    gesamtverbrauchNeuPT +=  geraet.getStromVollast() / geraet.getBetriebszeit() as Double
-                }
-            }
-            gesamtverbrauchAktPJ += geraet.getJahresverbrauch()
-        }
-    }
-
     override fun onClick(v: View) {
-        when(v.id) {
+        when (v.id) {
             R.id.urlaub_new_button_abbrechen -> {
                 val frag = UrlaubFragment()
                 val fragMan = parentFragmentManager
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit()
             }
             R.id.urlaub_new_button_speichern -> {
-                if(name.text.isNotEmpty() && checkDates(start, ende)) {
+                if (name.text.isNotEmpty() && UrlaubCompanion.checkDates(start, ende)) {
 
-                    val tempDateStart= SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).parse(start.text.toString())
-                    val tempDateEnde= SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).parse(ende.text.toString())
-                    if(tempDateStart != null && tempDateEnde != null) {
+                    val tempDateStart =
+                        SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).parse(start.text.toString())
+                    val tempDateEnde =
+                        SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).parse(ende.text.toString())
+                    if (tempDateStart != null && tempDateEnde != null) {
                         val urlaub = Urlaub(
                             name.text.toString(),
                             tempDateStart,
@@ -177,12 +171,15 @@ class UrlaubNewFragment(private val geraete : List<Geraete>, private val currHau
                         val fragman = parentFragmentManager
                         fragman.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-                    }
-                    else
-                        Toast.makeText(this.context, R.string.toast_invalid_date, Toast.LENGTH_SHORT).show()
-                }
-                else
-                    Toast.makeText(this.context, R.string.toast_invalid_values, Toast.LENGTH_SHORT).show()
+                    } else
+                        Toast.makeText(
+                            this.context,
+                            R.string.toast_invalid_date,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                } else
+                    Toast.makeText(this.context, R.string.toast_invalid_values, Toast.LENGTH_SHORT)
+                        .show()
             }
         }
     }
