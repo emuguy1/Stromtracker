@@ -227,7 +227,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             R.id.geraete_button_sort_raum -> {
 
                 //TODO sortieren über Name? Problem: Gerät zu dem jeweiligen Raum matchen, eventuell for Schleife
-                var sortedRaum = geraeteList.sortedWith(compareBy { it.getRaumID() })
+                var sortedRaum = verbraucherList.sortedWith(compareBy { it.getRaumID() })
 
 
                 verbraucherList.clear()
@@ -277,8 +277,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     produzentList[it.getRaumID() - 1].getName().toLowerCase()
                 })
                 */
-                produzentList.clear()
+                /*produzentList.clear()
                 produzentList.addAll(sortedRaum)
+
+                 */
                 produzentViewAdapter.notifyDataSetChanged();
                 buttonSortRaum_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0
@@ -290,7 +292,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_auswertung -> {
-                val frag = GeraeteAuswertungFragment(verbraucherList, produzentList, kategorieList, raumList)
+                val frag = GeraeteAuswertungFragment(verbraucherList, produzentList, kategorieList, raumListHaushalt)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
             }
