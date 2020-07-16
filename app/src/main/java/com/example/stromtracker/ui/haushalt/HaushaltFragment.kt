@@ -75,7 +75,7 @@ class HaushaltFragment: Fragment() {
         haushaltViewModel.insertRaum(newraum)
         newraum=Raum("Wohnzimmer",hausid)
         haushaltViewModel.insertRaum(newraum)
-        newraum=Raum("Sonstige",hausid)
+        newraum=Raum("Sonstiges",hausid)
         haushaltViewModel.insertRaum(newraum)
     }
 
