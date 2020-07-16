@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
@@ -75,7 +75,7 @@ class GeraeteEditProduzentFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

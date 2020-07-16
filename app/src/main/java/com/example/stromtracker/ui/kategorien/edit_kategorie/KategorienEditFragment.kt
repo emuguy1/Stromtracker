@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.ui.kategorien.KategorienFragment
@@ -17,10 +17,13 @@ import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
 
-class KategorienEditFragment(private var currKategorie: Kategorie, private val iconArray : Array<Int>) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener{
+class KategorienEditFragment(
+    private var currKategorie: Kategorie,
+    private val iconArray: Array<Int>
+) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var katViewModel: KategorienViewModel
-    private lateinit var currNameEdit : EditText
-    private var selectedIcon : Int = 0
+    private lateinit var currNameEdit: EditText
+    private var selectedIcon: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +32,7 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
     ): View? {
 
         katViewModel =
-            ViewModelProviders.of(this).get(KategorienViewModel::class.java)
+            ViewModelProvider(this).get(KategorienViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
         currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_editName)
@@ -43,7 +46,7 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
                 iconArray
             )
         adapter.setDropDownViewResource(R.layout.fragment_kategorien_spinner_row)
-        spinner.adapter=adapter
+        spinner.adapter = adapter
         selectedIcon = currKategorie.getIcon()
         spinner.setSelection(selectedIcon)
         spinner.onItemSelectedListener = this
@@ -68,7 +71,7 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
         // Another interface callback
     }
 
-    override fun onClick(v : View) {
+    override fun onClick(v: View) {
         //Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
         //switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
@@ -77,7 +80,8 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
                 //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit()
             }
             R.id.kategorie_edit_button_loeschen -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
@@ -91,9 +95,11 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
                         //neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = KategorienFragment()
                         //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit();
+                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                            .addToBackStack(null).commit();
                         //und anschließend noch ein commit()
-                        dialog.cancel() })
+                        dialog.cancel()
+                    })
 
                 confirmDeleteBuilder.setNegativeButton(
                     R.string.nein,
@@ -103,7 +109,7 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
                 confirmDeleteDialog.show()
             }
             R.id.kategorie_edit_button_speichern -> {
-                if(currNameEdit.text.isNotEmpty()) {
+                if (currNameEdit.text.isNotEmpty()) {
                     currKategorie.setName(currNameEdit.text.toString())
                     currKategorie.setIcon(selectedIcon)
                     //Daten werden in der DB gespeichert
@@ -113,13 +119,20 @@ class KategorienEditFragment(private var currKategorie: Kategorie, private val i
                     //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
-                }
-                else {
-                    Toast.makeText(this.context, R.string.kategorie_new_ungültiger_Wert, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        this.context,
+                        R.string.kategorie_new_ungültiger_Wert,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
             else -> {
-                Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    v.context,
+                    String.format(Locale.GERMAN, "%d was pressed.", v.id),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

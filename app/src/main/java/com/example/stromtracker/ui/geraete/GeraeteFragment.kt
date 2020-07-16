@@ -8,10 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
@@ -29,8 +26,8 @@ import com.getbase.floatingactionbutton.FloatingActionButton
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
-    private  lateinit var verbraucherList:ArrayList<Geraete>
-    private lateinit var produzentList:ArrayList<Geraete>
+    private lateinit var verbraucherList: ArrayList<Geraete>
+    private lateinit var produzentList: ArrayList<Geraete>
 
 
     private lateinit var recyclerView: RecyclerView
@@ -57,7 +54,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var iconArray: Array<Int>
 
-    private lateinit var buttonZuAuswertung : Button
+    private lateinit var buttonZuAuswertung: Button
 
 
     override fun onCreateView(
@@ -100,7 +97,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         viewManager = LinearLayoutManager(this.context)
 
-        viewAdapter = GeraeteListAdapter(verbraucherList, kategorieList, raumListHaushalt, iconArray)
+        viewAdapter =
+            GeraeteListAdapter(verbraucherList, kategorieList, raumListHaushalt, iconArray)
 
         recyclerView = root.findViewById<RecyclerView>(R.id.geraete_recycler_view).apply {
             setHasFixedSize(true)
@@ -124,8 +122,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
-        sharedViewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel::class.java)
+        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
 
         val verbraucherData: LiveData<List<Geraete>> =
@@ -210,7 +208,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_name -> {
-                var sortedName = verbraucherList.sortedWith(compareBy{it.getName().toLowerCase()})
+                var sortedName =
+                    verbraucherList.sortedWith(compareBy { it.getName().toLowerCase() })
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedName)
                 viewAdapter.notifyDataSetChanged();
@@ -292,9 +291,15 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_auswertung -> {
-                val frag = GeraeteAuswertungFragment(verbraucherList, produzentList, kategorieList, raumListHaushalt)
+                val frag = GeraeteAuswertungFragment(
+                    verbraucherList,
+                    produzentList,
+                    kategorieList,
+                    raumListHaushalt
+                )
                 val fragMan = parentFragmentManager
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit()
             }
 
             else -> {

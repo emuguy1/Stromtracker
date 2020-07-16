@@ -16,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.SharedViewModel
 
@@ -26,10 +26,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sp: Spinner
 
 
-    private val iconArrayList:Array<Int> =
-        arrayOf(R.drawable.ic_kategorien_monitor, R.drawable.ic_kategorien_joystick, R.drawable.ic_kategorien_speaker,
-        R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
-        R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
+    private val iconArrayList: Array<Int> =
+        arrayOf(
+            R.drawable.ic_kategorien_monitor,
+            R.drawable.ic_kategorien_joystick,
+            R.drawable.ic_kategorien_speaker,
+            R.drawable.ic_kategorien_refrigerator,
+            R.drawable.ic_kategorie_oven,
+            R.drawable.ic_kategorien_washing_machine,
+            R.drawable.ic_kategorien_light,
+            R.drawable.ic_kategorien_plug,
+            R.drawable.ic_menu_amortrechnerpv
+        )
 
     private lateinit var oldhaushaltList: ArrayList<Haushalt>
 
@@ -38,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         var sharedViewModel: SharedViewModel =
-            ViewModelProviders.of(this).get(SharedViewModel::class.java)
+            ViewModelProvider(this).get(SharedViewModel::class.java)
         val haushaltItems: ArrayList<Haushalt> = ArrayList()
         setSupportActionBar(toolbar)
 
@@ -101,13 +109,15 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    fun getOldHaushaltList() : ArrayList<Haushalt>{
+    fun getOldHaushaltList(): ArrayList<Haushalt> {
         return oldhaushaltList
     }
-    fun setOldHaushaltList(new :ArrayList<Haushalt>){
-        oldhaushaltList=new
+
+    fun setOldHaushaltList(new: ArrayList<Haushalt>) {
+        oldhaushaltList = new
     }
-    fun getIconArray () : Array<Int> {
+
+    fun getIconArray(): Array<Int> {
         return iconArrayList
     }
 
@@ -122,4 +132,3 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
-

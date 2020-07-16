@@ -14,7 +14,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
@@ -27,14 +27,13 @@ class RaeumeErstellenFragment : Fragment() {
     private lateinit var raumnameneditfeld: EditText
     private lateinit var savebutton: View
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         raeumeViewModel =
-            ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
+            ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
         raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
         CustomTextListener(raumnameneditfeld)

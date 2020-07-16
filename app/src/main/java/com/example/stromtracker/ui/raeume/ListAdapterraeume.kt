@@ -35,16 +35,19 @@ class ListAdapterraeume(private val datain: List<Raum>,private val currHaushalt:
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var textView: TextView = itemView.findViewById(R.id.text_view_raeume)
+
         init {
             textView.setOnClickListener(this)
         }
+
         override fun onClick(view: View?) {
             if (view != null) {
                 val frag = RaeumeBearbeitenLoeschenFragment(data[layoutPosition],currHaushalt)
                 //Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<RaeumeFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit()
             }
         }
     }

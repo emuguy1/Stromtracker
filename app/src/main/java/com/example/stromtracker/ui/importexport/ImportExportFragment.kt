@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.ui.importexport.ImportExportViewModel
@@ -21,7 +22,7 @@ class ImportExportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         importexportViewModel =
-            ViewModelProviders.of(this).get(com.example.stromtracker.ui.importexport.ImportExportViewModel::class.java)
+            ViewModelProvider(this).get(com.example.stromtracker.ui.importexport.ImportExportViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport, container, false)
         val textView: TextView = root.findViewById(R.id.text_importExport)
         importexportViewModel.text.observe(viewLifecycleOwner, Observer {
