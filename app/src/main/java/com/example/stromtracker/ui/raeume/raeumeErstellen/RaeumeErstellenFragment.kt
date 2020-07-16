@@ -1,10 +1,15 @@
 package com.example.stromtracker.ui.raeume.raeumeErstellen
 
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
@@ -18,6 +23,8 @@ import com.google.android.material.navigation.NavigationView
 
 class RaeumeErstellenFragment: Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
+    private lateinit var raumnameneditfeld:EditText
+    private lateinit var savebutton: View
 
 
 
@@ -29,17 +36,17 @@ class RaeumeErstellenFragment: Fragment() {
         raeumeViewModel =
             ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
-
-
+        raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
+        CustomTextListener(raumnameneditfeld)
 
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
-        val savebutton: View = root.findViewById(R.id.button_raeume_erstellen_speichern)
+        savebutton= root.findViewById(R.id.button_raeume_erstellen_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
                 //Die Daten in die RoomDatabase speichern
-                val raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
+
 
                 val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
 
@@ -79,5 +86,22 @@ class RaeumeErstellenFragment: Fragment() {
         }
 
         return root
+    }
+    fun CustomTextListener(edit:EditText) : EditText {
+        edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                Log.d("Erstellenname",edit.text.toString())
+                if(edit.text.toString().equals("Sonstiges")){
+                    savebutton.visibility=View.INVISIBLE
+                }
+                else {
+                    savebutton.visibility = View.VISIBLE
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
+        })
+        return edit
+
     }
 }
