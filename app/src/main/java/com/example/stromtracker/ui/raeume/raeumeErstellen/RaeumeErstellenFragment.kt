@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
@@ -21,11 +22,10 @@ import com.example.stromtracker.ui.raeume.RaeumeFragment
 import com.example.stromtracker.ui.raeume.RaeumeViewModel
 import com.google.android.material.navigation.NavigationView
 
-class RaeumeErstellenFragment: Fragment() {
+class RaeumeErstellenFragment : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
-    private lateinit var raumnameneditfeld:EditText
+    private lateinit var raumnameneditfeld: EditText
     private lateinit var savebutton: View
-
 
 
     override fun onCreateView(
@@ -36,12 +36,12 @@ class RaeumeErstellenFragment: Fragment() {
         raeumeViewModel =
             ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
-        raumnameneditfeld=root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
+        raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
         CustomTextListener(raumnameneditfeld)
 
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
-        savebutton= root.findViewById(R.id.button_raeume_erstellen_speichern)
+        savebutton = root.findViewById(R.id.button_raeume_erstellen_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
@@ -53,7 +53,8 @@ class RaeumeErstellenFragment: Fragment() {
                 val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
                 val currHaushalt = sp.selectedItem as Haushalt
 
-                val raum:Raum= Raum(raumnameneditfeld.text.toString(),currHaushalt.getHaushaltID())
+                val raum: Raum =
+                    Raum(raumnameneditfeld.text.toString(), currHaushalt.getHaushaltID())
                 raeumeViewModel.insertRaeume(raum)
                 //neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = RaeumeFragment()
@@ -87,19 +88,20 @@ class RaeumeErstellenFragment: Fragment() {
 
         return root
     }
-    fun CustomTextListener(edit:EditText) : EditText {
+
+    fun CustomTextListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                Log.d("Erstellenname",edit.text.toString())
-                if(edit.text.toString().equals("Sonstiges")){
-                    savebutton.visibility=View.INVISIBLE
-                }
-                else {
+                if (edit.text.toString().equals("Sonstiges")) {
+                    savebutton.visibility = View.INVISIBLE
+                    Toast.makeText(edit.context,"Raum - Sonstiges - darf nicht erstellt werden!",Toast.LENGTH_SHORT).show()
+                } else {
                     savebutton.visibility = View.VISIBLE
                 }
             }
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
         return edit
 
