@@ -20,15 +20,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="3.5">
+            android:weightSum="7.125">
+
+            <ImageView
+                android:id="@+id/geraete_recycler_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight = "1"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="@dimen/geraet_button_margin"
+                android:layout_marginLeft="@dimen/geraet_button_margin"
+                android:layout_marginEnd="@dimen/geraet_button_margin"
+                android:layout_marginRight="@dimen/geraet_button_margin"
+                android:layout_marginBottom="0dp">
+
+            </ImageView>
+
 
         <TextView
             android:id="@+id/geraete_recycler_text"
-            android:layout_weight="1.5"
+            android:layout_weight="2.625"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/geraet_button_margin"
-            android:layout_marginLeft="@dimen/geraet_button_margin"
             android:layout_marginTop="@dimen/geraet_button_margin"
             android:layout_marginEnd="@dimen/geraet_button_margin"
             android:layout_marginRight="@dimen/geraet_button_margin"
@@ -36,40 +49,36 @@
             android:background="@color/colorWhite"
             android:gravity="left"
             android:hint="@string/geraete_hint"
-            android:textSize="@dimen/content_text_big" />
+            app:autoSizeTextType="uniform"
+            android:textSize="@dimen/geraet_text_recycler"/>
 
 
             <TextView
                 android:id="@+id/geraete_recycler_raum"
-                android:layout_weight="1"
+                android:layout_weight="1.75"
 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/geraet_button_margin"
                 android:layout_marginRight="@dimen/geraet_button_margin"
                 android:layout_marginBottom="@dimen/geraet_button_margin"
                 android:layout_marginTop="@dimen/geraet_button_margin"
 
                 android:background="@color/colorWhite"
-                android:gravity="center_horizontal"
+                android:gravity="center_vertical"
                 android:hint="@string/geraete_hint"
-                android:textAlignment="center"
-                android:textSize="@dimen/content_text_big" />
+                android:textSize="@dimen/geraet_text_recycler" />
             <TextView
                 android:id="@+id/geraete_recycler_verbrauch"
-                android:layout_weight="1"
-
+                android:layout_weight="1.75"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/geraet_button_margin"
                 android:layout_marginTop="@dimen/geraet_button_margin"
                 android:layout_marginRight="@dimen/geraet_button_margin"
                 android:layout_marginBottom="@dimen/geraet_button_margin"
                 android:background="@color/colorWhite"
-                android:gravity="center_horizontal"
+                android:gravity="center_vertical"
                 android:hint="@string/geraete_hint"
-                android:textAlignment="center"
-                android:textSize="@dimen/content_text_big" />
+                android:textSize="@dimen/geraet_text_recycler" />
 
 
         </LinearLayout>

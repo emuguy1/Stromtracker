@@ -114,14 +114,18 @@
     <string name="geraete_button_auswertung">Auswertung</string>
     <string name="geraete_text_verbraucher">Energieverbraucher</string>
     <string name="geraete_text_produzent">Energieproduzenten</string>
-    <string name="geraet_new_TextName">Name</string>
-    <string name="geraet_new_TextRaum">Raum</string>
-    <string name="geraet_new_TextKategorie">Kategorie</string>
-    <string name="geraet_new_TextVolllast">Vollast-Verbrauch in Watt</string>
-    <string name="geraet_new_TextZeit">Betriebszeit in h/Tag</string>
-    <string name="geraet_new_TextStandBy">StandBy-Verbrauch in Watt</string>
-    <string name="geraet_new_TextUrlaubsmodus">Urlaubsmodus</string>
+    <string name="geraet_new_text_name">Name</string>
+    <string name="geraet_text_raum">Raum</string>
+    <string name="geraet_text_kategorie">Kategorie</string>
+    <string name="geraet_text_volllast">Vollast-Verbrauch</string>
+    <string name="geraet_zeit_volllast">Betriebszeit Volllast</string>
+    <string name="geraet_zeit_standBy">Betriebszeit StandBy</string>
+
+    <string name="geraet_text_standBy">StandBy-Verbrauch</string>
+    <string name="geraet_text_urlaubsmodus">Urlaubsmodus</string>
     <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben.</string>
+    <string name="geraet_new_zeit_error">Die eingegebene Zeiten überschreiten 24h.</string>
+
     <string name="geraet_new_name">Name</string>
     <string name="geraet_verbrauch">Verbrauch</string>
     <string name="geraet_produktion">Produktion</string>
@@ -180,5 +184,7 @@
         Austausch und Montage, Lebensdauer, Zinsen und der Wiederverkaufswert des aktuellen Gerätes berücksichtigt werden.</string>
     <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
+    <string name="geraet_text_notiz">Notizen (optional)</string>
+    <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
 
 </resources>

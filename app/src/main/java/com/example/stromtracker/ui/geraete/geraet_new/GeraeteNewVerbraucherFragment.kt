@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.geraete.geraet_new
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -26,7 +24,9 @@ class GeraeteNewVerbraucherFragment(
     private lateinit var inputName: EditText
     private lateinit var inputVolllast: EditText
     private lateinit var inputStandBy: EditText
-    private lateinit var inputZeit: EditText
+    private lateinit var inputZeitVolllast: EditText
+    private lateinit var inputZeitStandBy: EditText
+    private lateinit var inputNotiz: EditText
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
     private lateinit var checkUrlaub: CheckBox
@@ -40,8 +40,6 @@ class GeraeteNewVerbraucherFragment(
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_geraete_new_verbraucher, container, false)
-
-        //TODO: Zwischen Haushalten unterscheiden!
 
         spinnerKat = root.findViewById(R.id.geraete_new_kategorie_spinner)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -59,13 +57,15 @@ class GeraeteNewVerbraucherFragment(
         abbrBtn.setOnClickListener(this)
         val saveBtn = root.findViewById<Button>(R.id.geraete_new_save)
         saveBtn.setOnClickListener(this)
+
         inputName = root.findViewById(R.id.geraete_new_edit_name)
         inputVolllast = root.findViewById(R.id.geraete_new_edit_volllast)
         inputStandBy = root.findViewById(R.id.geraete_new_edit_standBy)
-        inputZeit = root.findViewById(R.id.geraete_new_edit_zeit)
+        inputZeitVolllast = root.findViewById(R.id.geraete_new_edit_zeit_volllast)
+        inputZeitStandBy = root.findViewById(R.id.geraete_new_edit_zeit_standBy)
+        inputNotiz = root.findViewById(R.id.geraete_new_edit_notiz)
 
-        checkUrlaub = root.findViewById(R.id.geraete_checkbox)
-
+        checkUrlaub = root.findViewById(R.id.geraete_new_checkbox)
 
         return root
     }
@@ -93,41 +93,55 @@ class GeraeteNewVerbraucherFragment(
         }
     }
 
-
     override fun onClick(v: View) {
         val fragMan = parentFragmentManager
         when (v.id) {
             R.id.geraete_new_save -> {
-                //TODO: Zwischen Haushalten unterscheiden!
-                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeit.text.isNotEmpty()) {
+                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() && inputZeitStandBy.text.isNotEmpty()) {
 
                     val volllast: Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
-                    val zeit: Double? = inputZeit.text.toString().toDoubleOrNull()
+                    val zeitVolllast: Double? = inputZeitVolllast.text.toString().toDoubleOrNull()
+                    val zeitStandBy: Double? = inputZeitStandBy.text.toString().toDoubleOrNull()
+                    var notiz: String? = inputNotiz.text.toString()
 
-                    if (volllast != null && standby != null && zeit != null) {
 
+                    if (volllast != null && standby != null && zeitVolllast != null && zeitStandBy != null && notiz != null) {
+                        //TODO magic numbers
+                        if(notiz.isEmpty()) {
+                            notiz = null
+                        }
 
-                        val jahresverbrauch: Double =
-                            ((volllast * zeit + standby * (24.0 - zeit)) / 1000.0) * 365.0
-                        val geraet = Geraete(
-                            inputName.text.toString(),
-                            katList[selectedKat].getKategorieID(),
-                            raumList[selectedRoom].getRaumID(),
-                            raumList[selectedRoom].getHaushaltID()
-                            ,
-                            volllast,
-                            standby,
-                            zeit,
-                            checkUrlaub.isChecked,
-                            jahresverbrauch,
-                            null,
-                            null
-                        )
-                        geraeteViewModel.insertGeraet(geraet)
-                        val frag = GeraeteFragment()
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                            .addToBackStack(null).commit()
+                        if (zeitStandBy <= 24.0 && zeitVolllast <= 24.0 && (zeitStandBy + zeitVolllast) <= 24.0) {
+                            val jahresverbrauch =
+                                (((volllast * zeitVolllast) + (zeitStandBy * standby)) / 1000.0) * 365.0
+
+                            val geraet = Geraete(
+                                inputName.text.toString(),
+                                katList[selectedKat].getKategorieID(),
+                                raumList[selectedRoom].getRaumID(),
+                                raumList[selectedRoom].getHaushaltID(),
+                                volllast,
+                                standby,
+                                zeitVolllast,
+                                zeitStandBy,
+                                checkUrlaub.isChecked,
+                                jahresverbrauch,
+                                null,
+                                notiz
+                            )
+                            geraeteViewModel.insertGeraet(geraet)
+                            val frag = GeraeteFragment()
+                            fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                                .addToBackStack(null).commit()
+                        } else {
+                            Toast.makeText(
+                                this.context,
+                                R.string.geraet_new_zeit_error,
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
 
                     } else {
                         Toast.makeText(
