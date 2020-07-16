@@ -26,14 +26,9 @@ class RaeumeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //View Model zuweisen, benötigt für DB Zugriff
-        raeumeViewModel = ViewModelProvider(this).get(RaeumeViewModel::class.java)
-
         //TODO:dynamisches ändern des current haushalt
         //Haushalt ID aus Spinner und übergeben sie in für das hohlen Räume die im Haushalt erzeugt sind
         raeumeViewModel.getAllRaeumeById(currHaushalt.getHaushaltID()).observe(
-
-        raeumeViewModel.getAllRaeume().observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
@@ -51,13 +46,14 @@ class RaeumeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //View Model zuweisen, benötigt für DB Zugriff
+        raeumeViewModel = ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(
             R.layout.fragment_raeume,
             container,
             false
         )//false weil es nur teil des root ist, aber nicht selber die root
-        val root = inflater.inflate(R.layout.fragment_raeume, container, false)//false weil es nur teil des root ist, aber nicht selber die root
-
 
         val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
 

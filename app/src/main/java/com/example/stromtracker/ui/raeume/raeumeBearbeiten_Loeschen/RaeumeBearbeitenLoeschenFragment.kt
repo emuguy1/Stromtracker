@@ -21,11 +21,16 @@ import com.example.stromtracker.ui.raeume.RaeumeViewModel
 
 
 //deklariert Raeumefragment als Unterklasse von Fragment
-class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum,private var currHaushalt: Haushalt): Fragment() {
+class RaeumeBearbeitenLoeschenFragment(
+    private var currRaum: Raum,
+    private var currHaushalt: Haushalt
+) : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
-    private lateinit var savebutton:View
-    private lateinit var abortbutton:View
-    private lateinit var deletebutton:View
+    private lateinit var savebutton: View
+    private lateinit var abortbutton: View
+    private lateinit var deletebutton: View
+    private lateinit var haushaltraeumelist: ArrayList<Raum>
+    private lateinit var raumgeraetelist: ArrayList<Geraete>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,21 +44,68 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum,private var cu
             container,
             false
         )//false weil es nur teil des root ist, aber nicht selber die root
-            ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_raeume_bearbeiten_loeschen, container, false)//false weil es nur teil des root ist, aber nicht selber die root
+        ViewModelProviders.of(this).get(RaeumeViewModel::class.java)
         //finde die buttons
         savebutton = root.findViewById(R.id.button_raeume_bearbeiten_speichern)
         abortbutton = root.findViewById(R.id.button_raeume_bearbeiten_abbrechen)
         deletebutton = root.findViewById(R.id.button_raeume_bearbeiten_loeschen)
 
-        // Die Daten aus der RoomDatabse holen und in die Felder schreiben
+
+        //TODO: get Geräte by Raumname und schiebe enthaltene Geräte in Raum Sonstiges des Haushaltes
+        //Holen der Raumliste, um den Raum Sonstiges zu finden, um alle Geräte,
+        // die im aktuellen Raum entalten sind, der gelöscht werden soll und deren Raum ID auf den
+        // Sonstigen Raum zu ändern
+
+        haushaltraeumelist = ArrayList()
+        raeumeViewModel.getAllRaeumeById(currRaum.getHaushaltID()).observe(
+            viewLifecycleOwner,
+            Observer { raeume ->
+                if (raeume != null) {
+                    haushaltraeumelist.clear()
+                    haushaltraeumelist.addAll(raeume)
+                }
+            }
+        )
+        var sonstigesraumid = 0
+        for (raeume in haushaltraeumelist) {
+            if (raeume.getName() == "Sonstiges") {
+                sonstigesraumid = raeume.getRaumID()
+                Log.d("sonstigesraumid", sonstigesraumid.toString())
+            }
+        }
+        Log.d("Haushaltid", currRaum.getHaushaltID().toString())
+        Log.d("haushaltraeumelist", haushaltraeumelist.toString())
+        //Jetzt alle Geräte bekommen, die auf den aktuellen Raum verweisen
+
+        raumgeraetelist = ArrayList()
+        raeumeViewModel.getAllGeraeteByHaushaltId(currRaum.getHaushaltID()).observe(
+            viewLifecycleOwner,
+            Observer { geraete ->
+                if (geraete != null) {
+                    raumgeraetelist.clear()
+                    raumgeraetelist.addAll(geraete)
+                }
+            })
+        Log.d("gefundene Geräte", raumgeraetelist.toString())
+
+
+
+
+        // Die Daten aus der RoomDatabse holen und in das Feld befüllen
         val raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_bearbeiten_name)
         raumnameneditfeld.setText(currRaum.getName())
 
-        if(currRaum.getName()=="Sonstiges"){
-            savebutton.visibility=View.INVISIBLE
-            deletebutton.visibility=View.INVISIBLE
+
+
+        //Wenn Raum Sonstiges ist, soll der Name nicht geändert werden können under Raum auch nicht gelöscht werden können.
+        if (currRaum.getName() == "Sonstiges") {
+            savebutton.visibility = View.INVISIBLE
+            deletebutton.visibility = View.INVISIBLE
         }
+
+
+
+        //Buttons
         //Speicher Button zum speichern der eingegebenen Daten
 
         //Click listener setzen
@@ -101,44 +153,13 @@ class RaeumeBearbeitenLoeschenFragment(private var currRaum: Raum,private var cu
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
 
-                        //TODO: get Geräte by Raumname und schiebe enthaltene Geräte in Raum Sonstiges des Haushaltes
-                        //Holen der Raumliste, um den Raum Sonstiges zu finden, um alle Geräte,
-                        // die im aktuellen Raum entalten sind, der gelöscht werden soll und deren Raum ID auf den
-                        // Sonstigen Raum zu ändern
-                        var haushaltraeumelist: ArrayList<Raum>
-                        haushaltraeumelist=ArrayList()
-                        raeumeViewModel.getAllRaeumeById(currHaushalt.getHaushaltID()).observe(
-                            viewLifecycleOwner,
-                            Observer { raeume ->
-                                if (raeume != null) {
-                                    haushaltraeumelist.clear()
-                                    haushaltraeumelist.addAll(raeume)
-                                }
-                            })
-                        var sonstigesraumid=0
-                        for (raeume in haushaltraeumelist){
-                            if(raeume.getName()=="Sonstiges") {
-                                sonstigesraumid = raeume.getRaumID()
-                                Log.d("sonstigesraumid",sonstigesraumid.toString())
-                            }
-                        }
-                        //Jetzt alle Geräte bekommen, die auf den aktuellen Raum verweisen
-                        val raumgeraetelist: ArrayList<Geraete>
-                        raumgeraetelist=ArrayList()
-                        raeumeViewModel.getAllGeraeteByHaushaltId(currHaushalt.getHaushaltID()).observe(
-                            viewLifecycleOwner,
-                            Observer { geraete ->
-                                if (geraete != null) {
-                                    raumgeraetelist.clear()
-                                    raumgeraetelist.addAll(geraete)
-                                }
-                            })
+
                         //Jetzt nach alle Geräte aus dem Haushalt vergleichen
-                        for(geraet in raumgeraetelist){
-                            if(geraet.getRaumID()==currRaum.getRaumID()){
+                        for (geraet in raumgeraetelist) {
+                            if (geraet.getRaumID() == currRaum.getRaumID()) {
                                 //Geraete Id auf den Sonstiges Raum setzen, der ja nicht gelöscht werden kann und
                                 //der automatisch erzeugt wird und nicht gelöscht werden kann oder der Name geändert werden kann
-                                Log.d("gefundene Geräte",geraet.toString())
+                                Log.d("gefundene Geräte", geraet.toString())
                                 geraet.setRaumID(sonstigesraumid)
                                 raeumeViewModel.updateGeraet(geraet)
                             }
