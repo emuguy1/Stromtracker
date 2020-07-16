@@ -71,10 +71,6 @@ class KategorienFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { kategorien ->
                 if (kategorien != null) {
-                    if(kategorien.isEmpty()) {
-                        //Fügt Standardeinträge zu den Kategorien hinzu, diese sind editier- und löschbar
-                        initKategorien()
-                    }
                     Log.d("TAGkategorien", kategorien.toString())
                     myKategorien.clear()
 
@@ -88,26 +84,6 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         )
     }
 
-    private fun initKategorien () {
-        var kat : Kategorie = Kategorie("Fernseher", 0)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Gaming", 1)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Unterhaltung", 2)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Kühlung", 3)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Kochen", 4)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Waschen", 5)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Lampen", 6)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Sonstiges", 7)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Stromerzeugung", 8)
-        kategorienViewModel.insertKategorie(kat)
-    }
 
     override fun onClick(v : View) {
         //switch-case in Kotlin: (Zur Unterscheidung der Buttons. Hier eigentlich nicht notwendig)

@@ -36,6 +36,7 @@ class HaushaltFragment: Fragment() {
             viewLifecycleOwner,
             Observer { haushalte ->
                 if (haushalte != null) {
+
                     if(haushalte.isEmpty()) {
                         //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
                         initHaushalt()
@@ -44,6 +45,7 @@ class HaushaltFragment: Fragment() {
                     //die alte Haushaltliste aus Main Activity holen, um zu schauen,
                     // welcher Haushalt erzeugt wurde und dem dann Standardräume hinzuzufügen
                     datatemp=mainact.getOldHaushaltList()
+
                     datain.clear()
                     datain.addAll(haushalte)
                     //Die Haushaltliste in Main Activity erneuern.
@@ -76,6 +78,7 @@ class HaushaltFragment: Fragment() {
         newraum=Raum("Sonstiges",hausid)
         haushaltViewModel.insertRaum(newraum)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
