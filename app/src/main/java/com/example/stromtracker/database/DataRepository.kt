@@ -26,9 +26,16 @@ class DataRepository public constructor(application: Application) {
         return mAllGeraete
     }
 
+
     fun getAllVerbraucherByHaushaltID(haushaltID:Int):LiveData<List<Geraete>> {
         return mGeraeteDao.getAllVerbraucherByHaushaltID(haushaltID)
     }
+
+    fun getAllGeraeteByHaushaltID(id:Int):LiveData<List<Geraete>> {
+        return mGeraeteDao.loadAllByHaushaltID(id)
+    }
+
+
     fun getAllRaumByHaushaltID(id:Int):LiveData<List<Raum>> {
         return mRaumDAO.loadAllByHaushaltID(id)
     }
@@ -264,16 +271,3 @@ class DataRepository public constructor(application: Application) {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         R.drawable.ic_kategorien_refrigerator, R.drawable.ic_kategorie_oven, R.drawable.ic_kategorien_washing_machine,
         R.drawable.ic_kategorien_light, R.drawable.ic_kategorien_plug, R.drawable.ic_menu_amortrechnerpv)
 
+    private lateinit var oldhaushaltList: ArrayList<Haushalt>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(SharedViewModel::class.java)
         val haushaltItems: ArrayList<Haushalt> = ArrayList()
         setSupportActionBar(toolbar)
-
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                         haushaltItems
                     )
                     sp.adapter = adapter
+
                     sp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onNothingSelected(parent: AdapterView<*>?) {
                         }
@@ -78,8 +79,12 @@ class MainActivity : AppCompatActivity() {
 
                     }
 
+
                 }
             })
+
+        //Alte Haushaltliste initialisieren um damit auf neue Haushalte überprüfen
+        setOldHaushaltList(haushaltItems)
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -96,10 +101,15 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    fun getOldHaushaltList() : ArrayList<Haushalt>{
+        return oldhaushaltList
+    }
+    fun setOldHaushaltList(new :ArrayList<Haushalt>){
+        oldhaushaltList=new
+    }
     fun getIconArray () : Array<Int> {
         return iconArrayList
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

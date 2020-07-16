@@ -24,6 +24,9 @@ interface GeraeteDAO {
     @Query("SELECT * FROM geraete WHERE geraeteID IN (:geraeteIDs)")
     fun loadAllByIds(geraeteIDs: IntArray): LiveData<List<Geraete>>
 
+    @Query("SELECT * FROM geraete WHERE haushaltID IN (:haushaltID)")
+    fun loadAllByHaushaltID(haushaltID: Int): LiveData<List<Geraete>>
+
     @Query("SELECT * FROM geraete WHERE name LIKE :name")
     fun findByName(name: String): List<Geraete>
 

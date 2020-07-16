@@ -7,7 +7,7 @@ import androidx.room.*
         entity = Haushalt::class,
         parentColumns = arrayOf("haushaltID"),
         childColumns = arrayOf("haushaltID"),
-        onDelete = ForeignKey.NO_ACTION)]
+        onDelete = ForeignKey.CASCADE)]
 )
 data class Raum(
     @ColumnInfo(name = "name") private var name: String,

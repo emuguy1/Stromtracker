@@ -10,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
@@ -114,7 +115,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
                 builder1.setMessage(R.string.haushaltlöschenConfirm )
                 builder1.setPositiveButton(
                     R.string.ja,
-                    DialogInterface.OnClickListener { dialog, id ->
+                    DialogInterface.OnClickListener { dialog, _ ->
                         //Daten werden aus der Datenbank gelöscht
                         haushaltViewModel.deleteHaushalt(currHaushalt)
                         //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
@@ -128,7 +129,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt): Fr
                         dialog.cancel() })
                 builder1.setNegativeButton(
                     R.string.nein,
-                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                    DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
                 val alert11: AlertDialog = builder1.create()
                 alert11.show()
             }
