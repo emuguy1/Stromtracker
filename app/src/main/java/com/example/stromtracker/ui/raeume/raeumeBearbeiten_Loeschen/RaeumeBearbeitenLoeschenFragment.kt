@@ -23,7 +23,8 @@ import com.example.stromtracker.ui.raeume.RaeumeViewModel
 //deklariert Raeumefragment als Unterklasse von Fragment
 class RaeumeBearbeitenLoeschenFragment(
     private var currRaum: Raum,
-    private var currHaushalt: Haushalt
+    private var currHaushalt: Haushalt,
+    private var raumliste : ArrayList<Raum>
 ) : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
     private lateinit var savebutton: View
@@ -56,27 +57,16 @@ class RaeumeBearbeitenLoeschenFragment(
         // die im aktuellen Raum entalten sind, der gelöscht werden soll und deren Raum ID auf den
         // Sonstigen Raum zu ändern
 
-        haushaltraeumelist = ArrayList()
-        raeumeViewModel.getAllRaeumeById(currRaum.getHaushaltID()).observe(
-            viewLifecycleOwner,
-            Observer { raeume ->
-                if (raeume != null) {
-                    haushaltraeumelist.clear()
-                    haushaltraeumelist.addAll(raeume)
-                }
-            }
-        )
         var sonstigesraumid = 0
-        for (raeume in haushaltraeumelist) {
+        for (raeume in raumliste) {
             if (raeume.getName() == "Sonstiges") {
                 sonstigesraumid = raeume.getRaumID()
                 Log.d("sonstigesraumid", sonstigesraumid.toString())
+                break
             }
         }
         Log.d("Haushaltid", currRaum.getHaushaltID().toString())
-        Log.d("haushaltraeumelist", haushaltraeumelist.toString())
         //Jetzt alle Geräte bekommen, die auf den aktuellen Raum verweisen
-
         raumgeraetelist = ArrayList()
         raeumeViewModel.getAllGeraeteByHaushaltId(currRaum.getHaushaltID()).observe(
             viewLifecycleOwner,
