@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.raeume.raeumeErstellen.RaeumeErstellenFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -23,12 +26,16 @@ class RaeumeFragment : Fragment() {
     private lateinit var datain: ArrayList<Raum>
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var currHaushalt: Haushalt
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //TODO:dynamisches ändern des current haushalt
         //Haushalt ID aus Spinner und übergeben sie in für das hohlen Räume die im Haushalt erzeugt sind
-        raeumeViewModel.getAllRaeumeById(currHaushalt.getHaushaltID()).observe(
+        val raumData: LiveData<List<Raum>> =
+            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+                raeumeViewModel.getAllRaeumeById(haushalt.getHaushaltID())
+            }
+        raumData.observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
@@ -47,7 +54,11 @@ class RaeumeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
         //View Model zuweisen, benötigt für DB Zugriff
+
+
         raeumeViewModel = ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(
             R.layout.fragment_raeume,
@@ -64,7 +75,7 @@ class RaeumeFragment : Fragment() {
         //Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_raeume)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        viewAdapter=ListAdapterraeume(datain,currHaushalt)
+        viewAdapter = ListAdapterraeume(datain, currHaushalt)
         recyclerView.adapter = viewAdapter
 
         //Floating Action Button zum erstellen neuer Raeume
