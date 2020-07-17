@@ -30,7 +30,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
     Fragment(), View.OnClickListener {
 
     private lateinit var urlaubViewModel: UrlaubViewModel
-    private lateinit var fragMan : FragmentManager
+    private lateinit var fragMan: FragmentManager
 
     private lateinit var name: EditText
     private lateinit var start: EditText
@@ -48,6 +48,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //TODO viewModel ändern
         urlaubViewModel =
             ViewModelProviders.of(this).get(UrlaubViewModel::class.java)
 
@@ -167,21 +168,23 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
                 confirmDeleteBuilder.setMessage(R.string.urlaub_edit_LöschenConfirm)
                 confirmDeleteBuilder.setPositiveButton(
-                    R.string.ja,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        //Daten werden aus der Datenbank gelöscht
-                        urlaubViewModel.deleteUrlaub(urlaub)
-                        //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
-                        val frag = UrlaubFragment()
-                        //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit();
-                        //und anschließend noch ein commit()
-                        dialog.cancel() })
+                    R.string.ja
+                ) { dialog, _ ->
+                    //Daten werden aus der Datenbank gelöscht
+                    urlaubViewModel.deleteUrlaub(urlaub)
+                    //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    //neues Fragment erstellen auf das weitergeleitet werden soll
+                    val frag = UrlaubFragment()
+                    //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                        .addToBackStack(null).commit()
+                    //und anschließend noch ein commit()
+                    dialog.cancel()
+                }
 
                 confirmDeleteBuilder.setNegativeButton(
-                    R.string.nein,
-                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                    R.string.nein
+                ) { dialog, _ -> dialog.cancel() }
 
                 val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
                 confirmDeleteDialog.show()

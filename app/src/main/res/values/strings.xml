@@ -35,7 +35,7 @@
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
     <string name="button_loeschen">Löschen</string>
-  
+
     <string name="addButton">Add</string>
 
     <string name="haushaltstrompreis">Strompreis pro kWh</string>
@@ -133,7 +133,6 @@
     <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie in Prozent</string>
 
 
-
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
     <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
@@ -197,5 +196,5 @@
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
-    
+
 </resources>

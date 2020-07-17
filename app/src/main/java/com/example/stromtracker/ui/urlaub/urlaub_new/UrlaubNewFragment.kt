@@ -87,10 +87,16 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
             gesamtverbrauchAktPT += geraet.getJahresverbrauch()
         }
         //Beide werden nun einheitlich gespeichert, als kWh pro Tag
-        Log.d("verbrProTag", gesamtverbrauchAktPT.toString()+" (aktuell) "+gesamtverbrauchNeuPT+" (neu)")
+        Log.d(
+            "verbrProTag",
+            "$gesamtverbrauchAktPT (aktuell) $gesamtverbrauchNeuPT (neu)"
+        )
         gesamtverbrauchNeuPT *= wattToKW
         gesamtverbrauchAktPT *= yearToDay
-        Log.d("verbrProTag", gesamtverbrauchAktPT.toString()+" (aktuell) "+gesamtverbrauchNeuPT+" (neu)")
+        Log.d(
+            "verbrProTag",
+            "$gesamtverbrauchAktPT (aktuell) $gesamtverbrauchNeuPT (neu)"
+        )
     }
 
     private fun addCustomTextChangedListener(edit: EditText): EditText {

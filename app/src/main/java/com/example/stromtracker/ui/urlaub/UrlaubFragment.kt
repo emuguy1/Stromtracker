@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,8 +14,6 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
-import com.example.stromtracker.ui.kategorien.KategorienListAdapter
 import com.example.stromtracker.ui.urlaub.urlaub_new.UrlaubNewFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -81,7 +77,7 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
                 if (geraete != null) {
                     verbraucherList.clear()
                     verbraucherList.addAll(geraete)
-                    viewAdapter.notifyDataSetChanged();
+                    viewAdapter.notifyDataSetChanged()
                 }
             })
         urlaubViewModel.getAllUrlaub().observe(
@@ -89,8 +85,8 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
             Observer { urlaub ->
                 if (urlaub != null) {
                     urlaubList.clear()
-                    urlaubList.addAll(urlaub)
-                    viewAdapter.notifyDataSetChanged();
+                    urlaubList.addAll(urlaub.sortedWith(compareByDescending { it.getDateVon() }))
+                    viewAdapter.notifyDataSetChanged()
                 }
             }
         )

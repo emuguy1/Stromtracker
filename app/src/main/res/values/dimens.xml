@@ -14,7 +14,6 @@
     <dimen name="content_text_smaller">12sp</dimen>
 
 
-
     <dimen name="spinner_geraet_dropdown_width">64dp</dimen>
     <dimen name="spinner_geraet_width">96dp</dimen>
     <dimen name="spinner_geraet_height">18dp</dimen>
@@ -24,7 +23,6 @@
     <dimen name="geraet_cardview_margin">8dp</dimen>
     <dimen name="geraet_edit_textview_margin">24dp</dimen>
     <dimen name="geraet_edit_editText_margin">8dp</dimen>
-
 
 
     <dimen name="content_text_smallest">10sp</dimen>
@@ -58,6 +56,6 @@
     <dimen name="content_margin_top">16dp</dimen>
     <dimen name="content_margin_sides">8dp</dimen>
     <dimen name="edit_name_width_long">250dp</dimen>
+    <dimen name="margin_bottom_because_fab">77dp</dimen>
 
 </resources>
-
