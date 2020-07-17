@@ -151,7 +151,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 if (raum != null) {
                     raumListHaushalt.clear()
                     raumListHaushalt.addAll(raum)
-                    viewAdapter.notifyDataSetChanged();
+                    viewAdapter.notifyDataSetChanged()
 
                 }
             })
@@ -175,6 +175,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     viewAdapter.notifyDataSetChanged();
                 }
             })
+
 
     }
 
