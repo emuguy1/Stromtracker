@@ -20,8 +20,8 @@ class UrlaubCompanion {
                 if (st.text.length == this.dateLength && end.text.length == dateLength) {
                     //TODO String richtig überprüfen ob er wirklich ein gültiges Datum ist, ggf. try - catch
                     val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN)
-                    var tempSt: Date? = null
-                    var tempEnd: Date? = null
+                    val tempSt: Date?
+                    val tempEnd: Date?
                     try {
                         tempSt = dateFormat.parse(st.text.toString())
                         tempEnd = dateFormat.parse(end.text.toString())
