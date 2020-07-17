@@ -18,7 +18,6 @@ class UrlaubCompanion {
         fun checkDates(st: EditText, end: EditText): Boolean {
             if (st.text.isNotEmpty() && end.text.isNotEmpty()) {
                 if (st.text.length == this.dateLength && end.text.length == dateLength) {
-                    //TODO String richtig überprüfen ob er wirklich ein gültiges Datum ist, ggf. try - catch
                     val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN)
                     val tempSt: Date?
                     val tempEnd: Date?
