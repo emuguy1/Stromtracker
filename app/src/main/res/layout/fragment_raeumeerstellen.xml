@@ -40,7 +40,7 @@
 
 
         <TextView
-            android:id="@+id/edit_text_raum_erstellen_info"
+            android:id="@+id/text_view_raum_erstellen_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"

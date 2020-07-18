@@ -39,6 +39,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_raum_bearbeiten_name" />
 
+        <TextView
+            android:id="@+id/text_view_raum_bearbeiten_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:ems="15"
+            android:text=""
+            android:textColor="@color/text_warnung"
+            app:layout_constraintBottom_toTopOf="@+id/button_raeume_bearbeiten_abbrechen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/button_raeume_bearbeiten_speichern"
             android:layout_width="wrap_content"

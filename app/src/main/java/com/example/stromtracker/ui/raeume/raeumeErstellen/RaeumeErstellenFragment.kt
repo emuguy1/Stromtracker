@@ -1,11 +1,8 @@
 package com.example.stromtracker.ui.raeume.raeumeErstellen
 
-
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +21,10 @@ class RaeumeErstellenFragment : Fragment() {
     private lateinit var raumnameneditfeld: EditText
     private lateinit var savebutton: View
     private lateinit var informationfield: TextView
+    private var raumnameleer: String =
+        "Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde."
+    private var raumnamesonstiges: String = "Raum - Sonstiges - darf nicht erstellt werden!"
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,15 +36,14 @@ class RaeumeErstellenFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
         raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
         CustomTextListener(raumnameneditfeld)
-        informationfield=root.findViewById<TextView>(R.id.edit_text_raum_erstellen_info)
-
+        informationfield = root.findViewById<TextView>(R.id.text_view_raum_erstellen_info)
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
         savebutton = root.findViewById(R.id.button_raeume_erstellen_speichern)
         //Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
-                if(!raumnameneditfeld.text.isNullOrBlank()){
+                if (!raumnameneditfeld.text.isNullOrBlank()) {
                     //Die Daten in die RoomDatabase speichern
                     val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
 
@@ -60,9 +60,8 @@ class RaeumeErstellenFragment : Fragment() {
                     //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
                     //und anschließend noch ein commit()
-                }
-                else{
-                    informationfield.text = "Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde"
+                } else {
+                    informationfield.text = raumnameleer
                 }
 
 
@@ -96,13 +95,10 @@ class RaeumeErstellenFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {
                 if (edit.text.toString().equals("Sonstiges")) {
                     savebutton.visibility = View.INVISIBLE
-                    informationfield.text="Raum - Sonstiges - darf nicht erstellt werden!"
-                }else if(edit.text.toString().isBlank()){
-                    savebutton.visibility=View.INVISIBLE
-                    informationfield.text="Es muss ein Name eingegeben werden, der Nicht aus Leerzeichen besteht oder leer ist!"
-                }
-                else {
+                    informationfield.text = raumnamesonstiges
+                } else {
                     savebutton.visibility = View.VISIBLE
+                    informationfield.text = ""
                 }
             }
 

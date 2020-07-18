@@ -26,10 +26,7 @@ class RaeumeViewModel(application: Application) : AndroidViewModel(application) 
     fun deleteRaeume(a: Raum) {
         repo.deleteRaum(a)
     }
-    fun getAllGeraeteByHaushaltId(a:Int):LiveData<List<Geraete>>{
-        return repo.getAllGeraeteByHaushaltID(a)
-    }
-    fun updateGeraet(g: Geraete){
-        repo.updateGeraete(g)
+    fun updateGeraeteByRaumId(alterRaum: Int, neuerRaum : Int){
+        repo.updateGeraetByRaumID(alterRaum, neuerRaum)
     }
 }
