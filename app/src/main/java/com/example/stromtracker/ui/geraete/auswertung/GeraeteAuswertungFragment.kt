@@ -237,12 +237,18 @@ class GeraeteAuswertungFragment(
             for (geraet in currGeraeteInKat) {
                 sum += geraet.getJahresverbrauch()
             }
-            if (sum > 0)
+            if (sum > 0) {
+                var name = ""
+                for(currKat in kategorieList) {
+                    if(currKat.getKategorieID() == currGeraeteInKat.first().getKategorieID())
+                        name = currKat.getName()
+                }
                 data.add(
                     ValueDataEntry(
-                        kategorieList[currGeraeteInKat.first().getKategorieID() - 1].getName(), sum
+                        name, sum
                     )
                 )
+            }
         }
 
         if (data.isNotEmpty()) {
@@ -270,16 +276,22 @@ class GeraeteAuswertungFragment(
             verbraucherList.groupBy(keySelector = { it.getRaumID() })
         for (raum in sortedgeraete) {
             val currGeraeteInRaum = raum.value
-            var sum: Double = 0.0
+            var sum = 0.0
             for (geraet in currGeraeteInRaum) {
                 sum += geraet.getJahresverbrauch()
             }
-            if (sum > 0)
+            if (sum > 0) {
+                var name = ""
+                for(currRaum in raumList) {
+                    if(currRaum.getRaumID() == currGeraeteInRaum.first().getRaumID())
+                        name = currRaum.getName()
+                }
                 data.add(
                     ValueDataEntry(
-                        raumList[currGeraeteInRaum.first().getRaumID() - 1].getName(), sum
+                        name, sum
                     )
                 )
+            }
         }
         if (data.isNotEmpty()) {
 
