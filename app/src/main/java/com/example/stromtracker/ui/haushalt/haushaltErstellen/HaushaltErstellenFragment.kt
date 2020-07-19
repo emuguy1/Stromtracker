@@ -91,7 +91,7 @@ class HaushaltErstellenFragment : Fragment() {
                         val fragMan = parentFragmentManager
                         //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                            .addToBackStack(null).commit();
+                            .addToBackStack(null).commit()
                         //und anschließend noch ein commit()
                     } else {
                         Toast.makeText(this.context, R.string.leereFelderHaushalt, Toast.LENGTH_SHORT)
@@ -118,7 +118,7 @@ class HaushaltErstellenFragment : Fragment() {
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 //und anschließend noch ein commit()
             }
         }

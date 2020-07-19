@@ -11,7 +11,7 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen.HaushaltBearbeitenLoeschenFragment
 
-class ListAdapterHaushalt(private val datain: List<Haushalt>) :
+class ListAdapterHaushalt(datain: List<Haushalt>) :
     RecyclerView.Adapter<ListAdapterHaushalt.ViewHolder>() {
     private val data = datain
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,7 +37,7 @@ class ListAdapterHaushalt(private val datain: List<Haushalt>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        var listcard: CardView = itemView.findViewById(R.id.recycler_card_haushalt)
+        private var listcard: CardView = itemView.findViewById(R.id.recycler_card_haushalt)
         var textView: TextView = itemView.findViewById(R.id.text_view_haushalt)
 
         init {

@@ -52,13 +52,14 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
         if (currHaushalt.getZaehlerstand() != null && currHaushalt.getDatum() != null) {
             zaehlerstandeditfeld.setText(currHaushalt.getZaehlerstand().toString())
             datumeditfeld.setText(
+                //currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
                 SimpleDateFormat(
                     "dd.MM.yyyy",
                     Locale.GERMAN
                 ).format(currHaushalt.getDatum())
             )
         }
-        oekomixeditfeld.setChecked(currHaushalt.getOekostrom())
+        oekomixeditfeld.isChecked = currHaushalt.getOekostrom()
 
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
@@ -67,7 +68,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
         savebutton.setOnClickListener { view ->
             if (view != null) {
                 //try catch Block um Parser Fehler beim Datum abzufangen
-                try{
+                try {
                     //Schauen, dass alle Werte die gesetzt sein müssen gesetzt wurden
                     if (haushaltsnameneditfeld.text.isNotEmpty() &&
                         personeneditfeld.text.isNotEmpty() &&
@@ -88,6 +89,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
                                 "dd.MM.yyyy",
                                 Locale.GERMAN
                             ).parse(datumeditfeld.text.toString())
+                            //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
                             currHaushalt.setDatum(tempDate)
                         }
                         haushaltViewModel.updateHaushalt(currHaushalt)
@@ -97,15 +99,18 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
                         val fragMan = parentFragmentManager
                         //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                            .addToBackStack(null).commit();
+                            .addToBackStack(null).commit()
                         //und anschließend noch ein commit()
                     } else {
-                        Toast.makeText(this.context, R.string.leereFelderHaushalt, Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this.context,
+                            R.string.leereFelderHaushalt,
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
 
                     }
-                }
-                catch(e : ParseException){
+                } catch (e: ParseException) {
                     Toast.makeText(this.context, R.string.parse_error_datum, Toast.LENGTH_SHORT)
                         .show()
                     e.printStackTrace()
@@ -124,7 +129,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 //und anschließend noch ein commit()
             }
         }
@@ -138,23 +143,23 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
                 val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
                 builder1.setMessage(R.string.haushaltlöschenConfirm)
                 builder1.setPositiveButton(
-                    R.string.ja,
-                    DialogInterface.OnClickListener { dialog, _ ->
-                        //Daten werden aus der Datenbank gelöscht
-                        haushaltViewModel.deleteHaushalt(currHaushalt)
-                        //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
-                        val frag = HaushaltFragment()
-                        //Fragment Manager aus Main Activity holen
-                        val fragMan = parentFragmentManager
-                        //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
-                        //und anschließend noch ein commit()
-                        dialog.cancel()
-                    })
+                    R.string.ja
+                ) { dialog, _ ->
+                    //Daten werden aus der Datenbank gelöscht
+                    haushaltViewModel.deleteHaushalt(currHaushalt)
+                    //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    //neues Fragment erstellen auf das weitergeleitet werden soll
+                    val frag = HaushaltFragment()
+                    //Fragment Manager aus Main Activity holen
+                    val fragMan = parentFragmentManager
+                    //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
+                    //und anschließend noch ein commit()
+                    dialog.cancel()
+                }
                 builder1.setNegativeButton(
-                    R.string.nein,
-                    DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
+                    R.string.nein
+                ) { dialog, _ -> dialog.cancel() }
                 val alert11: AlertDialog = builder1.create()
                 alert11.show()
             }
