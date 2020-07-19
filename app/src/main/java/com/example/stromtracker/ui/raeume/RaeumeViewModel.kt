@@ -11,7 +11,7 @@ import com.example.stromtracker.database.Raum
 class RaeumeViewModel(application: Application) : AndroidViewModel(application) {
     var repo: DataRepository = DataRepository(application)
 
-    fun getAllRaeumeById(a:Int):LiveData<List<Raum>> {
+    fun getAllRaeumeByHaushaltId(a:Int):LiveData<List<Raum>> {
         return repo.getAllRaumByHaushaltID(a)
     }
 

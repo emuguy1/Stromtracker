@@ -31,21 +31,7 @@ class RaeumeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //Haushalt ID aus Spinner und übergeben sie in für das hohlen Räume die im Haushalt erzeugt sind
-        val raumData: LiveData<List<Raum>> =
-            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                raeumeViewModel.getAllRaeumeById(haushalt.getHaushaltID())
-            }
-        raumData.observe(
-            viewLifecycleOwner,
-            Observer { raeume ->
-                if (raeume != null) {
-                    datain.clear()
-                    datain.addAll(raeume)
 
-                    viewAdapter.notifyDataSetChanged()
-                }
-            }
-        )
     }
 
     override fun onCreateView(
@@ -53,12 +39,10 @@ class RaeumeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        //sharedViewModel um auf das gemeinsame ViewModel zuzugreifen
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         //View Model zuweisen, benötigt für DB Zugriff
-
-
         raeumeViewModel = ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(
             R.layout.fragment_raeume,
@@ -66,10 +50,26 @@ class RaeumeFragment : Fragment() {
             false
         )//false weil es nur teil des root ist, aber nicht selber die root
 
-        val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
+        val raumData: LiveData<List<Raum>> =
+            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+                raeumeViewModel.getAllRaeumeByHaushaltId(haushalt.getHaushaltID())
+            }
+        raumData.observe(
+            viewLifecycleOwner,
+            Observer { raeume ->
+                if (raeume != null) {
+                    datain.clear()
+                    datain.addAll(raeume)
+                    currHaushalt= sharedViewModel.selectedHaushalt.value!!
+                    viewAdapter.notifyDataSetChanged()
+                }
+            }
+        )
 
-        val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
-        currHaushalt = sp.selectedItem as Haushalt
+        //TODO: Entfernen wenn sicher, dass es funktioniert
+        //val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
+        //val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
+        //currHaushalt = sp.selectedItem as Haushalt
 
         datain = ArrayList()
         //Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
@@ -90,7 +90,7 @@ class RaeumeFragment : Fragment() {
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                    .addToBackStack(null).commit();
+                    .addToBackStack(null).commit()
                 //und anschließend noch ein commit()
 
             }
