@@ -34,6 +34,7 @@ data class Geraete(
     @ColumnInfo(name = "stromVollast") private var stromVollast: Double,
     @ColumnInfo(name = "stromStandBy") private var stromStandBy: Double,
     @ColumnInfo(name = "betriebszeit") private var betriebszeit: Double,
+    @ColumnInfo(name = "betriebszeitStandBy") private var betriebszeitStandBy: Double,
     @ColumnInfo(name = "urlaubsmodus") private var urlaubsmodus: Boolean,
     @ColumnInfo(name = "jahresverbrauch") private var jahresverbrauch: Double,
     @ColumnInfo(name = "eigenverbrauch") private var eigenverbrauch: Double?,
@@ -135,13 +136,16 @@ data class Geraete(
         return notiz
     }
 
-    fun setNotiz(s: String) {
+    fun setNotiz(s: String?) {
         notiz = s
     }
 
+    fun getBetriebszeitStandBy(): Double {
+        return betriebszeitStandBy
+    }
+
+    fun setBetriebszeitStandBy(zeit: Double) {
+        betriebszeitStandBy = zeit
+    }
 
 }
-
-
-
-

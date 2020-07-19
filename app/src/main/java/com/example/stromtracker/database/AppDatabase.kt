@@ -20,15 +20,15 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun urlaubDAO(): UrlaubDAO
 
     companion object {
-        private  var INSTANCE: AppDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-         fun getInstance(context: Context): AppDatabase {
+        fun getInstance(context: Context): AppDatabase {
 
             synchronized(this) {
 
 
                 if (INSTANCE == null) {
-                     buildDatabase(context)
+                    buildDatabase(context)
                 }
                 return INSTANCE!!
             }
@@ -42,18 +42,37 @@ abstract class AppDatabase : RoomDatabase() {
             ).addCallback(object : Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
-                    Thread(Runnable { prepopulateDb(context, getInstance(context)) }).start()
+                    Thread(Runnable { prepopulateDb(context, getInstance(context)) }
+                    ).start()
+
                 }
             })
                 .build()
 
         }
-         fun destroyInstance() {
+
+        fun destroyInstance() {
             INSTANCE = null
         }
 
         fun prepopulateDb(context: Context, db: AppDatabase) {
-            db.haushaltDao().insertHaushalt(Haushalt("name", 0.0, 1, 0.0, null, false), Haushalt("test2", 0.0, 1, 0.0, null, false))
+            db.haushaltDao().insertHaushalt(
+                Haushalt("Haushalt1", 0.0, 1, 0.0, null, false)
+            )
+            db.raumDao().insertRaum(Raum("Sonstiges", 1))
+            db.kategorieDao().insertKategorie(
+                Kategorie("Sonstiges", 7),
+                Kategorie("Fernseher", 0),
+                Kategorie("Gaming", 1),
+                Kategorie("Unterhaltung", 2),
+                Kategorie("Kühlung", 3),
+                Kategorie("Kochen", 4),
+                Kategorie("Waschen", 5),
+                Kategorie("Lampen", 6),
+                Kategorie("Stromerzeugung", 8)
+            )
+            return
+
         }
     }
 

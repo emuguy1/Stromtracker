@@ -10,8 +10,9 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment
 
-class ListAdapterraeume(private val datain: List<Raum>) : RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
-    private val data =datain
+class ListAdapterraeume(private val datain: List<Raum>) :
+    RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
+    private val data = datain
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item_raeume, parent, false)
@@ -34,16 +35,19 @@ class ListAdapterraeume(private val datain: List<Raum>) : RecyclerView.Adapter<L
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var textView: TextView = itemView.findViewById(R.id.text_view_raeume)
+
         init {
             textView.setOnClickListener(this)
         }
+
         override fun onClick(view: View?) {
             if (view != null) {
                 val frag = RaeumeBearbeitenLoeschenFragment(data[layoutPosition])
                 //Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<RaeumeFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit()
             }
         }
     }

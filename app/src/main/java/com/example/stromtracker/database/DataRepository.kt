@@ -21,10 +21,18 @@ class DataRepository public constructor(application: Application) {
     private var mAllKategorie: LiveData<List<Kategorie>> = mKategorieDAO.getAll()
     private var mAllUrlaub: LiveData<List<Urlaub>> = mUrlaubDAO.getAll()
 
-
     fun getAllGeraete(): LiveData<List<Geraete>> {
         return mAllGeraete
     }
+
+    fun getAllVerbraucherByHaushaltID(haushaltID: Int): LiveData<List<Geraete>> {
+        return mGeraeteDao.getAllVerbraucherByHaushaltID(haushaltID)
+    }
+
+    fun getAllGeraeteByHaushaltID(id: Int): LiveData<List<Geraete>> {
+        return mGeraeteDao.loadAllByHaushaltID(id)
+    }
+
 
     fun getAllRaumByHaushaltID(id: Int): LiveData<List<Raum>> {
         return mRaumDAO.loadAllByHaushaltID(id)
@@ -66,40 +74,44 @@ class DataRepository public constructor(application: Application) {
         updateAsyncTaskGeraet(mGeraeteDao).execute(geraet)
     }
 
-    fun insertHaushalt(haushalt: Haushalt) {
-        insertAsyncTaskHaushalt(mHaushaltDAO).execute(haushalt)
+    fun updateGeraetByKategorieID(oldID: Int, newID: Int) {
+        updateAsyncTaskGeraetByKategorieID(mGeraeteDao).execute(oldID, newID)
     }
 
-    fun deleteHaushalt(haushalt: Haushalt) {
-        deleteAsyncTaskHaushalt(mHaushaltDAO).execute(haushalt)
+    fun insertHaushalt(Haushalt: Haushalt) {
+        insertAsyncTaskHaushalt(mHaushaltDAO).execute(Haushalt)
     }
 
-    fun updateHaushalt(haushalt: Haushalt) {
-        updateAsyncTaskHaushalt(mHaushaltDAO).execute(haushalt)
+    fun deleteHaushalt(Haushalt: Haushalt) {
+        deleteAsyncTaskHaushalt(mHaushaltDAO).execute(Haushalt)
     }
 
-    fun insertKategorie(kategorie: Kategorie) {
-        insertAsyncTaskKategorie(mKategorieDAO).execute(kategorie)
+    fun updateHaushalt(Haushalt: Haushalt) {
+        updateAsyncTaskHaushalt(mHaushaltDAO).execute(Haushalt)
     }
 
-    fun deleteKategorie(kategorie: Kategorie) {
-        deleteAsyncTaskKategorie(mKategorieDAO).execute(kategorie)
+    fun insertKategorie(Kategorie: Kategorie) {
+        insertAsyncTaskKategorie(mKategorieDAO).execute(Kategorie)
     }
 
-    fun updateKategorie(kategorie: Kategorie) {
-        updateAsyncTaskKategorie(mKategorieDAO).execute(kategorie)
+    fun deleteKategorie(Kategorie: Kategorie) {
+        deleteAsyncTaskKategorie(mKategorieDAO).execute(Kategorie)
     }
 
-    fun insertRaum(raum: Raum) {
-        insertAsyncTaskRaum(mRaumDAO).execute(raum)
+    fun updateKategorie(Kategorie: Kategorie) {
+        updateAsyncTaskKategorie(mKategorieDAO).execute(Kategorie)
     }
 
-    fun deleteRaum(raum: Raum) {
-        deleteAsyncTaskRaum(mRaumDAO).execute(raum)
+    fun insertRaum(Raum: Raum) {
+        insertAsyncTaskRaum(mRaumDAO).execute(Raum)
     }
 
-    fun updateRaum(raum: Raum) {
-        updateAsyncTaskRaum(mRaumDAO).execute(raum)
+    fun deleteRaum(Raum: Raum) {
+        deleteAsyncTaskRaum(mRaumDAO).execute(Raum)
+    }
+
+    fun updateRaum(Raum: Raum) {
+        updateAsyncTaskRaum(mRaumDAO).execute(Raum)
     }
 
     fun insertUrlaub(urlaub: Urlaub) {
@@ -150,6 +162,23 @@ class DataRepository public constructor(application: Application) {
             }
 
 
+        }
+
+        class updateAsyncTaskGeraetByKategorieID(dao: GeraeteDAO) : AsyncTask<Int, Void, Void>() {
+            private var mAsyncTaskDAO: GeraeteDAO = dao
+
+            override fun doInBackground(vararg params: Int?): Void? {
+                //Checks if params[0] and params[1] is null
+                params[0]?.let {
+                    params[1]?.let { it1 ->
+                        mAsyncTaskDAO.updateGeraetByKategorieID(
+                            it,
+                            it1
+                        )
+                    }
+                }
+                return null
+            }
         }
 
         class insertAsyncTaskHaushalt(dao: HaushaltDAO) : AsyncTask<Haushalt, Void, Void>() {
@@ -296,18 +325,6 @@ class DataRepository public constructor(application: Application) {
 
         }
 
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

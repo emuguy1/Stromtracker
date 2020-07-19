@@ -3,7 +3,8 @@ package com.example.stromtracker.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
-@Dao interface HaushaltDAO {
+@Dao
+interface HaushaltDAO {
     @Query("SELECT * FROM haushalt")
     fun getAll(): LiveData<List<Haushalt>>
 

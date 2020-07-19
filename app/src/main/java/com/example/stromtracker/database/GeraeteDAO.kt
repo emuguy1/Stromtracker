@@ -18,9 +18,14 @@ interface GeraeteDAO {
     @Query("SELECT * FROM geraete WHERE jahresverbrauch >= 0.0 AND haushaltID = :haushaltID")
     fun getAllVerbraucherByHaushaltID(haushaltID: Int): LiveData<List<Geraete>>
 
+    @Query("UPDATE geraete SET kategorieID = :newID WHERE kategorieID = :oldID")
+    fun updateGeraetByKategorieID(oldID: Int, newID: Int)
 
     @Query("SELECT * FROM geraete WHERE geraeteID IN (:geraeteIDs)")
     fun loadAllByIds(geraeteIDs: IntArray): LiveData<List<Geraete>>
+
+    @Query("SELECT * FROM geraete WHERE haushaltID IN (:haushaltID)")
+    fun loadAllByHaushaltID(haushaltID: Int): LiveData<List<Geraete>>
 
     @Query("SELECT * FROM geraete WHERE name LIKE :name")
     fun findByName(name: String): List<Geraete>

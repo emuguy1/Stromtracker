@@ -2,7 +2,8 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "abe232062d99e6cab88d3867a98cea71",
+    "identityHash": "ce70029a7106441a87e6d59cef3ce16a",
+
     "entities": [
       {
         "tableName": "Geraete",
@@ -53,6 +54,12 @@
           {
             "fieldPath": "betriebszeit",
             "columnName": "betriebszeit",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "betriebszeitStandBy",
+            "columnName": "betriebszeitStandBy",
             "affinity": "REAL",
             "notNull": true
           },
@@ -239,7 +246,7 @@
       },
       {
         "tableName": "Raum",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`raumID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "raumID",
@@ -279,7 +286,7 @@
         "foreignKeys": [
           {
             "table": "Haushalt",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "haushaltID"
@@ -365,7 +372,9 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'abe232062d99e6cab88d3867a98cea71')"
+
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce70029a7106441a87e6d59cef3ce16a')"
+
     ]
   }
 }

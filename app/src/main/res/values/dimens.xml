@@ -23,7 +23,11 @@
     <dimen name="geraet_cardview_margin">8dp</dimen>
     <dimen name="geraet_edit_textview_margin">24dp</dimen>
     <dimen name="geraet_edit_editText_margin">8dp</dimen>
+    <dimen name="geraet_top_bottom_margin">16dp</dimen>
+    <dimen name="geraet_text_recycler">14sp</dimen>
+    <dimen name="geraet_text_sort_button">12sp</dimen>
 
+    <dimen name="anyChart_height">400dp</dimen>
 
     <dimen name="content_text_smallest">10sp</dimen>
 
@@ -31,7 +35,6 @@
     <dimen name="recyclerview_marginRight">8dp</dimen>
     <dimen name="recyclerview_marginTop">8dp</dimen>
     <dimen name="recyclerview_marginBottom">8dp</dimen>
-
 
     <dimen name="spinner_icon_dropdown_width">64dp</dimen>
     <dimen name="spinner_icon_dropdown_height">64dp</dimen>
