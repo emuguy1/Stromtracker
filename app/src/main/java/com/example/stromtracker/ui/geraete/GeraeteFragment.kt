@@ -176,6 +176,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
+
     }
 
     override fun onClick(v: View) {
