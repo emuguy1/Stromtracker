@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
             android:ems="15"
-            android:text=""
             android:textColor="@color/text_warnung"
             app:layout_constraintBottom_toTopOf="@+id/button_raeume_erstellen_abbrechen"
             app:layout_constraintEnd_toEndOf="parent"
