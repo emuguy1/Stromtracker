@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.urlaub.urlaub_edit
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
-import com.example.stromtracker.ui.kategorien.KategorienFragment
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.centToEuro
 import com.example.stromtracker.ui.urlaub.UrlaubFragment
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.checkDates
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.dateTimeToDays
@@ -114,11 +113,11 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
     fun updateOutputs(st: Date?, end: Date?) {
         var neuStr: String
         if (st != null && end != null) {
-            val countTage: Long = end.time / dateTimeToDays - st.time / dateTimeToDays + 1
+            val countTage: Double = end.time / dateTimeToDays - st.time / dateTimeToDays + 1
             neuStr = "Der Urlaub dauert insgesamt $countTage Tage"
             outTage.text = neuStr
             val diffkWh = urlaub.getGesamtVerbrauch() * countTage
-            val diffEuro = diffkWh * currHaushalt.getStromkosten() / 100
+            val diffEuro = diffkWh * currHaushalt.getStromkosten() * centToEuro
             neuStr = "Währenddessen werden " + String.format(
                 "%.2f",
                 diffkWh

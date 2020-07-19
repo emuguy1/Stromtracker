@@ -9,11 +9,11 @@ import java.util.*
 class UrlaubCompanion {
     companion object {
         private const val dateLength = 10
-        const val dateTimeToDays = 1000 * 60 * 60 * 24
-        const val dayLen = 24
-        const val wattToKW = 1.0 / 1000.0
-        const val yearToDay = 1.0 / 365.0
-        const val centToEuro = 1.0 / 100.0
+        const val dateTimeToDays : Double = 1000.0 * 60.0 * 60.0 * 24.0
+        const val dayLen : Double = 24.0
+        const val wattToKW : Double = 1.0 / 1000.0
+        const val yearToDay : Double = 1.0 / 365.0
+        const val centToEuro : Double = 1.0 / 100.0
 
         fun checkDates(st: EditText, end: EditText): Boolean {
             if (st.text.isNotEmpty() && end.text.isNotEmpty()) {

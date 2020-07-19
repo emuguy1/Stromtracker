@@ -3,7 +3,6 @@ package com.example.stromtracker.ui.urlaub.urlaub_new
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,16 +86,8 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
             gesamtverbrauchAktPT += geraet.getJahresverbrauch()
         }
         //Beide werden nun einheitlich gespeichert, als kWh pro Tag
-        Log.d(
-            "verbrProTag",
-            "$gesamtverbrauchAktPT (aktuell) $gesamtverbrauchNeuPT (neu)"
-        )
         gesamtverbrauchNeuPT *= wattToKW
         gesamtverbrauchAktPT *= yearToDay
-        Log.d(
-            "verbrProTag",
-            "$gesamtverbrauchAktPT (aktuell) $gesamtverbrauchNeuPT (neu)"
-        )
     }
 
     private fun addCustomTextChangedListener(edit: EditText): EditText {
@@ -133,7 +124,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
     fun updateOutputs(st: Date?, end: Date?) {
         var neuStr: String
         if (st != null && end != null) {
-            val countTage: Long = end.time / dateTimeToDays - st.time / dateTimeToDays + 1
+            val countTage: Double = end.time / dateTimeToDays - st.time / dateTimeToDays + 1
             neuStr = "Der Urlaub dauert insgesamt $countTage Tage"
             outTage.text = neuStr
             val diffkWh = (gesamtverbrauchAktPT - gesamtverbrauchNeuPT) * countTage
