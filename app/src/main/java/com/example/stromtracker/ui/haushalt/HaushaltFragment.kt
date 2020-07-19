@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
@@ -51,15 +50,16 @@ class HaushaltFragment : Fragment() {
                     datain.addAll(haushalte)
                     //Die Haushaltliste in Main Activity erneuern.
                     mainact.setOldHaushaltList(datain)
+                    //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
+                    if (datain.size > datatemp.size && !isinit&&datatemp.size>0) {
+                        initRaeume(datain[datain.size - 1].getHaushaltID())
+                    }
+                    //Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
                     if (isinit && datain.size > 0) { //Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt werden.
                         // Hier nach leer initialisierung und sobald das ganze in die Datenbank gekommen ist,deswegen wird hier gewartet, bis datain bei einem element ist,
                         //bevor es in die if Schleife kommt
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                         isinit = false
-                    }
-                    //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
-                    if (datain.size > datatemp.size) {
-                        initRaeume(datain[datain.size - 1].getHaushaltID())
                     }
                     viewAdapter.notifyDataSetChanged()
                 }

@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.haushalt.haushaltErstellen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
-import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import java.text.SimpleDateFormat
