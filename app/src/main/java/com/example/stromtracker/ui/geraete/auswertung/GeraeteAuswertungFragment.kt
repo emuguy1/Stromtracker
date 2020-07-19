@@ -338,7 +338,7 @@ class GeraeteAuswertungFragment(
                     "mit einem Gesamtverbrauch von $gesamtverbrauch kWh. " +
                     "Daraus ergibt sich ein Verbrauch von $proPerson kWh pro Person.\n"
         if (prozent > 1.0) {
-            prozent = (prozent % 1) * 100
+            prozent = (prozent - 1) * 100
             str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% höher als der Durchschnitt."
         } else if (prozent == 1.0)
             str += "Somit liegt der Verbrauch genau im Durchschnitt."
