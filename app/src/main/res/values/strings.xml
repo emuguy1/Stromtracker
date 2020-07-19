@@ -187,6 +187,8 @@
     <string name="geraet_text_notiz">Notizen (optional)</string>
     <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
 
+    <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten sie auf das Format: dd.MM.yyyy</string>
+
     <string name="raum_name_leer">Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde.</string>
     <string name="raum_sonstiges_erstellen">Raum - Sonstiges - darf nicht erstellt werden!</string>
 
