@@ -34,6 +34,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
 
     private var gesamtverbrauchNeuPT: Double = 0.0
     private var gesamtverbrauchAktPT: Double = 0.0
+    private var ersparniskWhPT : Double = 0.0
 
     private lateinit var name: EditText
     private lateinit var start: EditText
@@ -127,8 +128,9 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
             val countTage: Double = end.time / dateTimeToDays - st.time / dateTimeToDays + 1
             neuStr = "Der Urlaub dauert insgesamt $countTage Tage"
             outTage.text = neuStr
-            val diffkWh = (gesamtverbrauchAktPT - gesamtverbrauchNeuPT) * countTage
-            val diffEuro = diffkWh * currHaushalt.getStromkosten() * centToEuro
+            ersparniskWhPT = (gesamtverbrauchAktPT - gesamtverbrauchNeuPT)
+            val diffkWh = ersparniskWhPT * countTage
+            val diffEuro = ersparniskWhPT * currHaushalt.getStromkosten() * centToEuro
             neuStr = "Währenddessen werden " + String.format(
                 "%.2f",
                 diffkWh
@@ -160,7 +162,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
                             name.text.toString(),
                             tempDateStart,
                             tempDateEnde,
-                            gesamtverbrauchNeuPT,
+                            ersparniskWhPT,
                             currHaushalt.getHaushaltID()
                         )
                         urlaubViewModel.insertUrlaub(urlaub)
