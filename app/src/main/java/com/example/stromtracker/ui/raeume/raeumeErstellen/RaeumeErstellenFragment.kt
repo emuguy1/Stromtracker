@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView
 class RaeumeErstellenFragment : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
     private lateinit var raumnameneditfeld: EditText
-    private lateinit var savebutton: View
+    private lateinit var savebutton: Button
     private lateinit var informationfield: TextView
     private var raumnameleer: String =
         "Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde."
@@ -34,9 +34,9 @@ class RaeumeErstellenFragment : Fragment() {
         raeumeViewModel =
             ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
-        raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_erstellen_name)
-        CustomTextListener(raumnameneditfeld)
-        informationfield = root.findViewById<TextView>(R.id.text_view_raum_erstellen_info)
+        raumnameneditfeld = root.findViewById(R.id.edit_text_raum_erstellen_name)
+        customTextListener(raumnameneditfeld)
+        informationfield = root.findViewById(R.id.text_view_raum_erstellen_info)
         //Speicher Button zum speichern der eingegebenen Daten
         //finde den save button
         savebutton = root.findViewById(R.id.button_raeume_erstellen_speichern)
@@ -50,7 +50,7 @@ class RaeumeErstellenFragment : Fragment() {
                     val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
                     val currHaushalt = sp.selectedItem as Haushalt
 
-                    val raum: Raum =
+                    val raum =
                         Raum(raumnameneditfeld.text.toString(), currHaushalt.getHaushaltID())
                     raeumeViewModel.insertRaeume(raum)
                     //neues Fragment erstellen auf das weitergeleitet werden soll
@@ -58,7 +58,7 @@ class RaeumeErstellenFragment : Fragment() {
                     //Fragment Manager aus Main Activity holen
                     val fragMan = parentFragmentManager
                     //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
+                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                     //und anschließend noch ein commit()
                 } else {
                     informationfield.text = raumnameleer
@@ -80,7 +80,7 @@ class RaeumeErstellenFragment : Fragment() {
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 //und anschließend noch ein commit()
 
             }
@@ -90,10 +90,10 @@ class RaeumeErstellenFragment : Fragment() {
         return root
     }
 
-    fun CustomTextListener(edit: EditText): EditText {
+    private fun customTextListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                if (edit.text.toString().equals("Sonstiges")) {
+                if (edit.text.toString() == "Sonstiges") {
                     savebutton.visibility = View.INVISIBLE
                     informationfield.text = raumnamesonstiges
                 } else {

@@ -1,13 +1,13 @@
 package com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -24,9 +24,9 @@ class RaeumeBearbeitenLoeschenFragment(
     private var raumliste : ArrayList<Raum>
 ) : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
-    private lateinit var savebutton: View
-    private lateinit var abortbutton: View
-    private lateinit var deletebutton: View
+    private lateinit var savebutton: Button
+    private lateinit var abortbutton: Button
+    private lateinit var deletebutton: Button
     private lateinit var informationfield: TextView
     private lateinit var raumnameneditfeld: EditText
     private var raumnameleer: String =
@@ -51,9 +51,9 @@ class RaeumeBearbeitenLoeschenFragment(
         deletebutton = root.findViewById(R.id.button_raeume_bearbeiten_loeschen)
 
         //Sachen holen, um die Überprüfung des Textes zu machen
-        raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_bearbeiten_name)
-        CustomTextListener(raumnameneditfeld)
-        informationfield=root.findViewById<TextView>(R.id.text_view_raum_bearbeiten_info)
+        raumnameneditfeld = root.findViewById(R.id.edit_text_raum_bearbeiten_name)
+        customTextListener(raumnameneditfeld)
+        informationfield=root.findViewById(R.id.text_view_raum_bearbeiten_info)
 
         //Holen der Raumliste, um den Raum Sonstiges zu finden, um alle Geräte,
         // die im aktuellen Raum entalten sind, der gelöscht werden soll und deren Raum ID auf den
@@ -92,7 +92,7 @@ class RaeumeBearbeitenLoeschenFragment(
                     val fragMan = parentFragmentManager
                     //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                        .addToBackStack(null).commit();
+                        .addToBackStack(null).commit()
                     //und anschließend noch ein commit()
                 }
                 else{
@@ -109,7 +109,7 @@ class RaeumeBearbeitenLoeschenFragment(
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 //und anschließend noch ein commit()
 
             }
@@ -122,27 +122,27 @@ class RaeumeBearbeitenLoeschenFragment(
                 val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
                 builder1.setMessage(R.string.raumlöschenConfirm)
                 builder1.setPositiveButton(
-                    R.string.ja,
-                    DialogInterface.OnClickListener { dialog, _ ->
-                        //Alle Geräte die dem aktuellen Raum hinzugefügt sind, werden dem Sonstigeraum zugeordnet
-                        raeumeViewModel.updateGeraeteByRaumId(currRaum.getRaumID(),sonstigesraumid)
-                        //Daten werden aus der Datenbank gelöscht
-                        //Daten aus Datenbank löschen
-                        raeumeViewModel.deleteRaeume(currRaum)
-                        //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
-                        val frag = RaeumeFragment()
-                        //Fragment Manager aus Main Activity holen
-                        val fragMan = parentFragmentManager
-                        //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit();
-                        //und anschließend noch ein commit()
-                        dialog.cancel()
-                    })
+                    R.string.ja
+                ) { dialog, _ ->
+                    //Alle Geräte die dem aktuellen Raum hinzugefügt sind, werden dem Sonstigeraum zugeordnet
+                    raeumeViewModel.updateGeraeteByRaumId(currRaum.getRaumID(),sonstigesraumid)
+                    //Daten werden aus der Datenbank gelöscht
+                    //Daten aus Datenbank löschen
+                    raeumeViewModel.deleteRaeume(currRaum)
+                    //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    //neues Fragment erstellen auf das weitergeleitet werden soll
+                    val frag = RaeumeFragment()
+                    //Fragment Manager aus Main Activity holen
+                    val fragMan = parentFragmentManager
+                    //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
+                    //und anschließend noch ein commit()
+                    dialog.cancel()
+                }
 
                 builder1.setNegativeButton(
-                    R.string.nein,
-                    DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
+                    R.string.nein
+                ) { dialog, _ -> dialog.cancel() }
 
                 val alert11: AlertDialog = builder1.create()
                 alert11.show()
@@ -152,10 +152,10 @@ class RaeumeBearbeitenLoeschenFragment(
         return root
     }
 
-    fun CustomTextListener(edit: EditText): EditText {
+    private fun customTextListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                if (edit.text.toString().equals("Sonstiges")) {
+                if (edit.text.toString() == "Sonstiges") {
                     savebutton.visibility = View.INVISIBLE
                     informationfield.text=raumnamesonstiges
                 }
