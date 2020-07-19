@@ -15,18 +15,17 @@ import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
-import com.anychart.charts.Waterfall
 import com.anychart.enums.Align
 import com.anychart.enums.LegendLayout
 import com.anychart.enums.Orientation
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Geraete
-import com.example.stromtracker.database.Haushalt
-import com.example.stromtracker.database.Kategorie
-import com.example.stromtracker.database.Raum
+import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import com.google.android.material.navigation.NavigationView
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.withSign
 
 
@@ -34,7 +33,8 @@ class GeraeteAuswertungFragment(
     private val verbraucherList: ArrayList<Geraete>,
     private val produzentList: ArrayList<Geraete>,
     private val kategorieList: ArrayList<Kategorie>,
-    private val raumList: ArrayList<Raum>
+    private val raumList: ArrayList<Raum>,
+    private val urlaubList: ArrayList<Urlaub>
 ) : Fragment(), View.OnClickListener {
 
     //Quelle (Stand 07.2020): https://www.stromvergleich.de/durchschnittlicher-stromverbrauch
@@ -80,7 +80,7 @@ class GeraeteAuswertungFragment(
 
         reloadVerbrauchsChart()
         reloadProduziertVerbrauchChart()
-        reloadVerbrMinusProdChart()
+        reloadBilanzChart()
         reloadProduzentChart()
         reloadKategorieChart()
         reloadRaumChart()
@@ -171,13 +171,24 @@ class GeraeteAuswertungFragment(
             anyChartProduziertVerbrauch.visibility = View.GONE
     }
 
-    fun reloadVerbrMinusProdChart() {
+    fun reloadBilanzChart() {
         val data: MutableList<DataEntry> = ArrayList()
         var tempSum = verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
         data.add(ValueDataEntry("Verbraucher", tempSum))
 
         tempSum = produzentList.sumByDouble { geraete -> getProdVerbrauch(geraete) }.withSign(-1)
         data.add(ValueDataEntry("Produzenten", tempSum))
+
+        val tempList : ArrayList<Urlaub> = ArrayList()
+        for (currUrlaub in urlaubList) {
+            if((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt() == (Calendar.getInstance().get(Calendar.YEAR)))
+                tempList.add(currUrlaub)
+        }
+        tempSum = tempList.sumByDouble {
+                urlaub -> urlaub.getErsparnisProTag() * (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays - urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
+        }
+        tempSum = tempSum.withSign(-1)
+        data.add(ValueDataEntry("Urlaube", tempSum))
 
         if (data.isNotEmpty()) {
             APIlib.getInstance().setActiveAnyChartView(anyChartVerbrMinusProd)

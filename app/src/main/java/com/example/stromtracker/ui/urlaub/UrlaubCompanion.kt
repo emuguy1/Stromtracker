@@ -10,6 +10,7 @@ class UrlaubCompanion {
     companion object {
         private const val dateLength = 10
         const val dateTimeToDays : Double = 1000.0 * 60.0 * 60.0 * 24.0
+        const val dateTimeToYears : Int = 1900
         const val dayLen : Double = 24.0
         const val wattToKW : Double = 1.0 / 1000.0
         const val yearToDay : Double = 1.0 / 365.0

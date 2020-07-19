@@ -7,6 +7,9 @@ import androidx.room.*
     @Query("SELECT * FROM urlaub")
     fun getAll(): LiveData<List<Urlaub>>
 
+    @Query("SELECT * FROM urlaub WHERE haushaltID = :haushaltID")
+    fun getAllUrlaubByHaushaltID(haushaltID: Int) : LiveData<List<Urlaub>>
+
     @Query("SELECT * FROM urlaub WHERE urlaubID IN (:urlaubID)")
     fun loadAllByIds(urlaubID: IntArray): LiveData<List<Urlaub>>
 

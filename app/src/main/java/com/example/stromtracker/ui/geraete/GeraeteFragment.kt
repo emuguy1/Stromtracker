@@ -16,6 +16,7 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.database.Urlaub
 import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
@@ -54,6 +55,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var iconArray: Array<Int>
 
+    private lateinit var urlaubList: ArrayList<Urlaub>
+
     private lateinit var buttonZuAuswertung: Button
 
 
@@ -89,6 +92,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         produzentList = ArrayList()
         kategorieList = ArrayList()
         raumListHaushalt = ArrayList()
+        urlaubList = ArrayList()
 
         var mainAct = requireActivity() as MainActivity
         iconArray = mainAct.getIconArray()
@@ -173,6 +177,19 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     kategorieList.clear()
                     kategorieList.addAll(kategorie)
                     viewAdapter.notifyDataSetChanged();
+                }
+            })
+
+        val urlaubData: LiveData<List<Urlaub>> =
+            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+                geraeteViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
+            }
+        urlaubData.observe(
+            viewLifecycleOwner,
+            Observer { urlaub ->
+                if (urlaub != null) {
+                    urlaubList.clear()
+                    urlaubList.addAll(urlaub)
                 }
             })
 
@@ -296,7 +313,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     verbraucherList,
                     produzentList,
                     kategorieList,
-                    raumListHaushalt
+                    raumListHaushalt,
+                    urlaubList
                 )
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)

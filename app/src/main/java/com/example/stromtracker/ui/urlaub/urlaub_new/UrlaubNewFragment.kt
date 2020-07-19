@@ -130,7 +130,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
             outTage.text = neuStr
             ersparniskWhPT = (gesamtverbrauchAktPT - gesamtverbrauchNeuPT)
             val diffkWh = ersparniskWhPT * countTage
-            val diffEuro = ersparniskWhPT * currHaushalt.getStromkosten() * centToEuro
+            val diffEuro = diffkWh * currHaushalt.getStromkosten() * centToEuro
             neuStr = "Währenddessen werden " + String.format(
                 "%.2f",
                 diffkWh
