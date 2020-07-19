@@ -116,7 +116,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
             val countTage: Double = end.time / dateTimeToDays - st.time / dateTimeToDays + 1
             neuStr = "Der Urlaub dauert insgesamt $countTage Tage"
             outTage.text = neuStr
-            val ersparniskWhPT = urlaub.getGesamtVerbrauch() * countTage
+            val ersparniskWhPT = urlaub.getErsparnisProTag() * countTage
             val diffEuro = ersparniskWhPT * currHaushalt.getStromkosten() * centToEuro
             neuStr = "Währenddessen werden " + String.format(
                 "%.2f",

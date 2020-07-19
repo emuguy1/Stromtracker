@@ -17,7 +17,7 @@ data class Urlaub(
     @ColumnInfo(name = "name") private var name: String,
     @ColumnInfo(name = "DateVon") private var dateVon: Date,
     @ColumnInfo(name = "DateBis") private var dateBis: Date,
-    @ColumnInfo(name = "gesamtVerbrauch") private var gesamtVerbrauch: Double,
+    @ColumnInfo(name = "ersparnisProTag") private var ersparnisProTag: Double,
     @ColumnInfo(name = "haushaltID") private var haushaltID: Int
 ) {
     @PrimaryKey(autoGenerate = true)
@@ -55,12 +55,12 @@ data class Urlaub(
         urlaubID = id
     }
 
-    fun getGesamtVerbrauch(): Double {
-        return gesamtVerbrauch
+    fun getErsparnisProTag(): Double {
+        return ersparnisProTag
     }
 
-    fun setGesamtVerbrauch(g: Double) {
-        gesamtVerbrauch = g
+    fun setErsparnisProTag(g: Double) {
+        ersparnisProTag = g
     }
 
     fun getHaushaltID(): Int {

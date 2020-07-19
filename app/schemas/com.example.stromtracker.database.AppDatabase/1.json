@@ -2,12 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ce70029a7106441a87e6d59cef3ce16a",
-
+    "identityHash": "fe62219b34f88bb51188e74c8fa237f6",
     "entities": [
       {
         "tableName": "Geraete",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `jahresverbrauch` REAL NOT NULL, `eigenverbrauch` REAL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `betriebszeitStandBy` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `jahresverbrauch` REAL NOT NULL, `eigenverbrauch` REAL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "geraeteID",
@@ -299,7 +298,7 @@
       },
       {
         "tableName": "Urlaub",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`urlaubID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `DateVon` INTEGER, `DateBis` INTEGER, `gesamtVerbrauch` REAL NOT NULL, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`urlaubID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `DateVon` INTEGER, `DateBis` INTEGER, `ersparnisProTag` REAL NOT NULL, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "urlaubID",
@@ -326,8 +325,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "gesamtVerbrauch",
-            "columnName": "gesamtVerbrauch",
+            "fieldPath": "ersparnisProTag",
+            "columnName": "ersparnisProTag",
             "affinity": "REAL",
             "notNull": true
           },
@@ -372,9 +371,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce70029a7106441a87e6d59cef3ce16a')"
-
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fe62219b34f88bb51188e74c8fa237f6')"
     ]
   }
 }
