@@ -139,6 +139,7 @@
 
     <string name="geraet_auswertung_button_back">Zurück</string>
     <string name="geraet_auswertung_text_auswertung">Auswertung</string>
+    <string name="geraet_auswertung_text_bilanz">Es werden nur Urlaube berücksichtigt, die im aktuellen Jahr starten.</string>
 
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>

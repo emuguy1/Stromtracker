@@ -52,7 +52,8 @@ class GeraeteAuswertungFragment(
     private lateinit var anyChartVerbraucher: AnyChartView
     private lateinit var textAvg: TextView
     private lateinit var anyChartProduziertVerbrauch: AnyChartView
-    private lateinit var anyChartVerbrMinusProd: AnyChartView
+    private lateinit var anyChartBilanz: AnyChartView
+    private lateinit var textBilanz : TextView
     private lateinit var anyChartProduzent: AnyChartView
     private lateinit var anyChartKategorie: AnyChartView
     private lateinit var anyChartRaum: AnyChartView
@@ -72,11 +73,12 @@ class GeraeteAuswertungFragment(
 
         anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
         anyChartProduziertVerbrauch = root.findViewById(R.id.any_chart_produziert_verbrauch)
-        anyChartVerbrMinusProd = root.findViewById(R.id.any_chart_verbr_minus_prod)
+        anyChartBilanz = root.findViewById(R.id.any_chart_bilanz)
         anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
         anyChartKategorie = root.findViewById(R.id.any_chart_kategorie)
         anyChartRaum = root.findViewById(R.id.any_chart_raum)
         textAvg = root.findViewById(R.id.geraete_auswertung_text_durchschnitt)
+        textBilanz = root.findViewById(R.id.geraete_auswertung_text_bilanz)
 
         reloadVerbrauchsChart()
         reloadProduziertVerbrauchChart()
@@ -191,7 +193,7 @@ class GeraeteAuswertungFragment(
         data.add(ValueDataEntry("Urlaube", tempSum))
 
         if (data.isNotEmpty()) {
-            APIlib.getInstance().setActiveAnyChartView(anyChartVerbrMinusProd)
+            APIlib.getInstance().setActiveAnyChartView(anyChartBilanz)
 
             val wat = AnyChart.waterfall()
             wat.yAxis(0).labels().format("{%Value}{scale:(1)(1)|(kWh)}")
@@ -202,11 +204,13 @@ class GeraeteAuswertungFragment(
             end.setValue("isTotal", true)
             data.add(end)
             wat.data(data)
-            wat.title("Verbrauch - Produktion")
+            wat.title("Bilanz")
 
-            anyChartVerbrMinusProd.setChart(wat)
-        } else
-            anyChartVerbrMinusProd.visibility = View.GONE
+            anyChartBilanz.setChart(wat)
+        } else {
+            anyChartBilanz.visibility = View.GONE
+            textBilanz.visibility = View.GONE
+        }
     }
 
     fun reloadProduzentChart() {

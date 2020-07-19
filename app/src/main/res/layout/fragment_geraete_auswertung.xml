@@ -40,19 +40,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/geraet_cardview_margin">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <com.anychart.AnyChartView
                         android:id="@+id/any_chart_verbraucher"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/anyChart_height" />
+
                     <TextView
                         android:id="@+id/geraete_auswertung_text_durchschnitt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"/>
+                        android:layout_margin="8dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -107,11 +110,24 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/geraet_cardview_margin">
 
-                <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_verbr_minus_prod"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/anyChart_height"
-                    android:layout_margin="@dimen/geraet_cardview_margin" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.anychart.AnyChartView
+                        android:id="@+id/any_chart_bilanz"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/anyChart_height"
+                        android:layout_margin="@dimen/geraet_cardview_margin" />
+
+                    <TextView
+                        android:id="@+id/geraete_auswertung_text_bilanz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/geraet_auswertung_text_bilanz"
+                        android:layout_margin="8dp" />
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
