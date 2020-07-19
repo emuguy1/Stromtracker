@@ -11,7 +11,7 @@ import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment
 
-class ListAdapterraeume(private val datain: ArrayList<Raum>, private val currHaushalt: Haushalt) :
+class ListAdapterraeume(private val datain: ArrayList<Raum>) :
     RecyclerView.Adapter<ListAdapterraeume.ViewHolder>() {
     private val data = datain
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

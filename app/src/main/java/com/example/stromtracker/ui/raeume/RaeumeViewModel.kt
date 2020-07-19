@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.stromtracker.database.DataRepository
-import com.example.stromtracker.database.Geraete
 
 import com.example.stromtracker.database.Raum
 

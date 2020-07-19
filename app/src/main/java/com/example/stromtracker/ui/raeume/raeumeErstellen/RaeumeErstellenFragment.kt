@@ -10,13 +10,12 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.RaeumeFragment
 import com.example.stromtracker.ui.raeume.RaeumeViewModel
 import com.google.android.material.navigation.NavigationView
 
-class RaeumeErstellenFragment : Fragment() {
+class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
     private lateinit var raumnameneditfeld: EditText
     private lateinit var savebutton: Button
@@ -24,7 +23,6 @@ class RaeumeErstellenFragment : Fragment() {
     private var raumnameleer: String =
         "Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde."
     private var raumnamesonstiges: String = "Raum - Sonstiges - darf nicht erstellt werden!"
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,11 +45,8 @@ class RaeumeErstellenFragment : Fragment() {
                     //Die Daten in die RoomDatabase speichern
                     val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
 
-                    val sp: Spinner = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
-                    val currHaushalt = sp.selectedItem as Haushalt
-
                     val raum =
-                        Raum(raumnameneditfeld.text.toString(), currHaushalt.getHaushaltID())
+                        Raum(raumnameneditfeld.text.toString(), currHaushaltid)
                     raeumeViewModel.insertRaeume(raum)
                     //neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = RaeumeFragment()
