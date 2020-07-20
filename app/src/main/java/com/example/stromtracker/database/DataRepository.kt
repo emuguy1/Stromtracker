@@ -65,6 +65,10 @@ class DataRepository public constructor(application: Application) {
         deleteAsyncTaskGeraet(mGeraeteDao).execute(geraet)
     }
 
+    fun updateGeraetByRaumID(oldID: Int, newID: Int) {
+        updateAsyncTaskGeraetByRaumID(mGeraeteDao).execute(oldID, newID)
+    }
+
     fun updateGeraete(geraet: Geraete) {
         updateAsyncTaskGeraet(mGeraeteDao).execute(geraet)
     }
@@ -132,6 +136,25 @@ class DataRepository public constructor(application: Application) {
                 return null
             }
 
+
+        }
+
+        class updateAsyncTaskGeraetByRaumID(dao: GeraeteDAO) : AsyncTask<Int, Void, Void>() {
+            private var mAsyncTaskDAO: GeraeteDAO = dao
+
+
+            override fun doInBackground(vararg params: Int?): Void? {
+                //checks if params[0] and params[1] is null
+                params[0]?.let {
+                    params[1]?.let { it1 ->
+                        mAsyncTaskDAO.updateGeraetByRaumID(
+                            it,
+                            it1
+                        )
+                    }
+                }
+                return null
+            }
 
         }
 

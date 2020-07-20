@@ -187,4 +187,9 @@
     <string name="geraet_new_prod_hint_prod">z.B 2700</string>
     <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
 
+    <string name="raum_name_leer">Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde.</string>
+    <string name="raum_sonstiges_erstellen">Raum - Sonstiges - darf nicht erstellt werden!</string>
+
+
+
 </resources>

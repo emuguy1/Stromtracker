@@ -10,8 +10,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
@@ -28,7 +27,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
         savedInstanceState: Bundle?
     ): View? {
         haushaltViewModel =
-            ViewModelProviders.of(this).get(HaushaltViewModel::class.java)
+            ViewModelProvider(this).get(HaushaltViewModel::class.java)
         val root =
             inflater.inflate(R.layout.fragment_haushalt_bearbeiten_loeschen, container, false)
 

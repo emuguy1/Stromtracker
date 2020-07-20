@@ -30,6 +30,9 @@ interface GeraeteDAO {
     @Query("SELECT * FROM geraete WHERE name LIKE :name")
     fun findByName(name: String): List<Geraete>
 
+    @Query("UPDATE geraete SET raumID = :newID WHERE raumID = :oldID")
+    fun updateGeraetByRaumID(oldID: Int, newID: Int)
+
 
     @Insert
     fun insertGeraete(vararg geraete: Geraete)

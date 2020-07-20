@@ -33,4 +33,7 @@ class HaushaltViewModel(application: Application) : AndroidViewModel(application
     fun insertRaum(r: Raum) {
         repo.insertRaum(r)
     }
+    fun getRaumById(a: Int):LiveData<List<Raum>>{
+        return repo.getAllRaumByHaushaltID(a)
+    }
 }
