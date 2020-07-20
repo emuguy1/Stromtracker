@@ -145,7 +145,7 @@
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
     <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
-    <string name="raum_name_leer">Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde.</string>
+    <string name="raum_name_leer">Raum kann nicht gespeichert werden, da kein Name eingegeben wurde.</string>
     <string name="raum_sonstiges_erstellen">Raum - Sonstiges - darf nicht erstellt werden!</string>
 
 
@@ -190,7 +190,7 @@
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
 
 
-    <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten sie auf das Format: dd.MM.yyyy</string>
+    <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
 
 
 
