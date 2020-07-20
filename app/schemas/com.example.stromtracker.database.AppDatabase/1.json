@@ -2,12 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ce70029a7106441a87e6d59cef3ce16a",
-
+    "identityHash": "409cddf0a101a5c3c3c71406e65dc1c4",
     "entities": [
       {
         "tableName": "Geraete",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL NOT NULL, `betriebszeit` REAL NOT NULL, `betriebszeitStandBy` REAL NOT NULL, `urlaubsmodus` INTEGER NOT NULL, `jahresverbrauch` REAL NOT NULL, `eigenverbrauch` REAL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geraeteID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `kategorieID` INTEGER NOT NULL, `raumID` INTEGER NOT NULL, `haushaltID` INTEGER NOT NULL, `stromVollast` REAL NOT NULL, `stromStandBy` REAL, `betriebszeit` REAL NOT NULL, `betriebszeitStandBy` REAL, `urlaubsmodus` INTEGER NOT NULL, `jahresverbrauch` REAL NOT NULL, `eigenverbrauch` REAL, `notiz` TEXT, FOREIGN KEY(`kategorieID`) REFERENCES `Kategorie`(`kategorieID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`raumID`) REFERENCES `Raum`(`raumID`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "geraeteID",
@@ -49,7 +48,7 @@
             "fieldPath": "stromStandBy",
             "columnName": "stromStandBy",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "betriebszeit",
@@ -61,7 +60,7 @@
             "fieldPath": "betriebszeitStandBy",
             "columnName": "betriebszeitStandBy",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "urlaubsmodus",
@@ -301,9 +300,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce70029a7106441a87e6d59cef3ce16a')"
-
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '409cddf0a101a5c3c3c71406e65dc1c4')"
     ]
   }
 }

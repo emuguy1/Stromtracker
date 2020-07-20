@@ -128,6 +128,7 @@
     <string name="geraet_new_zeit_error">Die eingegebene Zeiten überschreiten 24h.</string>
 
     <string name="geraet_new_name">Name</string>
+    <string name="geraet_standby_error">Beide StandBy Felder müssen gefüllt sein.</string>
     <string name="geraet_verbrauch">Verbrauch</string>
     <string name="geraet_produktion">Produktion</string>
     <string name="geraete_edit_hint_volllast">z.B 180.0</string>
@@ -189,8 +190,6 @@
     <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
 
-    <string name="geraet_text_notiz">Notizen (optional)</string>
-    <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
     <string name="geraet_new_prod_hint_prod">z.B 2700</string>
     <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
 

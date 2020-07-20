@@ -16,6 +16,7 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
+import kotlin.math.round
 
 
 class GeraeteEditVerbraucherFragment(
@@ -80,7 +81,9 @@ class GeraeteEditVerbraucherFragment(
         inputVolllast = root.findViewById(R.id.geraete_edit_edit_volllast)
         inputVolllast.setText(currGeraet.getStromVollast().toString())
         inputStandBy = root.findViewById(R.id.geraete_edit_edit_standBy)
-        inputStandBy.setText(currGeraet.getStromStandBy().toString())
+        if (currGeraet.getStromStandBy() != null) {
+            inputStandBy.setText(currGeraet.getStromStandBy().toString())
+        }
         inputZeitVolllast = root.findViewById(R.id.geraete_edit_edit_zeit_volllast)
         inputZeitVolllast.setText(currGeraet.getBetriebszeit().toString())
         inputNotiz = root.findViewById(R.id.geraete_edit_edit_notiz)
@@ -88,9 +91,10 @@ class GeraeteEditVerbraucherFragment(
             inputNotiz.setText(currGeraet.getNotiz())
         }
 
-
         inputZeitStandBy = root.findViewById(R.id.geraete_edit_edit_zeit_standBy)
-        inputZeitStandBy.setText(currGeraet.getBetriebszeitStandBy().toString())
+        if (currGeraet.getBetriebszeitStandBy() != null) {
+            inputZeitStandBy.setText(currGeraet.getBetriebszeitStandBy().toString())
+        }
 
         checkUrlaub = root.findViewById(R.id.geraete_edit_checkbox)
         checkUrlaub.isChecked = currGeraet.getUrlaubsmodus()
@@ -125,61 +129,64 @@ class GeraeteEditVerbraucherFragment(
         val fragMan = parentFragmentManager
         when (v.id) {
             R.id.geraete_edit_save -> {
-                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() && inputZeitStandBy.text.isNotEmpty()) {
+                if (inputName.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() && inputVolllast.text.isNotEmpty()) {
 
                     val volllast: Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
                     val zeitVolllast: Double? = inputZeitVolllast.text.toString().toDoubleOrNull()
                     val zeitStandBy: Double? = inputZeitStandBy.text.toString().toDoubleOrNull()
                     var notiz: String? = inputNotiz.text.toString()
+                    val jahresverbrauch: Double
 
                     if (volllast != null && zeitVolllast != null && notiz != null) {
                         if (zeitStandBy != null && standby != null) {
                             if (zeitStandBy <= 24.0 && zeitVolllast <= 24.0 && (zeitStandBy + zeitVolllast) <= 24.0) {
                                 //TODO magic numbers
-                                val jahresverbrauch =
+                                jahresverbrauch =
                                     (((volllast * zeitVolllast) + (zeitStandBy * standby)) / 1000.0) * 365.0
-                                if (notiz.isEmpty()) {
-                                    notiz = null
-                                }
-
-
-                                currGeraet.setBetriebszeit(zeitVolllast)
-                                currGeraet.setBetriebszeitStandBy(zeitStandBy)
-                                currGeraet.setHaushaltID(raumList[selectedRoom].getHaushaltID())
-                                currGeraet.setJahresverbrauch(jahresverbrauch)
-                                currGeraet.setKategorieID(katList[selectedKat].getKategorieID())
-                                currGeraet.setRaumID(raumList[selectedRoom].getRaumID())
-                                currGeraet.setStromVollast(volllast)
-                                currGeraet.setStromStandBy(standby)
-                                currGeraet.setUrlaubsmodus(checkUrlaub.isChecked)
-                                currGeraet.setName(inputName.text.toString())
-                                currGeraet.setNotiz(notiz)
-
-                                geraeteViewModel.updateGeraet(currGeraet)
-                                val frag = GeraeteFragment()
-                                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                                    .addToBackStack(null).commit()
+                            } else {
+                                validTimes()
+                                return
+                            }
+                        } else if (zeitStandBy == null && standby == null) {
+                            if (zeitVolllast <= 24.0) {
+                                jahresverbrauch = ((volllast * zeitVolllast) / 1000.0) * 365.0
+                            } else {
+                                validTimes()
+                                return
                             }
                         } else {
-                            Toast.makeText(
-                                this.context,
-                                R.string.geraet_new_zeit_error,
-                                Toast.LENGTH_SHORT
-                            ).show()
-
+                            standByError()
+                            return
                         }
+                        if (notiz.isEmpty()) {
+                            notiz = null
+                        }
+
+                        currGeraet.setBetriebszeit(zeitVolllast)
+                        currGeraet.setBetriebszeitStandBy(zeitStandBy)
+                        currGeraet.setHaushaltID(raumList[selectedRoom].getHaushaltID())
+                        currGeraet.setJahresverbrauch(roundDouble(jahresverbrauch))
+                        currGeraet.setKategorieID(katList[selectedKat].getKategorieID())
+                        currGeraet.setRaumID(raumList[selectedRoom].getRaumID())
+                        currGeraet.setStromVollast(volllast)
+                        currGeraet.setStromStandBy(standby)
+                        currGeraet.setUrlaubsmodus(checkUrlaub.isChecked)
+                        currGeraet.setName(inputName.text.toString())
+                        currGeraet.setNotiz(notiz)
+
+                        geraeteViewModel.updateGeraet(currGeraet)
+                        val frag = GeraeteFragment()
+                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                            .addToBackStack(null).commit()
+
+
                     } else {
-                        Toast.makeText(
-                            this.context,
-                            R.string.geraet_new_nullValue,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        validValues()
 
                     }
                 } else {
-                    Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT)
-                        .show()
+                    validValues()
                 }
             }
             R.id.geraete_edit_button_abbrechen -> {
@@ -212,5 +219,30 @@ class GeraeteEditVerbraucherFragment(
 
         }
 
+    }
+
+    private fun validValues() {
+        Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    private fun validTimes() {
+        Toast.makeText(
+            this.context,
+            R.string.geraet_new_zeit_error,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun standByError() {
+        Toast.makeText(
+            this.context,
+            R.string.geraet_standby_error,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun roundDouble(number: Double): Double {
+        return round(number * 100) / 100
     }
 }
