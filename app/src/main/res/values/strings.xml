@@ -35,7 +35,7 @@
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
     <string name="button_loeschen">Löschen</string>
-  
+
     <string name="addButton">Add</string>
 
     <string name="haushaltstrompreis">Strompreis pro kWh</string>
@@ -80,7 +80,6 @@
     <string name="amortPV_text_eigenverbrauch">Eigenverbrauch in %</string>
     <string name="amortPV_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
     <string name="amortPV_text_preis_kwh">Aktueller Preis für eine kWh in Cent</string>
-
 
     <string name="amort_pv_hint_leistung">z.B. 4.5</string>
     <string name="amort_pv_hint_anschaffung">z.B. 9999</string>
@@ -129,9 +128,9 @@
     <string name="geraet_new_name">Name</string>
     <string name="geraet_verbrauch">Verbrauch</string>
     <string name="geraet_produktion">Produktion</string>
-    <string name="geraete_edit_vollastHint">z.B 180.0</string>
-    <string name="geraete_edit_zeitHint">z.B 8.0</string>
-    <string name="geraete_edit_standbyHint">z.B 10.5</string>
+    <string name="geraete_edit_hint_volllast">z.B 180.0</string>
+    <string name="geraete_edit_hint_zeit">z.B 8.0</string>
+    <string name="geraete_edit_hint_standBy">z.B 10.5</string>
     <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
 
     <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr in kWh</string>
@@ -143,7 +142,6 @@
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
     <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
-
 
     <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh in Cent</string>
     <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
@@ -186,5 +184,7 @@
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
     <string name="geraet_text_notiz">Notizen (optional)</string>
     <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
+    <string name="geraet_new_prod_hint_prod">z.B 2700</string>
+    <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
 
 </resources>
