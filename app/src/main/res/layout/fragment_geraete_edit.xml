@@ -133,7 +133,6 @@
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
             android:layout_marginEnd="@dimen/geraet_edit_textview_margin"
             android:text="@string/Einheit_Stunden"
-
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"

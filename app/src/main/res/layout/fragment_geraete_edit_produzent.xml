@@ -40,7 +40,7 @@
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_text_verbrauch"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_text_verbrauch" />
-        
+
         <TextView
             android:id="@+id/geraete_new_produzent_leistung_einheit_prozent"
             android:layout_width="wrap_content"
@@ -49,10 +49,13 @@
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
             android:text="@string/Einheit_Prozent"
             android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/geraete_edit_produzent_edit_verbrauch"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_text_verbrauch" />
 
         <TextView
+
             android:id="@+id/geraete_edit_produzent_text_verbrauch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,6 +128,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/geraet_new_produzent_prodProJahr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_spinner_kategorie"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_spinner_kategorie" />
 
@@ -147,6 +152,8 @@
             android:layout_marginTop="@dimen/geraet_edit_textview_margin"
             android:text="@string/Einheit_Watt"
             android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/geraete_edit_produzent_edit_prod"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_text_prod" />
 
