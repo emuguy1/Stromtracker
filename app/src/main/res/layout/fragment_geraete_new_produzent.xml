@@ -15,14 +15,24 @@
         <EditText
             android:id="@+id/geraete_new_produzent_edit_verbrauch"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
-
             android:layout_marginTop="8dp"
             android:hint="z.B 30"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_verbrauch"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_verbrauch" />
+
+        <TextView
+            android:id="@+id/geraete_new_produzent_leistung_einheit_prozent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:text="@string/Einheit_Prozent"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_verbrauch"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_verbrauch" />
+
 
         <TextView
             android:id="@+id/geraete_new_produzent_text_verbrauch"
@@ -110,6 +120,17 @@
             android:hint="z.B 2700"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_prod"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
+
+        <TextView
+            android:id="@+id/geraete_new_produzent_leistung_einheit_standBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:text="@string/Einheit_Watt"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_prod"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
 
         <Button

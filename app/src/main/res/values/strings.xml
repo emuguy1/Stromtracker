@@ -133,8 +133,8 @@
     <string name="geraete_edit_hint_standBy">z.B 10.5</string>
     <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
 
-    <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr in kWh</string>
-    <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie in Prozent</string>
+    <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr</string>
+    <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie</string>
 
     <string name="geraet_auswertung_button_back">Zurück</string>
     <string name="geraet_auswertung_text_auswertung">Auswertung</string>
@@ -166,6 +166,7 @@
 
     <string name="Einheit_kWh">kWh</string>
     <string name="Einheit_Watt">Watt</string>
+    <string name="Einheit_Prozent">Prozent</string>
     <string name="Einheit_Cent">Cent</string>
     <string name="Einheit_Stunden">h</string>
 
