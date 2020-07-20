@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
@@ -24,12 +24,12 @@ import kotlin.collections.ArrayList
 class KategorienFragment : Fragment(), View.OnClickListener {
 
     private lateinit var kategorienViewModel: KategorienViewModel
-    private lateinit var myKategorien : ArrayList<Kategorie>
+    private lateinit var myKategorien: ArrayList<Kategorie>
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var buttonAdd: AddFloatingActionButton
-    private lateinit var root:View
+    private lateinit var root: View
     private lateinit var iconArray: Array<Int>
 
     override fun onCreateView(
@@ -58,7 +58,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
 
         //Buttons finden und Click Listener zuweisen
         buttonAdd = root.findViewById(R.id.kategorie_button_add)
-        buttonAdd.setOnClickListener(this)    
+        buttonAdd.setOnClickListener(this)
         return root
     }
 
@@ -66,21 +66,19 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
 
         //View Model zuweisen, benötigt für DB Zugriff
-        kategorienViewModel = ViewModelProviders.of(this).get(KategorienViewModel::class.java)
+        kategorienViewModel = ViewModelProvider(this).get(KategorienViewModel::class.java)
         kategorienViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorien ->
                 if (kategorien != null) {
-                    if(kategorien.isEmpty()) {
-                        //Fügt Standardeinträge zu den Kategorien hinzu, diese sind editier- und löschbar
-                        initKategorien()
-                    }
                     Log.d("TAGkategorien", kategorien.toString())
                     myKategorien.clear()
 
                     //Kategorien alphabetisch sortieren. Geht nicht in DB, da dort kein toLower Case angewendet wird
                     // -> klein geschriebene Kategorien würden unter groß geschriebenen stehen
-                    myKategorien.addAll(kategorien.sortedWith(compareBy({it.getName().toLowerCase(Locale.ROOT)}, {it.getKategorieID()})))
+                    myKategorien.addAll(kategorien.sortedWith(compareBy({
+                        it.getName().toLowerCase(Locale.ROOT)
+                    }, { it.getKategorieID() })))
 
                     viewAdapter.notifyDataSetChanged()
                 }
@@ -88,28 +86,8 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         )
     }
 
-    private fun initKategorien () {
-        var kat : Kategorie = Kategorie("Fernseher", 0)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Gaming", 1)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Unterhaltung", 2)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Kühlung", 3)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Kochen", 4)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Waschen", 5)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Lampen", 6)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Sonstiges", 7)
-        kategorienViewModel.insertKategorie(kat)
-        kat = Kategorie("Stromerzeugung", 8)
-        kategorienViewModel.insertKategorie(kat)
-    }
 
-    override fun onClick(v : View) {
+    override fun onClick(v: View) {
         //switch-case in Kotlin: (Zur Unterscheidung der Buttons. Hier eigentlich nicht notwendig)
         when (v.id) {
             R.id.kategorie_button_add -> {
@@ -118,10 +96,15 @@ class KategorienFragment : Fragment(), View.OnClickListener {
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit()
             }
             else -> {
-                Toast.makeText(v.context, String.format(Locale.GERMAN,"%d was pressed.", v.id), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    v.context,
+                    String.format(Locale.GERMAN, "%d was pressed.", v.id),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

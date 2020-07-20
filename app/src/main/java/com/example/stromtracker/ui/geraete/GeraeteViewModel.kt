@@ -1,49 +1,47 @@
 package com.example.stromtracker.ui.geraete
 
 import android.app.Application
-import android.util.Log
-import androidx.annotation.NonNull
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.stromtracker.database.*;
 
 
 class GeraeteViewModel(application: Application) : AndroidViewModel(application) {
 
-    var repo:DataRepository = DataRepository(application)
-    var geraetelist:LiveData<List<Geraete>> = repo.getAllGeraete()
-     var verbraucherList:LiveData<List<Geraete>> = repo.getAllVerbraucher()
-     var produzentenList:LiveData<List<Geraete>> = repo.getAllProduzenten()
+
+    var repo: DataRepository = DataRepository(application)
+    var geraetelist: LiveData<List<Geraete>> = repo.getAllGeraete()
+    var verbraucherList: LiveData<List<Geraete>> = repo.getAllVerbraucher()
+    var produzentenList: LiveData<List<Geraete>> = repo.getAllProduzenten()
+
 
     var haushaltlist: LiveData<List<Haushalt>> = repo.getAllHaushalt()
     var kategorieList: LiveData<List<Kategorie>> = repo.getAllKategorie()
     var raumList: LiveData<List<Raum>> = repo.getAllRaeume()
 
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is geraete Fragment"
+    fun getAllVerbraucherByHaushaltID(id: Int): LiveData<List<Geraete>> {
+        return repo.getAllVerbraucherByHaushaltID(id)
     }
-    val text: LiveData<String> = _text
+
+
+    fun getAllRaumByHaushaltID(id: Int): LiveData<List<Raum>> {
+        return repo.getAllRaumByHaushaltID(id)
+    }
 
 
     fun getAllGeraete(): LiveData<List<Geraete>> {
         return geraetelist
     }
 
-    fun getAllRaumByHaushaltID(id: Int): LiveData<List<Raum>> {
-        return repo.getAllRaumByHaushaltID(id)
-    }
 
     fun getAllVerbraucher(): LiveData<List<Geraete>> {
         return verbraucherList
     }
-     fun getAllProduzenten():LiveData<List<Geraete>> {
-         return produzentenList
-     }
 
-
+    fun getAllProduzenten(): LiveData<List<Geraete>> {
+        return produzentenList
+    }
 
 
     fun getAllKategorie(): LiveData<List<Kategorie>> {
@@ -81,6 +79,5 @@ class GeraeteViewModel(application: Application) : AndroidViewModel(application)
     fun updateGeraet(g: Geraete) {
         repo.updateGeraete(g)
     }
-
 
 }

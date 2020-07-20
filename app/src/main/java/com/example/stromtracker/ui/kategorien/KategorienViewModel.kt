@@ -11,15 +11,18 @@ class KategorienViewModel(application: Application) : AndroidViewModel(applicati
     var repo: DataRepository = DataRepository(application)
     var kategorieList: LiveData<List<Kategorie>> = repo.getAllKategorie()
 
-    fun getAllKategorie():LiveData<List<Kategorie>> {
+    fun getAllKategorie(): LiveData<List<Kategorie>> {
         return kategorieList
     }
-    fun insertKategorie(k:Kategorie) {
+
+    fun insertKategorie(k: Kategorie) {
         repo.insertKategorie(k)
     }
+
     fun updateKategorie(k: Kategorie) {
         repo.updateKategorie(k)
     }
+
     fun deleteKategorie(k: Kategorie) {
         repo.deleteKategorie(k)
     }

@@ -16,29 +16,25 @@ interface GeraeteDAO {
     fun getAllVerbraucher(): LiveData<List<Geraete>>
 
     @Query("SELECT * FROM geraete WHERE jahresverbrauch >= 0.0 AND haushaltID = :haushaltID")
-    fun getAllVerbraucherByHaushaltID(haushaltID:Int): LiveData<List<Geraete>>
+    fun getAllVerbraucherByHaushaltID(haushaltID: Int): LiveData<List<Geraete>>
 
-
-
+    @Query("UPDATE geraete SET kategorieID = :newID WHERE kategorieID = :oldID")
+    fun updateGeraetByKategorieID(oldID: Int, newID: Int)
 
     @Query("SELECT * FROM geraete WHERE geraeteID IN (:geraeteIDs)")
     fun loadAllByIds(geraeteIDs: IntArray): LiveData<List<Geraete>>
 
+    @Query("SELECT * FROM geraete WHERE haushaltID IN (:haushaltID)")
+    fun loadAllByHaushaltID(haushaltID: Int): LiveData<List<Geraete>>
+
     @Query("SELECT * FROM geraete WHERE name LIKE :name")
     fun findByName(name: String): List<Geraete>
 
+    @Query("UPDATE geraete SET raumID = :newID WHERE raumID = :oldID")
+    fun updateGeraetByRaumID(oldID: Int, newID: Int)
 
 
-    /*@Insert
-    fun insertGeraete(vararg geraete: Geraete)
-    */
-     /*@Query("INSERT INTO geraete(name, kategorieID, raumID, haushaltID, stromVollast, stromStandBy, betriebszeit, urlaubsmodus, notiz) VALUES " +
-             "(':name, (SELECT kategorieID FROM kategorie WHERE kategorieID = :kategorieID, (SELECT raumID FROM raum WHERE raumID = :raumID, (SELECt haushaltID FROM haushalt WHERE haushaltID = :haushaltID" +
-     "), :stromVollast, :stromStandby, :betriebszeit, :urlaubsmodus; :notiz")
-     fun insertGeraet(name:String, kategorieID:Int, raumID:Int, stromVollast:Int, stromStandby:Int, betriebszeit:Int, urlaubsmodus:Boolean, notiz:String?)
-     */
-    @Insert(//onConflict = OnConflictStrategy.IGNORE
-        )
+    @Insert
     fun insertGeraete(vararg geraete: Geraete)
 
 

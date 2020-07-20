@@ -8,7 +8,8 @@ import android.widget.ImageView
 import com.example.stromtracker.R
 
 
-class SimpleImageArrayAdapter(context: Context, private var images: Array<Int>) : ArrayAdapter<Int>(context, R.layout.fragment_kategorien_spinner_row, images) {
+class SimpleImageArrayAdapter(context: Context, private var images: Array<Int>) :
+    ArrayAdapter<Int>(context, R.layout.fragment_kategorien_spinner_row, images) {
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         return getImageForPosition(position, parent!!)

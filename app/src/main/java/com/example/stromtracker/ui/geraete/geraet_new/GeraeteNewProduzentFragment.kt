@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
@@ -15,7 +15,10 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
-class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, private val raumList: ArrayList<Raum>):
+class GeraeteNewProduzentFragment(
+    private val katList: ArrayList<Kategorie>,
+    private val raumList: ArrayList<Raum>
+) :
     Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
@@ -26,8 +29,8 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
 
-    private var selectedRoom:Int = 0
-    private var selectedKat:Int = 0
+    private var selectedRoom: Int = 0
+    private var selectedKat: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +68,7 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProviders.of(this).get(GeraeteViewModel::class.java)
+        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -82,22 +85,21 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
             }
             else -> {
             }
-
         }
     }
 
 
     override fun onClick(v: View) {
         val fragMan = parentFragmentManager
-        when(v.id) {
+        when (v.id) {
             R.id.geraete_new_produzent_save -> {
                 //TODO: Zwischen Haushalten unterscheiden!
-                if (inputName.text.isNotEmpty()  && inputProdProJahr.text.isNotEmpty()) {
+                if (inputName.text.isNotEmpty() && inputProdProJahr.text.isNotEmpty()) {
 
-                    val prodProJahr:Double? = inputProdProJahr.text.toString().toDoubleOrNull()
-                    val eigenverbrauch:Double? = inputVerbrauch.text.toString().toDoubleOrNull()
+                    val prodProJahr: Double? = inputProdProJahr.text.toString().toDoubleOrNull()
+                    val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
 
-                    if(prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0) {
+                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0) {
 
                         val jahresverbrauch: Double = prodProJahr * (-1)
                         val geraet = Geraete(
@@ -108,6 +110,7 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
                             0.0,
                             0.0,
                             0.0,
+                            0.0,
                             false,
                             jahresverbrauch,
                             eigenverbrauch,
@@ -115,23 +118,27 @@ class GeraeteNewProduzentFragment(private val katList: ArrayList<Kategorie>, pri
                         )
                         geraeteViewModel.insertGeraet(geraet)
                         val frag = GeraeteFragment()
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                            .addToBackStack(null).commit()
+
+                    } else {
+                        Toast.makeText(
+                            this.context,
+                            R.string.geraet_new_nullValue,
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     }
-                    else {
-                        Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT).show()
-
-                    }
-                }
-                else {
-                    Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             R.id.geraete_new_produzent_button_abbrechen -> {
                 val frag = GeraeteFragment()
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).addToBackStack(null).commit()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit()
             }
-
 
 
         }

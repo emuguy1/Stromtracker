@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
@@ -51,6 +52,7 @@ class ImportExportFragment : Fragment(){
         )
 
 
+            ViewModelProvider(this).get(com.example.stromtracker.ui.importexport.ImportExportViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport, container, false)
         val textView: TextView = root.findViewById(R.id.text_importExport)
         val exportbut: Button =root.findViewById(R.id.importexport_exportbutton)
