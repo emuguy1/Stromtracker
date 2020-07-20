@@ -13,7 +13,6 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.RaeumeFragment
 import com.example.stromtracker.ui.raeume.RaeumeViewModel
-import com.google.android.material.navigation.NavigationView
 
 class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
@@ -43,8 +42,6 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
             if (view != null) {
                 if (!raumnameneditfeld.text.isNullOrBlank()) {
                     //Die Daten in die RoomDatabase speichern
-                    val navView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
-
                     val raum =
                         Raum(raumnameneditfeld.text.toString(), currHaushaltid)
                     raeumeViewModel.insertRaeume(raum)

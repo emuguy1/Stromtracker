@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.haushalt
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +50,7 @@ class HaushaltFragment : Fragment() {
                     //Die Haushaltliste in Main Activity erneuern.
                     mainact.setOldHaushaltList(datain)
                     //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
-                    if (datain.size > datatemp.size && !isinit&&datatemp.size>0) {
+                    if (datain.size > datatemp.size && !isinit && datatemp.size > 0) {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                     }
                     //Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
@@ -68,7 +67,7 @@ class HaushaltFragment : Fragment() {
     }
 
     private fun initHaushalt() {
-        var haushalt: Haushalt = Haushalt("Haushalt", 12.5, 5, null, null, true)
+        val haushalt = Haushalt("Haushalt", 12.5, 5, null, null, true)
         haushaltViewModel.insertHaushalt(haushalt)
     }
 
@@ -113,7 +112,7 @@ class HaushaltFragment : Fragment() {
                 val fragMan = parentFragmentManager
                 //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                    .addToBackStack(null).commit();
+                    .addToBackStack(null).commit()
                 //und anschließend noch ein commit()
             }
         }
