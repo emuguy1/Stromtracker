@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.geraete.geraet_new
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,15 +39,14 @@ class GeraeteNewProduzentFragment(
 
         val root = inflater.inflate(R.layout.fragment_geraete_new_produzent, container, false)
 
-        //TODO: Zwischen Haushalten unterscheiden!
 
-        spinnerKat = root.findViewById(R.id.geraete_new_produzent_KategorieSpinner)
+        spinnerKat = root.findViewById(R.id.geraete_new_produzent_spinner_kategorie)
         val katAdapter: ArrayAdapter<Kategorie> =
             ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
         spinnerKat.adapter = katAdapter
         spinnerKat.onItemSelectedListener = this
 
-        spinnerRaum = root.findViewById(R.id.geraete_new_produzent_RaumSpinner)
+        spinnerRaum = root.findViewById(R.id.geraete_new_produzent_spinner_raum)
         val raumAdapter: ArrayAdapter<Raum> =
             ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
@@ -59,9 +57,9 @@ class GeraeteNewProduzentFragment(
         val saveBtn = root.findViewById<Button>(R.id.geraete_new_produzent_save)
         saveBtn.setOnClickListener(this)
 
-        inputName = root.findViewById(R.id.geraete_new_produzent_EditName)
-        inputProdProJahr = root.findViewById(R.id.geraete_new_produzent_EditProdProJahr)
-        inputVerbrauch = root.findViewById(R.id.geraete_new_produzent_EditVerbrauch)
+        inputName = root.findViewById(R.id.geraete_new_produzent_edit_name)
+        inputProdProJahr = root.findViewById(R.id.geraete_new_produzent_edit_prod)
+        inputVerbrauch = root.findViewById(R.id.geraete_new_produzent_edit_verbrauch)
 
         return root
     }
@@ -77,10 +75,10 @@ class GeraeteNewProduzentFragment(
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
-            R.id.geraete_new_produzent_RaumSpinner -> {
+            R.id.geraete_new_produzent_spinner_raum -> {
                 selectedRoom = pos
             }
-            R.id.geraete_new_produzent_KategorieSpinner -> {
+            R.id.geraete_new_produzent_spinner_kategorie -> {
                 selectedKat = pos
             }
             else -> {
@@ -93,7 +91,6 @@ class GeraeteNewProduzentFragment(
         val fragMan = parentFragmentManager
         when (v.id) {
             R.id.geraete_new_produzent_save -> {
-                //TODO: Zwischen Haushalten unterscheiden!
                 if (inputName.text.isNotEmpty() && inputProdProJahr.text.isNotEmpty()) {
 
                     val prodProJahr: Double? = inputProdProJahr.text.toString().toDoubleOrNull()
