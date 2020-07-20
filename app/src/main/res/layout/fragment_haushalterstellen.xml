@@ -53,6 +53,7 @@
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
             android:hint="@string/haushaltedithint_strompreis"
             android:autofillHints="@string/haushaltedithint_strompreis"
+            android:maxLength="6"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_strompreis" />
@@ -86,6 +87,7 @@
             android:layout_marginStart="@dimen/haushalt_margin_start"
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
             android:inputType="number"
+            android:maxLength="3"
             android:hint="@string/haushaltedithint_personen"
             android:autofillHints="@string/haushaltedithint_personen"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +111,7 @@
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
             android:hint="@string/haushaltedithint_stand"
             android:autofillHints="@string/haushaltedithint_stand"
+            android:maxLength="16"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_zaehlerstand" />
@@ -144,6 +147,7 @@
             android:hint="@string/haushaltedithint_datum"
             android:autofillHints="@string/haushaltedithint_datum"
             android:inputType="date"
+            android:maxLength="10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_datum" />
 
