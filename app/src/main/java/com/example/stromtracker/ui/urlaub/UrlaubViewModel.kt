@@ -17,6 +17,10 @@ class UrlaubViewModel(application: Application) : AndroidViewModel(application) 
         return repo.getAllUrlaubByHaushaltID(id)
     }
 
+    fun getHaushaltByID(id: Int): LiveData<Haushalt> {
+        return repo.getHaushaltByID(id)
+    }
+
     fun getAllVerbraucherByHaushaltID(id: Int): LiveData<List<Geraete>> {
         return repo.getAllVerbraucherByHaushaltID(id)
     }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
+import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
 import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.urlaub.urlaub_new.UrlaubNewFragment
@@ -25,6 +26,7 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
 
     private lateinit var urlaubList: ArrayList<Urlaub>
     private lateinit var verbraucherList: ArrayList<Geraete>
+    private lateinit var currHaushalt: Haushalt
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -93,12 +95,22 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
                     viewAdapter.notifyDataSetChanged()
                 }
             })
+
+        val currHaushaltData = Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+            urlaubViewModel.getHaushaltByID(haushalt.getHaushaltID())
+        }
+        currHaushaltData.observe(
+            viewLifecycleOwner,
+            Observer { haushalt ->
+                currHaushalt = haushalt
+            }
+        )
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.urlaub_button_add -> {
-                val frag = UrlaubNewFragment(verbraucherList, sharedViewModel.getHaushalt().value!!)
+                val frag = UrlaubNewFragment(verbraucherList, currHaushalt)
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()

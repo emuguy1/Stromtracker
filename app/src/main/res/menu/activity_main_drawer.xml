@@ -5,9 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-
-
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_haushalt"

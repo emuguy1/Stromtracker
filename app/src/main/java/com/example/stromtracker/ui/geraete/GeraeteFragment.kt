@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Geraete
-import com.example.stromtracker.database.Kategorie
-import com.example.stromtracker.database.Raum
-import com.example.stromtracker.database.Urlaub
+import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
@@ -27,9 +24,14 @@ import com.getbase.floatingactionbutton.FloatingActionButton
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var sharedViewModel: SharedViewModel
+
     private lateinit var verbraucherList: ArrayList<Geraete>
     private lateinit var produzentList: ArrayList<Geraete>
-
+    private lateinit var urlaubList: ArrayList<Urlaub>
+    private lateinit var kategorieList: ArrayList<Kategorie>
+    private lateinit var raumListHaushalt: ArrayList<Raum>
+    private lateinit var currHaushalt: Haushalt
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var produzentRecyclerView: RecyclerView
@@ -41,21 +43,17 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonAddVerbraucher: FloatingActionButton
     private lateinit var buttonAddProduzent: FloatingActionButton
     private lateinit var root: View
-    private lateinit var kategorieList: ArrayList<Kategorie>
 
-    private lateinit var raumListHaushalt: ArrayList<Raum>
     private lateinit var buttonSortVerbrauch: Button
     private lateinit var buttonSortRaum: Button
     private lateinit var buttonSortName: Button
-    private lateinit var sharedViewModel: SharedViewModel
+
 
     private lateinit var buttonSortProduktion_prod: Button
     private lateinit var buttonSortRaum_prod: Button
     private lateinit var buttonSortName_prod: Button
 
     private lateinit var iconArray: Array<Int>
-
-    private lateinit var urlaubList: ArrayList<Urlaub>
 
     private lateinit var buttonZuAuswertung: Button
 
@@ -138,7 +136,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
-
                     verbraucherList.clear()
                     verbraucherList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
@@ -159,6 +156,16 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
                 }
             })
+
+        val currHaushaltData = Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+            geraeteViewModel.getHaushaltByID(haushalt.getHaushaltID())
+        }
+        currHaushaltData.observe(
+            viewLifecycleOwner,
+            Observer { haushalt ->
+                currHaushalt = haushalt
+            }
+        )
 
         geraeteViewModel.getAllProduzenten().observe(
             viewLifecycleOwner,
@@ -315,7 +322,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     kategorieList,
                     raumListHaushalt,
                     urlaubList,
-                    sharedViewModel.getHaushalt().value!!
+                    currHaushalt
                 )
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)

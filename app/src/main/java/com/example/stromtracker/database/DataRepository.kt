@@ -62,6 +62,10 @@ class DataRepository public constructor(application: Application) {
         return mAllHaushalt
     }
 
+    fun getHaushaltByID(id: Int): LiveData<Haushalt> {
+        return mHaushaltDAO.getHaushaltByID(id)
+    }
+
     fun getAllUrlaub():LiveData<List<Urlaub>> {
         return mAllUrlaub
     }

@@ -11,12 +11,7 @@
         android:id="@+id/urlaub_recycler_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="@dimen/card_view_margin"
         app:cardBackgroundColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,21 +28,22 @@
                 android:id="@+id/urlaub_recycler_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/urlaub_margin_recycler_name"
+                android:layout_weight="9"
                 android:background="@color/colorWhite"
                 android:hint="@string/urlaub_hint_Urlaub"
                 android:textSize="@dimen/content_text_bigger"
-                android:layout_weight="9"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <GridLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp">
+                android:layout_weight="1">
+
                 <TextView
                     android:id="@+id/urlaub_recycler_von"
                     android:layout_width="wrap_content"
@@ -55,7 +51,8 @@
                     android:layout_row="0"
                     android:layout_column="0"
                     android:layout_gravity="end"
-                    android:text="@string/urlaub_recycler_hint_von"/>
+                    android:text="@string/urlaub_recycler_hint_von" />
+
                 <TextView
                     android:id="@+id/urlaub_recycler_bis"
                     android:layout_width="wrap_content"
@@ -63,13 +60,10 @@
                     android:layout_row="1"
                     android:layout_column="0"
                     android:layout_gravity="end"
-                    android:text="@string/urlaub_recycler_hint_bis"
-                    />
+                    android:text="@string/urlaub_recycler_hint_bis" />
             </GridLayout>
-
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
