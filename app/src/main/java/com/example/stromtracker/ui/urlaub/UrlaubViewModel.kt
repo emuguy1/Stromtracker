@@ -13,6 +13,14 @@ class UrlaubViewModel(application: Application) : AndroidViewModel(application) 
         return urlaubList
     }
 
+    fun getAllUrlaubByHaushaltID(id: Int): LiveData<List<Urlaub>> {
+        return repo.getAllUrlaubByHaushaltID(id)
+    }
+
+    fun getAllVerbraucherByHaushaltID(id: Int): LiveData<List<Geraete>> {
+        return repo.getAllVerbraucherByHaushaltID(id)
+    }
+
     fun insertUrlaub(u: Urlaub) {
         repo.insertUrlaub(u)
     }
@@ -23,10 +31,6 @@ class UrlaubViewModel(application: Application) : AndroidViewModel(application) 
 
     fun deleteUrlaub(u: Urlaub) {
         repo.deleteUrlaub(u)
-    }
-
-    fun getAllVerbraucher(): LiveData<List<Geraete>> {
-        return repo.getAllVerbraucher()
     }
 
 }
