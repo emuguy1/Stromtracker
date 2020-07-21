@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.kategorien
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import com.getbase.floatingactionbutton.AddFloatingActionButton
 import java.util.*
 
 import kotlin.collections.ArrayList
-
 
 class KategorienFragment : Fragment(), View.OnClickListener {
 
@@ -71,7 +69,6 @@ class KategorienFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { kategorien ->
                 if (kategorien != null) {
-                    Log.d("TAGkategorien", kategorien.toString())
                     myKategorien.clear()
 
                     //Kategorien alphabetisch sortieren. Geht nicht in DB, da dort kein toLower Case angewendet wird
@@ -85,7 +82,6 @@ class KategorienFragment : Fragment(), View.OnClickListener {
             }
         )
     }
-
 
     override fun onClick(v: View) {
         //switch-case in Kotlin: (Zur Unterscheidung der Buttons. Hier eigentlich nicht notwendig)

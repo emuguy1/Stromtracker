@@ -30,6 +30,7 @@
             android:layout_marginTop="20dp"
             android:autofillHints="@string/raumedithint_name"
             android:ems="10"
+            android:maxLength="30"
             android:hint="@string/raumedithint_name"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
