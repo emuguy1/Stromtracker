@@ -96,10 +96,7 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
                 }
             })
 
-        val currHaushaltData = Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-            urlaubViewModel.getHaushaltByID(haushalt.getHaushaltID())
-        }
-        currHaushaltData.observe(
+        sharedViewModel.getHaushalt().observe(
             viewLifecycleOwner,
             Observer { haushalt ->
                 currHaushalt = haushalt
