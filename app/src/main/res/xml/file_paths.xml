@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <file-paths name="haushalte_csv_files" path="."/>
+    <files-path name="csv_files" path="."/>
 </paths>
