@@ -31,6 +31,7 @@
     <string name="kategorie_edit_icon">Icon wählen</string>
     <string name="kategorie_edit_LöschenConfirm">Sind Sie sicher, dass Sie die Kategorie löschen wollen?</string>
     <string name="kategorie_new_ungültiger_Wert">Bitte einen gültigen Namen eingeben</string>
+    <string name="kategorie_edit_info">Kategorie - Sonstiges - darf nicht erstellt werden!</string>
 
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
@@ -188,9 +189,7 @@
         Austausch und Montage, Lebensdauer, Zinsen und der Wiederverkaufswert des aktuellen Gerätes berücksichtigt werden.</string>
     <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
-
-    <string name="geraet_text_notiz">Notizen (optional)</string>
-    <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
+    
     <string name="geraet_new_prod_hint_prod">z.B 2700</string>
     <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
 
