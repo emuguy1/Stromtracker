@@ -152,16 +152,14 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     raumListHaushalt.clear()
                     raumListHaushalt.addAll(raum)
                     viewAdapter.notifyDataSetChanged()
-
+                    geraeteViewModel.getHaushaltByID(raumListHaushalt.first().getHaushaltID()).observe(
+                        viewLifecycleOwner,
+                        Observer { haushalt ->
+                            currHaushalt = haushalt
+                        }
+                    )
                 }
             })
-
-        geraeteViewModel.getHaushaltByID(raumListHaushalt.first().getHaushaltID()).observe(
-            viewLifecycleOwner,
-            Observer { haushalt ->
-                currHaushalt = haushalt
-            }
-        )
 
         val produzentData: LiveData<List<Geraete>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
