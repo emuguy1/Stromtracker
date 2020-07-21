@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.*
 import android.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
@@ -140,23 +142,23 @@ class GeraeteEditVerbraucherFragment(
 
                     if (volllast != null && zeitVolllast != null && notiz != null) {
                         if (zeitStandBy != null && standby != null) {
-                            if (zeitStandBy <= 24.0 && zeitVolllast <= 24.0 && (zeitStandBy + zeitVolllast) <= 24.0) {
-                                //TODO magic numbers
+                            if (zeitStandBy <= GeraeteCompanion.maxHours && zeitVolllast <= GeraeteCompanion.maxHours && (zeitStandBy + zeitVolllast) <= GeraeteCompanion.maxHours) {
                                 jahresverbrauch =
-                                    (((volllast * zeitVolllast) + (zeitStandBy * standby)) / 1000.0) * 365.0
+                                    GeraeteCompanion.calculateKWH((volllast * zeitVolllast) + (zeitStandBy * standby))
                             } else {
-                                validTimes()
+                                GeraeteCompanion.validTimes(this.context)
                                 return
                             }
                         } else if (zeitStandBy == null && standby == null) {
-                            if (zeitVolllast <= 24.0) {
-                                jahresverbrauch = ((volllast * zeitVolllast) / 1000.0) * 365.0
+                            if (zeitVolllast <= GeraeteCompanion.maxHours) {
+                                jahresverbrauch =
+                                    GeraeteCompanion.calculateKWH(volllast * zeitVolllast)
                             } else {
-                                validTimes()
+                                GeraeteCompanion.validTimes(this.context)
                                 return
                             }
                         } else {
-                            standByError()
+                            GeraeteCompanion.standByError(this.context)
                             return
                         }
                         if (notiz.isEmpty()) {
@@ -165,8 +167,7 @@ class GeraeteEditVerbraucherFragment(
 
                         currGeraet.setBetriebszeit(zeitVolllast)
                         currGeraet.setBetriebszeitStandBy(zeitStandBy)
-                        currGeraet.setHaushaltID(raumList[selectedRoom].getHaushaltID())
-                        currGeraet.setJahresverbrauch(roundDouble(jahresverbrauch))
+                        currGeraet.setJahresverbrauch(GeraeteCompanion.roundDouble(jahresverbrauch))
                         currGeraet.setKategorieID(katList[selectedKat].getKategorieID())
                         currGeraet.setRaumID(raumList[selectedRoom].getRaumID())
                         currGeraet.setStromVollast(volllast)
@@ -180,13 +181,11 @@ class GeraeteEditVerbraucherFragment(
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
 
-
                     } else {
-                        validValues()
-
+                        GeraeteCompanion.validValues(this.context)
                     }
                 } else {
-                    validValues()
+                    GeraeteCompanion.validValues(this.context)
                 }
             }
             R.id.geraete_edit_button_abbrechen -> {
@@ -196,53 +195,34 @@ class GeraeteEditVerbraucherFragment(
             }
 
             R.id.geraete_edit_delete -> {
-                val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                confirmDeleteBuilder.setMessage(R.string.geraete_edit_confirmDelete)
-                confirmDeleteBuilder.setPositiveButton(
-                    R.string.ja,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        //Daten werden aus der Datenbank gelöscht
-                        geraeteViewModel.deleteGeraet(currGeraet)
-                        val frag = GeraeteFragment()
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                            .addToBackStack(null).commit();
-                        dialog.cancel()
-                    })
-
-                confirmDeleteBuilder.setNegativeButton(
-                    R.string.nein,
-                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
-
-                val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
-                confirmDeleteDialog.show()
+                alertDelete(fragMan)
             }
 
         }
 
     }
 
-    private fun validValues() {
-        Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT)
-            .show()
-    }
+    private fun alertDelete(fragMan: FragmentManager) {
+        val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
+        confirmDeleteBuilder.setMessage(R.string.geraete_edit_confirmDelete)
+        confirmDeleteBuilder.setPositiveButton(
+            R.string.ja,
+            DialogInterface.OnClickListener { dialog, id ->
+                //Daten werden aus der Datenbank gelöscht
+                geraeteViewModel.deleteGeraet(currGeraet)
+                val frag = GeraeteFragment()
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit();
+                dialog.cancel()
+            })
 
-    private fun validTimes() {
-        Toast.makeText(
-            this.context,
-            R.string.geraet_new_zeit_error,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
+        confirmDeleteBuilder.setNegativeButton(
+            R.string.nein,
+            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
 
-    private fun standByError() {
-        Toast.makeText(
-            this.context,
-            R.string.geraet_standby_error,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
+        val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
+        confirmDeleteDialog.show()
 
-    private fun roundDouble(number: Double): Double {
-        return round(number * 100) / 100
     }
 }
+

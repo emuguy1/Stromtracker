@@ -11,6 +11,7 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
@@ -97,65 +98,66 @@ class GeraeteNewVerbraucherFragment(
         val fragMan = parentFragmentManager
         when (v.id) {
             R.id.geraete_new_save -> {
-                if (inputName.text.isNotEmpty() && inputStandBy.text.isNotEmpty() && inputVolllast.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() && inputZeitStandBy.text.isNotEmpty()) {
+                if (inputName.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() && inputVolllast.text.isNotEmpty()) {
 
                     val volllast: Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
                     val zeitVolllast: Double? = inputZeitVolllast.text.toString().toDoubleOrNull()
                     val zeitStandBy: Double? = inputZeitStandBy.text.toString().toDoubleOrNull()
                     var notiz: String? = inputNotiz.text.toString()
+                    val jahresverbrauch: Double
 
-
-                    if (volllast != null && standby != null && zeitVolllast != null && zeitStandBy != null && notiz != null) {
-                        //TODO magic numbers
+                    if (volllast != null && zeitVolllast != null && notiz != null) {
+                        if (zeitStandBy != null && standby != null) {
+                            if (zeitStandBy <= GeraeteCompanion.maxHours && zeitVolllast <= GeraeteCompanion.maxHours && (zeitStandBy + zeitVolllast) <= GeraeteCompanion.maxHours) {
+                                jahresverbrauch =
+                                    GeraeteCompanion.calculateKWH((volllast * zeitVolllast) + (zeitStandBy * standby))
+                            } else {
+                                GeraeteCompanion.validTimes(this.context)
+                                return
+                            }
+                        } else if (zeitStandBy == null && standby == null) {
+                            if (zeitVolllast <= GeraeteCompanion.maxHours) {
+                                jahresverbrauch =
+                                    GeraeteCompanion.calculateKWH(volllast * zeitVolllast)
+                            } else {
+                                GeraeteCompanion.validTimes(this.context)
+                                return
+                            }
+                        } else {
+                            GeraeteCompanion.standByError(this.context)
+                            return
+                        }
                         if (notiz.isEmpty()) {
                             notiz = null
                         }
 
-                        if (zeitStandBy <= 24.0 && zeitVolllast <= 24.0 && (zeitStandBy + zeitVolllast) <= 24.0) {
-                            val jahresverbrauch =
-                                (((volllast * zeitVolllast) + (zeitStandBy * standby)) / 1000.0) * 365.0
-
-                            val geraet = Geraete(
-                                inputName.text.toString(),
-                                katList[selectedKat].getKategorieID(),
-                                raumList[selectedRoom].getRaumID(),
-                                raumList[selectedRoom].getHaushaltID(),
-                                volllast,
-                                standby,
-                                zeitVolllast,
-                                zeitStandBy,
-                                checkUrlaub.isChecked,
-                                jahresverbrauch,
-                                null,
-                                notiz
-                            )
-                            geraeteViewModel.insertGeraet(geraet)
-                            val frag = GeraeteFragment()
-                            fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                                .addToBackStack(null).commit()
-                        } else {
-                            Toast.makeText(
-                                this.context,
-                                R.string.geraet_new_zeit_error,
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                        }
-
+                        val geraet = Geraete(
+                            inputName.text.toString(),
+                            katList[selectedKat].getKategorieID(),
+                            raumList[selectedRoom].getRaumID(),
+                            raumList[selectedRoom].getHaushaltID(),
+                            volllast,
+                            standby,
+                            zeitVolllast,
+                            zeitStandBy,
+                            checkUrlaub.isChecked,
+                            jahresverbrauch,
+                            null,
+                            notiz
+                        )
+                        geraeteViewModel.insertGeraet(geraet)
+                        val frag = GeraeteFragment()
+                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                            .addToBackStack(null).commit()
                     } else {
-                        Toast.makeText(
-                            this.context,
-                            R.string.geraet_new_nullValue,
-                            Toast.LENGTH_SHORT
-                        ).show()
-
+                        GeraeteCompanion.validValues(this.context)
                     }
                 } else {
-                    Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT)
-                        .show()
+                    GeraeteCompanion.validValues(this.context)
                 }
             }
+
             R.id.geraete_new_button_abbrechen -> {
                 val frag = GeraeteFragment()
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
