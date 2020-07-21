@@ -48,7 +48,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         viewAdapter = KategorienListAdapter(myKategorien, iconArray)
 
         viewManager = LinearLayoutManager(this.context)
-        recyclerView = root.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
+        recyclerView = root.findViewById<RecyclerView>(R.id.kategorien_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter

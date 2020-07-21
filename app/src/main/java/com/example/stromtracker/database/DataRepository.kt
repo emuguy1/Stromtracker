@@ -12,18 +12,19 @@ class DataRepository public constructor(application: Application) {
     private var mKategorieDAO: KategorieDAO = database.kategorieDao()
     private var mHaushaltDAO: HaushaltDAO = database.haushaltDao()
     private var mRaumDAO: RaumDAO = database.raumDao()
+    private var mUrlaubDAO: UrlaubDAO = database.urlaubDAO()
     private var mAllGeraete: LiveData<List<Geraete>> = mGeraeteDao.getAll()
     private var mAllProduzenten: LiveData<List<Geraete>> = mGeraeteDao.getAllProduzenten()
     private var mAllVerbraucher: LiveData<List<Geraete>> = mGeraeteDao.getAllVerbraucher()
     private var mAllRaum: LiveData<List<Raum>> = mRaumDAO.getAll()
     private var mAllHaushalt: LiveData<List<Haushalt>> = mHaushaltDAO.getAll()
     private var mAllKategorie: LiveData<List<Kategorie>> = mKategorieDAO.getAll()
-
+    private var mAllUrlaub: LiveData<List<Urlaub>> = mUrlaubDAO.getAll()
 
     fun getAllGeraete(): LiveData<List<Geraete>> {
         return mAllGeraete
     }
-    
+
     fun getAllVerbraucherByHaushaltID(haushaltID: Int): LiveData<List<Geraete>> {
         return mGeraeteDao.getAllVerbraucherByHaushaltID(haushaltID)
     }
@@ -39,6 +40,10 @@ class DataRepository public constructor(application: Application) {
 
     fun getAllRaumByHaushaltID(id: Int): LiveData<List<Raum>> {
         return mRaumDAO.loadAllByHaushaltID(id)
+    }
+
+    fun getAllUrlaubByHaushaltID(id: Int): LiveData<List<Urlaub>> {
+        return mUrlaubDAO.getAllUrlaubByHaushaltID(id)
     }
 
     fun getAllProduzenten(): LiveData<List<Geraete>> {
@@ -59,6 +64,14 @@ class DataRepository public constructor(application: Application) {
 
     fun getAllHaushalt(): LiveData<List<Haushalt>> {
         return mAllHaushalt
+    }
+
+    fun getHaushaltByID(id: Int): LiveData<Haushalt> {
+        return mHaushaltDAO.getHaushaltByID(id)
+    }
+
+    fun getAllUrlaub():LiveData<List<Urlaub>> {
+        return mAllUrlaub
     }
 
     fun insertGeraete(geraet: Geraete) {
@@ -115,6 +128,18 @@ class DataRepository public constructor(application: Application) {
 
     fun updateRaum(Raum: Raum) {
         updateAsyncTaskRaum(mRaumDAO).execute(Raum)
+    }
+
+    fun insertUrlaub(urlaub: Urlaub) {
+        insertAsyncTaskUrlaub(mUrlaubDAO).execute(urlaub)
+    }
+
+    fun deleteUrlaub(urlaub: Urlaub) {
+        deleteAsyncTaskUrlaub(mUrlaubDAO).execute(urlaub)
+    }
+
+    fun updateUrlaub(urlaub: Urlaub) {
+        updateAsyncTaskUrlaub(mUrlaubDAO).execute(urlaub)
     }
 
 
@@ -190,7 +215,6 @@ class DataRepository public constructor(application: Application) {
                 return null
             }
         }
-
 
         class insertAsyncTaskHaushalt(dao: HaushaltDAO) : AsyncTask<Haushalt, Void, Void>() {
             private var mAsyncTaskDAO: HaushaltDAO = dao
@@ -294,6 +318,42 @@ class DataRepository public constructor(application: Application) {
 
             override fun doInBackground(vararg params: Raum): Void? {
                 mAsyncTaskDAO.updateRaum(params[0])
+                return null
+            }
+
+
+        }
+
+        class insertAsyncTaskUrlaub(dao: UrlaubDAO) : AsyncTask<Urlaub, Void, Void>() {
+            private var mAsyncTaskDAO: UrlaubDAO = dao
+
+
+            override fun doInBackground(vararg params: Urlaub): Void? {
+                mAsyncTaskDAO.insertUrlaub(params[0])
+                return null
+            }
+
+
+        }
+
+        class deleteAsyncTaskUrlaub(dao: UrlaubDAO) : AsyncTask<Urlaub, Void, Void>() {
+            private var mAsyncTaskDAO: UrlaubDAO = dao
+
+
+            override fun doInBackground(vararg params: Urlaub): Void? {
+                mAsyncTaskDAO.delete(params[0])
+                return null
+            }
+
+
+        }
+
+        class updateAsyncTaskUrlaub(dao: UrlaubDAO) : AsyncTask<Urlaub, Void, Void>() {
+            private var mAsyncTaskDAO: UrlaubDAO = dao
+
+
+            override fun doInBackground(vararg params: Urlaub): Void? {
+                mAsyncTaskDAO.updateUrlaub(params[0])
                 return null
             }
 

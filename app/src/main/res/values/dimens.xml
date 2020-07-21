@@ -6,13 +6,18 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+
     <dimen name="content_text_bigger">20sp</dimen>
     <dimen name="content_text_big">18sp</dimen>
     <dimen name="content_text_normal">16sp</dimen>
     <dimen name="content_text_small">14sp</dimen>
     <dimen name="content_text_smaller">12sp</dimen>
+    <dimen name="content_text_smallest">10sp</dimen>
 
 
+    <dimen name="spinner_geraet_dropdown_width">64dp</dimen>
+    <dimen name="spinner_geraet_width">96dp</dimen>
+    <dimen name="spinner_geraet_height">18dp</dimen>
     <dimen name="spinner_geraet_margin_bottom">8dp</dimen>
     <dimen name="geraet_sort_cardview_margin">8dp</dimen>
     <dimen name="geraet_button_margin">8dp</dimen>
@@ -24,8 +29,6 @@
     <dimen name="geraet_text_sort_button">12sp</dimen>
 
     <dimen name="anyChart_height">400dp</dimen>
-
-    <dimen name="content_text_smallest">10sp</dimen>
 
     <dimen name="recyclerview_marginLeft">8dp</dimen>
     <dimen name="recyclerview_marginRight">8dp</dimen>
@@ -49,7 +52,6 @@
     <dimen name="verbrauchsrechner_marginLeft2">200dp</dimen>
     <dimen name="verbrauchsrechner_marginTopEinheiten">35dp</dimen>
 
-    <dimen name="amort_margin_top">16dp</dimen>
     <dimen name="amort_edit_measure_margin_top">12dp</dimen>
     <dimen name="amort_edit_numbers">80dp</dimen>
     <dimen name="haushalt_margin_start">20dp</dimen>
@@ -57,5 +59,16 @@
     <dimen name="haushalt_margin_top_klein">20dp</dimen>
     <dimen name="haushalt_edit_text_width">160dp</dimen>
     <dimen name="haushalt_edit_text_height">45dp</dimen>
+
+    <dimen name="urlaub_margin_recycler_name">16dp</dimen>
+
+    <dimen name="content_margin_top">16dp</dimen>
+    <dimen name="content_margin_sides_small">8dp</dimen>
+    <dimen name="content_margin_sides_normal">16dp</dimen>
+    <dimen name="content_margin_bottom">16dp</dimen>
+    <dimen name="button_margin_between">16dp</dimen>
+    <dimen name="card_view_margin">8dp</dimen>
+    <dimen name="edit_name_width_long">250dp</dimen>
+    <dimen name="margin_bottom_because_fab">77dp</dimen>
 
 </resources>
