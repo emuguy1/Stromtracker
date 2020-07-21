@@ -196,9 +196,7 @@
     <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
 
     <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
-
-
-
+    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh</string>
 
 
 </resources>
