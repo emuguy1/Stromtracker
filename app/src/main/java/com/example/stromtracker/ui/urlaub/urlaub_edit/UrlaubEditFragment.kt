@@ -13,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
@@ -47,9 +47,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //TODO viewModel ändern
-        urlaubViewModel =
-            ViewModelProviders.of(this).get(UrlaubViewModel::class.java)
+        urlaubViewModel = ViewModelProvider(this).get(UrlaubViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_urlaub_edit, container, false)
         fragMan = parentFragmentManager

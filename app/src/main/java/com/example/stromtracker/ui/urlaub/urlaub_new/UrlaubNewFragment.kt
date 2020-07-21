@@ -11,7 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
@@ -34,7 +34,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
 
     private var gesamtverbrauchNeuPT: Double = 0.0
     private var gesamtverbrauchAktPT: Double = 0.0
-    private var ersparniskWhPT : Double = 0.0
+    private var ersparniskWhPT: Double = 0.0
 
     private lateinit var name: EditText
     private lateinit var start: EditText
@@ -51,8 +51,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        urlaubViewModel =
-            ViewModelProviders.of(this).get(UrlaubViewModel::class.java)
+        urlaubViewModel = ViewModelProvider(this).get(UrlaubViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_urlaub_new, container, false)
 
@@ -78,7 +77,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
     private fun loadGesamtverbrauch() {
         for (geraet in geraete) {
             if (geraet.getUrlaubsmodus() == false) {
-                if (geraet.getStromStandBy() != null)    //TODO && geraet.getStandByZeit != null
+                if (geraet.getStromStandBy() != null && geraet.getBetriebszeitStandBy() != null)
                     gesamtverbrauchNeuPT += geraet.getStromStandBy() * dayLen
                 else {
                     gesamtverbrauchNeuPT += geraet.getStromVollast() * geraet.getBetriebszeit() as Double

@@ -314,7 +314,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     produzentList,
                     kategorieList,
                     raumListHaushalt,
-                    urlaubList
+                    urlaubList,
+                    sharedViewModel.getHaushalt().value!!
                 )
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)

@@ -125,8 +125,8 @@
                         android:id="@+id/geraete_auswertung_text_bilanz"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/geraet_auswertung_text_bilanz"
-                        android:layout_margin="8dp" />
+                        android:layout_margin="8dp"
+                        android:text="@string/geraet_auswertung_text_bilanz" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>

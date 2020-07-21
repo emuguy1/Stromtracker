@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,8 +24,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/button_abbrechen"
         android:background="@color/colorDarkGreen"
+        android:text="@string/button_abbrechen"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -78,8 +77,8 @@
         android:layout_height="wrap_content"
         android:autofillHints="@string/urlaub_hint_name"
         android:hint="@string/urlaub_hint_name"
-        android:textSize="@dimen/content_text_big"
         android:inputType="text"
+        android:textSize="@dimen/content_text_big"
         app:layout_constraintStart_toStartOf="@+id/urlaub_edit_text_name"
         app:layout_constraintTop_toBottomOf="@+id/urlaub_edit_text_name" />
 
@@ -97,13 +96,13 @@
         android:id="@+id/urlaub_edit_edit_datum_von"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/haushaltedithint_datum"
         android:ems="10"
-        android:inputType="date"
         android:hint="@string/haushaltedithint_datum"
+        android:inputType="date"
         android:textSize="@dimen/content_text_big"
         app:layout_constraintStart_toStartOf="@+id/urlaub_edit_text_datum_von"
-        app:layout_constraintTop_toBottomOf="@+id/urlaub_edit_text_datum_von"
-        android:autofillHints="@string/haushaltedithint_datum" />
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_edit_text_datum_von" />
 
     <TextView
         android:id="@+id/urlaub_edit_text_datum_bis"
