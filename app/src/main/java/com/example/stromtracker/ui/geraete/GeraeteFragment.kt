@@ -156,7 +156,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             })
 
-        geraeteViewModel.getAllProduzenten().observe(
+        val produzentData: LiveData<List<Geraete>> =
+            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+                geraeteViewModel.getAllProduzentenByHaushaltID(haushalt.getHaushaltID())
+            }
+        produzentData.observe(
             viewLifecycleOwner,
             Observer { produzenten ->
                 if (produzenten != null) {
