@@ -24,6 +24,11 @@ class GeraeteViewModel(application: Application) : AndroidViewModel(application)
         return repo.getAllVerbraucherByHaushaltID(id)
     }
 
+    fun getAllProduzentenByHaushaltID(id: Int): LiveData<List<Geraete>> {
+        return repo.getAllProduzentenByHaushaltID(id)
+    }
+
+
     fun getAllRaumByHaushaltID(id: Int): LiveData<List<Raum>> {
         return repo.getAllRaumByHaushaltID(id)
     }

@@ -42,14 +42,14 @@ class GeraeteEditProduzentFragment(
 
         val root = inflater.inflate(R.layout.fragment_geraete_edit_produzent, container, false)
 
-        spinnerKat = root.findViewById(R.id.geraete_edit_produzent_KategorieSpinner)
+        spinnerKat = root.findViewById(R.id.geraete_edit_produzent_spinner_kategorie)
         val katAdapter: ArrayAdapter<Kategorie> =
             ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
         spinnerKat.adapter = katAdapter
         spinnerKat.onItemSelectedListener = this
         spinnerKat.setSelection(currGeraet.getKategorieID() - 1)
 
-        spinnerRaum = root.findViewById(R.id.geraete_edit_produzent_RaumSpinner)
+        spinnerRaum = root.findViewById(R.id.geraete_edit_produzent_spinner_raum)
         val raumAdapter: ArrayAdapter<Raum> =
             ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
@@ -63,11 +63,11 @@ class GeraeteEditProduzentFragment(
         val delBtn = root.findViewById<Button>(R.id.geraete_edit_produzent_button_loeschen)
         delBtn.setOnClickListener(this)
 
-        inputName = root.findViewById(R.id.geraete_edit_produzent_EditName)
+        inputName = root.findViewById(R.id.geraete_edit_produzent_edit_name)
         inputName.setText(currGeraet.getName())
-        inputProdProJahr = root.findViewById(R.id.geraete_edit_produzent_EditProdProJahr)
+        inputProdProJahr = root.findViewById(R.id.geraete_edit_produzent_edit_prod)
         inputProdProJahr.setText((currGeraet.getJahresverbrauch() * (-1)).toString())
-        inputVerbrauch = root.findViewById(R.id.geraete_edit_produzent_EditVerbrauch)
+        inputVerbrauch = root.findViewById(R.id.geraete_edit_produzent_edit_verbrauch)
         inputVerbrauch.setText(currGeraet.getEigenverbrauch().toString())
 
         return root
@@ -84,10 +84,10 @@ class GeraeteEditProduzentFragment(
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
-            R.id.geraete_edit_produzent_RaumSpinner -> {
+            R.id.geraete_edit_produzent_spinner_raum -> {
                 selectedRoom = pos
             }
-            R.id.geraete_edit_produzent_KategorieSpinner -> {
+            R.id.geraete_edit_produzent_spinner_kategorie -> {
                 selectedKat = pos
             }
             else -> {
@@ -101,7 +101,6 @@ class GeraeteEditProduzentFragment(
         val fragMan = parentFragmentManager
         when (v.id) {
             R.id.geraete_edit_produzent_save -> {
-                //TODO: Zwischen Haushalten unterscheiden!
                 if (inputName.text.isNotEmpty() && inputProdProJahr.text.isNotEmpty()) {
 
                     val prodProJahr: Double? = inputProdProJahr.text.toString().toDoubleOrNull()

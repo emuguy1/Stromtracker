@@ -1,91 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/kategorie_edit_textName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/kategorie_edit_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/kategorie_edit_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:ems="15"
+            android:textColor="@color/text_warnung"
+            app:layout_constraintBottom_toTopOf="@+id/kategorie_edit_button_abbrechen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_icon_spinner"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
-        android:id="@+id/kategorie_edit_editName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/hint_kategorie_input"
-        app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textName"
-        app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textName"
-        android:inputType="text"
-        android:autofillHints="@string/hint_kategorie_input" />
+        <TextView
+            android:id="@+id/kategorie_edit_textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/kategorie_edit_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/kategorie_edit_textIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/kategorie_edit_icon"
-        app:layout_constraintStart_toStartOf="@+id/kategorie_edit_editName"
-        app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_editName" />
+        <EditText
+            android:id="@+id/kategorie_edit_editName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:autofillHints="@string/hint_kategorie_input"
+            android:hint="@string/hint_kategorie_input"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textName"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textName" />
 
-    <Button
-        android:id="@+id/kategorie_edit_button_speichern"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/button_speichern"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/kategorie_edit_textIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/kategorie_edit_icon"
+            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_editName"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_editName" />
 
-    <Button
-        android:id="@+id/kategorie_edit_button_abbrechen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorDarkGreen"
-        android:text="@string/button_abbrechen"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/kategorie_edit_button_speichern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_speichern"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/kategorie_edit_button_loeschen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorDarkRed"
-        android:text="@string/button_loeschen"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/kategorie_edit_button_speichern"
-        app:layout_constraintStart_toEndOf="@+id/kategorie_edit_button_abbrechen" />
+        <Button
+            android:id="@+id/kategorie_edit_button_abbrechen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorDarkGreen"
+            android:text="@string/button_abbrechen"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
-        android:id="@+id/kategorie_edit_icon_spinner"
-        android:layout_width="@dimen/spinner_icon_width"
-        android:layout_height="@dimen/spinner_icon_height"
-        android:layout_marginTop="8dp"
-        android:dropDownWidth="@dimen/spinner_icon_dropdown_width"
-        app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textIcon"
-        app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textIcon" />
+        <Button
+            android:id="@+id/kategorie_edit_button_loeschen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorDarkRed"
+            android:text="@string/button_loeschen"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/kategorie_edit_button_speichern"
+            app:layout_constraintStart_toEndOf="@+id/kategorie_edit_button_abbrechen" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Spinner
+            android:id="@+id/kategorie_edit_icon_spinner"
+            android:layout_width="@dimen/spinner_icon_width"
+            android:layout_height="@dimen/spinner_icon_height"
+            android:layout_marginTop="8dp"
+            android:dropDownWidth="@dimen/spinner_icon_dropdown_width"
+            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textIcon"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

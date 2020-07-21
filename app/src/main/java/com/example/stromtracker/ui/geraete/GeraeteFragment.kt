@@ -48,7 +48,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonSortRaum: Button
     private lateinit var buttonSortName: Button
 
-
     private lateinit var buttonSortProduktion_prod: Button
     private lateinit var buttonSortRaum_prod: Button
     private lateinit var buttonSortName_prod: Button
@@ -167,7 +166,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
         )
 
-        geraeteViewModel.getAllProduzenten().observe(
+        val produzentData: LiveData<List<Geraete>> =
+            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+                geraeteViewModel.getAllProduzentenByHaushaltID(haushalt.getHaushaltID())
+            }
+        produzentData.observe(
             viewLifecycleOwner,
             Observer { produzenten ->
                 if (produzenten != null) {

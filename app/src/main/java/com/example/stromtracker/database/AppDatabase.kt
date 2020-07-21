@@ -57,9 +57,11 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun prepopulateDb(context: Context, db: AppDatabase) {
             db.haushaltDao().insertHaushalt(
-                Haushalt("Haushalt1", 0.0, 1, 0.0, null, false)
+                Haushalt("Haushalt1", 26.5, 1, null, null, false)
             )
             db.raumDao().insertRaum(Raum("Sonstiges", 1))
+            db.raumDao().insertRaum(Raum("Wohnzimmer", 1))
+            db.raumDao().insertRaum(Raum("Schlafzimmer", 1))
             db.kategorieDao().insertKategorie(
                 Kategorie("Sonstiges", 7),
                 Kategorie("Fernseher", 0),

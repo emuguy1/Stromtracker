@@ -23,6 +23,10 @@ class KategorienViewModel(application: Application) : AndroidViewModel(applicati
         repo.updateKategorie(k)
     }
 
+    fun updateGeraeteByKategorieID(alteKategorie: Int, neueKategorie : Int) {
+        repo.updateGeraetByKategorieID(alteKategorie, neueKategorie)
+    }
+
     fun deleteKategorie(k: Kategorie) {
         repo.deleteKategorie(k)
     }

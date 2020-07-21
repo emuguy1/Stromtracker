@@ -58,7 +58,8 @@ class KategorienListAdapter(
             if (v != null) {
                 //layoutposition gibt an, welche Position geklickt wurde
                 //neues Fragment erstellen, Beim Klick auf eine Kategorie soll ja auf die Seite mit Kategorie Bearbeiten weitergeleitet werden
-                val frag = KategorienEditFragment(myKategorien[layoutPosition], iconArray)
+                val frag = KategorienEditFragment(myKategorien[layoutPosition],
+                    myKategorien as ArrayList<Kategorie>, iconArray)
                 //Fragment Manager aus Main Activity holen
                 val fragMan = mItemView.findFragment<KategorienFragment>().parentFragmentManager
                 //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.

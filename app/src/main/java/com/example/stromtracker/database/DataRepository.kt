@@ -29,6 +29,10 @@ class DataRepository public constructor(application: Application) {
         return mGeraeteDao.getAllVerbraucherByHaushaltID(haushaltID)
     }
 
+    fun getAllProduzentenByHaushaltID(haushaltID: Int): LiveData<List<Geraete>> {
+        return mGeraeteDao.getAllProduzentenByHaushaltID(haushaltID)
+    }
+
     fun getAllGeraeteByHaushaltID(id: Int): LiveData<List<Geraete>> {
         return mGeraeteDao.loadAllByHaushaltID(id)
     }
@@ -76,6 +80,10 @@ class DataRepository public constructor(application: Application) {
 
     fun deleteGeraete(geraet: Geraete) {
         deleteAsyncTaskGeraet(mGeraeteDao).execute(geraet)
+    }
+
+    fun updateGeraetByRaumID(oldID: Int, newID: Int) {
+        updateAsyncTaskGeraetByRaumID(mGeraeteDao).execute(oldID, newID)
     }
 
     fun updateGeraete(geraet: Geraete) {
@@ -157,6 +165,25 @@ class DataRepository public constructor(application: Application) {
                 return null
             }
 
+
+        }
+
+        class updateAsyncTaskGeraetByRaumID(dao: GeraeteDAO) : AsyncTask<Int, Void, Void>() {
+            private var mAsyncTaskDAO: GeraeteDAO = dao
+
+
+            override fun doInBackground(vararg params: Int?): Void? {
+                //checks if params[0] and params[1] is null
+                params[0]?.let {
+                    params[1]?.let { it1 ->
+                        mAsyncTaskDAO.updateGeraetByRaumID(
+                            it,
+                            it1
+                        )
+                    }
+                }
+                return null
+            }
 
         }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context =".ui.geraete.geraet_new.GeraeteNewVerbraucherFragment">
+    tools:context=".ui.geraete.geraet_new.GeraeteNewVerbraucherFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,96 +13,105 @@
 
 
         <EditText
-            android:id="@+id/geraete_new_produzent_EditVerbrauch"
+            android:id="@+id/geraete_new_produzent_edit_verbrauch"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
-
             android:layout_marginTop="8dp"
             android:hint="z.B 30"
             android:inputType="numberDecimal"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_TextVerbrauch"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_TextVerbrauch" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_verbrauch"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_verbrauch" />
 
         <TextView
-            android:id="@+id/geraete_new_produzent_TextVerbrauch"
+            android:id="@+id/geraete_new_produzent_leistung_einheit_prozent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:text="@string/Einheit_Prozent"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_verbrauch"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_verbrauch" />
+
+
+        <TextView
+            android:id="@+id/geraete_new_produzent_text_verbrauch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/geraet_new_produzent_verbrauch"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_EditProdProJahr"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditProdProJahr" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_edit_prod"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_edit_prod" />
 
         <TextView
-            android:id="@+id/geraete_new_produzent_TextName"
+            android:id="@+id/geraete_new_produzent_text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/geraet_new_text_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/geraete_new_produzent_EditName"
+            android:id="@+id/geraete_new_produzent_edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/geraet_new_name"
             android:inputType="text"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_TextName"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_TextName" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_name"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_name" />
 
         <TextView
-            android:id="@+id/geraete_new_prduzent_TextRaum"
+            android:id="@+id/geraete_new_prduzent_text_raum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/geraet_text_raum"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_EditName"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditName" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_edit_name" />
 
         <Spinner
-            android:id="@+id/geraete_new_produzent_RaumSpinner"
+            android:id="@+id/geraete_new_produzent_spinner_raum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:dropDownWidth="wrap_content"
             android:layout_marginTop="8dp"
+            android:dropDownWidth="wrap_content"
 
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_prduzent_TextRaum"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_prduzent_TextRaum" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_prduzent_text_raum"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_prduzent_text_raum" />
 
         <TextView
-            android:id="@+id/geraete_new_produzent_TextKategorie"
+            android:id="@+id/geraete_new_produzent_text_kategorie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/geraet_text_kategorie"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_RaumSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_RaumSpinner" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_spinner_raum"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_spinner_raum" />
 
         <Spinner
-            android:id="@+id/geraete_new_produzent_KategorieSpinner"
+            android:id="@+id/geraete_new_produzent_spinner_kategorie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:dropDownWidth="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_TextKategorie"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_TextKategorie" />
+            android:dropDownWidth="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_kategorie"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_kategorie" />
 
         <TextView
-            android:id="@+id/geraete_new_produzent_TextProdProJahr"
+            android:id="@+id/geraete_new_produzent_text_prod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/geraet_new_produzent_prodProJahr"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_KategorieSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_KategorieSpinner" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_spinner_kategorie"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_spinner_kategorie" />
 
 
         <EditText
-            android:id="@+id/geraete_new_produzent_EditProdProJahr"
+            android:id="@+id/geraete_new_produzent_edit_prod"
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
@@ -110,8 +119,19 @@
             android:layout_marginTop="4dp"
             android:hint="z.B 2700"
             android:inputType="numberDecimal"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_TextProdProJahr"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_TextProdProJahr" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_prod"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
+
+        <TextView
+            android:id="@+id/geraete_new_produzent_leistung_einheit_standBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:text="@string/Einheit_Watt"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_prod"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
 
         <Button
             android:id="@+id/geraete_new_produzent_save"
@@ -119,14 +139,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:text="@string/button_speichern"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditVerbrauch"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_edit_verbrauch"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
@@ -134,7 +153,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
             android:background="@color/colorDarkGreen"
@@ -142,9 +160,9 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_EditVerbrauch"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_edit_verbrauch"
             app:layout_constraintVertical_bias="1.0" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

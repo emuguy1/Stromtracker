@@ -9,10 +9,9 @@ import com.example.stromtracker.database.Raum
 
 class RaeumeViewModel(application: Application) : AndroidViewModel(application) {
     var repo: DataRepository = DataRepository(application)
-    var raeumeList: LiveData<List<Raum>> = repo.getAllRaeume()
 
-    fun getAllRaeume(): LiveData<List<Raum>> {
-        return raeumeList
+    fun getAllRaeumeByHaushaltId(a:Int):LiveData<List<Raum>> {
+        return repo.getAllRaumByHaushaltID(a)
     }
 
     fun insertRaeume(a: Raum) {
@@ -25,5 +24,8 @@ class RaeumeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun deleteRaeume(a: Raum) {
         repo.deleteRaum(a)
+    }
+    fun updateGeraeteByRaumId(alterRaum: Int, neuerRaum : Int){
+        repo.updateGeraetByRaumID(alterRaum, neuerRaum)
     }
 }

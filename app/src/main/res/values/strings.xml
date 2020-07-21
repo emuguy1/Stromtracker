@@ -31,6 +31,7 @@
     <string name="kategorie_edit_icon">Icon wählen</string>
     <string name="kategorie_edit_LöschenConfirm">Sind Sie sicher, dass Sie die Kategorie löschen wollen?</string>
     <string name="kategorie_new_ungültiger_Wert">Bitte einen gültigen Namen eingeben</string>
+    <string name="kategorie_edit_info">Kategorie - Sonstiges - darf nicht erstellt werden!</string>
 
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
@@ -46,9 +47,9 @@
     <string name="haushaltzaehlerstand">Aktueller Zählerstand</string>
     <string name="haushaltökomix">Ökomix?</string>
     <string name="haushaltedithint_name">z.B. Haushalt</string>
-    <string name="haushaltedithint_strompreis">in Cent z.B. 26,62</string>
+    <string name="haushaltedithint_strompreis">z.B. 26,62</string>
     <string name="haushaltedithint_personen">z.B. 2</string>
-    <string name="haushaltedithint_stand">in kWh</string>
+    <string name="haushaltedithint_stand">z.B. 2500</string>
     <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
     <string name="haushaltedithint_strommix">Auswählen bei Ökomstromvertrag</string>
     <string name="haushaltlöschenConfirm">Sind Sie sicher, dass Sie den Hauhalt löschen wollen?</string>
@@ -81,7 +82,6 @@
     <string name="amortPV_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
     <string name="amortPV_text_preis_kwh">Aktueller Preis für eine kWh in Cent</string>
 
-
     <string name="amort_pv_hint_leistung">z.B. 4.5</string>
     <string name="amort_pv_hint_anschaffung">z.B. 9999</string>
     <string name="amort_pv_hint_jahresertragkWh_zahl">z.B. 4500</string>
@@ -110,6 +110,8 @@
     <string name="amort_pv_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
     <string name="amort_pv_text_preis_kwh">Aktueller Preis für eine kWh</string>
 
+    <string name="geraet_text_notiz">Notizen (optional)</string>
+    <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
     <string name="geraete_hint">Gerät</string>
     <string name="geraete_button_auswertung">Auswertung</string>
     <string name="geraete_text_verbraucher">Energieverbraucher</string>
@@ -129,13 +131,13 @@
     <string name="geraet_new_name">Name</string>
     <string name="geraet_verbrauch">Verbrauch</string>
     <string name="geraet_produktion">Produktion</string>
-    <string name="geraete_edit_vollastHint">z.B 180.0</string>
-    <string name="geraete_edit_zeitHint">z.B 8.0</string>
-    <string name="geraete_edit_standbyHint">z.B 10.5</string>
+    <string name="geraete_edit_hint_volllast">z.B 180.0</string>
+    <string name="geraete_edit_hint_zeit">z.B 8.0</string>
+    <string name="geraete_edit_hint_standBy">z.B 10.5</string>
     <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
 
-    <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr in kWh</string>
-    <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie in Prozent</string>
+    <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr</string>
+    <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie</string>
 
     <string name="geraet_auswertung_button_back">Zurück</string>
     <string name="geraet_auswertung_text_auswertung">Auswertung</string>
@@ -144,9 +146,11 @@
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
     <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
+    <string name="raum_name_leer">Raum kann nicht gespeichert werden, da kein Name eingegeben wurde.</string>
+    <string name="raum_sonstiges_erstellen">Raum - Sonstiges - darf nicht erstellt werden!</string>
 
+    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh</string>
 
-    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh in Cent</string>
     <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
     <string name="verbrauchsrechner_Zeit_Leistung">Zeit unter Last</string>
     <string name="verbrauchsrechner_Zeit_Standby">StandBy Zeit</string>
@@ -169,6 +173,7 @@
 
     <string name="Einheit_kWh">kWh</string>
     <string name="Einheit_Watt">Watt</string>
+    <string name="Einheit_Prozent">Prozent</string>
     <string name="Einheit_Cent">Cent</string>
     <string name="Einheit_Stunden">h</string>
 
@@ -185,8 +190,15 @@
         Austausch und Montage, Lebensdauer, Zinsen und der Wiederverkaufswert des aktuellen Gerätes berücksichtigt werden.</string>
     <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
-    <string name="geraet_text_notiz">Notizen (optional)</string>
-    <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
+    
+    <string name="geraet_new_prod_hint_prod">z.B 2700</string>
+    <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
+
+    <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
+
+
+
+
 
     <string name="urlaub_hint_haushalt">Haushalt X</string>
     <string name="urlaub_text_name">Name des Urlaubs</string>

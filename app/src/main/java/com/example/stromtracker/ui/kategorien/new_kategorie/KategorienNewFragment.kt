@@ -1,6 +1,8 @@
 package com.example.stromtracker.ui.kategorien.new_kategorie
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,15 +19,19 @@ import java.util.*
 class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
     private lateinit var katViewModel: KategorienViewModel
+
     private lateinit var inputName: EditText
+    private lateinit var infoFeld : TextView
     private var selectedIcon: Int = 0
+
+    private lateinit var abbrBtn : Button
+    private lateinit var saveBtn : Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
 
         val root = inflater.inflate(R.layout.fragment_kategorien_new, container, false)
 
@@ -41,11 +47,13 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
         spinner.onItemSelectedListener = this
 
         //Button Funktion zuweisen
-        val abbrBtn = root.findViewById<Button>(R.id.kategorie_new_button_abbrechen)
+        abbrBtn = root.findViewById<Button>(R.id.kategorie_new_button_abbrechen)
         abbrBtn.setOnClickListener(this)
-        val saveBtn = root.findViewById<Button>(R.id.kategorie_new_button_speichern)
+        saveBtn = root.findViewById<Button>(R.id.kategorie_new_button_speichern)
         saveBtn.setOnClickListener(this)
         inputName = root.findViewById(R.id.kategorie_new_editName)
+        customTextListener(inputName)
+        infoFeld = root.findViewById(R.id.kategorie_new_info)
 
         return root
     }
@@ -109,4 +117,24 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
             }
         }
     }
+
+    private fun customTextListener(edit: EditText): EditText {
+        edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (edit.text.toString() == "Sonstiges") {
+                    saveBtn.visibility = View.INVISIBLE
+                    infoFeld.text = getString(R.string.kategorie_edit_info)
+                } else {
+                    saveBtn.visibility = View.VISIBLE
+                    infoFeld.text = ""
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
+        return edit
+
+    }
+
 }
