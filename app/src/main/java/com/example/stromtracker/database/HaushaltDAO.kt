@@ -8,6 +8,9 @@ interface HaushaltDAO {
     @Query("SELECT * FROM haushalt")
     fun getAll(): LiveData<List<Haushalt>>
 
+    @Query("SELECT * FROM haushalt WHERE haushaltID = :haushaltID")
+    fun getHaushaltByID(haushaltID: Int): LiveData<Haushalt>
+
     @Query("SELECT * FROM haushalt WHERE haushaltID IN (:haushaltID)")
     fun loadAllByIds(haushaltID: IntArray): LiveData<List<Haushalt>>
 

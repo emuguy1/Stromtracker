@@ -33,11 +33,13 @@ class GeraeteViewModel(application: Application) : AndroidViewModel(application)
         return repo.getAllRaumByHaushaltID(id)
     }
 
+    fun getAllUrlaubByHaushaltID(id: Int): LiveData<List<Urlaub>> {
+        return repo.getAllUrlaubByHaushaltID(id)
+    }
 
     fun getAllGeraete(): LiveData<List<Geraete>> {
         return geraetelist
     }
-
 
     fun getAllVerbraucher(): LiveData<List<Geraete>> {
         return verbraucherList
@@ -46,7 +48,6 @@ class GeraeteViewModel(application: Application) : AndroidViewModel(application)
     fun getAllProduzenten(): LiveData<List<Geraete>> {
         return produzentenList
     }
-
 
     fun getAllKategorie(): LiveData<List<Kategorie>> {
         return kategorieList
@@ -70,6 +71,10 @@ class GeraeteViewModel(application: Application) : AndroidViewModel(application)
 
     fun getAllHaushalt(): LiveData<List<Haushalt>> {
         return haushaltlist
+    }
+
+    fun getHaushaltByID(id: Int): LiveData<Haushalt> {
+        return repo.getHaushaltByID(id)
     }
 
     fun insertGeraet(g: Geraete) {

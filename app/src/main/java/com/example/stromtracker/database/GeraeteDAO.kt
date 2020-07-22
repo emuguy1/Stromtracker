@@ -40,7 +40,6 @@ interface GeraeteDAO {
     @Insert
     fun insertGeraete(vararg geraete: Geraete)
 
-
     @Delete
     fun delete(geraete: Geraete)
 
