@@ -1,13 +1,15 @@
 package com.example.stromtracker.ui.haushalt.haushalteBearbeiten_Loeschen
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,12 +17,19 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.haushalt.HaushaltViewModel
+import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
+
+    private lateinit var zaehlerstandAkt: TextView
+    private lateinit var datumAkt: TextView
+    private lateinit var zaehlerstandNeu: EditText
+    private lateinit var datumNeu: EditText
+    private lateinit var auswertung: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +48,13 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
             root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_strompreis)
         val personeneditfeld =
             root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_anzahl_personen)
-        val zaehlerstandeditfeld =
-            root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_zaehlerstand)
-        val datumeditfeld = root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_datum)
+        zaehlerstandAkt = root.findViewById(R.id.text_view_haushalt_bearbeiten_zaehlerstand_akt_value)
+        datumAkt = root.findViewById(R.id.text_view_haushalt_bearbeiten_datum_akt_value)
+        zaehlerstandNeu = root.findViewById(R.id.edit_text_haushalt_bearbeiten_zaehlerstand_neu_value)
+        datumNeu = root.findViewById(R.id.edit_text_haushalt_bearbeiten_datum_neu_value)
+        auswertung = root.findViewById(R.id.text_view_haushalt_bearbeiten_zaehlerstand_auswertung)
+        addCustomTextChangedListener(datumNeu)
+        addCustomTextChangedListener(zaehlerstandNeu)
         val oekomixeditfeld =
             root.findViewById<CheckBox>(R.id.check_box_haushalt_bearbeiten_oekostrom)
 
@@ -49,15 +62,16 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
         haushaltsnameneditfeld.setText(currHaushalt.getName())
         strompreiseditfeld.setText(currHaushalt.getStromkosten().toString())
         personeneditfeld.setText(currHaushalt.getBewohnerAnzahl().toString())
+
         if (currHaushalt.getZaehlerstand() != null && currHaushalt.getDatum() != null) {
-            zaehlerstandeditfeld.setText(currHaushalt.getZaehlerstand().toString())
-            datumeditfeld.setText(
-                //currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
-                SimpleDateFormat(
-                    "dd.MM.yyyy",
-                    Locale.GERMAN
-                ).format(currHaushalt.getDatum())
-            )
+            var tempString = currHaushalt.getZaehlerstand().toString() + " kWh"
+            zaehlerstandAkt.setText(tempString)
+            //currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
+            tempString = SimpleDateFormat(
+                            "dd.MM.yyyy",
+                            Locale.GERMAN
+                        ).format(currHaushalt.getDatum())
+            datumAkt.setText(tempString)
         }
         oekomixeditfeld.isChecked = currHaushalt.getOekostrom()
 
@@ -80,17 +94,28 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
                         currHaushalt.setBewohnerAnzahl(personeneditfeld.text.toString().toInt())
                         currHaushalt.setStromkosten(strompreiseditfeld.text.toString().toDouble())
                         currHaushalt.setOekostrom(oekomixeditfeld.isChecked)
-                        if (datumeditfeld.text.isNotEmpty() && zaehlerstandeditfeld.text.isNotEmpty()) {
-                            currHaushalt.setZaehlerstand(
-                                zaehlerstandeditfeld.text.toString().toDouble()
-                            )
+                        if (datumNeu.text.isNotEmpty() && zaehlerstandNeu.text.isNotEmpty()) {
                             // Datum einfügen
                             val tempDate = SimpleDateFormat(
                                 "dd.MM.yyyy",
                                 Locale.GERMAN
-                            ).parse(datumeditfeld.text.toString())
-                            //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
-                            currHaushalt.setDatum(tempDate)
+                            ).parse(datumNeu.text.toString())
+                            val zaehlerNeu = zaehlerstandNeu.text.toString().toDouble()
+
+                            val currDate = currHaushalt.getDatum()
+                            val currZaehler = currHaushalt.getZaehlerstand()
+                            if (currDate != null && currZaehler != null) {
+                                if (tempDate.after(currHaushalt.getDatum()) && zaehlerNeu > currZaehler) {
+                                    currHaushalt.setZaehlerstand(zaehlerNeu)
+                                    //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
+                                    currHaushalt.setDatum(tempDate)
+                                }
+                            }
+                            else {
+                                currHaushalt.setZaehlerstand(zaehlerNeu)
+                                //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
+                                currHaushalt.setDatum(tempDate)
+                            }
                         }
                         haushaltViewModel.updateHaushalt(currHaushalt)
                         //neues Fragment erstellen auf das weitergeleitet werden soll
@@ -166,4 +191,54 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
         }
         return root
     }
+
+    private fun addCustomTextChangedListener(edit: EditText): EditText {
+        edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                try {
+                    if (datumNeu.text.isNotEmpty() && zaehlerstandNeu.text.isNotEmpty()) {
+                        // Datum einfügen
+                        val tempDate = SimpleDateFormat(
+                            "dd.MM.yyyy",
+                            Locale.GERMAN
+                        ).parse(datumNeu.text.toString())
+                        val zaehlerNeu = zaehlerstandNeu.text.toString().toDouble()
+
+                        val currDate = currHaushalt.getDatum()
+                        val currZaehler = currHaushalt.getZaehlerstand()
+                        if (currDate != null && currZaehler != null) {
+                            if (tempDate.after(currHaushalt.getDatum()) && zaehlerNeu > currZaehler) {
+                                val tempStr: String
+                                val days =
+                                    (tempDate.time / UrlaubCompanion.dateTimeToDays) - (currDate.time / UrlaubCompanion.dateTimeToDays)
+                                val diff = zaehlerNeu - currZaehler
+                                var perYear = diff / days / UrlaubCompanion.yearToDay
+                                perYear = String.format("%.2f", perYear).toDouble()
+                                tempStr =
+                                    "Zwischen den beiden Zählerständen liegen $days Tage mit einer Differenz von $diff kWh. " +
+                                            "Auf ein Jahr hochgerechnet, ergibt sich ein Verbrauch von $perYear kWh pro Jahr."
+                                auswertung.setText(tempStr)
+                            }
+                            else
+                                auswertung.setText(null)
+                        }
+                    }
+                } catch (e: ParseException) {
+                    //e.printStackTrace()
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
+        return edit
+    }
+
 }

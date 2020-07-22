@@ -45,9 +45,12 @@
     <string name="haushaltspersonen">Anzahl Personen</string>
     <string name="haushaltdatum">Datum</string>
     <string name="haushaltzaehlerstand">Aktueller Zählerstand</string>
+    <string name="haushalt_zaehlerstand_neu">Neuer Zählerstand</string>
+    <string name="haushalt_zaehlerstand_placeholder">X kWh</string>
+    <string name="haushalt_hint_auswertung">Die eingegebenen Werte für Zählerstand und Datum sind ungültig. Deswegen wird der bisherige Zählerstand gespeichert.</string>
     <string name="haushaltökomix">Ökomix?</string>
     <string name="haushaltedithint_name">z.B. Haushalt</string>
-    <string name="haushaltedithint_strompreis">z.B. 26,62</string>
+    <string name="haushaltedithint_strompreis">z.B. 26.62</string>
     <string name="haushaltedithint_personen">z.B. 2</string>
     <string name="haushaltedithint_stand">z.B. 2500</string>
     <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
