@@ -12,17 +12,31 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
+import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.database.Urlaub
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.withSign
 
-class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : Fragment() {
+class HaushaltBearbeitenLoeschenFragment(
+    private var currHaushalt: Haushalt
+) : Fragment() {
+
+
+    private lateinit var verbraucherInHaushalt: ArrayList<Geraete>
+    private lateinit var produzentenInHaushalt: ArrayList<Geraete>
+    private lateinit var urlaubeInHaushalt: ArrayList<Urlaub>
+
     private lateinit var haushaltViewModel: HaushaltViewModel
 
     private lateinit var zaehlerstandAkt: TextView
@@ -41,6 +55,10 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
         val root =
             inflater.inflate(R.layout.fragment_haushalt_bearbeiten_loeschen, container, false)
 
+        verbraucherInHaushalt = ArrayList()
+        produzentenInHaushalt = ArrayList()
+        urlaubeInHaushalt = ArrayList()
+
         //Die einzelnen Felder finden:
         val haushaltsnameneditfeld =
             root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_name)
@@ -48,9 +66,11 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
             root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_strompreis)
         val personeneditfeld =
             root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_anzahl_personen)
-        zaehlerstandAkt = root.findViewById(R.id.text_view_haushalt_bearbeiten_zaehlerstand_akt_value)
+        zaehlerstandAkt =
+            root.findViewById(R.id.text_view_haushalt_bearbeiten_zaehlerstand_akt_value)
         datumAkt = root.findViewById(R.id.text_view_haushalt_bearbeiten_datum_akt_value)
-        zaehlerstandNeu = root.findViewById(R.id.edit_text_haushalt_bearbeiten_zaehlerstand_neu_value)
+        zaehlerstandNeu =
+            root.findViewById(R.id.edit_text_haushalt_bearbeiten_zaehlerstand_neu_value)
         datumNeu = root.findViewById(R.id.edit_text_haushalt_bearbeiten_datum_neu_value)
         auswertung = root.findViewById(R.id.text_view_haushalt_bearbeiten_zaehlerstand_auswertung)
         addCustomTextChangedListener(datumNeu)
@@ -68,9 +88,9 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
             zaehlerstandAkt.setText(tempString)
             //currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
             tempString = SimpleDateFormat(
-                            "dd.MM.yyyy",
-                            Locale.GERMAN
-                        ).format(currHaushalt.getDatum())
+                "dd.MM.yyyy",
+                Locale.GERMAN
+            ).format(currHaushalt.getDatum())
             datumAkt.setText(tempString)
         }
         oekomixeditfeld.isChecked = currHaushalt.getOekostrom()
@@ -110,8 +130,7 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
                                     //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
                                     currHaushalt.setDatum(tempDate)
                                 }
-                            }
-                            else {
+                            } else {
                                 currHaushalt.setZaehlerstand(zaehlerNeu)
                                 //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
                                 currHaushalt.setDatum(tempDate)
@@ -192,6 +211,32 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
         return root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        haushaltViewModel.getAllVerbraucherByHaushaltID(currHaushalt.getHaushaltID()).observe(
+            viewLifecycleOwner,
+            Observer { verbraucher ->
+                verbraucherInHaushalt.clear()
+                verbraucherInHaushalt.addAll(verbraucher)
+            }
+        )
+        haushaltViewModel.getAllProduzentenByHaushaltID(currHaushalt.getHaushaltID()).observe(
+            viewLifecycleOwner,
+            Observer { produzent ->
+                produzentenInHaushalt.clear()
+                produzentenInHaushalt.addAll(produzent)
+            }
+        )
+        haushaltViewModel.getAllUrlaubByHaushaltID(currHaushalt.getHaushaltID()).observe(
+            viewLifecycleOwner,
+            Observer { urlaub ->
+                urlaubeInHaushalt.clear()
+                urlaubeInHaushalt.addAll(urlaub)
+            }
+        )
+    }
+
     private fun addCustomTextChangedListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
@@ -209,17 +254,18 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
                         if (currDate != null && currZaehler != null) {
                             if (tempDate.after(currHaushalt.getDatum()) && zaehlerNeu > currZaehler) {
                                 val tempStr: String
-                                val days =
-                                    (tempDate.time / UrlaubCompanion.dateTimeToDays) - (currDate.time / UrlaubCompanion.dateTimeToDays)
+                                val days: Int =
+                                    ((tempDate.time / UrlaubCompanion.dateTimeToDays) - (currDate.time / UrlaubCompanion.dateTimeToDays)).toInt()
                                 val diff = zaehlerNeu - currZaehler
                                 var perYear = diff / days / UrlaubCompanion.yearToDay
                                 perYear = String.format("%.2f", perYear).toDouble()
+                                val estimatedGesamt = calculateGesamtverbrauch()
                                 tempStr =
-                                    "Zwischen den beiden Zählerständen liegen $days Tage mit einer Differenz von $diff kWh. " +
-                                            "Auf ein Jahr hochgerechnet, ergibt sich ein Verbrauch von $perYear kWh pro Jahr."
+                                    "Zwischen den beiden Zählerständen liegen $days Tage mit einer Differenz von $diff kWh.\n" +
+                                            "Auf ein Jahr hochgerechnet, ergibt sich ein Verbrauch von $perYear kWh pro Jahr.\n" +
+                                            "Durch die eingetragenen Verbraucher, Produzenten und Urlaube wird ein Verbrauch von $estimatedGesamt kWh pro Jahr geschätzt."
                                 auswertung.setText(tempStr)
-                            }
-                            else
+                            } else
                                 auswertung.setText(null)
                         }
                     }
@@ -239,6 +285,32 @@ class HaushaltBearbeitenLoeschenFragment(private var currHaushalt: Haushalt) : F
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
         return edit
+    }
+
+    fun calculateGesamtverbrauch(): Double {
+        var tempSum: Double =
+            verbraucherInHaushalt.sumByDouble { geraete -> geraete.getJahresverbrauch() }
+
+        tempSum += produzentenInHaushalt.sumByDouble { geraete -> getProdVerbrauch(geraete) }
+            .withSign(-1)
+
+        val tempList: ArrayList<Urlaub> = ArrayList()
+        for (currUrlaub in urlaubeInHaushalt) {
+            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt() == (Calendar.getInstance()
+                    .get(Calendar.YEAR))
+            )
+                tempList.add(currUrlaub)
+        }
+        tempSum += tempList.sumByDouble { urlaub ->
+            urlaub.getErsparnisProTag() * (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays - urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
+        }.withSign(-1)
+
+        tempSum = String.format("%.2f", tempSum).toDouble()
+        return tempSum
+    }
+
+    fun getProdVerbrauch(geraet: Geraete): Double {
+        return geraet.getJahresverbrauch().withSign(1) * geraet.getEigenverbrauch()!! / 100
     }
 
 }
