@@ -110,7 +110,7 @@ class GeraeteNewProduzentFragment(
                             0.0,
                             null,
                             false,
-                            jahresverbrauch,
+                            GeraeteCompanion.roundDouble(jahresverbrauch),
                             eigenverbrauch,
                             null
                         )

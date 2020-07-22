@@ -115,7 +115,7 @@ class GeraeteEditProduzentFragment(
                         currGeraet.setName(inputName.text.toString())
                         currGeraet.setKategorieID(katList[selectedKat].getKategorieID())
                         currGeraet.setRaumID(raumList[selectedRoom].getRaumID())
-                        currGeraet.setJahresverbrauch(jahresverbrauch)
+                        currGeraet.setJahresverbrauch(GeraeteCompanion.roundDouble(jahresverbrauch))
                         currGeraet.setEigenverbrauch(eigenverbrauch)
 
                         geraeteViewModel.updateGeraet(currGeraet)

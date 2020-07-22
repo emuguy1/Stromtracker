@@ -18,7 +18,6 @@ import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
-import kotlin.math.round
 
 
 class GeraeteEditVerbraucherFragment(
@@ -45,7 +44,7 @@ class GeraeteEditVerbraucherFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_edit, container, false)
+        val root = inflater.inflate(R.layout.fragment_geraete_edit_verbraucher, container, false)
 
 
         spinnerKat = root.findViewById(R.id.geraete_edit_kategorie_spinner)

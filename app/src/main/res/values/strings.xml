@@ -135,9 +135,10 @@
     <string name="geraete_edit_hint_zeit">z.B 8.0</string>
     <string name="geraete_edit_hint_standBy">z.B 10.5</string>
     <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
-
+xs
     <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr</string>
     <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie</string>
+    <string name="geraet_new_produzent_hint_prozent">z.B 30</string>
 
     <string name="geraet_auswertung_button_back">Zurück</string>
     <string name="geraet_auswertung_text_auswertung">Auswertung</string>
@@ -194,9 +195,7 @@
     <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
 
     <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
-
-
-
+    <string name="geraet_prod_hint_prodproJahr">z.B 2700</string>
 
 
 </resources>
