@@ -6,26 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.stromtracker.R
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        val textView: TextView = root.findViewById(R.id.home_text_def)
+        val text: String =
+            "Die App soll den Stromverbrauch eines Haushaltes erfassen, visualisieren und Kosten und Nutzen einzelner Geräte und des gesamten Haushaltes errechnen. Hierzu muss der User selbst die Verbrauchsdaten seiner Geräte messen/ablesen und in die App eintragen. Außerdem beinhaltet die App Amortisationsrechner, um die Kostenvorteile von Solaranlagen oder effizienteren Geräten abzuschätzen.\n" +
+                    "\n" +
+                    "Es werden ein Standardhaushalt mit mehreren Standardräumen, sowie mehrere Standardkategorien erstellt. Falls ein Haushalt gelöscht wird, werden alle darin enthaltenen Räume und Geräte ebenfalls gelöscht.\n" +
+                    "\n" +
+                    "By Tobias Reithmaier Matteo Hoffmann Emanuel Erben"
+        textView.text = text
+
         return root
     }
 }
