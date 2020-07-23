@@ -31,7 +31,7 @@
 
     <dimen name="spinner_icon_dropdown_width">64dp</dimen>
     <dimen name="spinner_icon_dropdown_height">64dp</dimen>
-    <dimen name="spinner_icon_width">96dp</dimen>
+    <dimen name="spinner_icon_width">110dp</dimen>
     <dimen name="spinner_icon_height">96dp</dimen>
     <dimen name="spinner_icon_margin_bottom">8dp</dimen>
 
