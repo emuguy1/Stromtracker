@@ -2,9 +2,10 @@ package com.example.stromtracker.database
 
 import android.app.Application
 import android.os.AsyncTask
+import android.util.Log
 import androidx.lifecycle.LiveData
 
-class DataRepository public constructor(application: Application) {
+class DataRepository(application: Application) {
 
     private var database = AppDatabase.getInstance(application)
 
@@ -23,6 +24,10 @@ class DataRepository public constructor(application: Application) {
 
     fun getAllGeraete(): LiveData<List<Geraete>> {
         return mAllGeraete
+    }
+
+    fun getAllHaushaltIDNotInID(haushaltID: IntArray): LiveData<List<Int>> {
+        return mHaushaltDAO.getHauahaltIDByNotID(haushaltID)
     }
 
     fun getAllVerbraucherByHaushaltID(haushaltID: Int): LiveData<List<Geraete>> {
@@ -216,15 +221,18 @@ class DataRepository public constructor(application: Application) {
             }
         }
 
-        class insertAsyncTaskHaushalt(dao: HaushaltDAO) : AsyncTask<Haushalt, Void, Void>() {
+        class insertAsyncTaskHaushalt(dao: HaushaltDAO) : AsyncTask<Haushalt, Void, Long>() {
             private var mAsyncTaskDAO: HaushaltDAO = dao
 
 
-            override fun doInBackground(vararg params: Haushalt): Void? {
-                mAsyncTaskDAO.insertHaushalt(params[0])
-                return null
+            override fun doInBackground(vararg params: Haushalt): Long? {
+                return mAsyncTaskDAO.insertHaushalt(params[0])
             }
 
+            override fun onPostExecute(result: Long?) {
+                super.onPostExecute(result)
+                Log.d("neueIDHaushalt", result.toString())
+            }
 
         }
 

@@ -3,7 +3,6 @@ package com.example.stromtracker.ui.importexport
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-
 import com.example.stromtracker.database.*
 
 class ImportExportViewModel(application: Application) : AndroidViewModel(application) {
@@ -11,7 +10,8 @@ class ImportExportViewModel(application: Application) : AndroidViewModel(applica
     var geraetelist:LiveData<List<Geraete>> = repo.getAllGeraete()
     var haushaltlist:LiveData<List<Haushalt>> = repo.getAllHaushalt()
     var kategorieList:LiveData<List<Kategorie>> = repo.getAllKategorie()
-    var raumList:LiveData<List<Raum>> = repo.getAllRaeume()
+    var raumList: LiveData<List<Raum>> = repo.getAllRaeume()
+    var urlaubList: LiveData<List<Urlaub>> = repo.getAllUrlaub()
 
 
     fun getAllGeraete():LiveData<List<Geraete>> {
@@ -38,8 +38,16 @@ class ImportExportViewModel(application: Application) : AndroidViewModel(applica
         repo.insertHaushalt(h)
     }
 
-    fun getAllHaushalt():LiveData<List<Haushalt>> {
+    fun getAllHaushalt(): LiveData<List<Haushalt>> {
         return haushaltlist
+    }
+
+    fun getAllUrlaub(): LiveData<List<Urlaub>> {
+        return urlaubList
+    }
+
+    fun getAllHaushaltIDByNOTHaushaltID(i: IntArray): LiveData<List<Int>> {
+        return repo.getAllHaushaltIDNotInID(i)
     }
 
     fun insertGeraet(g: Geraete) {

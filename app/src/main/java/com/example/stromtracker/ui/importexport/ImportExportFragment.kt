@@ -14,10 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Geraete
-import com.example.stromtracker.database.Haushalt
-import com.example.stromtracker.database.Kategorie
-import com.example.stromtracker.database.Raum
+import com.example.stromtracker.database.*
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import java.io.File
 import java.io.FileReader
@@ -36,8 +33,9 @@ class ImportExportFragment : Fragment() {
     private lateinit var geraetlist: ArrayList<Geraete>
     private lateinit var csvfile: File
 
-    //    private lateinit var urlaublist: ArrayList<Urlaub>
+    private lateinit var urlaublist: ArrayList<Urlaub>
     private lateinit var haushaltidlist: ArrayList<Int>
+    private lateinit var haushaltneuidlist: ArrayList<Int>
 
 
     override fun onCreateView(
@@ -81,6 +79,7 @@ class ImportExportFragment : Fragment() {
                 var akthaushaltid = haushaltlist[haushaltlist.size - 1].getHaushaltID()
                 var haushaltzaehler = 0
                 haushaltidlist = ArrayList()
+                haushaltneuidlist = ArrayList()
                 if (!headerread) {
                     headerread = true
                 } else {
@@ -115,7 +114,7 @@ class ImportExportFragment : Fragment() {
                                     datum,
                                     oekomix
                                 )
-                                importexportViewModel.insertHaushalt(tempHaushalt)
+                                //haushaltneuidlist.add(importexportViewModel.insertHaushalt(tempHaushalt))
                             } catch (e: ParseException) {
                                 Toast.makeText(
                                     this.context,
@@ -144,6 +143,35 @@ class ImportExportFragment : Fragment() {
 
                     }
                 }
+                val haushaltaltidlist: IntArray = IntArray(haushaltlist.size)
+                var i = 0
+                for (haushalt in haushaltlist) {
+                    haushaltaltidlist[i] = haushalt.getHaushaltID()
+                    i++
+                }
+                val haushaltneuidlist: ArrayList<Int> = ArrayList()
+                importexportViewModel.getAllHaushaltIDByNOTHaushaltID(haushaltaltidlist).observe(
+                    viewLifecycleOwner,
+                    Observer { haushalte ->
+                        if (haushalte != null) {
+                            haushaltneuidlist.clear()
+                            haushaltneuidlist.addAll(haushalte)
+                        }
+                    }
+                )
+                Toast.makeText(
+                    requireContext(),
+                    haushaltaltidlist[0].toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+
+//                Toast.makeText(
+//                    requireContext(),
+//                    haushaltneuidlist[0].toString(),
+//                    Toast.LENGTH_SHORT
+//                ).show()
+
                 //Hier müsste das holen der Haushaltids passieren
                 //Überlegung, ob man nicht bei Update auf ein Feld der MainActivity zugreifen könnte, wo die neuen IDs gespeichert werden
                 //Oder ein Art Import Wizzard, wo man durch die Fragments durch gerauscht wird, um den selben Trick zu verwenden, wie bei dem erstellen der Standardräume
@@ -334,22 +362,30 @@ class ImportExportFragment : Fragment() {
 
 
                 }
-                //TODO: wenn Urlaub gemerged ist
                 //Als letztes die Urlaube
-//                        writeRow("-----------------------------------")
-//                        writeRow(listOf("[Urlaubid]", "[HaushaltId]", "[DatumVon]", "[DatumBis]", "[name]", "[gesamtVerbrauch]"))
-//                        urlaublist.forEachIndexed { _, urlaub ->
-//                            writeRow(
-//                                listOf(
-//                                    urlaub.getUrlaubID(),
-//                                    urlaub.getHaushaltID(),
-//                                    urlaub.getDatevon(),
-//                                    urlaub.getDatebis(),
-//                                    urlaub.getName(),
-//                                    urlaub.getGesamtverbrauchh()
-//                                )
-//                            )
-//                        }
+                writeRow("-----------------------------------")
+                writeRow(
+                    listOf(
+                        "[Urlaubid]",
+                        "[HaushaltId]",
+                        "[DatumVon]",
+                        "[DatumBis]",
+                        "[name]",
+                        "[Ersparniss Pro Tag]"
+                    )
+                )
+                urlaublist.forEachIndexed { _, urlaub ->
+                    writeRow(
+                        listOf(
+                            urlaub.getUrlaubID(),
+                            urlaub.getHaushaltID(),
+                            urlaub.getDateVon(),
+                            urlaub.getDateBis(),
+                            urlaub.getName(),
+                            urlaub.getErsparnisProTag()
+                        )
+                    )
+                }
 
 
             }
@@ -358,7 +394,8 @@ class ImportExportFragment : Fragment() {
                 "CSV File wurde Erstellet" + csvFile.readText(),
                 Toast.LENGTH_SHORT
             ).show()
-            //TODO : für besseres Testen getDatafromcsv(csvFile)
+            //TODO : für besseres Testen
+            getDatafromcsv(csvFile)
             //val intent = goToFileIntent(requireContext(), csvFile)
             //startActivity(intent)
 
@@ -377,7 +414,7 @@ class ImportExportFragment : Fragment() {
         raumlist = ArrayList()
         kategorielist = ArrayList()
         geraetlist = ArrayList()
-//        urlaublist = ArrayList()
+        urlaublist = ArrayList()
 
         importexportViewModel.getAllHaushalt().observe(
             viewLifecycleOwner,
@@ -415,15 +452,15 @@ class ImportExportFragment : Fragment() {
                 }
             }
         )
-//        importexportViewModel.getAllUrlaube().observe(
-//            viewLifecycleOwner,
-//            Observer { urlaube ->
-//                if (urlaube != null) {
-//                    urlaublist.clear()
-//                    urlaublist.addAll(urlaube)
-//                }
-//            }
-//        )
+        importexportViewModel.getAllUrlaub().observe(
+            viewLifecycleOwner,
+            Observer { urlaube ->
+                if (urlaube != null) {
+                    urlaublist.clear()
+                    urlaublist.addAll(urlaube)
+                }
+            }
+        )
     }
 
     private fun generateFile(): File? {
