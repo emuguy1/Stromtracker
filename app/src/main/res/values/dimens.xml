@@ -6,7 +6,6 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-
     <dimen name="content_text_bigger">20sp</dimen>
     <dimen name="content_text_big">18sp</dimen>
     <dimen name="content_text_normal">16sp</dimen>
@@ -15,16 +14,8 @@
     <dimen name="content_text_smallest">10sp</dimen>
 
 
-    <dimen name="spinner_geraet_dropdown_width">64dp</dimen>
-    <dimen name="spinner_geraet_width">96dp</dimen>
-    <dimen name="spinner_geraet_height">18dp</dimen>
-    <dimen name="spinner_geraet_margin_bottom">8dp</dimen>
     <dimen name="geraet_sort_cardview_margin">8dp</dimen>
-    <dimen name="geraet_button_margin">8dp</dimen>
     <dimen name="geraet_cardview_margin">8dp</dimen>
-    <dimen name="geraet_edit_textview_margin">24dp</dimen>
-    <dimen name="geraet_edit_editText_margin">8dp</dimen>
-    <dimen name="geraet_top_bottom_margin">16dp</dimen>
     <dimen name="geraet_text_recycler">14sp</dimen>
     <dimen name="geraet_text_sort_button">12sp</dimen>
 
@@ -72,6 +63,9 @@
     <dimen name="card_view_margin">8dp</dimen>
     <dimen name="margin_edit_and_text_one_line">14dp</dimen>
     <dimen name="margin_bottom_because_fab">77dp</dimen>
+    <dimen name="margin_top_edit_text">8dp</dimen>
+    <dimen name="margin_top_text_einheit">24dp</dimen>
+
 
     <dimen name="edit_name_width_long">250dp</dimen>
     <dimen name="edit_date_width">115dp</dimen>

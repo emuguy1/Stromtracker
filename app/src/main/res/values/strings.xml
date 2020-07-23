@@ -10,6 +10,7 @@
     <string name="nein">nein</string>
     <string name="ok">OK</string>
 
+    <string name="menu_home">Home</string>
     <string name="menu_urlaub">Urlaubsmodus</string>
     <string name="menu_geraete">Geräte</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -132,6 +133,7 @@
     <string name="geraet_new_zeit_error">Die eingegebene Zeiten überschreiten 24h.</string>
 
     <string name="geraet_new_name">Name</string>
+    <string name="geraet_standby_error">Beide StandBy Felder müssen gefüllt sein.</string>
     <string name="geraet_verbrauch">Verbrauch</string>
     <string name="geraet_produktion">Produktion</string>
     <string name="geraete_edit_hint_volllast">z.B 180.0</string>
@@ -141,6 +143,7 @@
 
     <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr</string>
     <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie</string>
+    <string name="geraet_new_produzent_hint_prozent">z.B 30</string>
 
     <string name="geraet_auswertung_button_back">Zurück</string>
     <string name="geraet_auswertung_text_auswertung">Auswertung</string>
@@ -199,6 +202,13 @@
 
     <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
 
+    <string name="geraet_prod_hint_prodproJahr">z.B 2700</string>
+
+    <string name="home_headline_desc">Beschreibung</string>
+    <string name="home_text_desc">Die App soll den Stromverbrauch eines Haushaltes erfassen, visualisieren und Kosten und Nutzen einzelner Geräte und des gesamten Haushaltes errechnen. Hierzu muss der User selbst die Verbrauchsdaten seiner Geräte messen/ablesen und in die App eintragen. Außerdem beinhaltet die App Amortisationsrechner, um die Kostenvorteile von Solaranlagen oder effizienteren Geräten abzuschätzen.</string>
+    <string name="home_text_info">Es werden ein Standardhaushalt mit mehreren Standardräumen, sowie mehrere Standardkategorien erstellt. Falls ein Haushalt gelöscht wird, werden alle darin enthaltenen Räume und Geräte ebenfalls gelöscht.</string>
+    <string name="home_headline_info">Info</string>
+
     <string name="urlaub_hint_haushalt">Haushalt X</string>
     <string name="urlaub_text_name">Name des Urlaubs</string>
     <string name="urlaub_hint_name">z.B. Urlaub in der Südsee</string>
@@ -217,5 +227,9 @@
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
+
+
+
+
 
 </resources>

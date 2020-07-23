@@ -32,9 +32,9 @@ data class Geraete(
     @ColumnInfo(name = "raumID") private var raumID: Int,
     @ColumnInfo(name = "haushaltID") private var haushaltID: Int,
     @ColumnInfo(name = "stromVollast") private var stromVollast: Double,
-    @ColumnInfo(name = "stromStandBy") private var stromStandBy: Double,
+    @ColumnInfo(name = "stromStandBy") private var stromStandBy: Double?,
     @ColumnInfo(name = "betriebszeit") private var betriebszeit: Double,
-    @ColumnInfo(name = "betriebszeitStandBy") private var betriebszeitStandBy: Double,
+    @ColumnInfo(name = "betriebszeitStandBy") private var betriebszeitStandBy: Double?,
     @ColumnInfo(name = "urlaubsmodus") private var urlaubsmodus: Boolean,
     @ColumnInfo(name = "jahresverbrauch") private var jahresverbrauch: Double,
     @ColumnInfo(name = "eigenverbrauch") private var eigenverbrauch: Double?,
@@ -100,11 +100,11 @@ data class Geraete(
         haushaltID = r
     }
 
-    fun getStromStandBy(): Double {
+    fun getStromStandBy(): Double? {
         return stromStandBy
     }
 
-    fun setStromStandBy(r: Double) {
+    fun setStromStandBy(r: Double?) {
         stromStandBy = r
     }
 
@@ -140,11 +140,11 @@ data class Geraete(
         notiz = s
     }
 
-    fun getBetriebszeitStandBy(): Double {
+    fun getBetriebszeitStandBy(): Double? {
         return betriebszeitStandBy
     }
 
-    fun setBetriebszeitStandBy(zeit: Double) {
+    fun setBetriebszeitStandBy(zeit: Double?) {
         betriebszeitStandBy = zeit
     }
 
