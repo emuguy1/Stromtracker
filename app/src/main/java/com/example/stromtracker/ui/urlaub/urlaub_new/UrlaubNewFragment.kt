@@ -78,7 +78,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
         for (geraet in geraete) {
             if (geraet.getUrlaubsmodus() == false) {
                 if (geraet.getStromStandBy() != null && geraet.getBetriebszeitStandBy() != null)
-                    gesamtverbrauchNeuPT += geraet.getStromStandBy() * dayLen
+                    gesamtverbrauchNeuPT += geraet.getStromStandBy()!! * dayLen
                 else {
                     gesamtverbrauchNeuPT += geraet.getStromVollast() * geraet.getBetriebszeit() as Double
                 }

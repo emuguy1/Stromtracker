@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "409cddf0a101a5c3c3c71406e65dc1c4",
+    "identityHash": "51d751b4060e7df9b88ea3a87ebab717",
     "entities": [
       {
         "tableName": "Geraete",
@@ -295,12 +295,83 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "Urlaub",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`urlaubID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `DateVon` INTEGER, `DateBis` INTEGER, `ersparnisProTag` REAL NOT NULL, `haushaltID` INTEGER NOT NULL, FOREIGN KEY(`haushaltID`) REFERENCES `Haushalt`(`haushaltID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "urlaubID",
+            "columnName": "urlaubID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVon",
+            "columnName": "DateVon",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateBis",
+            "columnName": "DateBis",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ersparnisProTag",
+            "columnName": "ersparnisProTag",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "haushaltID",
+            "columnName": "haushaltID",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "urlaubID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Urlaub_haushaltID",
+            "unique": false,
+            "columnNames": [
+              "haushaltID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Urlaub_haushaltID` ON `${TABLE_NAME}` (`haushaltID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Haushalt",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "haushaltID"
+            ],
+            "referencedColumns": [
+              "haushaltID"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '409cddf0a101a5c3c3c71406e65dc1c4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '51d751b4060e7df9b88ea3a87ebab717')"
     ]
   }
 }

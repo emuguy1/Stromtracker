@@ -6,6 +6,12 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.stromtracker.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
         android:id="@+id/nav_haushalt"
         android:name="com.example.stromtracker.ui.haushalt.HaushaltFragment"
         android:label="@string/menu_haushalt"
