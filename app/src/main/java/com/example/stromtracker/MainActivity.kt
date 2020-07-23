@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     sp = navView.menu.findItem(R.id.nav_haushalt).actionView as Spinner
                     val adapter = ArrayAdapter<Haushalt>(
                         this,
-                        android.R.layout.simple_spinner_dropdown_item,
+                        R.layout.nav_spinner_row,
                         haushaltItems
                     )
                     sp.adapter = adapter
