@@ -81,7 +81,7 @@ class GeraeteEditVerbraucherFragment(
         inputName.setText(currGeraet.getName())
         inputVolllast = root.findViewById(R.id.geraete_edit_edit_volllast)
         inputVolllast.setText(currGeraet.getStromVollast().toString())
-        inputStandBy = root.findViewById(R.id.geraete_edit_edit_standBy)
+        inputStandBy = root.findViewById(R.id.geraete_edit_edit_standby)
         if (currGeraet.getStromStandBy() != null) {
             inputStandBy.setText(currGeraet.getStromStandBy().toString())
         }
@@ -92,7 +92,7 @@ class GeraeteEditVerbraucherFragment(
             inputNotiz.setText(currGeraet.getNotiz())
         }
 
-        inputZeitStandBy = root.findViewById(R.id.geraete_edit_edit_zeit_standBy)
+        inputZeitStandBy = root.findViewById(R.id.geraete_edit_edit_zeit_standby)
         if (currGeraet.getBetriebszeitStandBy() != null) {
             inputZeitStandBy.setText(currGeraet.getBetriebszeitStandBy().toString())
         }

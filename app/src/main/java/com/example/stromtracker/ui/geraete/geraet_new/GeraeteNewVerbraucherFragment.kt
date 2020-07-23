@@ -61,9 +61,9 @@ class GeraeteNewVerbraucherFragment(
 
         inputName = root.findViewById(R.id.geraete_new_edit_name)
         inputVolllast = root.findViewById(R.id.geraete_new_edit_volllast)
-        inputStandBy = root.findViewById(R.id.geraete_new_edit_standBy)
+        inputStandBy = root.findViewById(R.id.geraete_new_edit_standby)
         inputZeitVolllast = root.findViewById(R.id.geraete_new_edit_zeit_volllast)
-        inputZeitStandBy = root.findViewById(R.id.geraete_new_edit_zeit_standBy)
+        inputZeitStandBy = root.findViewById(R.id.geraete_new_edit_zeit_standby)
         inputNotiz = root.findViewById(R.id.geraete_new_edit_notiz)
 
         checkUrlaub = root.findViewById(R.id.geraete_new_checkbox)

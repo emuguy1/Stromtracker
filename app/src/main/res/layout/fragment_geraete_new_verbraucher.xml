@@ -142,7 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_zeit_volllast" />
 
         <TextView
-            android:id="@+id/geraete_new_text_standBy"
+            android:id="@+id/geraete_new_text_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin_top"
@@ -151,29 +151,29 @@
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_edit_volllast" />
 
         <EditText
-            android:id="@+id/geraete_new_edit_standBy"
+            android:id="@+id/geraete_new_edit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_standBy"
             android:inputType="numberDecimal"
 
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_text_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_standBy" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_text_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_standby" />
 
         <TextView
-            android:id="@+id/geraete_new_leistung_einheit_standBy"
+            android:id="@+id/geraete_new_leistung_einheit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
             android:text="@string/Einheit_Watt"
             android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@id/geraete_new_edit_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_standBy" />
+            app:layout_constraintStart_toEndOf="@id/geraete_new_edit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_standby" />
 
         <TextView
-            android:id="@+id/geraete_new_text_zeit_standBy"
+            android:id="@+id/geraete_new_text_zeit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin_top"
@@ -184,19 +184,19 @@
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_edit_volllast" />
 
         <EditText
-            android:id="@+id/geraete_new_edit_zeit_standBy"
+            android:id="@+id/geraete_new_edit_zeit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_zeit"
             android:inputType="numberDecimal"
-            app:layout_constraintEnd_toStartOf="@+id/geraete_new_zeit_einheit_standBy"
+            app:layout_constraintEnd_toStartOf="@+id/geraete_new_zeit_einheit_standby"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@+id/geraete_new_leistung_einheit_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_zeit_standBy" />
+            app:layout_constraintStart_toEndOf="@+id/geraete_new_leistung_einheit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_zeit_standby" />
 
         <TextView
-            android:id="@+id/geraete_new_zeit_einheit_standBy"
+            android:id="@+id/geraete_new_zeit_einheit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -206,7 +206,7 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_zeit_standBy" />
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_text_zeit_standby" />
 
         <CheckBox
             android:id="@+id/geraete_new_checkbox"
@@ -215,8 +215,8 @@
             android:layout_marginTop="@dimen/content_margin_top"
 
             android:text="@string/geraet_text_urlaubsmodus"
-            app:layout_constraintStart_toStartOf="@+id/geraete_new_edit_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_new_edit_standBy" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_new_edit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_new_edit_standby" />
 
         <TextView
             android:id="@+id/geraete_new_text_notiz"
