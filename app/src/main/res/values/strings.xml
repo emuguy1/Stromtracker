@@ -135,7 +135,7 @@
     <string name="geraete_edit_hint_zeit">z.B 8.0</string>
     <string name="geraete_edit_hint_standBy">z.B 10.5</string>
     <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
-xs
+    xs
     <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr</string>
     <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie</string>
     <string name="geraet_new_produzent_hint_prozent">z.B 30</string>
@@ -197,5 +197,8 @@ xs
     <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
     <string name="geraet_prod_hint_prodproJahr">z.B 2700</string>
 
-
+    <string name="home_headline_desc">Beschreibung</string>
+    <string name="home_text_desc">Die App soll den Stromverbrauch eines Haushaltes erfassen, visualisieren und Kosten und Nutzen einzelner Geräte und des gesamten Haushaltes errechnen. Hierzu muss der User selbst die Verbrauchsdaten seiner Geräte messen/ablesen und in die App eintragen. Außerdem beinhaltet die App Amortisationsrechner, um die Kostenvorteile von Solaranlagen oder effizienteren Geräten abzuschätzen.</string>
+    <string name="home_text_info">Es werden ein Standardhaushalt mit mehreren Standardräumen, sowie mehrere Standardkategorien erstellt. Falls ein Haushalt gelöscht wird, werden alle darin enthaltenen Räume und Geräte ebenfalls gelöscht.</string>
+    <string name="home_headline_info">Info</string>
 </resources>
