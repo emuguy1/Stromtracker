@@ -45,9 +45,12 @@
     <string name="haushaltspersonen">Anzahl Personen</string>
     <string name="haushaltdatum">Datum</string>
     <string name="haushaltzaehlerstand">Aktueller Zählerstand</string>
+    <string name="haushalt_zaehlerstand_neu">Neuer Zählerstand</string>
+    <string name="haushalt_zaehlerstand_placeholder">X kWh</string>
+    <string name="haushalt_hint_auswertung">Die eingegebenen Werte für Zählerstand und Datum sind ungültig. Deswegen wird der bisherige Zählerstand gespeichert.</string>
     <string name="haushaltökomix">Ökomix?</string>
     <string name="haushaltedithint_name">z.B. Haushalt</string>
-    <string name="haushaltedithint_strompreis">z.B. 26,62</string>
+    <string name="haushaltedithint_strompreis">z.B. 26.62</string>
     <string name="haushaltedithint_personen">z.B. 2</string>
     <string name="haushaltedithint_stand">z.B. 2500</string>
     <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
@@ -190,15 +193,11 @@
         Austausch und Montage, Lebensdauer, Zinsen und der Wiederverkaufswert des aktuellen Gerätes berücksichtigt werden.</string>
     <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
-    
+
     <string name="geraet_new_prod_hint_prod">z.B 2700</string>
     <string name="geraet_prod_edit_hint_verbrauch">z.B 30</string>
 
     <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
-
-
-
-
 
     <string name="urlaub_hint_haushalt">Haushalt X</string>
     <string name="urlaub_text_name">Name des Urlaubs</string>
