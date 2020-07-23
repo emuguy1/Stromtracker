@@ -3,6 +3,8 @@ package com.example.stromtracker.ui.kategorien.edit_kategorie
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,14 +18,24 @@ import com.example.stromtracker.ui.kategorien.KategorienFragment
 import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class KategorienEditFragment(
     private var currKategorie: Kategorie,
+    private var katList: ArrayList<Kategorie>,
     private val iconArray: Array<Int>
 ) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var katViewModel: KategorienViewModel
+
     private lateinit var currNameEdit: EditText
+    private lateinit var infoFeld: TextView
     private var selectedIcon: Int = 0
+
+    private var sonstigesKatID = 0
+
+    private lateinit var abbrBtn: Button
+    private lateinit var delBtn: Button
+    private lateinit var saveBtn: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +49,8 @@ class KategorienEditFragment(
         val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
         currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_editName)
         currNameEdit.setText(currKategorie.getName())
+        customTextListener(currNameEdit)
+        infoFeld = root.findViewById(R.id.kategorie_edit_info)
 
         val spinner: Spinner = root.findViewById(R.id.kategorie_edit_icon_spinner)
 
@@ -51,12 +65,25 @@ class KategorienEditFragment(
         spinner.setSelection(selectedIcon)
         spinner.onItemSelectedListener = this
 
-        val abbrBtn = root.findViewById<Button>(R.id.kategorie_edit_button_abbrechen)
+        abbrBtn = root.findViewById<Button>(R.id.kategorie_edit_button_abbrechen)
         abbrBtn.setOnClickListener(this)
-        val delBtn = root.findViewById<Button>(R.id.kategorie_edit_button_loeschen)
+        delBtn = root.findViewById<Button>(R.id.kategorie_edit_button_loeschen)
         delBtn.setOnClickListener(this)
-        val saveBtn = root.findViewById<Button>(R.id.kategorie_edit_button_speichern)
+        saveBtn = root.findViewById<Button>(R.id.kategorie_edit_button_speichern)
         saveBtn.setOnClickListener(this)
+
+        for (kategorie in katList) {
+            if (kategorie.getName() == "Sonstiges") {
+                sonstigesKatID = kategorie.getKategorieID()
+                break
+            }
+        }
+
+        //Wenn Raum Sonstiges ist, soll der Name nicht geändert werden können under Raum auch nicht gelöscht werden können.
+        if (currKategorie.getName() == "Sonstiges") {
+            saveBtn.visibility = View.INVISIBLE
+            delBtn.visibility = View.INVISIBLE
+        }
 
         return root
     }
@@ -89,6 +116,11 @@ class KategorienEditFragment(
                 confirmDeleteBuilder.setPositiveButton(
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
+                        //Alle Geräte die der aktuellen Kategorie hinzugefügt sind, werden dem SonstigeKategorie zugeordnet
+                        katViewModel.updateGeraeteByKategorieID(
+                            currKategorie.getKategorieID(),
+                            sonstigesKatID
+                        )
                         //Daten werden aus der Datenbank gelöscht
                         katViewModel.deleteKategorie(currKategorie)
                         //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
@@ -135,5 +167,23 @@ class KategorienEditFragment(
                 ).show()
             }
         }
+    }
+
+    private fun customTextListener(edit: EditText): EditText {
+        edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (edit.text.toString() == "Sonstiges") {
+                    saveBtn.visibility = View.INVISIBLE
+                    infoFeld.text = getString(R.string.kategorie_edit_info)
+                } else {
+                    saveBtn.visibility = View.VISIBLE
+                    infoFeld.text = ""
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
+        return edit
     }
 }

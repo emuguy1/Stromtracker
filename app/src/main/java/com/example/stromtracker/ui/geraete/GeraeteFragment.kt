@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Geraete
-import com.example.stromtracker.database.Kategorie
-import com.example.stromtracker.database.Raum
+import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
@@ -26,9 +24,14 @@ import com.getbase.floatingactionbutton.FloatingActionButton
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var sharedViewModel: SharedViewModel
+
     private lateinit var verbraucherList: ArrayList<Geraete>
     private lateinit var produzentList: ArrayList<Geraete>
-
+    private lateinit var urlaubList: ArrayList<Urlaub>
+    private lateinit var kategorieList: ArrayList<Kategorie>
+    private lateinit var raumListHaushalt: ArrayList<Raum>
+    private lateinit var currHaushalt: Haushalt
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var produzentRecyclerView: RecyclerView
@@ -40,13 +43,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonAddVerbraucher: FloatingActionButton
     private lateinit var buttonAddProduzent: FloatingActionButton
     private lateinit var root: View
-    private lateinit var kategorieList: ArrayList<Kategorie>
 
-    private lateinit var raumListHaushalt: ArrayList<Raum>
     private lateinit var buttonSortVerbrauch: Button
     private lateinit var buttonSortRaum: Button
     private lateinit var buttonSortName: Button
-    private lateinit var sharedViewModel: SharedViewModel
 
     private lateinit var buttonSortProduktion_prod: Button
     private lateinit var buttonSortRaum_prod: Button
@@ -89,6 +89,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         produzentList = ArrayList()
         kategorieList = ArrayList()
         raumListHaushalt = ArrayList()
+        urlaubList = ArrayList()
 
         var mainAct = requireActivity() as MainActivity
         iconArray = mainAct.getIconArray()
@@ -134,7 +135,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
-
                     verbraucherList.clear()
                     verbraucherList.addAll(geraete)
                     viewAdapter.notifyDataSetChanged();
@@ -152,11 +152,21 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     raumListHaushalt.clear()
                     raumListHaushalt.addAll(raum)
                     viewAdapter.notifyDataSetChanged()
-
                 }
             })
 
-        geraeteViewModel.getAllProduzenten().observe(
+        sharedViewModel.getHaushalt().observe(
+            viewLifecycleOwner,
+            Observer { haushalt ->
+                currHaushalt = haushalt
+            }
+        )
+
+        val produzentData: LiveData<List<Geraete>> =
+            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+                geraeteViewModel.getAllProduzentenByHaushaltID(haushalt.getHaushaltID())
+            }
+        produzentData.observe(
             viewLifecycleOwner,
             Observer { produzenten ->
                 if (produzenten != null) {
@@ -173,6 +183,19 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     kategorieList.clear()
                     kategorieList.addAll(kategorie)
                     viewAdapter.notifyDataSetChanged();
+                }
+            })
+
+        val urlaubData: LiveData<List<Urlaub>> =
+            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
+                geraeteViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
+            }
+        urlaubData.observe(
+            viewLifecycleOwner,
+            Observer { urlaub ->
+                if (urlaub != null) {
+                    urlaubList.clear()
+                    urlaubList.addAll(urlaub)
                 }
             })
 
@@ -296,7 +319,9 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     verbraucherList,
                     produzentList,
                     kategorieList,
-                    raumListHaushalt
+                    raumListHaushalt,
+                    urlaubList,
+                    currHaushalt
                 )
                 val fragMan = parentFragmentManager
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)

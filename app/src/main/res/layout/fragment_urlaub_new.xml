@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/urlaub_new_edit_datum_bis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/haushaltedithint_datum"
+        android:ems="10"
+        android:hint="@string/haushaltedithint_datum"
+        android:inputType="date"
+        android:textSize="@dimen/content_text_big"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_datum_bis"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_datum_bis" />
+
+    <Button
+        android:id="@+id/urlaub_new_button_abbrechen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_margin_sides_small"
+        android:layout_marginBottom="@dimen/content_margin_bottom"
+        android:background="@color/colorDarkGreen"
+        android:text="@string/button_abbrechen"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/urlaub_new_button_speichern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_margin_sides_small"
+        android:layout_marginBottom="@dimen/content_margin_bottom"
+        android:background="@color/colorPrimary"
+        android:text="@string/button_speichern"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/urlaub_new_text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_margin_sides_small"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:text="@string/urlaub_text_name"
+        android:textSize="@dimen/content_text_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/urlaub_new_edit_name"
+        android:layout_width="@dimen/edit_name_width_long"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/urlaub_hint_name"
+        android:hint="@string/urlaub_hint_name"
+        android:inputType="text"
+        android:textSize="@dimen/content_text_big"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_name"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_name" />
+
+    <TextView
+        android:id="@+id/urlaub_new_text_datum_von"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:text="@string/urlaub_text_datum_von"
+        android:textSize="@dimen/content_text_normal"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_edit_name"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_edit_name" />
+
+    <EditText
+        android:id="@+id/urlaub_new_edit_datum_von"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/haushaltedithint_datum"
+        android:ems="10"
+        android:hint="@string/haushaltedithint_datum"
+        android:inputType="date"
+        android:textSize="@dimen/content_text_big"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_datum_von"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_datum_von" />
+
+    <TextView
+        android:id="@+id/urlaub_new_text_datum_bis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:text="@string/urlaub_text_datum_bis"
+        android:textSize="@dimen/content_text_normal"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_edit_datum_von"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_edit_datum_von" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_edit_datum_bis"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <TextView
+        android:id="@+id/urlaub_new_text_tage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:hint="@string/urlaub_hint_tage"
+        android:textSize="@dimen/content_text_normal"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_edit_datum_bis"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/urlaub_new_text_ersparnis"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:layout_marginEnd="@dimen/content_margin_sides_small"
+        android:layout_marginRight="@dimen/content_margin_sides_small"
+        android:hint="@string/urlaub_hint_verbrauch"
+        android:textSize="@dimen/content_text_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_tage"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_tage" />
+
+    <TextView
+        android:id="@+id/urlaub_new_text_hinweis"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_top"
+        android:layout_marginEnd="@dimen/content_margin_sides_small"
+        android:layout_marginRight="@dimen/content_margin_sides_small"
+        android:hint="@string/urlaub_text_hinweis"
+        android:textSize="@dimen/content_text_smaller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_ersparnis"
+        app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_ersparnis" />
+</androidx.constraintlayout.widget.ConstraintLayout>

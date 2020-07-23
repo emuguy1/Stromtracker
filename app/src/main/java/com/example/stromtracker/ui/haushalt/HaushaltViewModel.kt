@@ -3,9 +3,7 @@ package com.example.stromtracker.ui.haushalt
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.stromtracker.database.DataRepository
-import com.example.stromtracker.database.Haushalt
-import com.example.stromtracker.database.Raum
+import com.example.stromtracker.database.*
 
 class HaushaltViewModel(application: Application) : AndroidViewModel(application) {
     private var repo: DataRepository = DataRepository(application)
@@ -13,6 +11,18 @@ class HaushaltViewModel(application: Application) : AndroidViewModel(application
 
     fun getAllHaushalt(): LiveData<List<Haushalt>> {
         return haushaltList
+    }
+
+    fun getAllVerbraucherByHaushaltID(id: Int): LiveData<List<Geraete>> {
+        return repo.getAllVerbraucherByHaushaltID(id)
+    }
+
+    fun getAllProduzentenByHaushaltID(id: Int): LiveData<List<Geraete>> {
+        return repo.getAllProduzentenByHaushaltID(id)
+    }
+
+    fun getAllUrlaubByHaushaltID(id: Int): LiveData<List<Urlaub>> {
+        return repo.getAllUrlaubByHaushaltID(id)
     }
 
     fun insertHaushalt(a: Haushalt) {
