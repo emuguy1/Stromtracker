@@ -215,7 +215,7 @@
 
     <string name="urlaub_hint_haushalt">Haushalt X</string>
     <string name="urlaub_text_name">Name des Urlaubs</string>
-    <string name="urlaub_hint_name">z.B. Urlaub in der Südsee</string>
+    <string name="urlaub_hint_name">z.B. Ostsee</string>
     <string name="urlaub_text_datum_von">Beginn des Urlaubs</string>
     <string name="urlaub_text_datum_bis">Ende des Urlaubs</string>
     <string name="urlaub_hint_tage">Der Urlaub dauert insgesamt X Tage</string>

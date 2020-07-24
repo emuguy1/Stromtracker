@@ -72,6 +72,7 @@
     <dimen name="margin_top_text_einheit">24dp</dimen>
     <dimen name="margin_image_in_card">8dp</dimen>
 
+    <dimen name="divider_width_thin">1dp</dimen>
 
     <dimen name="edit_name_width_long">250dp</dimen>
     <dimen name="edit_date_width">115dp</dimen>
