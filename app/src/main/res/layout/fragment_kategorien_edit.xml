@@ -43,7 +43,7 @@
             android:layout_marginTop="@dimen/content_margin_top_small"
             android:autofillHints="@string/hint_kategorie_input"
             android:hint="@string/hint_kategorie_input"
-            android:maxLength="30"
+            android:maxLength="@integer/length_namen"
             android:inputType="text"
             app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textName"
             app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textName" />

@@ -34,8 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_edit_text"
-            android:hint="@string/geraet_prod_edit_hint_verbrauch"
+            android:hint="@string/geraet_produzent_edit_hint_verbrauch"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_prozent"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_text_verbrauch"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_text_verbrauch" />
 
@@ -77,8 +78,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_edit_text"
-            android:hint="@string/geraet_new_name"
+            android:hint="@string/geraet_new_produzent_hint_name"
             android:inputType="text"
+            android:maxLength="@integer/length_namen"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_text_name"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_text_name" />
 
@@ -136,8 +138,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_edit_text"
-            android:hint="@string/geraet_new_prod_hint_prod"
+            android:hint="@string/geraet_new_produzent_hint_prod"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_sonstige_double"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_text_prod"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_text_prod" />
 

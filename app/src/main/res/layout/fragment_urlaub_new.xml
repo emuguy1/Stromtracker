@@ -13,7 +13,7 @@
         android:hint="@string/haushaltedithint_datum"
         android:inputType="date"
         android:textSize="@dimen/content_text_big"
-        android:maxLength="10"
+        android:maxLength="@integer/length_datum"
         app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_datum_bis"
         app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_datum_bis" />
 
@@ -61,7 +61,7 @@
         android:hint="@string/urlaub_hint_name"
         android:inputType="text"
         android:textSize="@dimen/content_text_big"
-        android:maxLength="30"
+        android:maxLength="@integer/length_namen"
         app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_name"
         app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_name" />
 
@@ -84,7 +84,7 @@
         android:hint="@string/haushaltedithint_datum"
         android:inputType="date"
         android:textSize="@dimen/content_text_big"
-        android:maxLength="10"
+        android:maxLength="@integer/length_datum"
         app:layout_constraintStart_toStartOf="@+id/urlaub_new_text_datum_von"
         app:layout_constraintTop_toBottomOf="@+id/urlaub_new_text_datum_von" />
 
