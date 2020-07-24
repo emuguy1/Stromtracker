@@ -15,9 +15,8 @@
             android:id="@+id/geraete_edit_text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/geraet_edit_textview_margin"
-            android:layout_marginLeft="@dimen/geraet_edit_textview_margin"
-            android:layout_marginTop="@dimen/geraet_top_bottom_margin"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/geraet_new_text_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +25,7 @@
             android:id="@+id/geraete_edit_edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraet_new_name"
             android:inputType="text"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_name"
@@ -36,17 +35,16 @@
             android:id="@+id/geraete_edit_text_raum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/geraet_text_raum"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_name"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_name" />
 
         <Spinner
             android:id="@+id/geraete_edit_raum_spinner"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
             android:dropDownWidth="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_raum"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_raum" />
@@ -55,7 +53,7 @@
             android:id="@+id/geraete_edit_text_kategorie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/geraet_text_kategorie"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_raum_spinner"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_raum_spinner" />
@@ -64,7 +62,7 @@
             android:id="@+id/geraete_edit_kategorie_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
             android:dropDownWidth="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_kategorie"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_kategorie" />
@@ -73,7 +71,7 @@
             android:id="@+id/geraete_edit_text_volllast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/geraet_text_volllast"
             app:layout_constraintEnd_toStartOf="@+id/geraete_edit_text_zeit_volllast"
             app:layout_constraintHorizontal_bias="0.0"
@@ -85,9 +83,8 @@
             android:id="@+id/geraete_edit_text_zeit_volllast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
-            android:layout_marginEnd="@dimen/geraet_edit_textview_margin"
-            android:layout_marginRight="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
             android:text="@string/geraet_zeit_volllast"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_kategorie_spinner" />
@@ -96,7 +93,7 @@
             android:id="@+id/geraete_edit_edit_volllast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_volllast"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_volllast"
@@ -107,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
             android:text="@string/Einheit_Watt"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/geraete_edit_edit_volllast"
@@ -117,7 +114,7 @@
             android:id="@+id/geraete_edit_edit_zeit_volllast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_zeit"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toStartOf="@+id/geraete_edit_zeit_einheit_volllast"
@@ -130,8 +127,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
-            android:layout_marginEnd="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
             android:text="@string/Einheit_Stunden"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -139,89 +136,89 @@
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_volllast" />
 
         <TextView
-            android:id="@+id/geraete_edit_text_standBy"
+            android:id="@+id/geraete_edit_text_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/geraet_text_standBy"
-            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_text_zeit_standBy"
+            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_text_zeit_standby"
 
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_volllast"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_volllast" />
 
         <EditText
-            android:id="@+id/geraete_edit_edit_standBy"
+            android:id="@+id/geraete_edit_edit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_standBy"
             android:inputType="numberDecimal"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standBy" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standby" />
 
         <TextView
-            android:id="@+id/geraete_edit_leistung_einheit_standBy"
+            android:id="@+id/geraete_edit_leistung_einheit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
             android:text="@string/Einheit_Watt"
             android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@id/geraete_edit_edit_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standBy" />
+            app:layout_constraintStart_toEndOf="@id/geraete_edit_edit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standby" />
 
         <TextView
-            android:id="@+id/geraete_edit_text_zeit_standBy"
+            android:id="@+id/geraete_edit_text_zeit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
-            android:layout_marginEnd="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
             android:text="@string/geraet_zeit_standBy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_volllast" />
 
         <EditText
-            android:id="@+id/geraete_edit_edit_zeit_standBy"
+            android:id="@+id/geraete_edit_edit_zeit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_zeit"
             android:inputType="numberDecimal"
-            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_zeit_einheit_standBy"
+            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_zeit_einheit_standby"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@+id/geraete_edit_leistung_einheit_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_standBy" />
+            app:layout_constraintStart_toEndOf="@+id/geraete_edit_leistung_einheit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_standby" />
 
         <TextView
-            android:id="@+id/geraete_edit_zeit_einheit_standBy"
+            android:id="@+id/geraete_edit_zeit_einheit_standby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
-            android:layout_marginEnd="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
             android:text="@string/Einheit_Stunden"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_standBy" />
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_standby" />
 
 
         <CheckBox
             android:id="@+id/geraete_edit_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/geraet_text_urlaubsmodus"
-            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_standBy"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_standBy" />
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_standby" />
 
 
         <TextView
             android:id="@+id/geraete_edit_text_notiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/geraet_text_notiz"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_checkbox"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_checkbox" />
@@ -230,8 +227,8 @@
             android:id="@+id/geraete_edit_edit_notiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/geraet_edit_editText_margin"
-            android:layout_marginEnd="@dimen/geraet_edit_textview_margin"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
             android:hint="@string/geraet_edit_edit_notiz"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
@@ -244,10 +241,9 @@
             android:id="@+id/geraete_edit_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="@dimen/geraet_top_bottom_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
             android:background="@color/colorPrimary"
             android:text="@string/button_speichern"
             android:textColor="@color/colorWhite"
@@ -259,25 +255,25 @@
             android:id="@+id/geraete_edit_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="@dimen/geraet_top_bottom_margin"
+            android:layout_marginStart="@dimen/button_margin_between"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/button_margin_between"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
             android:background="@color/colorDarkRed"
             android:text="@string/button_loeschen"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/geraete_edit_save"
+            app:layout_constraintStart_toEndOf="@id/geraete_edit_button_abbrechen"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_notiz" />
 
         <Button
             android:id="@+id/geraete_edit_button_abbrechen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginBottom="@dimen/geraet_top_bottom_margin"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
             android:background="@color/colorDarkGreen"
             android:text="@string/button_abbrechen"
             android:textColor="@color/colorWhite"

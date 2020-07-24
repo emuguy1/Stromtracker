@@ -7,6 +7,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item
             android:id="@+id/nav_haushalt"
             android:icon="@drawable/ic_menu_haushalt"
             android:title="@string/menu_haushalt"
@@ -40,7 +44,7 @@
             android:id="@+id/nav_co2bilanz"
             android:icon="@drawable/ic_menu_co2bilanz"
             android:title="@string/menu_co2bilanz" />
-        #<item
+        <item
         android:id="@+id/nav_importexport"
         android:icon="@drawable/ic_menu_importexport"
         android:title="@string/menu_importexport" />

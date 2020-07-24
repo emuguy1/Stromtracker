@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
@@ -113,8 +115,7 @@ class GeraeteEditProduzentFragment(
                         currGeraet.setName(inputName.text.toString())
                         currGeraet.setKategorieID(katList[selectedKat].getKategorieID())
                         currGeraet.setRaumID(raumList[selectedRoom].getRaumID())
-                        currGeraet.setHaushaltID(raumList[selectedRoom].getHaushaltID())
-                        currGeraet.setJahresverbrauch(jahresverbrauch)
+                        currGeraet.setJahresverbrauch(GeraeteCompanion.roundDouble(jahresverbrauch))
                         currGeraet.setEigenverbrauch(eigenverbrauch)
 
                         geraeteViewModel.updateGeraet(currGeraet)
@@ -123,16 +124,12 @@ class GeraeteEditProduzentFragment(
                             .addToBackStack(null).commit()
 
                     } else {
-                        Toast.makeText(
-                            this.context,
-                            R.string.geraet_new_nullValue,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        GeraeteCompanion.validValues(this.context)
 
                     }
                 } else {
-                    Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT)
-                        .show()
+                    GeraeteCompanion.validValues(this.context)
+
                 }
             }
             R.id.geraete_edit_produzent_button_abbrechen -> {
@@ -141,32 +138,36 @@ class GeraeteEditProduzentFragment(
                     .addToBackStack(null).commit()
             }
             R.id.geraete_edit_produzent_button_loeschen -> {
-                val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
-                confirmDeleteBuilder.setPositiveButton(
-                    R.string.ja,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        //Daten werden aus der Datenbank gelöscht
-                        geraeteViewModel.deleteGeraet(currGeraet)
-                        //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
-                        val frag = GeraeteFragment()
-                        //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                            .addToBackStack(null).commit();
-                        //und anschließend noch ein commit()
-                        dialog.cancel()
-                    })
-
-                confirmDeleteBuilder.setNegativeButton(
-                    R.string.nein,
-                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
-
-                val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
-                confirmDeleteDialog.show()
+                alertDelete(fragMan)
             }
 
         }
 
+    }
+
+    private fun alertDelete(fragMan: FragmentManager) {
+        val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
+        confirmDeleteBuilder.setMessage(R.string.geraete_edit_confirmDelete)
+        confirmDeleteBuilder.setPositiveButton(
+            R.string.ja,
+            DialogInterface.OnClickListener { dialog, id ->
+                //Daten werden aus der Datenbank gelöscht
+                geraeteViewModel.deleteGeraet(currGeraet)
+                //Man wir nur weitergeleitet, wenn man wirklich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                //neues Fragment erstellen auf das weitergeleitet werden soll
+                val frag = GeraeteFragment()
+                //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                    .addToBackStack(null).commit();
+                //und anschließend noch ein commit()
+                dialog.cancel()
+            })
+
+        confirmDeleteBuilder.setNegativeButton(
+            R.string.nein,
+            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+
+        val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
+        confirmDeleteDialog.show()
     }
 }

@@ -11,6 +11,7 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
@@ -97,7 +98,7 @@ class GeraeteNewProduzentFragment(
                     val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
 
                     if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0) {
-
+                        //negativer Verbrauch = Produzent, kein Verbraucher
                         val jahresverbrauch: Double = prodProJahr * (-1)
                         val geraet = Geraete(
                             inputName.text.toString(),
@@ -105,11 +106,11 @@ class GeraeteNewProduzentFragment(
                             raumList[selectedRoom].getRaumID(),
                             raumList[selectedRoom].getHaushaltID(),
                             0.0,
+                            null,
                             0.0,
-                            0.0,
-                            0.0,
+                            null,
                             false,
-                            jahresverbrauch,
+                            GeraeteCompanion.roundDouble(jahresverbrauch),
                             eigenverbrauch,
                             null
                         )
@@ -119,16 +120,10 @@ class GeraeteNewProduzentFragment(
                             .addToBackStack(null).commit()
 
                     } else {
-                        Toast.makeText(
-                            this.context,
-                            R.string.geraet_new_nullValue,
-                            Toast.LENGTH_SHORT
-                        ).show()
-
+                        GeraeteCompanion.validValues(this.context)
                     }
                 } else {
-                    Toast.makeText(this.context, R.string.geraet_new_nullValue, Toast.LENGTH_SHORT)
-                        .show()
+                    GeraeteCompanion.validValues(this.context)
                 }
             }
             R.id.geraete_new_produzent_button_abbrechen -> {
@@ -141,4 +136,5 @@ class GeraeteNewProduzentFragment(
         }
 
     }
+
 }

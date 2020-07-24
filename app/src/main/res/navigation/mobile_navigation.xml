@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_haushalt">
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.stromtracker.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_haushalt"
@@ -50,8 +56,6 @@
         android:name="com.example.stromtracker.ui.importexport.ImportExportFragment"
         android:label="@string/menu_importexport"
         tools:layout="@layout/fragment_importexport" />
-
-
 
     <fragment
         android:id="@+id/nav_urlaub"
