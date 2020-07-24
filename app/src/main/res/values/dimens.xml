@@ -77,11 +77,13 @@
     <dimen name="edit_name_width_long">250dp</dimen>
     <dimen name="edit_date_width">115dp</dimen>
     <dimen name="edit_num_len_six">85dp</dimen>
-    
+
     <integer name="length_namen">30</integer>
     <integer name="length_personen">3</integer>
     <integer name="length_datum">10</integer>
     <integer name="length_strompreis">6</integer>
+    <integer name="length_verbrauch">8</integer>
+    <integer name="length_stunden">5</integer>
     <integer name="length_sonstige_double">16</integer>
     <integer name="length_prozent">5</integer>
     <integer name="length_notizen">128</integer>

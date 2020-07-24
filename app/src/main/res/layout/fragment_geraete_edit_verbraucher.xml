@@ -28,6 +28,7 @@
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraet_new_name"
             android:inputType="text"
+            android:maxLength="@integer/length_namen"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_name"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_name" />
 
@@ -96,6 +97,7 @@
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_volllast"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_verbrauch"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_volllast"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_volllast" />
 
@@ -105,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
-            android:text="@string/Einheit_Watt"
+            android:text="@string/einheit_watt"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/geraete_edit_edit_volllast"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_volllast" />
@@ -117,6 +119,7 @@
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_zeit"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_stunden"
             app:layout_constraintEnd_toStartOf="@+id/geraete_edit_zeit_einheit_volllast"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toEndOf="@+id/geraete_edit_leistung_einheit_volllast"
@@ -129,7 +132,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
             android:layout_marginEnd="@dimen/content_margin_sides_normal"
-            android:text="@string/Einheit_Stunden"
+            android:text="@string/einheit_stunden_tag"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
@@ -154,6 +157,7 @@
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_standBy"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_verbrauch"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_standby"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standby" />
 
@@ -163,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
-            android:text="@string/Einheit_Watt"
+            android:text="@string/einheit_watt"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/geraete_edit_edit_standby"
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standby" />
@@ -185,6 +189,7 @@
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:hint="@string/geraete_edit_hint_zeit"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_stunden"
             app:layout_constraintEnd_toStartOf="@+id/geraete_edit_zeit_einheit_standby"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toEndOf="@+id/geraete_edit_leistung_einheit_standby"
@@ -197,7 +202,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
             android:layout_marginEnd="@dimen/content_margin_sides_normal"
-            android:text="@string/Einheit_Stunden"
+            android:text="@string/einheit_stunden_tag"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
@@ -230,6 +235,7 @@
             android:layout_marginTop="@dimen/margin_top_edit_text"
             android:layout_marginEnd="@dimen/content_margin_sides_normal"
             android:hint="@string/geraet_edit_edit_notiz"
+            android:maxLength="@integer/length_notizen"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"

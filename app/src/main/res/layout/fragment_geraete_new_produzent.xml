@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
-            android:text="@string/Einheit_Watt"
+            android:text="@string/einheit_kWh"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_prod"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
-            android:text="@string/Einheit_Prozent"
+            android:text="@string/einheit_prozent"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_verbrauch"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_verbrauch" />
