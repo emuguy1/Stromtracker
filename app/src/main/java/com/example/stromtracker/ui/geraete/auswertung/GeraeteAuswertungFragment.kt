@@ -124,7 +124,7 @@ class GeraeteAuswertungFragment(
             pie = initPieChart(pie)
 
             pie.data(data)
-            gesamtverbrauchkWh = verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
+            gesamtverbrauchkWh = roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
             gesamtverbrauchEuro =
                 roundTo2Decimal(gesamtverbrauchkWh * currHaushalt.getStromkosten() / 100)
             pie.title(
@@ -184,6 +184,7 @@ class GeraeteAuswertungFragment(
             urlaub.getErsparnisProTag() * (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays - urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
         }
         tempSum = tempSum.withSign(-1)
+        tempSum = roundTo2Decimal(tempSum)
         data.add(ValueDataEntry("Urlaube", tempSum))
 
         if (data.isNotEmpty()) {
