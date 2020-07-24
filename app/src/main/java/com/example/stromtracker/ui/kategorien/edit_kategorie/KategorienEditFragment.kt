@@ -128,7 +128,7 @@ class KategorienEditFragment(
                         val frag = KategorienFragment()
                         //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                            .addToBackStack(null).commit();
+                            .addToBackStack(null).commit()
                         //und anschließend noch ein commit()
                         dialog.cancel()
                     })

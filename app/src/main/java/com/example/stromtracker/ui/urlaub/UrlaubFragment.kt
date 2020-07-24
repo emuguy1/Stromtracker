@@ -78,7 +78,7 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
 
                     verbraucherList.clear()
                     verbraucherList.addAll(geraete)
-                    viewAdapter.notifyDataSetChanged();
+                    viewAdapter.notifyDataSetChanged()
                 }
             })
 

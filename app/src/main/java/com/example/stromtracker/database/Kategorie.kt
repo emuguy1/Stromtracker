@@ -1,6 +1,6 @@
 package com.example.stromtracker.database
 
-import androidx.room.*;
+import androidx.room.*
 
 @Entity
 data class Kategorie(

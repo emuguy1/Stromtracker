@@ -3,7 +3,7 @@ package com.example.stromtracker.ui.geraete
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.stromtracker.database.*;
+import com.example.stromtracker.database.*
 
 
 class GeraeteViewModel(application: Application) : AndroidViewModel(application) {

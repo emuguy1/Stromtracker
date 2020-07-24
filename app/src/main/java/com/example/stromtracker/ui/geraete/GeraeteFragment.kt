@@ -137,7 +137,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 if (geraete != null) {
                     verbraucherList.clear()
                     verbraucherList.addAll(geraete)
-                    viewAdapter.notifyDataSetChanged();
+                    viewAdapter.notifyDataSetChanged()
                 }
             })
 
@@ -182,7 +182,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 if (kategorie != null) {
                     kategorieList.clear()
                     kategorieList.addAll(kategorie)
-                    viewAdapter.notifyDataSetChanged();
+                    viewAdapter.notifyDataSetChanged()
                 }
             })
 
@@ -221,7 +221,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     verbraucherList.sortedWith(compareByDescending { it.getJahresverbrauch() })
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedVerbrauch)
-                viewAdapter.notifyDataSetChanged();
+                viewAdapter.notifyDataSetChanged()
                 buttonSortVerbrauch.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortName.paintFlags = 0
                 buttonSortRaum.paintFlags = 0
@@ -236,7 +236,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     verbraucherList.sortedWith(compareBy { it.getName().toLowerCase() })
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedName)
-                viewAdapter.notifyDataSetChanged();
+                viewAdapter.notifyDataSetChanged()
                 buttonSortName.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
                 buttonSortRaum.paintFlags = 0
@@ -256,7 +256,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedRaum)
 
-                viewAdapter.notifyDataSetChanged();
+                viewAdapter.notifyDataSetChanged()
                 buttonSortRaum.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortVerbrauch.paintFlags = 0
                 buttonSortName.paintFlags = 0
@@ -286,7 +286,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 val sortedName = produzentList.sortedWith(compareBy { it.getName().toLowerCase() })
                 produzentList.clear()
                 produzentList.addAll(sortedName)
-                produzentViewAdapter.notifyDataSetChanged();
+                produzentViewAdapter.notifyDataSetChanged()
                 buttonSortName_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0
                 buttonSortRaum_prod.paintFlags = 0
@@ -304,7 +304,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 produzentList.addAll(sortedRaum)
 
                  */
-                produzentViewAdapter.notifyDataSetChanged();
+                produzentViewAdapter.notifyDataSetChanged()
                 buttonSortRaum_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0
                 buttonSortName_prod.paintFlags = 0

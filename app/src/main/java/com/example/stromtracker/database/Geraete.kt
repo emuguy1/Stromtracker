@@ -1,7 +1,7 @@
 package com.example.stromtracker.database
 
 
-import androidx.room.*;
+import androidx.room.*
 
 @Entity(
     indices = [Index("kategorieID"), Index("haushaltID"), Index("raumID")], foreignKeys = [

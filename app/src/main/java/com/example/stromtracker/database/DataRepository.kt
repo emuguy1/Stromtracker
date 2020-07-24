@@ -4,7 +4,7 @@ import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 
-class DataRepository public constructor(application: Application) {
+class DataRepository(application: Application) {
 
     private var database = AppDatabase.getInstance(application)
 

@@ -85,13 +85,13 @@ class HaushaltBearbeitenLoeschenFragment(
 
         if (currHaushalt.getZaehlerstand() != null && currHaushalt.getDatum() != null) {
             var tempString = currHaushalt.getZaehlerstand().toString() + " kWh"
-            zaehlerstandAkt.setText(tempString)
+            zaehlerstandAkt.text = tempString
             //currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
             tempString = SimpleDateFormat(
                 "dd.MM.yyyy",
                 Locale.GERMAN
             ).format(currHaushalt.getDatum())
-            datumAkt.setText(tempString)
+            datumAkt.text = tempString
         }
         oekomixeditfeld.isChecked = currHaushalt.getOekostrom()
 
@@ -264,9 +264,9 @@ class HaushaltBearbeitenLoeschenFragment(
                                     "Zwischen den beiden Zählerständen liegen $days Tage mit einer Differenz von $diff kWh.\n" +
                                             "Auf ein Jahr hochgerechnet, ergibt sich ein Verbrauch von $perYear kWh pro Jahr.\n" +
                                             "Durch die eingetragenen Verbraucher, Produzenten und Urlaube wird ein Verbrauch von $estimatedGesamt kWh pro Jahr geschätzt."
-                                auswertung.setText(tempStr)
+                                auswertung.text = tempStr
                             } else
-                                auswertung.setText(null)
+                                auswertung.text = null
                         }
                     }
                 } catch (e: ParseException) {

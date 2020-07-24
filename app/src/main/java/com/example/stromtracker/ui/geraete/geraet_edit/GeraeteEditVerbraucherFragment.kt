@@ -211,7 +211,7 @@ class GeraeteEditVerbraucherFragment(
                 geraeteViewModel.deleteGeraet(currGeraet)
                 val frag = GeraeteFragment()
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                    .addToBackStack(null).commit();
+                    .addToBackStack(null).commit()
                 dialog.cancel()
             })
 
@@ -224,4 +224,3 @@ class GeraeteEditVerbraucherFragment(
 
     }
 }
-
