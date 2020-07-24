@@ -29,6 +29,7 @@ class GeraeteEditProduzentFragment(
     private lateinit var inputName: EditText
     private lateinit var inputProdProJahr: EditText
     private lateinit var inputVerbrauch: EditText
+    private lateinit var inputNotiz: EditText
 
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
@@ -72,6 +73,11 @@ class GeraeteEditProduzentFragment(
         inputVerbrauch = root.findViewById(R.id.geraete_edit_produzent_edit_verbrauch)
         inputVerbrauch.setText(currGeraet.getEigenverbrauch().toString())
 
+        inputNotiz = root.findViewById(R.id.geraete_prod_edit_edit_notiz)
+        if (currGeraet.getNotiz() != null) {
+            inputNotiz.setText(currGeraet.getNotiz())
+        }
+
         return root
     }
 
@@ -107,8 +113,13 @@ class GeraeteEditProduzentFragment(
 
                     val prodProJahr: Double? = inputProdProJahr.text.toString().toDoubleOrNull()
                     val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
+                    var notiz: String? = inputNotiz.text.toString()
 
-                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0) {
+                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0 && notiz != null) {
+
+                        if (notiz.isEmpty()) {
+                            notiz = null
+                        }
 
                         val jahresverbrauch: Double = prodProJahr * (-1)
 
@@ -117,6 +128,7 @@ class GeraeteEditProduzentFragment(
                         currGeraet.setRaumID(raumList[selectedRoom].getRaumID())
                         currGeraet.setJahresverbrauch(GeraeteCompanion.roundDouble(jahresverbrauch))
                         currGeraet.setEigenverbrauch(eigenverbrauch)
+                        currGeraet.setNotiz(notiz)
 
                         geraeteViewModel.updateGeraet(currGeraet)
                         val frag = GeraeteFragment()

@@ -25,6 +25,8 @@ class GeraeteNewProduzentFragment(
     private lateinit var inputName: EditText
     private lateinit var inputProdProJahr: EditText
     private lateinit var inputVerbrauch: EditText
+    private lateinit var inputNotiz: EditText
+
 
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
@@ -62,6 +64,9 @@ class GeraeteNewProduzentFragment(
         inputProdProJahr = root.findViewById(R.id.geraete_new_produzent_edit_prod)
         inputVerbrauch = root.findViewById(R.id.geraete_new_produzent_edit_verbrauch)
 
+        inputNotiz = root.findViewById(R.id.geraete_prod_new_edit_notiz)
+
+
         return root
     }
 
@@ -96,9 +101,15 @@ class GeraeteNewProduzentFragment(
 
                     val prodProJahr: Double? = inputProdProJahr.text.toString().toDoubleOrNull()
                     val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
+                    var notiz: String? = inputNotiz.text.toString()
 
-                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0) {
+
+                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0 && notiz != null) {
                         //negativer Verbrauch = Produzent, kein Verbraucher
+
+                        if (notiz.isEmpty()) {
+                            notiz = null
+                        }
                         val jahresverbrauch: Double = prodProJahr * (-1)
                         val geraet = Geraete(
                             inputName.text.toString(),
@@ -112,7 +123,7 @@ class GeraeteNewProduzentFragment(
                             false,
                             GeraeteCompanion.roundDouble(jahresverbrauch),
                             eigenverbrauch,
-                            null
+                            notiz
                         )
                         geraeteViewModel.insertGeraet(geraet)
                         val frag = GeraeteFragment()

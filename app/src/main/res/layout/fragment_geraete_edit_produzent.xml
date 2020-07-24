@@ -29,6 +29,30 @@
             app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_edit_verbrauch"
             app:layout_constraintVertical_bias="1.0" />
 
+        <TextView
+            android:id="@+id/geraete_prod_new_text_notiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_text_notiz"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_produzent_edit_verbrauch"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_edit_verbrauch" />
+
+        <EditText
+            android:id="@+id/geraete_prod_edit_edit_notiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:hint="@string/geraet_edit_edit_notiz"
+            android:inputType="textMultiLine"
+            android:maxLength="@integer/length_notizen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/geraete_prod_new_text_notiz"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_prod_new_text_notiz" />
+
+
         <EditText
             android:id="@+id/geraete_edit_produzent_edit_verbrauch"
             android:layout_width="wrap_content"
@@ -185,7 +209,7 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_produzent_edit_verbrauch"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_prod_edit_edit_notiz"
             app:layout_constraintVertical_bias="1.0" />
 
 
