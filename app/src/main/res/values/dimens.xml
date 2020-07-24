@@ -37,8 +37,6 @@
 
     <dimen name="recycler_kat_icon">40dp</dimen>
 
-    <dimen name="amort_pv_margin_top">16dp</dimen>
-    <dimen name="amort_pv_edit_numbers">80dp</dimen>
     <dimen name="amort_pv_edit_measure_margin_top">12dp</dimen>
 
     <dimen name="verbrauchsrechner_marginTop">20dp</dimen>
@@ -58,7 +56,9 @@
     <dimen name="urlaub_margin_recycler_name">16dp</dimen>
 
     <dimen name="content_margin_normal">16dp</dimen>
+    <dimen name="content_margin_small">8dp</dimen>
     <dimen name="content_margin_top">16dp</dimen>
+    <dimen name="content_margin_top_large">32dp</dimen>
     <dimen name="content_margin_top_small">8dp</dimen>
     <dimen name="content_margin_sides_small">8dp</dimen>
     <dimen name="content_margin_sides_normal">16dp</dimen>

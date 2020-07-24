@@ -20,7 +20,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/content_margin_normal">
+                android:layout_margin="@dimen/content_margin_small">
 
                 <TextView
                     android:id="@+id/text_amortisationsrechner"
@@ -49,9 +49,10 @@
                     android:id="@+id/amort_edit_verbrauch_akt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/amort_hint_verbrauch_akt"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
                     android:autofillHints="@string/amort_hint_verbrauch_akt"
+                    android:hint="@string/amort_hint_verbrauch_akt"
+                    android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_verbrauch_akt"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_verbrauch_akt" />
@@ -78,12 +79,13 @@
 
                 <EditText
                     android:id="@+id/amort_edit_verbrauch_neu"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/amort_hint_verbrauch_neu"
-                    android:textSize="@dimen/content_text_big"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
                     android:autofillHints="@string/amort_hint_verbrauch_neu"
+                    android:hint="@string/amort_hint_verbrauch_neu"
+                    android:inputType="numberDecimal"
+                    android:textSize="@dimen/content_text_big"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_verbrauch_neu"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_verbrauch_neu" />
 
@@ -111,9 +113,10 @@
                     android:id="@+id/amort_edit_anschaffung"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/amort_hint_anschaffung"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
                     android:autofillHints="@string/amort_hint_anschaffung"
+                    android:hint="@string/amort_hint_anschaffung"
+                    android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_anschaffung_neu"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_anschaffung_neu" />
@@ -152,10 +155,11 @@
                     android:id="@+id/amort_edit_strompreis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    android:autofillHints="@string/amort_hint_strompreis"
+                    android:hint="@string/amort_hint_strompreis"
                     android:inputType="numberDecimal"
                     android:text="@string/amort_edit_strompreis"
-                    android:hint="@string/amort_hint_strompreis"
-                    android:autofillHints="@string/amort_hint_strompreis"
                     android:textSize="@dimen/content_text_big"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_strompreis"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_strompreis" />
@@ -174,6 +178,7 @@
                     android:id="@+id/amort_card_kosten_akt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
                     app:layout_constraintStart_toStartOf="@+id/amort_edit_strompreis"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_kosten_akt">
 
@@ -182,8 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextBlack"
-                        android:textSize="@dimen/content_text_big"
-                         />
+                        android:textSize="@dimen/content_text_big" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -200,6 +204,7 @@
                     android:id="@+id/amort_card_kosten_neu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_kosten_neu"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_kosten_neu">
 
@@ -225,6 +230,7 @@
                     android:id="@+id/amort_card_amortdauer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
                     app:layout_constraintStart_toStartOf="@+id/amort_card_kosten_neu"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_amortdauer">
 
@@ -247,7 +253,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/amort_hint_amort_ersparnis"
                             android:textColor="@color/colorTextBlack"
-                            android:textSize="@dimen/content_text_big"/>
+                            android:textSize="@dimen/content_text_big" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -256,8 +262,8 @@
                     android:id="@+id/amort_text_beschreibung"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="@dimen/content_margin_top_large"
+                    android:layout_marginBottom="@dimen/content_margin_bottom"
                     android:text="@string/amort_text_hinweis_berechnung"
                     android:textSize="@dimen/content_text_smaller"
                     app:layout_constraintBottom_toBottomOf="parent"

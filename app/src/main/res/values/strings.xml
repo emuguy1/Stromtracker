@@ -60,15 +60,15 @@
     <string name="leereFelderHaushalt">Eines der folgenden Felder ist leer. Bitte füllen Sie dieses aus, bevor Sie fortfahren: Name, Personenanzahl oder Strompreis</string>
 
     <string name="amortPV_hint_leistung">z.B. 4.5</string>
-    <string name="amortPV_hint_anschaffung">z.B. 10000</string>
+    <string name="amortPV_hint_anschaffung">z.B. 10000.50</string>
     <string name="amortPV_hint_jahresertragkWh_zahl">z.B. 4500</string>
     <string name="amortPV_hint_amortdauer_zahl">z.B. 13.110</string>
     <string name="amortPV_hint_jahresertragEuro_zahl">z.B. 406.35</string>
-    <string name="amortPV_hint_kwh_pro_kwp">z.B. 1000</string>
+    <string name="amortPV_hint_kwh_pro_kwp">z.B. 1000.35</string>
     <string name="amortPV_hint_verguetung">z. B. 9.03</string>
     <string name="amortPV_hint_eigenverbrauch">z. B. 30%</string>
     <string name="amortPV_hint_preis_kwh">z. B. 26.40</string>
-    <string name="amortPV_edit_kwh_pro_kwp">1000</string>
+    <string name="amortPV_edit_kwh_pro_kwp">1000.5</string>
     <string name="amortPV_edit_verguetung">9.03</string>
     <string name="amortPV_edit_eigenverbrauch">30</string>
     <string name="amortPV_edit_preis_kwh">26.4</string>
@@ -87,16 +87,16 @@
     <string name="amortPV_text_preis_kwh">Aktueller Preis für eine kWh in Cent</string>
 
     <string name="amort_pv_hint_leistung">z.B. 4.5</string>
-    <string name="amort_pv_hint_anschaffung">z.B. 9999</string>
+    <string name="amort_pv_hint_anschaffung">z.B. 10000</string>
     <string name="amort_pv_hint_jahresertragkWh_zahl">z.B. 4500</string>
     <string name="amort_pv_hint_amortdauer_zahl">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_pv_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
     <string name="amort_pv_hint_jahresertragEuro_zahl">z.B. 406.35</string>
-    <string name="amort_pv_hint_kwh_pro_kwp">z.B. 1000</string>
+    <string name="amort_pv_hint_kwh_pro_kwp">z.B. 1000.35</string>
     <string name="amort_pv_hint_verguetung">z. B. 9.03</string>
     <string name="amort_pv_hint_eigenverbrauch">z. B. 30%</string>
     <string name="amort_pv_hint_preis_kwh">z. B. 26.40</string>
-    <string name="amort_pv_edit_kwh_pro_kwp">1000</string>
+    <string name="amort_pv_edit_kwh_pro_kwp">1000.5</string>
     <string name="amort_pv_edit_verguetung">9.03</string>
     <string name="amort_pv_edit_eigenverbrauch">30</string>
     <string name="amort_pv_edit_preis_kwh">26.4</string>
@@ -191,7 +191,7 @@
     <string name="amort_text_verbrauch_neu">Verbrauch des neuen Gerätes pro Jahr</string>
     <string name="amort_text_anschaffung_neu">Anschaffungskosten des neuen Gerätes</string>
     <string name="amort_text_strompreis">Aktueller Strompreis pro kWh</string>
-    <string name="amort_edit_strompreis">26.4</string>
+    <string name="amort_edit_strompreis">26.45</string>
     <string name="amort_text_kosten_akt">Aktuelle Kosten pro Jahr</string>
     <string name="amort_text_kosten_neu">Neue Kosten pro Jahr</string>
     <string name="amort_text_amortdauer">Amortisation</string>
@@ -202,7 +202,7 @@
     <string name="amort_hint_verbrauch_akt">z.B. 126.5</string>
     <string name="amort_hint_verbrauch_neu">z.B. 100.2</string>
     <string name="amort_hint_anschaffung">z.B. 249.99</string>
-    <string name="amort_hint_strompreis">z.B. 26.4</string>
+    <string name="amort_hint_strompreis">z.B. 26.45</string>
 
     <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
 
