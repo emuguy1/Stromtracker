@@ -17,13 +17,11 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.importexport.ImportExportViewModel
 
 class ImportFragmentHaushalte(
-    private var companion: CompanionImport,
+    private val companion: CompanionImport,
     private var daten: ArrayList<String>,
     private var alteHaushalteIDList: ArrayList<Int>,
     private var raumlist: ArrayList<String>,
-    private var kategorielist: ArrayList<String>,
-    private var geraetelist: ArrayList<String>,
-    private var urlauiblist: ArrayList<String>
+    private var kategorielist: ArrayList<String>
 ) : Fragment() {
 
     private lateinit var importexportViewModel: ImportExportViewModel
@@ -82,7 +80,7 @@ class ImportFragmentHaushalte(
 
         haushalttext.text = "Haushalte wurden erstellt"
         //neues Fragment erstellen auf das weitergeleitet werden soll
-//      val frag = ImportFragmentRaeume(companion,idarray,katidarray,kategorieneuidlist)
+//      val frag = ImportFragmentRaeume(companion,idarray,katidarray,kategorieneuidlist,raumidlist)
         //Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
         //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
