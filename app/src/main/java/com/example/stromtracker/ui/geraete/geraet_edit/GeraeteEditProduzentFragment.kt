@@ -57,7 +57,15 @@ class GeraeteEditProduzentFragment(
             ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
         spinnerRaum.onItemSelectedListener = this
-        spinnerRaum.setSelection(currGeraet.getRaumID() - 1)
+        var count = 0
+        for (raum in raumList) {
+            if (raum.getRaumID() == currGeraet.getRaumID()) {
+                spinnerRaum.setSelection(count)
+                break
+            } else {
+                count++
+            }
+        }
 
         val abbrBtn = root.findViewById<Button>(R.id.geraete_edit_produzent_button_abbrechen)
         abbrBtn.setOnClickListener(this)

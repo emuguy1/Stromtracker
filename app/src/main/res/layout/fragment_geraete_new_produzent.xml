@@ -87,7 +87,7 @@
             android:layout_marginTop="@dimen/content_margin_top_small"
             android:hint="@string/geraet_new_produzent_hint_prod"
             android:inputType="numberDecimal"
-            android:maxLength="@integer/length_sonstige_double"
+            android:maxLength="@integer/length_verbrauch"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_prod"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
 
