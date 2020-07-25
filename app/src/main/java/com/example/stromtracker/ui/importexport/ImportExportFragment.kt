@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
+import com.example.stromtracker.ui.importexport.Import.CompanionImport
+import com.example.stromtracker.ui.importexport.Import.ImportFragmentHaushalte
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import java.io.File
 import java.io.FileReader
@@ -31,11 +33,8 @@ class ImportExportFragment : Fragment() {
     private lateinit var raumlist: ArrayList<Raum>
     private lateinit var kategorielist: ArrayList<Kategorie>
     private lateinit var geraetlist: ArrayList<Geraete>
-    private lateinit var csvfile: File
-
     private lateinit var urlaublist: ArrayList<Urlaub>
     private lateinit var haushaltidlist: ArrayList<Int>
-    private lateinit var haushaltneuidlist: ArrayList<Int>
 
 
     override fun onCreateView(
@@ -71,15 +70,20 @@ class ImportExportFragment : Fragment() {
     private fun getDatafromcsv(csv: File) {
         var zustand = 0
         var headerread = false
+        var tempraumlist = ArrayList<String>()
+        val tempkategorielist = ArrayList<String>()
+        var tempgeraetelist = ArrayList<String>()
+        var tempurlaublist = ArrayList<String>()
+        var zaehler = 0
+        haushaltidlist = ArrayList()
+
         val daten: ArrayList<String> = ArrayList()
         FileReader(csv).forEachLine { row: String ->
-            daten.add(row)
+
             //Zusand 0 sind die Haushalte
             if (zustand == 0) {
                 var akthaushaltid = haushaltlist[haushaltlist.size - 1].getHaushaltID()
                 var haushaltzaehler = 0
-                haushaltidlist = ArrayList()
-                haushaltneuidlist = ArrayList()
                 if (!headerread) {
                     headerread = true
                 } else {
@@ -87,13 +91,9 @@ class ImportExportFragment : Fragment() {
                         zustand = 1
                         headerread = false
                     } else {
+                        daten.add(row)
                         val data = row.split(",")
-                        //TODO: Haushaltids holen, aber eher über eine erneute Abfrage der Datenbank nach einfügen
                         haushaltidlist.add(data[0].toInt())
-                        haushaltzaehler++
-                        //haushaltidlist[0][1]=akthaushaltid
-                        //akthaushaltid+=1
-                        //restlichen Haushaltdaten speichern und dann zu einem Haushalt hinzufügen
                         if (data[5].isNotEmpty()) {
                             //try catch Block um Parser Fehler beim Datum abzufangen
                             try {
@@ -143,38 +143,6 @@ class ImportExportFragment : Fragment() {
 
                     }
                 }
-                val haushaltaltidlist: IntArray = IntArray(haushaltlist.size)
-                var i = 0
-                for (haushalt in haushaltlist) {
-                    haushaltaltidlist[i] = haushalt.getHaushaltID()
-                    i++
-                }
-                val haushaltneuidlist: ArrayList<Int> = ArrayList()
-                importexportViewModel.getAllHaushaltIDByNOTHaushaltID(haushaltaltidlist).observe(
-                    viewLifecycleOwner,
-                    Observer { haushalte ->
-                        if (haushalte != null) {
-                            haushaltneuidlist.clear()
-                            haushaltneuidlist.addAll(haushalte)
-                        }
-                    }
-                )
-                Toast.makeText(
-                    requireContext(),
-                    haushaltaltidlist[0].toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-
-//                Toast.makeText(
-//                    requireContext(),
-//                    haushaltneuidlist[0].toString(),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-
-                //Hier müsste das holen der Haushaltids passieren
-                //Überlegung, ob man nicht bei Update auf ein Feld der MainActivity zugreifen könnte, wo die neuen IDs gespeichert werden
-                //Oder ein Art Import Wizzard, wo man durch die Fragments durch gerauscht wird, um den selben Trick zu verwenden, wie bei dem erstellen der Standardräume
             }
             //Räume
             else if (zustand == 1) {
@@ -184,13 +152,11 @@ class ImportExportFragment : Fragment() {
                     if (row == "-----------------------------------") {
                         zustand = 2
                         headerread = false
+                        zaehler = 0
                     } else {
-                        val data = row.split(",")
-
-
+                        tempraumlist.add(row)
                     }
                 }
-                //Hier müsste das holen des Raum passieren
             }
             //Kategorie
             else if (zustand == 2) {
@@ -201,12 +167,9 @@ class ImportExportFragment : Fragment() {
                         zustand = 3
                         headerread = false
                     } else {
-                        val data = row.split(",")
-                        //TODO: besonderheit, dass Kategorien nicht doppelt erzeugt werden sollen. das heißt hier mit alter Liste vergleichen
-
+                        tempkategorielist.add(row)
                     }
                 }
-                //Hier müsste das holen der Kategorie passieren
             }
             //Geräte
             else if (zustand == 3) {
@@ -217,12 +180,9 @@ class ImportExportFragment : Fragment() {
                         zustand = 4
                         headerread = false
                     } else {
-                        val data = row.split(",")
-
-
+                        tempgeraetelist.add(row)
                     }
                 }
-                //Hier müsste das holen des Geräte passieren
             }
             //Urlaub
             else if (zustand == 4) {
@@ -233,12 +193,9 @@ class ImportExportFragment : Fragment() {
                         zustand = 5
                         headerread = false
                     } else {
-                        val data = row.split(",")
-
-
+                        tempurlaublist.add(row)
                     }
                 }
-                //Hier müsste das holen des Urlaubs passieren
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -247,10 +204,31 @@ class ImportExportFragment : Fragment() {
                 ).show()
             }
         }
+        val impCompanion = CompanionImport(importexportViewModel)
+        impCompanion.setHaushaltaltlist(haushaltlist)
+        impCompanion.setgeraetealtlist(geraetlist)
+        impCompanion.setkategorienaltlist(kategorielist)
+        impCompanion.setraeumealtlist(raumlist)
+        impCompanion.seturlaubaltlist(urlaublist)
+        //neues Fragment erstellen auf das weitergeleitet werden soll
+        val frag = ImportFragmentHaushalte(
+            impCompanion,
+            daten,
+            haushaltidlist,
+            tempraumlist,
+            tempkategorielist,
+            tempgeraetelist,
+            tempurlaublist
+        )
+        //Fragment Manager aus Main Activity holen
+        val fragMan = parentFragmentManager
+        //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+            .addToBackStack(null).commit()
+        //und anschließend noch ein commit()
 
 
     }
-
 
     private fun writeCSVFile() {
         val csvFile = generateFile()

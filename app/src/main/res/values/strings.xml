@@ -230,5 +230,6 @@
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
+    <string name="import_export_button_fertig">Fertig</string>
 
 </resources>

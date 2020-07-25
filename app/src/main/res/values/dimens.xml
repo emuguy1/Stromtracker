@@ -74,4 +74,6 @@
     <dimen name="DualButtonLeft">8dp</dimen>
     <dimen name="DualButtonRight">8dp</dimen>
     <dimen name="import_export_buttons_top">280dp</dimen>
+    <dimen name="import_export_text_view">52dp</dimen>
+    <dimen name="import_export_import_button">24dp</dimen>
 </resources>
