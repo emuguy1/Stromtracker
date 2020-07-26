@@ -21,7 +21,9 @@ class ImportFragmentHaushalte(
     private var daten: ArrayList<String>,
     private var alteHaushalteIDList: ArrayList<Int>,
     private var raumlist: ArrayList<String>,
-    private var kategorielist: ArrayList<String>
+    private var kategorielist: ArrayList<String>,
+    private var geraetestringlist: ArrayList<String>,
+    private var urlaubstringlist: ArrayList<String>
 ) : Fragment() {
 
     private lateinit var importexportViewModel: ImportExportViewModel
@@ -29,6 +31,7 @@ class ImportFragmentHaushalte(
     private var kategoriealtlist = companion.getkategoriealtlist()
     private lateinit var haushalttext: TextView
     private lateinit var kategorieneuidlist: ArrayList<Int>
+    private lateinit var katidarray: IntArray
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,18 +83,26 @@ class ImportFragmentHaushalte(
 
         haushalttext.text = "Haushalte wurden erstellt"
         //neues Fragment erstellen auf das weitergeleitet werden soll
-//      val frag = ImportFragmentRaeume(companion,idarray,katidarray,kategorieneuidlist,raumidlist)
+        val frag = ImportFragmentRaeume(
+            companion,
+            idarray,
+            katidarray,
+            kategorieneuidlist,
+            raumidlist,
+            geraetestringlist,
+            urlaubstringlist
+        )
         //Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
         //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-//        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-//            .addToBackStack(null).commit()
+        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+            .addToBackStack(null).commit()
         //und anschließend noch ein commit()
     }
 
     private fun createkategorien() {
         //höchste ID der Kategorien bei denen die Importiert werden sollen, finden und damit ein IntArray erzeugen, wo die Kategorieids hinzugefügt werden können
-        val katidarray = IntArray(kategorielist[kategorielist.size - 1].split(",")[0].toInt())
+        katidarray = IntArray(kategorielist[kategorielist.size - 1].split(",")[0].toInt() + 1)
         //Damit wir den noch verbleibenden neu angelegten Kategorien noch die neuen ID#s hinzufügen können, werden diese noch in ein IntArray gespeichert, das mit übergeben wird
         kategorieneuidlist = ArrayList()
         //kategorien erstellen

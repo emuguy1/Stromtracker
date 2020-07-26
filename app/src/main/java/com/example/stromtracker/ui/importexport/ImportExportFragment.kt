@@ -304,6 +304,7 @@ class ImportExportFragment : Fragment() {
                 writeRow("-----------------------------------")
                 writeRow(
                     listOf(
+                        "[GeraeteTyp]",  //Um  beim Import die unterschiedlichen Typen zu unterscheiden. 1 ist Produzent; 2,3,4 und 5 sind unterschiedliche verbraucher mit unterschidlichen Feldern leer
                         "[GeraeteID]",
                         "[Geraetename]",
                         "[KategorieID]",
@@ -320,8 +321,21 @@ class ImportExportFragment : Fragment() {
                     )
                 )
                 geraetlist.forEachIndexed { _, geraet ->
+                    var geraetetyp = 0
+                    if (geraet.getJahresverbrauch() < 0) {
+                        geraetetyp = 1
+                    } else if (geraet.getStromStandBy() == null && geraet.getNotiz() != null) {
+                        geraetetyp = 2
+                    } else if (geraet.getStromStandBy() == null && geraet.getNotiz() == null) {
+                        geraetetyp = 3
+                    } else if (geraet.getStromStandBy() != null && geraet.getNotiz() == null) {
+                        geraetetyp = 4
+                    } else {
+                        geraetetyp = 5
+                    }
                     writeRow(
                         listOf(
+                            geraetetyp,
                             geraet.getGeraeteID(),
                             geraet.getName(),
                             geraet.getKategorieID(),
