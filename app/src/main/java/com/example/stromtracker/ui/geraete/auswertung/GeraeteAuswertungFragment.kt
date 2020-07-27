@@ -124,7 +124,8 @@ class GeraeteAuswertungFragment(
             pie = initPieChart(pie)
 
             pie.data(data)
-            gesamtverbrauchkWh = roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
+            gesamtverbrauchkWh =
+                roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
             gesamtverbrauchEuro =
                 roundTo2Decimal(gesamtverbrauchkWh * currHaushalt.getStromkosten() / 100)
             pie.title(
