@@ -14,8 +14,10 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.database.Urlaub
 import com.example.stromtracker.ui.home.HomeFragment
 import com.example.stromtracker.ui.importexport.ImportExportViewModel
+import java.text.ParseException
 
 class ImportFragmentRaeume(
     private var companion: CompanionImport,
@@ -123,10 +125,31 @@ class ImportFragmentRaeume(
     }
 
     private fun urlaubeErstellen() {
-        //TODO: Urlauibe einfügen
+        try {
+            urlaublist.forEach { row ->
+                val data = row.split(",")
+                val tmpurlaub = Urlaub(
+                    data[1],
+                    companion.getDate(data[2])!!,
+                    companion.getDate(data[3])!!,
+                    data[4].toDouble(),
+                    haushaltidlist[data[5].toInt()]
+                )
+            }
+        } catch (e: ParseException) {
+            Toast.makeText(
+                this.context,
+                R.string.parse_error_datum,
+                Toast.LENGTH_SHORT
+            )
+                .show()
+            e.printStackTrace()
+        }
+
     }
 
     private fun geraeteErstellen() {
+        //TODO: falschen Icons werden noch benutzt
         geraetelist.forEach { row ->
             val data = row.split(",")
             if (data[0].toInt() == 1) {
@@ -164,8 +187,6 @@ class ImportFragmentRaeume(
                 )
                 importexportViewModel.insertGeraet(tmpgeraet)
             } else if (data[0].toInt() == 3) {
-
-                Toast.makeText(this.context, data[9].toString(), Toast.LENGTH_LONG).show()
                 //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
                 tmpgeraet = Geraete(
                     data[2],
@@ -235,7 +256,10 @@ class ImportFragmentRaeume(
                 if (raeume != null) {
                     raumlist.clear()
                     raumlist.addAll(raeume)
-                    createList2()
+                    //Überprüfung ob alle Eingefügt wurden, damit die Funktion nicht mehrmals aufgerufen wird
+                    if (raumlist.size == companion.getraeumealtlist().size + raumErzeugtidlist.size) {
+                        createList2()
+                    }
                 }
             }
         )
@@ -250,7 +274,10 @@ class ImportFragmentRaeume(
                 if (kategorie != null) {
                     kategorieneulist.clear()
                     kategorieneulist.addAll(kategorie)
-                    makeGeraete()
+                    //Überprüfung pb schon alle eingefügt wurden, sodass nicht mehrmals die Funktion aufgerufen wird
+                    if (kategorieneulist.size == companion.getkategoriealtlist().size + kategorienneuidlist.size) {
+                        makeGeraete()
+                    }
                 }
             }
         )

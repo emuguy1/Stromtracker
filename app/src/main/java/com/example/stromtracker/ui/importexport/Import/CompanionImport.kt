@@ -2,6 +2,8 @@ package com.example.stromtracker.ui.importexport.Import
 
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.importexport.ImportExportViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CompanionImport(private var viewModel: ImportExportViewModel) {
     private lateinit var haushaltaltlist: ArrayList<Haushalt>
@@ -34,9 +36,19 @@ class CompanionImport(private var viewModel: ImportExportViewModel) {
         geraetealtlist = list
     }
 
+    fun getraeumealtlist(): ArrayList<Raum> {
+        return raeumealtlist
+    }
 
     fun seturlaubaltlist(list: ArrayList<Urlaub>) {
         urlaubaltlist = list
+    }
+
+    fun getDate(datum: String): Date? {
+        return SimpleDateFormat(
+            "dd.MM.yyyy",
+            Locale.GERMAN
+        ).parse(datum)
     }
 
 }
