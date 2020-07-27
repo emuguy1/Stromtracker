@@ -39,7 +39,7 @@
         <item
             android:id="@+id/nav_amortisationsrechnerPV"
             android:icon="@drawable/ic_menu_amortrechnerpv"
-            android:title="@string/menu_amortisationsrechnerPV" />
+            android:title="@string/menu_amortisationsrechner_pv" />
         <item
             android:id="@+id/nav_co2bilanz"
             android:icon="@drawable/ic_menu_co2bilanz"

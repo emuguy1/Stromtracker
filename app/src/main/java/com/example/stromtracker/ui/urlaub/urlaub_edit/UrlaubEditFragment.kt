@@ -163,7 +163,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
             }
             R.id.urlaub_edit_button_delete -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                confirmDeleteBuilder.setMessage(R.string.urlaub_edit_LöschenConfirm)
+                confirmDeleteBuilder.setMessage(R.string.urlaub_edit_löschen_confirm)
                 confirmDeleteBuilder.setPositiveButton(
                     R.string.ja
                 ) { dialog, _ ->

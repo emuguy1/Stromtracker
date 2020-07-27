@@ -94,7 +94,7 @@ class HaushaltErstellenFragment : Fragment() {
                             .addToBackStack(null).commit()
                         //und anschließend noch ein commit()
                     } else {
-                        Toast.makeText(this.context, R.string.leereFelderHaushalt, Toast.LENGTH_SHORT)
+                        Toast.makeText(this.context, R.string.leere_felder_haushalt, Toast.LENGTH_SHORT)
                             .show()
                     }
                 }

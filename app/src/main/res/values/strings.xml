@@ -16,7 +16,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_haushalt">Haushalt</string>
     <string name="menu_amortisationsrechner">Amortisationsrechner</string>
-    <string name="menu_amortisationsrechnerPV">AmortisationsrechnerPV</string>
+    <string name="menu_amortisationsrechner_pv">AmortisationsrechnerPV</string>
     <string name="menu_co2bilanz">CO2-Bilanz</string>
     <string name="menu_importexport">Import/Export</string>
     <string name="menu_kategorien">Kategorien</string>
@@ -30,15 +30,15 @@
     <string name="kategorie_new_text">Neue Kategorie erstellen</string>
     <string name="kategorie_edit_name">Name der Kategorie</string>
     <string name="kategorie_edit_icon">Icon wählen</string>
-    <string name="kategorie_edit_LöschenConfirm">Sind Sie sicher, dass Sie die Kategorie löschen wollen?</string>
-    <string name="kategorie_new_ungültiger_Wert">Bitte einen gültigen Namen eingeben</string>
+    <string name="kategorie_edit_loeschen_confirm">Sind Sie sicher, dass Sie die Kategorie löschen wollen?</string>
+    <string name="kategorie_new_invalid_value">Bitte einen gültigen Namen eingeben</string>
     <string name="kategorie_edit_info">Kategorie - Sonstiges - darf nicht erstellt werden!</string>
 
     <string name="button_abbrechen">Abbrechen</string>
     <string name="button_speichern">Speichern</string>
     <string name="button_loeschen">Löschen</string>
 
-    <string name="addButton">Add</string>
+    <string name="add_button">Add</string>
 
     <string name="haushaltstrompreis">Strompreis pro kWh</string>
     <string name="haushaltsname">Name des Haushalt</string>
@@ -56,15 +56,15 @@
     <string name="haushaltedithint_stand">z.B. 2500</string>
     <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
     <string name="haushaltedithint_strommix">Auswählen bei Ökomstromvertrag</string>
-    <string name="haushaltlöschenConfirm">Sind Sie sicher, dass Sie den Hauhalt löschen wollen?</string>
-    <string name="leereFelderHaushalt">Eines der folgenden Felder ist leer. Bitte füllen Sie dieses aus, bevor Sie fortfahren: Name, Personenanzahl oder Strompreis</string>
+    <string name="haushaltlöschen_confirm">Sind Sie sicher, dass Sie den Hauhalt löschen wollen?</string>
+    <string name="leere_felder_haushalt">Eines der folgenden Felder ist leer. Bitte füllen Sie dieses aus, bevor Sie fortfahren: Name, Personenanzahl oder Strompreis</string>
 
     <string name="amort_pv_hint_leistung">z.B. 4.5</string>
     <string name="amort_pv_hint_anschaffung">z.B. 10000</string>
-    <string name="amort_pv_hint_jahresertragkWh_zahl">z.B. 4500</string>
+    <string name="amort_pv_hint_jahresertrag_kwh_zahl">z.B. 4500</string>
     <string name="amort_pv_hint_amortdauer_zahl">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_pv_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
-    <string name="amort_pv_hint_jahresertragEuro_zahl">z.B. 406.35</string>
+    <string name="amort_pv_hint_jahresertrag_euro_zahl">z.B. 406.35</string>
     <string name="amort_pv_hint_kwh_pro_kwp">z.B. 1000.35</string>
     <string name="amort_pv_hint_verguetung">z. B. 9.03</string>
     <string name="amort_pv_hint_eigenverbrauch">z. B. 30%</string>
@@ -78,7 +78,7 @@
     <string name="amort_pv_text_anschaffung">Anschaffungskosten</string>
     <string name="amort_pv_text_jahresertragkWh">Jahresertrag in kWh</string>
     <string name="amort_pv_text_amortdauer">Amortisation</string>
-    <string name="amort_pv_text_jahresertragEuro">Jahresertrag in Euro</string>
+    <string name="amort_pv_text_jahresertrag_euro">Jahresertrag in Euro</string>
     <string name="amort_pv_text_kwh_pro_kwp">Ertrag pro kWp in kWh</string>
     <string name="amort_pv_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro kWp (Nennleistung) im Jahr produziert.
         Im Süden Deutschlands beträgt dieser ca. 1020 und im Norden ca. 900 kWh/kWp)</string>
@@ -111,10 +111,10 @@
     <string name="geraet_produktion">Produktion</string>
     <string name="geraete_edit_hint_volllast">z.B 180.0</string>
     <string name="geraete_edit_hint_zeit">z.B 8.0</string>
-    <string name="geraete_edit_hint_standBy">z.B 10.5</string>
+    <string name="geraete_edit_hint_stand_by">z.B 10.5</string>
     <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
 
-    <string name="geraet_new_produzent_prodProJahr">Produzierte Energie pro Jahr</string>
+    <string name="geraet_new_produzent_prod_pro_jahr">Produzierte Energie pro Jahr</string>
     <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie</string>
     <string name="geraet_new_produzent_hint_prozent">z.B 30</string>
     <string name="geraet_new_produzent_hint_name">z.B. PV Anlage</string>
@@ -127,23 +127,23 @@
 
     <string name="raeumname">Name des Raums</string>
     <string name="raumedithint_name">z.B. Wohnzimmer</string>
-    <string name="raumlöschenConfirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
+    <string name="raumlöschen_confirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
     <string name="raum_name_leer">Raum kann nicht gespeichert werden, da kein Name eingegeben wurde.</string>
     <string name="raum_sonstiges_erstellen">Raum - Sonstiges - darf nicht erstellt werden!</string>
 
-    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh</string>
+    <string name="verbrauchsrechner_strompreispkwh">Strompreis pro kWh</string>
 
-    <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
-    <string name="verbrauchsrechner_Zeit_Leistung">Zeit unter Last</string>
-    <string name="verbrauchsrechner_Zeit_Standby">StandBy Zeit</string>
-    <string name="verbrauchsrechner_StandbyLeistung">StandBy-Verbrauch</string>
+    <string name="verbrauchsrechner_leistung_kwh">Stromverbrauch</string>
+    <string name="verbrauchsrechner_zeit_leistung">Zeit unter Last</string>
+    <string name="verbrauchsrechner_zeit_standby">StandBy Zeit</string>
+    <string name="verbrauchsrechner_standby_leistung">StandBy-Verbrauch</string>
     <string name="verbrauchsrechner_verbrauchjahr">Verbrauch/Jahr</string>
-    <string name="verbrauchsrechner_kostenJahr">"Kosten/ Jahr "</string>
+    <string name="verbrauchsrechner_kosten_jahr">"Kosten/ Jahr "</string>
     <string name="verbrauchsrechner_beispiel_stromkosten">z.B. 7.6</string>
     <string name="verbrauchsrechner_beispiel_stromverbrauch">z.B.50</string>
     <string name="verbrauchsrechner_beispiel_vollastzeit">z.B. 4</string>
-    <string name="verbrauchsrechner_beispiel_StandByverbrauch">z.B. 0.5</string>
-    <string name="verbrauchsrechner_beispiel_StandByZeit">z.B. 20</string>
+    <string name="verbrauchsrechner_beispiel_standby_verbrauch">z.B. 0.5</string>
+    <string name="verbrauchsrechner_beispiel_standby_zeit">z.B. 20</string>
 
     //TODO Einheitliche Verwendung
     <string name="text_kWh">kWh</string>
@@ -153,7 +153,7 @@
     <string name="text_kWh_pro_kWp">kWh/kWp</string>
     <string name="text_prozent">%</string>
 
-    <string name="einheit_kWh">kWh</string>
+    <string name="einheit_kwh">kWh</string>
     <string name="einheit_watt">Watt</string>
     <string name="einheit_prozent">Prozent</string>
     <string name="einheit_cent">Cent</string>
@@ -195,13 +195,12 @@
         und kann im Nachhinein nicht mehr geändert werden.
         Dabei wird der StandBy Verbrauch auf einen Tag hochgerechnet,
         falls dieser null ist wird das Ergebnis des Produkts von Vollast-Verbrauch und Betriebszeit verwendet.</string>
-    <string name="urlaub_hint_Urlaub">Urlaub</string>
+    <string name="urlaub_hint_urlaub">Urlaub</string>
     <string name="urlaub_recycler_hint_von">von DD.MM.JJJJ</string>
     <string name="urlaub_recycler_hint_bis">bis DD.MM.JJJJ</string>
-    <string name="urlaub_edit_LöschenConfirm">Sind Sie sicher, dass Sie den Urlaub löschen wollen?</string>
+    <string name="urlaub_edit_löschen_confirm">Sind Sie sicher, dass Sie den Urlaub löschen wollen?</string>
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
-
 
 </resources>

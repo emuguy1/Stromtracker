@@ -120,7 +120,7 @@ class RaeumeBearbeitenLoeschenFragment(
             if (view != null) {
                 //Bestätigungsdialog mithilfe von AlertDialog
                 val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
-                builder1.setMessage(R.string.raumlöschenConfirm)
+                builder1.setMessage(R.string.raumlöschen_confirm)
                 builder1.setPositiveButton(
                     R.string.ja
                 ) { dialog, _ ->

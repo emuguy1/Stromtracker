@@ -103,7 +103,7 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
                 } else {
                     Toast.makeText(
                         this.context,
-                        R.string.kategorie_new_ungültiger_Wert,
+                        R.string.kategorie_new_invalid_value,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

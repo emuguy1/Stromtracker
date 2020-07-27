@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_edit_text"
-            android:hint="@string/geraete_edit_hint_standBy"
+            android:hint="@string/geraete_edit_hint_stand_by"
             android:inputType="numberDecimal"
             android:maxLength="@integer/length_verbrauch"
             app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_standby"

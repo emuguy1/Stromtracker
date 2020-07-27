@@ -216,7 +216,7 @@
                         android:id="@+id/amort_pv_text_jahresertragkWh_zahl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/amort_pv_hint_jahresertragkWh_zahl"
+                        android:hint="@string/amort_pv_hint_jahresertrag_kwh_zahl"
                         android:textColor="@color/colorTextBlack"
                         android:textSize="@dimen/content_text_big" />
                 </androidx.cardview.widget.CardView>
@@ -226,7 +226,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/content_margin_top"
-                    android:text="@string/amort_pv_text_jahresertragEuro"
+                    android:text="@string/amort_pv_text_jahresertrag_euro"
                     android:textSize="@dimen/content_text_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/amort_pv_card_jahresertragkWh"
@@ -245,7 +245,7 @@
                         android:id="@+id/amort_pv_text_JahresertragEuro_zahl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/amort_pv_hint_jahresertragEuro_zahl"
+                        android:hint="@string/amort_pv_hint_jahresertrag_euro_zahl"
                         android:textColor="@color/colorTextBlack"
                         android:textSize="@dimen/content_text_big" />
                 </androidx.cardview.widget.CardView>

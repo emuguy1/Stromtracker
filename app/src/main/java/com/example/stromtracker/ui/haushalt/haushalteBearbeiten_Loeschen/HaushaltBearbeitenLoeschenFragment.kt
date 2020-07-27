@@ -12,7 +12,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
@@ -148,7 +147,7 @@ class HaushaltBearbeitenLoeschenFragment(
                     } else {
                         Toast.makeText(
                             this.context,
-                            R.string.leereFelderHaushalt,
+                            R.string.leere_felder_haushalt,
                             Toast.LENGTH_SHORT
                         )
                             .show()
@@ -185,7 +184,7 @@ class HaushaltBearbeitenLoeschenFragment(
             if (view != null) {
                 //Bestätigungsdialog mithilfe von AlertDialog
                 val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
-                builder1.setMessage(R.string.haushaltlöschenConfirm)
+                builder1.setMessage(R.string.haushaltlöschen_confirm)
                 builder1.setPositiveButton(
                     R.string.ja
                 ) { dialog, _ ->

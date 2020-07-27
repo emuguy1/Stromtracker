@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
-            android:text="@string/einheit_kWh"
+            android:text="@string/einheit_kwh"
             android:textAlignment="center"
             android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@id/edit_text_haushalt_erstellen_zaehlerstand"

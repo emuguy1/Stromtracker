@@ -112,7 +112,7 @@ class KategorienEditFragment(
             }
             R.id.kategorie_edit_button_loeschen -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
+                confirmDeleteBuilder.setMessage(R.string.kategorie_edit_loeschen_confirm)
                 confirmDeleteBuilder.setPositiveButton(
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
@@ -154,7 +154,7 @@ class KategorienEditFragment(
                 } else {
                     Toast.makeText(
                         this.context,
-                        R.string.kategorie_new_ungültiger_Wert,
+                        R.string.kategorie_new_invalid_value,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
