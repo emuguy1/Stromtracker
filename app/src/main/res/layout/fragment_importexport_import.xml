@@ -57,6 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/import_export_import_button"
         android:layout_marginBottom="@dimen/import_export_import_button"
+        android:background="@color/colorPrimary"
+
+        android:textColor="@color/colorWhite"
         android:text="@string/import_export_button_fertig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -230,6 +230,12 @@
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
+
     <string name="import_export_button_fertig">Fertig</string>
+    <string name="import_text_haushalte">Haushalte wurden erstellt</string>
+    <string name="import_text_kategorien">Kategorien wurden erstellt</string>
+    <string name="import_text_raeume">Raeume wurden erstellt</string>
+    <string name="import_text_geraete">Geräte wurden erstellt</string>
+    <string name="import_text_urlaub">Urlaube wurden erstellt</string>
 
 </resources>

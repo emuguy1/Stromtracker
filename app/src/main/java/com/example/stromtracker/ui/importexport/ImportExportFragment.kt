@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -45,8 +44,6 @@ class ImportExportFragment : Fragment() {
         importexportViewModel =
             ViewModelProvider(this).get(ImportExportViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport, container, false)
-
-        val textView: TextView = root.findViewById(R.id.text_importExport)
 
         val exportbut: Button = root.findViewById(R.id.importexport_exportbutton)
         exportbut.setOnClickListener { view ->

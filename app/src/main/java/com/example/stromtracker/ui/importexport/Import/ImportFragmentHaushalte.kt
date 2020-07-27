@@ -42,23 +42,31 @@ class ImportFragmentHaushalte(
         importexportViewModel =
             ViewModelProvider(this).get(ImportExportViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport_import, container, false)
-        createLists()
-        root.findViewById<Button>(R.id.import_export_button_fertig).visibility = View.INVISIBLE
+
+
+        //Button finden und auf Invisible setzen bis man fertig ist mit dem Einfügen der restlichen Elemente
+        val fertigButton = root.findViewById<Button>(R.id.import_export_button_fertig)
+        fertigButton.visibility = View.INVISIBLE
+
+        //Die Haushaltlist holen, die die neuen Werte enthält. Sobald diese die Datzen erhalten hat, wird die make Raeume Methode aufgerufen
+        createList()
+
+        //Text feld zur Fortschrittsanzeige finden
         haushalttext = root.findViewById(R.id.text_view_import_haushalte)
         return root
     }
 
-    fun makeRaeume() {
+    private fun makeRaeume() {
 
         //Alte Haushaltliste setzen, sodass nicht die Standardräume nochmal erzeugt werden
         val mainact = requireActivity() as MainActivity
         mainact.setOldHaushaltList(haushaltlist)
 
         //Anzahl an eingefügten Haushalten herausfinden
-        val eingefügteHaushalte = daten.size
+        val eingefuegteHaushalte = daten.size
 
         //Die ID des ersten Elements, das neu Eingefügt wurde
-        val ersteneueID = haushaltlist[haushaltlist.size - eingefügteHaushalte].getHaushaltID()
+        val ersteneueID = haushaltlist[haushaltlist.size - eingefuegteHaushalte].getHaushaltID()
 
         //Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten Erstellung der neuen Objekte direkt dort hinein zu speichern
         val idarray = IntArray(alteHaushalteIDList[alteHaushalteIDList.size - 1] + 1)
@@ -74,14 +82,14 @@ class ImportFragmentHaushalte(
         raumlist.forEach { row ->
             val data = row.split(",")
             raumidlist.add(data[0].toInt())
-            var tmpraum = Raum(data[2], idarray[data[1].toInt()])
+            val tmpraum = Raum(data[2], idarray[data[1].toInt()])
             importexportViewModel.insertRaum(tmpraum)
         }
 
         //nun werden noch die kategorien erzeugt, sodass im nächsten Schritt dann gleich die Geräte hinzugefügt werden können.
         createkategorien()
 
-        haushalttext.text = "Haushalte wurden erstellt"
+        haushalttext.text = getString(R.string.import_text_haushalte)
         //neues Fragment erstellen auf das weitergeleitet werden soll
         val frag = ImportFragmentRaeume(
             companion,
@@ -124,7 +132,7 @@ class ImportFragmentHaushalte(
         }
     }
 
-    private fun createLists() {
+    private fun createList() {
         haushaltlist = ArrayList()
 
         importexportViewModel.getAllHaushalt().observe(
