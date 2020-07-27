@@ -141,9 +141,9 @@ class ImportFragmentRaeume(
                     0.0,
                     null,
                     false,
-                    data[9].toDouble(),
-                    data[10].toDouble(),
-                    data[11]
+                    data[11].toDouble(),
+                    data[12].toDouble(),
+                    data[13]
                 )
                 importexportViewModel.insertGeraet(tmpgeraet)
             } else if (data[0].toInt() == 2) {
@@ -155,15 +155,17 @@ class ImportFragmentRaeume(
                     haushaltidlist[data[5].toInt()],
                     data[6].toDouble(),
                     null,
-                    data[7].toDouble(),
+                    data[8].toDouble(),
                     null,
-                    data[8].toBoolean(),
-                    data[9].toDouble(),
+                    data[10].toBoolean(),
+                    data[11].toDouble(),
                     null,
-                    data[10]
+                    data[13]
                 )
                 importexportViewModel.insertGeraet(tmpgeraet)
             } else if (data[0].toInt() == 3) {
+
+                Toast.makeText(this.context, data[9].toString(), Toast.LENGTH_LONG).show()
                 //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
                 tmpgeraet = Geraete(
                     data[2],
@@ -172,10 +174,10 @@ class ImportFragmentRaeume(
                     haushaltidlist[data[5].toInt()],
                     data[6].toDouble(),
                     null,
-                    data[7].toDouble(),
+                    data[8].toDouble(),
                     null,
-                    data[8].toBoolean(),
-                    data[9].toDouble(),
+                    data[10].toBoolean(),
+                    data[11].toDouble(),
                     null,
                     null
                 )
@@ -211,7 +213,7 @@ class ImportFragmentRaeume(
                     data[10].toBoolean(),
                     data[11].toDouble(),
                     null,
-                    data[12]
+                    data[13]
                 )
                 importexportViewModel.insertGeraet(tmpgeraet)
             } else {
