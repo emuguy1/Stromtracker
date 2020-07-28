@@ -14,7 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.SharedViewModel
+import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
+import kotlin.math.round
 import kotlin.math.withSign
 
 class CO2BilanzFragment : Fragment() {
@@ -28,8 +30,9 @@ class CO2BilanzFragment : Fragment() {
     private lateinit var raumListHaushalt: ArrayList<Raum>
     private lateinit var currHaushalt: Haushalt
     private val co2: Double = 0.401 //Deutscher Strommix, kg CO2 pro kWh im Jahre 2019
-    private val avgVerbrauch: Double = 1500.0 //Durchschnittlicher Verbrauch
-    private val avgAusstoss: Double = avgVerbrauch * co2
+    private val avgVerbrauchGrund: Double = 500.0 //Durchschnittlicher Verbrauch des Haushalts
+    private val avgVerbrauchPerson: Double = 1000.0
+    private lateinit var textView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +45,8 @@ class CO2BilanzFragment : Fragment() {
         produzentList = ArrayList()
         raumListHaushalt = ArrayList()
         urlaubList = ArrayList()
+
+        textView = root.findViewById(R.id.co2_text)
 
         return root
     }
@@ -114,6 +119,8 @@ class CO2BilanzFragment : Fragment() {
                 if (urlaub != null) {
                     urlaubList.clear()
                     urlaubList.addAll(urlaub)
+                    updateText()
+
                 }
             })
     }
@@ -129,18 +136,40 @@ class CO2BilanzFragment : Fragment() {
 
         var verbrauch = gesamtverbrauch - urlaubsVerbrauch - produzentenVerbrauch
         var personen = currHaushalt.getBewohnerAnzahl()
-        if (!currHaushalt.getOekostrom()) {
-            val ausstoss = verbrauch * co2
-            var proPerson = ausstoss / personen
-            if (proPerson > avgAusstoss) {
-                var percentage = avgAusstoss / proPerson
-                var avgString = "Dies ist um"
-            }
-            var string =
-                "Der derzeitige Gesamtverbrauch beträgt $verbrauch kwH pro Jahr. Dies entspricht einem" +
-                        "gesamten CO2-Ausstoß von $ausstoss" + "kg, oder $proPerson" + "kg pro Person."
+        var avgAusstoss = (avgVerbrauchGrund + (avgVerbrauchPerson * personen)) * co2
+        val ausstoss = roundDouble(verbrauch * co2)
+        var proPerson = ausstoss / personen
+        var percentage = (100 - roundDouble((ausstoss / avgAusstoss) * 100)).withSign(1)
+        var avgString: String
+        var string: String
+        var diff: Double
 
+        if (!currHaushalt.getOekostrom()) {
+            if (ausstoss > avgAusstoss) {
+                diff = roundDouble(ausstoss - avgAusstoss)
+                avgString =
+                    "Dies ist um $percentage" + "% größer als der durchschnittliche Haushalt dieser Größe, " +
+                            "es könnten insgesamt $diff" + "kg CO2 eingespart werden."
+            } else if (ausstoss < avgAusstoss) {
+                diff = roundDouble(avgAusstoss - ausstoss)
+                avgString =
+                    "Dies ist um $percentage" + "% kleiner als der durchschnittliche Haushalt dieser Größe, " +
+                            "dadurch werden insgesamt $diff" + "kg CO2 eingespart."
+            } else {
+                avgString = "Dies entspricht dem exakten deutschen Durchschnitt."
+            }
+            string =
+                "Der derzeitige Gesamtverbrauch beträgt $verbrauch kWh pro Jahr. Dies entspricht einem " +
+                        "gesamten CO2-Ausstoß von $ausstoss" + "kg, oder $proPerson" + "kg pro Person."
+            string += "\n$avgString"
+        } else {
+            var avgProPerson = roundDouble(avgAusstoss / personen)
+            string =
+                "Der derzeitige Gesamtverbrauch beträgt $verbrauch kWh pro Jahr. Dies würde bei Benutzung des deutschen Strommixes einem" +
+                        "gesamten CO2-Ausstoß von $avgAusstoss" + "kg, oder $avgProPerson" + "kg pro Person entsprechen, " +
+                        "die durch den Ökostrom nun (je nach Plan) komplett eingespart werden."
         }
+        textView.text = string
 
 
     }
@@ -149,4 +178,9 @@ class CO2BilanzFragment : Fragment() {
     fun getProdVerbrauch(geraet: Geraete): Double {
         return geraet.getJahresverbrauch().withSign(1) * geraet.getEigenverbrauch()!! / 100
     }
+
+    fun roundDouble(number: Double): Double {
+        return round(number * 100) / 100
+    }
+
 }
