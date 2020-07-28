@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.importexport.Import.CompanionImport
-import com.example.stromtracker.ui.importexport.Import.ImportFragmentHaushalte
+import com.example.stromtracker.ui.importexport.Import.ImportFragmentRaumKategorien
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import java.io.File
 import java.io.FileReader
@@ -208,7 +208,7 @@ class ImportExportFragment : Fragment() {
         impCompanion.setraeumealtlist(raumlist)
         impCompanion.seturlaubaltlist(urlaublist)
         //neues Fragment erstellen auf das weitergeleitet werden soll
-        val frag = ImportFragmentHaushalte(
+        val frag = ImportFragmentRaumKategorien(
             impCompanion,
             daten,
             haushaltidlist,
@@ -367,11 +367,17 @@ class ImportExportFragment : Fragment() {
                     writeRow(
                         listOf(
                             urlaub.getUrlaubID(),
-                            urlaub.getHaushaltID(),
-                            urlaub.getDateVon(),
-                            urlaub.getDateBis(),
                             urlaub.getName(),
-                            urlaub.getErsparnisProTag()
+                            SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).format(
+                                //Kann nicht null sein, da danach geprüft wird.
+                                urlaub.getDateVon()
+                            ),
+                            SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).format(
+                                //Kann nicht null sein, da danach geprüft wird.
+                                urlaub.getDateBis()
+                            ),
+                            urlaub.getErsparnisProTag(),
+                            urlaub.getHaushaltID()
                         )
                     )
                 }
@@ -385,8 +391,7 @@ class ImportExportFragment : Fragment() {
             ).show()
             //TODO : für besseres Testen
             getDatafromcsv(csvFile)
-            //val intent = goToFileIntent(requireContext(), csvFile)
-            //startActivity(intent)
+
 
         } else {
             Toast.makeText(

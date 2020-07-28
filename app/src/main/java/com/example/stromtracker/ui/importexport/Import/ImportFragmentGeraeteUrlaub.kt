@@ -18,8 +18,11 @@ import com.example.stromtracker.database.Urlaub
 import com.example.stromtracker.ui.home.HomeFragment
 import com.example.stromtracker.ui.importexport.ImportExportViewModel
 import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ImportFragmentRaeume(
+class ImportFragmentGeraeteUrlaub(
     private var companion: CompanionImport,
     private var haushaltidlist: IntArray,
     private var kategorienidlist: IntArray,
@@ -89,7 +92,6 @@ class ImportFragmentRaeume(
         //Anzahl an eingefügten Kategorien
         val eingefuegtekategorien = kategorienneuidlist.size
         //Die ID des ersten Elements, das neu Eingefügt wurde
-        //TODO:Schauen wie das ist mit 0 und ob das überall so ist.
         var ersteneueID =
             kategorieneulist[kategorieneulist.size - 1 - eingefuegtekategorien].getKategorieID()
         //Fügt dem bereits existierenden Array die neuen IDs noch hinzu
@@ -130,8 +132,14 @@ class ImportFragmentRaeume(
                 val data = row.split(",")
                 val tmpurlaub = Urlaub(
                     data[1],
-                    companion.getDate(data[2])!!,
-                    companion.getDate(data[3])!!,
+                    SimpleDateFormat(
+                        "dd.MM.yyyy",
+                        Locale.GERMAN
+                    ).parse(data[2]),
+                    SimpleDateFormat(
+                        "dd.MM.yyyy",
+                        Locale.GERMAN
+                    ).parse(data[3]),
                     data[4].toDouble(),
                     haushaltidlist[data[5].toInt()]
                 )
@@ -149,7 +157,7 @@ class ImportFragmentRaeume(
     }
 
     private fun geraeteErstellen() {
-        //TODO: falschen Icons werden noch benutzt
+        //TODO: falschen Icons werden noch manchmal benutzt
         geraetelist.forEach { row ->
             val data = row.split(",")
             if (data[0].toInt() == 1) {

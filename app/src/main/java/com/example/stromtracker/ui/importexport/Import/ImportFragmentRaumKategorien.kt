@@ -16,7 +16,7 @@ import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.importexport.ImportExportViewModel
 
-class ImportFragmentHaushalte(
+class ImportFragmentRaumKategorien(
     private val companion: CompanionImport,
     private var daten: ArrayList<String>,
     private var alteHaushalteIDList: ArrayList<Int>,
@@ -43,6 +43,8 @@ class ImportFragmentHaushalte(
             ViewModelProvider(this).get(ImportExportViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport_import, container, false)
 
+        //Text feld zur Fortschrittsanzeige finden
+        haushalttext = root.findViewById(R.id.text_view_import_haushalte)
 
         //Button finden und auf Invisible setzen bis man fertig ist mit dem Einfügen der restlichen Elemente
         val fertigButton = root.findViewById<Button>(R.id.import_export_button_fertig)
@@ -51,8 +53,6 @@ class ImportFragmentHaushalte(
         //Die Haushaltlist holen, die die neuen Werte enthält. Sobald diese die Datzen erhalten hat, wird die make Raeume Methode aufgerufen
         createList()
 
-        //Text feld zur Fortschrittsanzeige finden
-        haushalttext = root.findViewById(R.id.text_view_import_haushalte)
         return root
     }
 
@@ -91,7 +91,7 @@ class ImportFragmentHaushalte(
 
         haushalttext.text = getString(R.string.import_text_haushalte)
         //neues Fragment erstellen auf das weitergeleitet werden soll
-        val frag = ImportFragmentRaeume(
+        val frag = ImportFragmentGeraeteUrlaub(
             companion,
             idarray,
             katidarray,
@@ -141,7 +141,9 @@ class ImportFragmentHaushalte(
                 if (haushalte != null) {
                     haushaltlist.clear()
                     haushaltlist.addAll(haushalte)
-                    makeRaeume()
+                    if (haushaltlist.size == companion.getHaushaltaltlist().size + daten.size) {
+                        makeRaeume()
+                    }
                 }
             }
         )
