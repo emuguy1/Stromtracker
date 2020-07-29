@@ -1,0 +1,15 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    config = files("config/detekt/detekt.yml")
+    input = files(
+            "app/src/main/java",
+    )
+    reports {
+        html {
+            enabled = true
+            destination = file("app/build/reports/detekt/detekt.html")
+        }
+    }
+    autoCorrect = false
+}
