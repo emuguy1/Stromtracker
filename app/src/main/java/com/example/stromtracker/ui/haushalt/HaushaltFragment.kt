@@ -54,7 +54,7 @@ class HaushaltFragment : Fragment() {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                     }
                     //Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
-                    if (isinit && datain.size > 0) { //Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt werden.
+                    if (isinit && datain.size > 0) { //Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt wird.
                         // Hier nach leer initialisierung und sobald das ganze in die Datenbank gekommen ist,deswegen wird hier gewartet, bis datain bei einem element ist,
                         //bevor es in die if Schleife kommt
                         initRaeume(datain[datain.size - 1].getHaushaltID())

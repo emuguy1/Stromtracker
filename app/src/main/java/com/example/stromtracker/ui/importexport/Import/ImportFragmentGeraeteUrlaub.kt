@@ -136,14 +136,15 @@ class ImportFragmentGeraeteUrlaub(
                     SimpleDateFormat(
                         "dd.MM.yyyy",
                         Locale.GERMAN
-                    ).parse(data[2]),
+                    ).parse(data[2])!!,
                     SimpleDateFormat(
                         "dd.MM.yyyy",
                         Locale.GERMAN
-                    ).parse(data[3]),
+                    ).parse(data[3])!!,
                     data[4].toDouble(),
                     haushaltidlist[data[5].toInt()]
                 )
+                importexportViewModel.insertUrlaub(tmpurlaub)
             }
         } catch (e: ParseException) {
             Toast.makeText(

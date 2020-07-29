@@ -54,4 +54,8 @@ class ImportExportViewModel(application: Application) : AndroidViewModel(applica
         repo.insertGeraete(g)
     }
 
+    fun insertUrlaub(u: Urlaub) {
+        repo.insertUrlaub(u)
+    }
+
 }
