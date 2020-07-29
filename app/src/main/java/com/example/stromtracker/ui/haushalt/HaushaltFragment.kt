@@ -15,6 +15,18 @@ import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.haushalt.haushaltErstellen.HaushaltErstellenFragment
 
+private const val defaultName = "Haushalt1"
+private const val defaultStromkosten = 26.5
+private const val defaultPersonen = 1
+private val defaultEntry: Haushalt = Haushalt(
+    defaultName,
+    defaultStromkosten,
+    defaultPersonen,
+    null,
+    null,
+    false
+)
+
 // deklariert Haushaltfragment als Unterklasse von Fragment
 class HaushaltFragment : Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
@@ -54,8 +66,12 @@ class HaushaltFragment : Fragment() {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                     }
                     // Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
-                    if (isinit && datain.size > 0) { // Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt werden.
-                        // Hier nach leer initialisierung und sobald das ganze in die Datenbank gekommen ist,deswegen wird hier gewartet, bis datain bei einem element ist,
+                    if (isinit && datain.size > 0) {
+                        // Sobald neues Haushalt erstellt wurde,
+                        // sollen ein paar Standardräume erzeugt werden.
+                        // Hier nach leer initialisierung und sobald das ganze in die Datenbank
+                        // gekommen ist,deswegen wird hier gewartet,
+                        // bis datain bei einem element ist,
                         // bevor es in die if Schleife kommt
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                         isinit = false
@@ -67,7 +83,7 @@ class HaushaltFragment : Fragment() {
     }
 
     private fun initHaushalt() {
-        val haushalt = Haushalt("Haushalt", 12.5, 5, null, null, true)
+        val haushalt = defaultEntry
         haushaltViewModel.insertHaushalt(haushalt)
     }
 
@@ -95,7 +111,8 @@ class HaushaltFragment : Fragment() {
         datain = ArrayList()
         viewAdapter = ListAdapterHaushalt(datain)
 
-        // Recyclerview, wo eine Liste aller Haushalte angezeigt wird. Alles weitere wird in ListAdapterHaushalt gesteuert
+        // Recyclerview, wo eine Liste aller Haushalte angezeigt wird.
+        // Alles weitere wird in ListAdapterHaushalt gesteuert
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_haushalt)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = viewAdapter
@@ -110,7 +127,8 @@ class HaushaltFragment : Fragment() {
                 val frag = HaushaltErstellenFragment()
                 // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
                 // und anschließend noch ein commit()

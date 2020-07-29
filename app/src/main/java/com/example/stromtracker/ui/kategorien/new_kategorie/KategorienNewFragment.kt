@@ -81,9 +81,11 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
         // switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
         when (v.id) {
             R.id.kategorie_new_button_abbrechen -> {
-                // neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                // neues Fragment erstellen,
+                // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
-                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                // mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
@@ -95,9 +97,11 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
                     val newKategorie = Kategorie(inputName.text.toString(), selectedIcon)
                     // In DB speichern
                     katViewModel.insertKategorie(newKategorie)
-                    // neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                    // neues Fragment erstellen,
+                    // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                     val frag = KategorienFragment()
-                    // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                    // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                    // mit dem neuen Fragment ersetzen und dann committen.
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
                 } else {

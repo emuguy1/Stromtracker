@@ -30,7 +30,11 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
     ): View? {
         raeumeViewModel =
             ViewModelProvider(this).get(RaeumeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_raeumeerstellen, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_raeumeerstellen,
+            container,
+            false
+        )
         raumnameneditfeld = root.findViewById(R.id.edit_text_raum_erstellen_name)
         customTextListener(raumnameneditfeld)
         informationfield = root.findViewById(R.id.text_view_raum_erstellen_info)
@@ -49,7 +53,8 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
                     val frag = RaeumeFragment()
                     // Fragment Manager aus Main Activity holen
                     val fragMan = parentFragmentManager
-                    // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Ftagment container aus content_main.xml muss ausgeählt werden,
+                    // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                     // und anschließend noch ein commit()
                 } else {
@@ -58,7 +63,9 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
             }
         }
 
-        // Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
+        // Das gleiche noch für den Abbrechen Button,
+        // wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen,
+        // da wir ja das ganze nicht speichern wollen
         // finde den abbrechen button
         val abortbutton: View = root.findViewById(R.id.button_raeume_erstellen_abbrechen)
         // Click listener setzen
@@ -68,7 +75,8 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
                 val frag = RaeumeFragment()
                 // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 // und anschließend noch ein commit()
             }

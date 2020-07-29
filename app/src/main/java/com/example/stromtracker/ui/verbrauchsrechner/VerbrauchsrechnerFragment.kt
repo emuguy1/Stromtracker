@@ -11,6 +11,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.stromtracker.R
 
+private const val tagStunden = 24
+private const val jahrTag = 365
+private const val centToEuro = 0.01
+private const val wattToKiloWatt = 0.001
+
 class VerbrauchsrechnerFragment : Fragment() {
 
     private lateinit var strompreis: EditText
@@ -49,7 +54,7 @@ class VerbrauchsrechnerFragment : Fragment() {
         return root
     }
 
-    fun CustomTextListener(edit: EditText): EditText {
+    private fun CustomTextListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 val neustrompreis: Double? = strompreis.text.toString().toDoubleOrNull()
@@ -62,9 +67,10 @@ class VerbrauchsrechnerFragment : Fragment() {
                 var euro: Double
                 if (neustrompreis != null && lastverbrauch != null && volllastzeit != null) {
 
-                    verbrauch = (((lastverbrauch * volllastzeit) / 1000) * 365)
-                    euro = (((lastverbrauch * volllastzeit) / 1000) * neustrompreis / 100 * 365)
-                    if (volllastzeit > 24) {
+                    verbrauch = (((lastverbrauch * volllastzeit) / wattToKiloWatt) * jahrTag)
+                    euro =
+                        (((lastverbrauch * volllastzeit) / wattToKiloWatt) * neustrompreis * centToEuro * jahrTag)
+                    if (volllastzeit > tagStunden) {
                         warnungstext.text = String.format(
                             "Die Zeit unter Last überschreitet 24h! Sie beträgt: %.1f h",
                             volllastzeit
@@ -73,9 +79,9 @@ class VerbrauchsrechnerFragment : Fragment() {
                         warnungstext.text = null
                     }
                     if (standbystromverbrauch != null && standbydauer != null) {
-                        verbrauch += ((standbystromverbrauch * standbydauer) / 1000) * 365
-                        euro = verbrauch * neustrompreis / 100
-                        if ((volllastzeit + standbydauer) > 24) {
+                        verbrauch += ((standbystromverbrauch * standbydauer) / wattToKiloWatt) * jahrTag
+                        euro = verbrauch * neustrompreis * centToEuro
+                        if ((volllastzeit + standbydauer) > tagStunden) {
                             warnungstext.text = String.format(
                                 "Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt: %.1f h",
                                 (volllastzeit + standbydauer)

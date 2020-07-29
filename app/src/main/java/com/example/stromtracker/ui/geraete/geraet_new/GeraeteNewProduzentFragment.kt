@@ -39,7 +39,11 @@ class GeraeteNewProduzentFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_new_produzent, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_geraete_new_produzent,
+            container,
+            false
+        )
 
         spinnerKat = root.findViewById(R.id.geraete_new_produzent_spinner_kategorie)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -98,7 +102,12 @@ class GeraeteNewProduzentFragment(
                     val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
                     var notiz: String? = inputNotiz.text.toString()
 
-                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0 && notiz != null) {
+                    if (prodProJahr != null &&
+                        prodProJahr > 0.0 &&
+                        eigenverbrauch != null &&
+                        eigenverbrauch > 0.0 &&
+                        notiz != null
+                    ) {
                         // negativer Verbrauch = Produzent, kein Verbraucher
 
                         if (notiz.isEmpty()) {

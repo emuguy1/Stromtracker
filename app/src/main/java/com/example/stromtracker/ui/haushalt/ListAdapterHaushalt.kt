@@ -47,7 +47,8 @@ class ListAdapterHaushalt(datain: List<Haushalt>) :
                 val frag = HaushaltBearbeitenLoeschenFragment(data[layoutPosition])
                 // Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<HaushaltFragment>().parentFragmentManager
-                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                // mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }

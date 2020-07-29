@@ -43,7 +43,11 @@ class GeraeteEditProduzentFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_edit_produzent, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_geraete_edit_produzent,
+            container,
+            false
+        )
 
         spinnerKat = root.findViewById(R.id.geraete_edit_produzent_spinner_kategorie)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -120,7 +124,12 @@ class GeraeteEditProduzentFragment(
                     val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
                     var notiz: String? = inputNotiz.text.toString()
 
-                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0 && notiz != null) {
+                    if (prodProJahr != null &&
+                        prodProJahr > 0.0 &&
+                        eigenverbrauch != null &&
+                        eigenverbrauch > 0.0 &&
+                        notiz != null
+                    ) {
 
                         if (notiz.isEmpty()) {
                             notiz = null
@@ -162,13 +171,15 @@ class GeraeteEditProduzentFragment(
         confirmDeleteBuilder.setMessage(R.string.geraete_edit_confirmDelete)
         confirmDeleteBuilder.setPositiveButton(
             R.string.ja,
-            DialogInterface.OnClickListener { dialog, id ->
+            DialogInterface.OnClickListener { dialog, _ ->
                 // Daten werden aus der Datenbank gelöscht
                 geraeteViewModel.deleteGeraet(currGeraet)
-                // Man wir nur weitergeleitet, wenn man wirklich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                // Man wir nur weitergeleitet, wenn man wirklich löschen will.
+                // Deswegen nur bei positiv der Fragmentwechsel.
                 // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = GeraeteFragment()
-                // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Fragment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
                 // und anschließend noch ein commit()
@@ -177,7 +188,7 @@ class GeraeteEditProduzentFragment(
 
         confirmDeleteBuilder.setNegativeButton(
             R.string.nein,
-            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+            DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
 
         val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
         confirmDeleteDialog.show()

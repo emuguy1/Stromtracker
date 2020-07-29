@@ -39,7 +39,11 @@ class GeraeteNewVerbraucherFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_new_verbraucher, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_geraete_new_verbraucher,
+            container,
+            false
+        )
 
         spinnerKat = root.findViewById(R.id.geraete_new_kategorie_spinner)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -95,7 +99,10 @@ class GeraeteNewVerbraucherFragment(
         val fragMan = parentFragmentManager
         when (v.id) {
             R.id.geraete_new_save -> {
-                if (inputName.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() && inputVolllast.text.isNotEmpty()) {
+                if (inputName.text.isNotEmpty() &&
+                    inputZeitVolllast.text.isNotEmpty() &&
+                    inputVolllast.text.isNotEmpty()
+                ) {
 
                     val volllast: Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
@@ -106,9 +113,14 @@ class GeraeteNewVerbraucherFragment(
 
                     if (volllast != null && zeitVolllast != null && notiz != null) {
                         if (zeitStandBy != null && standby != null) {
-                            if (zeitStandBy <= GeraeteCompanion.maxHours && zeitVolllast <= GeraeteCompanion.maxHours && (zeitStandBy + zeitVolllast) <= GeraeteCompanion.maxHours) {
+                            if (zeitStandBy <= GeraeteCompanion.maxHours &&
+                                zeitVolllast <= GeraeteCompanion.maxHours &&
+                                (zeitStandBy + zeitVolllast) <= GeraeteCompanion.maxHours
+                            ) {
                                 jahresverbrauch =
-                                    GeraeteCompanion.calculateKWH((volllast * zeitVolllast) + (zeitStandBy * standby))
+                                    GeraeteCompanion.calculateKWH(
+                                        (volllast * zeitVolllast) + (zeitStandBy * standby)
+                                    )
                             } else {
                                 GeraeteCompanion.validTimes(this.context)
                                 return

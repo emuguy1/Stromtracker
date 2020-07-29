@@ -46,7 +46,10 @@ class KategorienEditFragment(
         katViewModel =
             ViewModelProvider(this).get(KategorienViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_kategorien_edit,
+            container,
+            false)
         currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_editName)
         currNameEdit.setText(currKategorie.getName())
         customTextListener(currNameEdit)
@@ -79,7 +82,8 @@ class KategorienEditFragment(
             }
         }
 
-        // Wenn Raum Sonstiges ist, soll der Name nicht geändert werden können under Raum auch nicht gelöscht werden können.
+        // Wenn Raum Sonstiges ist,
+        // soll der Name nicht geändert werden können under Raum auch nicht gelöscht werden können.
         if (currKategorie.getName() == "Sonstiges") {
             saveBtn.visibility = View.INVISIBLE
             delBtn.visibility = View.INVISIBLE
@@ -104,9 +108,11 @@ class KategorienEditFragment(
         // switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
         when (v.id) {
             R.id.kategorie_edit_button_abbrechen -> {
-                // neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                // neues Fragment erstellen,
+                // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
-                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                // mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
@@ -116,17 +122,20 @@ class KategorienEditFragment(
                 confirmDeleteBuilder.setPositiveButton(
                     R.string.ja,
                     DialogInterface.OnClickListener { dialog, id ->
-                        // Alle Geräte die der aktuellen Kategorie hinzugefügt sind, werden dem SonstigeKategorie zugeordnet
+                        // Alle Geräte die der aktuellen Kategorie hinzugefügt sind,
+                        // werden dem SonstigeKategorie zugeordnet
                         katViewModel.updateGeraeteByKategorieID(
                             currKategorie.getKategorieID(),
                             sonstigesKatID
                         )
                         // Daten werden aus der Datenbank gelöscht
                         katViewModel.deleteKategorie(currKategorie)
-                        // Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                        // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
+                        // Deswegen nur bei positiv der Fragmentwechsel.
                         // neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = KategorienFragment()
-                        // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                        // Fragment container aus content_main.xml muss ausgeählt werden,
+                        // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
                         // und anschließend noch ein commit()
@@ -146,9 +155,11 @@ class KategorienEditFragment(
                     currKategorie.setIcon(selectedIcon)
                     // Daten werden in der DB gespeichert
                     katViewModel.updateKategorie(currKategorie)
-                    // neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                    // neues Fragment erstellen,
+                    // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                     val frag = KategorienFragment()
-                    // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                    // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                    // mit dem neuen Fragment ersetzen und dann committen.
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
                 } else {

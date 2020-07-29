@@ -158,7 +158,11 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
                         ).show()
                     }
                 } else {
-                    Toast.makeText(this.context, R.string.toast_invalid_values, Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        this.context,
+                        R.string.toast_invalid_values,
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
             }
@@ -170,10 +174,12 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
                 ) { dialog, _ ->
                     // Daten werden aus der Datenbank gelöscht
                     urlaubViewModel.deleteUrlaub(urlaub)
-                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
+                    // Deswegen nur bei positiv der Fragmentwechsel.
                     // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = UrlaubFragment()
-                    // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Fragment container aus content_main.xml muss ausgeählt werden,
+                    // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
                     // und anschließend noch ein commit()

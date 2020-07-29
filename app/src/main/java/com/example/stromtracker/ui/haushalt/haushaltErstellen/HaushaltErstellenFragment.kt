@@ -28,7 +28,11 @@ class HaushaltErstellenFragment : Fragment() {
     ): View? {
         haushaltViewModel =
             ViewModelProvider(this).get(HaushaltViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_haushalterstellen, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_haushalterstellen,
+            container,
+            false
+        )
 
         // Die einzelnen Felder finden:
         val haushaltsnameneditfeld =
@@ -49,7 +53,8 @@ class HaushaltErstellenFragment : Fragment() {
         // Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
-                // Schauen ob das Datum das geparsed werden soll, das richtige ist, dafür try catch Block
+                // Schauen ob das Datum das geparsed werden soll,
+                // das richtige ist, dafür try catch Block
                 try {
                     // Überprüfen ob alle Werte die gesetzt sein müssen gesetzt wurden
                     if (haushaltsnameneditfeld.text.isNotEmpty() &&
@@ -63,7 +68,9 @@ class HaushaltErstellenFragment : Fragment() {
                         val stromkosten = strompreiseditfeld.text.toString().toDouble()
                         val oekostrom = oekomixeditfeld.isChecked
 
-                        if (datumeditfeld.text.isNotEmpty() && zaehlerstandeditfeld.text.isNotEmpty()) {
+                        if (datumeditfeld.text.isNotEmpty() &&
+                            zaehlerstandeditfeld.text.isNotEmpty()
+                        ) {
                             val zaehlerstand = zaehlerstandeditfeld.text.toString().toDouble()
                             // Datum einfügen
                             val tempDateDate = SimpleDateFormat(
@@ -80,7 +87,14 @@ class HaushaltErstellenFragment : Fragment() {
                             )
                         } else {
                             newHaushalt =
-                                Haushalt(name, stromkosten, bewohner, null, null, oekostrom)
+                                Haushalt(
+                                    name,
+                                    stromkosten,
+                                    bewohner,
+                                    null,
+                                    null,
+                                    oekostrom
+                                )
                         }
                         // Haushalt in Room Datenbank speichern
                         haushaltViewModel.insertHaushalt(newHaushalt)
@@ -89,12 +103,17 @@ class HaushaltErstellenFragment : Fragment() {
                         val frag = HaushaltFragment()
                         // Fragment Manager aus Main Activity holen
                         val fragMan = parentFragmentManager
-                        // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                        // Ftagment container aus content_main.xml muss ausgeählt werden,
+                        // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
                         // und anschließend noch ein commit()
                     } else {
-                        Toast.makeText(this.context, R.string.leere_felder_haushalt, Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this.context,
+                            R.string.leere_felder_haushalt,
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 } catch (e: ParseException) {
@@ -105,7 +124,9 @@ class HaushaltErstellenFragment : Fragment() {
             }
         }
 
-        // Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
+        // Das gleiche noch für den Abbrechen Button,
+        // wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen,
+        // da wir ja das ganze nicht speichern wollen
         // finde den abbrechen button
         val abortbutton: View = root.findViewById(R.id.button_haushalt_erstellen_abbrechen)
         // Click listener setzen
@@ -115,7 +136,8 @@ class HaushaltErstellenFragment : Fragment() {
                 val frag = HaushaltFragment()
                 // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Fragment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 // und anschließend noch ein commit()
             }

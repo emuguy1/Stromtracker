@@ -55,7 +55,8 @@ class RaeumeFragment : Fragment() {
         )
 
         datain = ArrayList()
-        // Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
+        // Recyclerview, wo eine Liste aller Raeume angezeigt wird.
+        // Alles weitere in ListAdapterraeume:
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_raeume)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         viewAdapter = ListAdapterraeume(datain)
@@ -72,7 +73,8 @@ class RaeumeFragment : Fragment() {
                 val frag = RaeumeErstellenFragment(haushaltid)
                 // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Fragment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
                 // und anschließend noch ein commit()

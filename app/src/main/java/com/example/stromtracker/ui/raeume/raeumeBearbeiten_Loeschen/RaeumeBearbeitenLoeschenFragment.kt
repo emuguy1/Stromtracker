@@ -69,7 +69,8 @@ class RaeumeBearbeitenLoeschenFragment(
         val raumnameneditfeld = root.findViewById<EditText>(R.id.edit_text_raum_bearbeiten_name)
         raumnameneditfeld.setText(currRaum.getName())
 
-        // Wenn Raum Sonstiges ist, soll der Name nicht geändert werden können under Raum auch nicht gelöscht werden können.
+        // Wenn Raum Sonstiges ist, soll der Name nicht geändert werden können
+        // und der Raum auch nicht gelöscht werden können.
         if (currRaum.getName() == "Sonstiges") {
             savebutton.visibility = View.INVISIBLE
             deletebutton.visibility = View.INVISIBLE
@@ -89,7 +90,8 @@ class RaeumeBearbeitenLoeschenFragment(
                     val frag = RaeumeFragment()
                     // Fragment Manager aus Main Activity holen
                     val fragMan = parentFragmentManager
-                    // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Ftagment container aus content_main.xml muss ausgeählt werden,
+                    // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
                     // und anschließend noch ein commit()
@@ -98,7 +100,9 @@ class RaeumeBearbeitenLoeschenFragment(
                 }
             }
         }
-        // Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
+        // Das gleiche noch für den Abbrechen Button,
+        // wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen,
+        // da wir ja das ganze nicht speichern wollen
         // Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
@@ -106,7 +110,8 @@ class RaeumeBearbeitenLoeschenFragment(
                 val frag = RaeumeFragment()
                 // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 // und anschließend noch ein commit()
             }
@@ -121,17 +126,20 @@ class RaeumeBearbeitenLoeschenFragment(
                 builder1.setPositiveButton(
                     R.string.ja
                 ) { dialog, _ ->
-                    // Alle Geräte die dem aktuellen Raum hinzugefügt sind, werden dem Sonstigeraum zugeordnet
+                    // Alle Geräte die dem aktuellen Raum hinzugefügt sind,
+                    // werden dem Sonstigeraum zugeordnet
                     raeumeViewModel.updateGeraeteByRaumId(currRaum.getRaumID(), sonstigesraumid)
                     // Daten werden aus der Datenbank gelöscht
                     // Daten aus Datenbank löschen
                     raeumeViewModel.deleteRaeume(currRaum)
-                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
+                    // Deswegen nur bei positiv der Fragmentwechsel.
                     // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = RaeumeFragment()
                     // Fragment Manager aus Main Activity holen
                     val fragMan = parentFragmentManager
-                    // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Ftagment container aus content_main.xml muss ausgeählt werden,
+                    // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                     // und anschließend noch ein commit()
                     dialog.cancel()

@@ -27,6 +27,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.withSign
 
+private const val numToProzent = 0.01
+private const val minDays = 1
+
 class HaushaltBearbeitenLoeschenFragment(
     private var currHaushalt: Haushalt
 ) : Fragment() {
@@ -51,7 +54,11 @@ class HaushaltBearbeitenLoeschenFragment(
         haushaltViewModel =
             ViewModelProvider(this).get(HaushaltViewModel::class.java)
         val root =
-            inflater.inflate(R.layout.fragment_haushalt_bearbeiten_loeschen, container, false)
+            inflater.inflate(
+                R.layout.fragment_haushalt_bearbeiten_loeschen,
+                container,
+                false
+            )
 
         verbraucherInHaushalt = ArrayList()
         produzentenInHaushalt = ArrayList()
@@ -84,7 +91,8 @@ class HaushaltBearbeitenLoeschenFragment(
         if (currHaushalt.getZaehlerstand() != null && currHaushalt.getDatum() != null) {
             var tempString = currHaushalt.getZaehlerstand().toString() + " kWh"
             zaehlerstandAkt.text = tempString
-            // currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
+            // currHaushalt.getDatum() kann nicht Null sein,
+            // da ja in der if Schleife genau dies überprüpft wird
             tempString = SimpleDateFormat(
                 "dd.MM.yyyy",
                 Locale.GERMAN
@@ -123,14 +131,18 @@ class HaushaltBearbeitenLoeschenFragment(
                             val currDate = currHaushalt.getDatum()
                             val currZaehler = currHaushalt.getZaehlerstand()
                             if (currDate != null && currZaehler != null) {
-                                if (tempDate.after(currHaushalt.getDatum()) && zaehlerNeu > currZaehler) {
+                                if (tempDate.after(currHaushalt.getDatum()) &&
+                                    zaehlerNeu > currZaehler
+                                ) {
                                     currHaushalt.setZaehlerstand(zaehlerNeu)
-                                    // Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
+                                    // Kann nicht null sein, da eventuelle Parser Fehler
+                                    // durch try catch abgefangen werden.
                                     currHaushalt.setDatum(tempDate)
                                 }
                             } else {
                                 currHaushalt.setZaehlerstand(zaehlerNeu)
-                                // Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
+                                // Kann nicht null sein,
+                                // da eventuelle Parser Fehler durch try catch abgefangen werden.
                                 currHaushalt.setDatum(tempDate)
                             }
                         }
@@ -139,7 +151,8 @@ class HaushaltBearbeitenLoeschenFragment(
                         val frag = HaushaltFragment()
                         // Fragment Manager aus Main Activity holen
                         val fragMan = parentFragmentManager
-                        // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                        // Ftagment container aus content_main.xml muss ausgeählt werden,
+                        // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
                         // und anschließend noch ein commit()
@@ -158,7 +171,9 @@ class HaushaltBearbeitenLoeschenFragment(
                 }
             }
         }
-        // Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
+        // Das gleiche noch für den Abbrechen Button,
+        // wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen,
+        // da wir ja das ganze nicht speichern wollen
         // finde den abbrechen button
         val abortbutton: View = root.findViewById(R.id.button_haushalt_bearbeiten_abbrechen)
         // Click listener setzen
@@ -168,7 +183,8 @@ class HaushaltBearbeitenLoeschenFragment(
                 val frag = HaushaltFragment()
                 // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 // und anschließend noch ein commit()
             }
@@ -187,12 +203,14 @@ class HaushaltBearbeitenLoeschenFragment(
                 ) { dialog, _ ->
                     // Daten werden aus der Datenbank gelöscht
                     haushaltViewModel.deleteHaushalt(currHaushalt)
-                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
+                    // Deswegen nur bei positiv der Fragmentwechsel.
                     // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = HaushaltFragment()
                     // Fragment Manager aus Main Activity holen
                     val fragMan = parentFragmentManager
-                    // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Ftagment container aus content_main.xml muss ausgeählt werden,
+                    // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                     // und anschließend noch ein commit()
                     dialog.cancel()
@@ -248,18 +266,27 @@ class HaushaltBearbeitenLoeschenFragment(
                         val currDate = currHaushalt.getDatum()
                         val currZaehler = currHaushalt.getZaehlerstand()
                         if (currDate != null && currZaehler != null) {
-                            if (tempDate.after(currHaushalt.getDatum()) && zaehlerNeu > currZaehler) {
+                            if (tempDate.after(currHaushalt.getDatum()) &&
+                                zaehlerNeu > currZaehler
+                            ) {
                                 val tempStr: String
                                 val days: Int =
-                                    ((tempDate.time / UrlaubCompanion.dateTimeToDays) - (currDate.time / UrlaubCompanion.dateTimeToDays)).toInt()
+                                    ((tempDate.time / UrlaubCompanion.dateTimeToDays) -
+                                            (currDate.time / UrlaubCompanion.dateTimeToDays))
+                                        .toInt()
                                 val diff = zaehlerNeu - currZaehler
                                 var perYear = diff / days / UrlaubCompanion.yearToDay
                                 perYear = String.format("%.2f", perYear).toDouble()
                                 val estimatedGesamt = calculateGesamtverbrauch()
                                 tempStr =
-                                    "Zwischen den beiden Zählerständen liegen $days Tage mit einer Differenz von $diff kWh.\n" +
-                                            "Auf ein Jahr hochgerechnet, ergibt sich ein Verbrauch von $perYear kWh pro Jahr.\n" +
-                                            "Durch die eingetragenen Verbraucher, Produzenten und Urlaube wird ein Verbrauch von $estimatedGesamt kWh pro Jahr geschätzt."
+                                    "Zwischen den beiden Zählerständen liegen $days Tage" +
+                                            " mit einer Differenz von $diff kWh.\n" +
+                                            "Auf ein Jahr hochgerechnet, " +
+                                            "ergibt sich ein Verbrauch" +
+                                            " von $perYear kWh pro Jahr.\n" +
+                                            "Durch die eingetragenen Verbraucher, Produzenten" +
+                                            " und Urlaube wird ein Verbrauch von" +
+                                            " $estimatedGesamt kWh pro Jahr geschätzt."
                                 auswertung.text = tempStr
                             } else {
                                 auswertung.text = null
@@ -293,14 +320,20 @@ class HaushaltBearbeitenLoeschenFragment(
 
         val tempList: ArrayList<Urlaub> = ArrayList()
         for (currUrlaub in urlaubeInHaushalt) {
-            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt() == (Calendar.getInstance()
+            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt()
+                == (Calendar.getInstance()
                     .get(Calendar.YEAR))
             ) {
                 tempList.add(currUrlaub)
             }
         }
         tempSum += tempList.sumByDouble { urlaub ->
-            urlaub.getErsparnisProTag() * (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays - urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
+            (urlaub.getErsparnisProTag() *
+                    (urlaub.getDateBis().time /
+                            UrlaubCompanion.dateTimeToDays -
+                            urlaub.getDateVon().time /
+                            UrlaubCompanion.dateTimeToDays +
+                            minDays))
         }.withSign(-1)
 
         tempSum = String.format("%.2f", tempSum).toDouble()
@@ -308,6 +341,8 @@ class HaushaltBearbeitenLoeschenFragment(
     }
 
     fun getProdVerbrauch(geraet: Geraete): Double {
-        return geraet.getJahresverbrauch().withSign(1) * geraet.getEigenverbrauch()!! / 100
+        return (geraet.getJahresverbrauch().withSign(1) *
+                geraet.getEigenverbrauch()!!
+                * numToProzent)
     }
 }

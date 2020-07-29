@@ -24,8 +24,13 @@ class UrlaubListAdapter(private val myUrlaub: List<Urlaub>, private val currHaus
 
         val layoutInflater = LayoutInflater.from(parent.context)
         val mItemView =
-            layoutInflater.inflate(R.layout.fragment_urlaub_recycler_text_view, parent, false)
-        // mItemView ist nun die jeweilige View auf das ConstraintLayout der Items in der Recyclerview
+            layoutInflater.inflate(
+                R.layout.fragment_urlaub_recycler_text_view,
+                parent,
+                false
+            )
+        // mItemView ist nun die jeweilige View auf das ConstraintLayout der Items
+        // in der Recyclerview
 
         // UrlaubViewHolder erstellen und returnen, diesem wird die mItemView übergeben.
         return UrlaubViewHolder(mItemView)
@@ -50,7 +55,8 @@ class UrlaubListAdapter(private val myUrlaub: List<Urlaub>, private val currHaus
     inner class UrlaubViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(mItemView),
         View.OnClickListener {
 
-        // Über die mItemView lassen sich nun die Inhalte auslesen, diese werden in der init-Funktion initialisiert und Click Listener registriert
+        // Über die mItemView lassen sich nun die Inhalte auslesen,
+        // diese werden in der init-Funktion initialisiert und Click Listener registriert
         val mTextView: TextView
         private val mCardView: CardView = mItemView.findViewById(R.id.urlaub_recycler_card)
         val dateVon: TextView
@@ -66,11 +72,13 @@ class UrlaubListAdapter(private val myUrlaub: List<Urlaub>, private val currHaus
         override fun onClick(v: View?) {
             if (v != null) {
                 // layoutposition gibt an, welche Position geklickt wurde
-                // neues Fragment erstellen, Beim Klick auf eine Kategorie soll ja auf die Seite mit Kategorie Bearbeiten weitergeleitet werden
+                // neues Fragment erstellen, Beim Klick auf eine Kategorie soll ja auf die Seite
+                // mit Kategorie Bearbeiten weitergeleitet werden
                 val frag = UrlaubEditFragment(myUrlaub[layoutPosition], currHaushalt)
                 // Fragment Manager aus Main Activity holen
                 val fragMan = mItemView.findFragment<UrlaubFragment>().parentFragmentManager
-                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                // mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
