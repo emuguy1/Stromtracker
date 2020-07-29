@@ -95,7 +95,7 @@ class AmortisationsrechnerPVFragment : Fragment() {
                 outJahresertragEuro.text = outStr
 
                 val amortDouble = (ak / JEeuro)
-                //Das Jahr wird immer auf ganze Zahlen abgerundet
+                // Das Jahr wird immer auf ganze Zahlen abgerundet
                 val df = DecimalFormat("#")
                 df.roundingMode = RoundingMode.DOWN
                 outStr = df.format(amortDouble) + " Jahre und " + String.format(

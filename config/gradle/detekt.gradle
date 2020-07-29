@@ -11,5 +11,5 @@ detekt {
             destination = file("app/build/reports/detekt/detekt.html")
         }
     }
-    autoCorrect = false
+    autoCorrect = true
 }

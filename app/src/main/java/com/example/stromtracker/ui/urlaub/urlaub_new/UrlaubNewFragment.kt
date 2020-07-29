@@ -77,15 +77,15 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
     private fun loadGesamtverbrauch() {
         for (geraet in geraete) {
             if (geraet.getUrlaubsmodus() == false) {
-                if (geraet.getStromStandBy() != null && geraet.getBetriebszeitStandBy() != null)
+                if (geraet.getStromStandBy() != null && geraet.getBetriebszeitStandBy() != null) {
                     gesamtverbrauchNeuPT += geraet.getStromStandBy()!! * dayLen
-                else {
+                } else {
                     gesamtverbrauchNeuPT += geraet.getStromVollast() * geraet.getBetriebszeit()
                 }
             }
             gesamtverbrauchAktPT += geraet.getJahresverbrauch()
         }
-        //Beide werden nun einheitlich gespeichert, als kWh pro Tag
+        // Beide werden nun einheitlich gespeichert, als kWh pro Tag
         gesamtverbrauchNeuPT *= wattToKW
         gesamtverbrauchAktPT *= yearToDay
     }
@@ -169,15 +169,17 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
                         val fragman = parentFragmentManager
                         fragman.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-                    } else
+                    } else {
                         Toast.makeText(
                             this.context,
                             R.string.toast_invalid_date,
                             Toast.LENGTH_SHORT
                         ).show()
-                } else
+                    }
+                } else {
                     Toast.makeText(this.context, R.string.toast_invalid_values, Toast.LENGTH_SHORT)
                         .show()
+                }
             }
         }
     }

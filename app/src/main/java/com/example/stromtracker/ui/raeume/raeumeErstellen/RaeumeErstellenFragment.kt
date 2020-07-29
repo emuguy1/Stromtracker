@@ -34,49 +34,44 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
         raumnameneditfeld = root.findViewById(R.id.edit_text_raum_erstellen_name)
         customTextListener(raumnameneditfeld)
         informationfield = root.findViewById(R.id.text_view_raum_erstellen_info)
-        //Speicher Button zum speichern der eingegebenen Daten
-        //finde den save button
+        // Speicher Button zum speichern der eingegebenen Daten
+        // finde den save button
         savebutton = root.findViewById(R.id.button_raeume_erstellen_speichern)
-        //Click listener setzen
+        // Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
                 if (!raumnameneditfeld.text.isNullOrBlank()) {
-                    //Die Daten in die RoomDatabase speichern
+                    // Die Daten in die RoomDatabase speichern
                     val raum =
                         Raum(raumnameneditfeld.text.toString(), currHaushaltid)
                     raeumeViewModel.insertRaeume(raum)
-                    //neues Fragment erstellen auf das weitergeleitet werden soll
+                    // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = RaeumeFragment()
-                    //Fragment Manager aus Main Activity holen
+                    // Fragment Manager aus Main Activity holen
                     val fragMan = parentFragmentManager
-                    //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
-                    //und anschließend noch ein commit()
+                    // und anschließend noch ein commit()
                 } else {
                     informationfield.text = raumnameleer
                 }
-
-
             }
-
         }
 
-        //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
-        //finde den abbrechen button
+        // Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
+        // finde den abbrechen button
         val abortbutton: View = root.findViewById(R.id.button_raeume_erstellen_abbrechen)
-        //Click listener setzen
+        // Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = RaeumeFragment()
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
-                //und anschließend noch ein commit()
-
+                // und anschließend noch ein commit()
             }
-
         }
 
         return root
@@ -98,6 +93,5 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
         return edit
-
     }
 }

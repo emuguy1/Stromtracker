@@ -20,7 +20,6 @@ import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragmen
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
 
-
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var geraeteViewModel: GeraeteViewModel
@@ -55,7 +54,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var iconArray: Array<Int>
 
     private lateinit var buttonZuAuswertung: Button
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,8 +92,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         var mainAct = requireActivity() as MainActivity
         iconArray = mainAct.getIconArray()
 
-
-
         viewManager = LinearLayoutManager(this.context)
 
         viewAdapter =
@@ -119,13 +115,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         return root
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-
 
         val verbraucherData: LiveData<List<Geraete>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
@@ -198,8 +192,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     urlaubList.addAll(urlaub)
                 }
             })
-
-
     }
 
     override fun onClick(v: View) {
@@ -225,7 +217,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortVerbrauch.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortName.paintFlags = 0
                 buttonSortRaum.paintFlags = 0
-                //TODO schönere Lösung?
+                // TODO schönere Lösung?
                 buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName.typeface = Typeface.DEFAULT_BOLD
                 buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
@@ -243,15 +235,12 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName.typeface = Typeface.DEFAULT_BOLD
                 buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
-
-
             }
 
             R.id.geraete_button_sort_raum -> {
 
-                //TODO sortieren über Name? Problem: Gerät zu dem jeweiligen Raum matchen, eventuell for Schleife
+                // TODO sortieren über Name? Problem: Gerät zu dem jeweiligen Raum matchen, eventuell for Schleife
                 var sortedRaum = verbraucherList.sortedWith(compareBy { it.getRaumID() })
-
 
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedRaum)
@@ -279,7 +268,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortProduktion_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName_prod.typeface = Typeface.DEFAULT_BOLD
-
             }
 
             R.id.geraete_button_sort_name_prod -> {
@@ -311,7 +299,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortProduktion_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName_prod.typeface = Typeface.DEFAULT_BOLD
-
             }
 
             R.id.geraete_button_auswertung -> {

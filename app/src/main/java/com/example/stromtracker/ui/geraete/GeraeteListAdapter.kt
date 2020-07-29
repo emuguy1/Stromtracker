@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
-import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment
@@ -39,7 +38,7 @@ class GeraeteListAdapter(
 
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
         holder.mTextView.text = geraeteList[position].getName()
-        //.withSign(1) lässt den "Verbrauch" bzw. die Produktion von Produzenten positiv anzeigen, da diese als negativer Verbrauch in der DB gespeichert ist
+        // .withSign(1) lässt den "Verbrauch" bzw. die Produktion von Produzenten positiv anzeigen, da diese als negativer Verbrauch in der DB gespeichert ist
         holder.mVerbrauchView.text =
             String.format("%.2f", geraeteList[position].getJahresverbrauch().withSign(1))
         val raumID = geraeteList[position].getRaumID()
@@ -78,20 +77,21 @@ class GeraeteListAdapter(
         override fun onClick(v: View?) {
             val frag: Fragment
             if (v != null) {
-                if (geraeteList[layoutPosition].getJahresverbrauch() < 0)
+                if (geraeteList[layoutPosition].getJahresverbrauch() < 0) {
                     frag = GeraeteEditProduzentFragment(
                         geraeteList[layoutPosition],
                         katList,
                         raumListHaushalt
                     )
-                else
+                } else {
                     frag = GeraeteEditVerbraucherFragment(
                         geraeteList[layoutPosition],
                         katList,
                         raumListHaushalt
                     )
+                }
                 val fragMan = v.findFragment<GeraeteFragment>().parentFragmentManager
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }

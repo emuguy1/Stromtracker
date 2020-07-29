@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.R
-import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment
 
@@ -21,7 +20,6 @@ class ListAdapterraeume(private val datain: ArrayList<Raum>) :
         return ViewHolder(view)
     }
 
-
     override fun getItemCount(): Int {
         return data.size
     }
@@ -30,7 +28,6 @@ class ListAdapterraeume(private val datain: ArrayList<Raum>) :
         val item: String = data[position].toString()
         holder.textView.text = item
         holder.textView
-
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -44,9 +41,9 @@ class ListAdapterraeume(private val datain: ArrayList<Raum>) :
         override fun onClick(view: View?) {
             if (view != null) {
                 val frag = RaeumeBearbeitenLoeschenFragment(data[layoutPosition], datain)
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<RaeumeFragment>().parentFragmentManager
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }

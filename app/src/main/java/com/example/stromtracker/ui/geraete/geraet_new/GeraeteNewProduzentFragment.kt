@@ -27,7 +27,6 @@ class GeraeteNewProduzentFragment(
     private lateinit var inputVerbrauch: EditText
     private lateinit var inputNotiz: EditText
 
-
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
 
@@ -41,7 +40,6 @@ class GeraeteNewProduzentFragment(
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_geraete_new_produzent, container, false)
-
 
         spinnerKat = root.findViewById(R.id.geraete_new_produzent_spinner_kategorie)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -66,7 +64,6 @@ class GeraeteNewProduzentFragment(
 
         inputNotiz = root.findViewById(R.id.geraete_prod_new_edit_notiz)
 
-
         return root
     }
 
@@ -77,7 +74,6 @@ class GeraeteNewProduzentFragment(
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
-
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
@@ -92,7 +88,6 @@ class GeraeteNewProduzentFragment(
         }
     }
 
-
     override fun onClick(v: View) {
         val fragMan = parentFragmentManager
         when (v.id) {
@@ -103,9 +98,8 @@ class GeraeteNewProduzentFragment(
                     val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
                     var notiz: String? = inputNotiz.text.toString()
 
-
                     if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0 && notiz != null) {
-                        //negativer Verbrauch = Produzent, kein Verbraucher
+                        // negativer Verbrauch = Produzent, kein Verbraucher
 
                         if (notiz.isEmpty()) {
                             notiz = null
@@ -129,7 +123,6 @@ class GeraeteNewProduzentFragment(
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-
                     } else {
                         GeraeteCompanion.validValues(this.context)
                     }
@@ -142,10 +135,6 @@ class GeraeteNewProduzentFragment(
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
-
-
         }
-
     }
-
 }

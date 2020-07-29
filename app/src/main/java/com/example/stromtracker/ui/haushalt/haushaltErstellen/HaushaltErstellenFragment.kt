@@ -30,7 +30,7 @@ class HaushaltErstellenFragment : Fragment() {
             ViewModelProvider(this).get(HaushaltViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_haushalterstellen, container, false)
 
-        //Die einzelnen Felder finden:
+        // Die einzelnen Felder finden:
         val haushaltsnameneditfeld =
             root.findViewById<EditText>(R.id.edit_text_haushalt_erstellen_name)
         val strompreiseditfeld =
@@ -43,21 +43,21 @@ class HaushaltErstellenFragment : Fragment() {
         val oekomixeditfeld =
             root.findViewById<CheckBox>(R.id.check_box_haushalt_erstellen_oekostrom)
 
-        //Speicher Button zum speichern der eingegebenen Daten
-        //finde den save button
+        // Speicher Button zum speichern der eingegebenen Daten
+        // finde den save button
         val savebutton: View = root.findViewById(R.id.button_haushalt_erstellen_speichern)
-        //Click listener setzen
+        // Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
-                //Schauen ob das Datum das geparsed werden soll, das richtige ist, dafür try catch Block
-                try{
-                    //Überprüfen ob alle Werte die gesetzt sein müssen gesetzt wurden
+                // Schauen ob das Datum das geparsed werden soll, das richtige ist, dafür try catch Block
+                try {
+                    // Überprüfen ob alle Werte die gesetzt sein müssen gesetzt wurden
                     if (haushaltsnameneditfeld.text.isNotEmpty() &&
                         personeneditfeld.text.isNotEmpty() &&
                         strompreiseditfeld.text.isNotEmpty()
                     ) {
 
-                        //Haushaltdaten erstellen aus den Feldern und ein Haushalt erstellen
+                        // Haushaltdaten erstellen aus den Feldern und ein Haushalt erstellen
                         val name = haushaltsnameneditfeld.text.toString()
                         val bewohner = personeneditfeld.text.toString().toInt()
                         val stromkosten = strompreiseditfeld.text.toString().toDouble()
@@ -65,7 +65,7 @@ class HaushaltErstellenFragment : Fragment() {
 
                         if (datumeditfeld.text.isNotEmpty() && zaehlerstandeditfeld.text.isNotEmpty()) {
                             val zaehlerstand = zaehlerstandeditfeld.text.toString().toDouble()
-                            //Datum einfügen
+                            // Datum einfügen
                             val tempDateDate = SimpleDateFormat(
                                 "dd.MM.yyyy",
                                 Locale.GERMAN
@@ -82,44 +82,42 @@ class HaushaltErstellenFragment : Fragment() {
                             newHaushalt =
                                 Haushalt(name, stromkosten, bewohner, null, null, oekostrom)
                         }
-                        //Haushalt in Room Datenbank speichern
+                        // Haushalt in Room Datenbank speichern
                         haushaltViewModel.insertHaushalt(newHaushalt)
 
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
+                        // neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = HaushaltFragment()
-                        //Fragment Manager aus Main Activity holen
+                        // Fragment Manager aus Main Activity holen
                         val fragMan = parentFragmentManager
-                        //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                        // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-                        //und anschließend noch ein commit()
+                        // und anschließend noch ein commit()
                     } else {
                         Toast.makeText(this.context, R.string.leere_felder_haushalt, Toast.LENGTH_SHORT)
                             .show()
                     }
-                }
-                catch(e : ParseException){
+                } catch (e: ParseException) {
                     Toast.makeText(this.context, R.string.parse_error_datum, Toast.LENGTH_SHORT)
                         .show()
                     e.printStackTrace()
                 }
-
             }
         }
 
-        //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
-        //finde den abbrechen button
+        // Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
+        // finde den abbrechen button
         val abortbutton: View = root.findViewById(R.id.button_haushalt_erstellen_abbrechen)
-        //Click listener setzen
+        // Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = HaushaltFragment()
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
-                //und anschließend noch ein commit()
+                // und anschließend noch ein commit()
             }
         }
         return root

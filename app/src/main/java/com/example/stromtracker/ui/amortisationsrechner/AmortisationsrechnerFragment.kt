@@ -70,7 +70,7 @@ class AmortisationsrechnerFragment : Fragment() {
         var neuStr: String
         if (stromkosten != null) {
             if (verbrAkt != null) {
-                //Setzen der aktuellen Stromkosten pro Jahr
+                // Setzen der aktuellen Stromkosten pro Jahr
                 val aktDouble: Double = berechneStromkosten(stromkosten, verbrAkt)
                 neuStr = String.format("%.2f", aktDouble) + "€ "
                 outKostenAkt.text = neuStr
@@ -78,7 +78,7 @@ class AmortisationsrechnerFragment : Fragment() {
                 outKostenAkt.text = null
             }
             if (verbrNeu != null) {
-                //Setzen der neuen Stromkosten pro Jahr
+                // Setzen der neuen Stromkosten pro Jahr
                 val neuDouble: Double = berechneStromkosten(stromkosten, verbrNeu)
                 neuStr = String.format("%.2f", neuDouble) + "€ "
                 outKostenNeu.text = neuStr
@@ -86,18 +86,18 @@ class AmortisationsrechnerFragment : Fragment() {
                 outKostenNeu.text = null
             }
             if (verbrAkt != null && verbrNeu != null && ak != null && verbrAkt > verbrNeu) {
-                //Ausrechnen der Amortisationsdauer
+                // Ausrechnen der Amortisationsdauer
                 val amortDouble = (ak / (berechneStromkosten(stromkosten, (verbrAkt - verbrNeu))))
-                //Das Jahr wird immer auf ganze Zahlen abgerundet
+                // Das Jahr wird immer auf ganze Zahlen abgerundet
                 val df = DecimalFormat("#")
                 df.roundingMode = RoundingMode.DOWN
-                //Ausgabe der Dauer in Jahren und Tagen
+                // Ausgabe der Dauer in Jahren und Tagen
                 neuStr = df.format(amortDouble) + " Jahre und " + String.format(
                     "%.1f",
                     (amortDouble.rem(1) * 365)
                 ) + " Tage bis zur Amortisation."
                 outAmortdauer.text = neuStr
-                //Ausrechnen der Ersparnis nach Amortisation
+                // Ausrechnen der Ersparnis nach Amortisation
                 neuStr = "Danach: " + String.format(
                     "%.2f",
                     berechneStromkosten(stromkosten, (verbrAkt - verbrNeu))
@@ -118,5 +118,4 @@ class AmortisationsrechnerFragment : Fragment() {
     fun berechneStromkosten(stromkosten: Double, verbrauch: Double): Double {
         return (verbrauch * stromkosten / 100)
     }
-
 }

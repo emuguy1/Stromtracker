@@ -16,7 +16,7 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.raeume.raeumeErstellen.RaeumeErstellenFragment
 
-//deklariert Raeumefragment als Unterklasse von Fragment
+// deklariert Raeumefragment als Unterklasse von Fragment
 class RaeumeFragment : Fragment() {
     private lateinit var raeumeViewModel: RaeumeViewModel
     private lateinit var datain: ArrayList<Raum>
@@ -28,16 +28,16 @@ class RaeumeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //sharedViewModel um auf das gemeinsame ViewModel zuzugreifen
+        // sharedViewModel um auf das gemeinsame ViewModel zuzugreifen
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        //View Model zuweisen, benötigt für DB Zugriff
+        // View Model zuweisen, benötigt für DB Zugriff
         raeumeViewModel = ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(
             R.layout.fragment_raeume,
             container,
             false
-        )//false weil es nur teil des root ist, aber nicht selber die root
+        ) // false weil es nur teil des root ist, aber nicht selber die root
 
         val raumData: LiveData<List<Raum>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
@@ -55,32 +55,29 @@ class RaeumeFragment : Fragment() {
         )
 
         datain = ArrayList()
-        //Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
+        // Recyclerview, wo eine Liste aller Raeume angezeigt wird. Alles weitere in ListAdapterraeume:
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_raeume)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         viewAdapter = ListAdapterraeume(datain)
         recyclerView.adapter = viewAdapter
 
-        //Floating Action Button zum erstellen neuer Raeume
-        //Floating actionbutton finden
+        // Floating Action Button zum erstellen neuer Raeume
+        // Floating actionbutton finden
         val fab: View = root.findViewById(R.id.fab_raeume)
-        //Click listener setzen
+        // Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val haushaltid = datain[0].getHaushaltID()
                 val frag = RaeumeErstellenFragment(haushaltid)
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
-                //und anschließend noch ein commit()
-
+                // und anschließend noch ein commit()
             }
-
         }
         return root
     }
-
 }

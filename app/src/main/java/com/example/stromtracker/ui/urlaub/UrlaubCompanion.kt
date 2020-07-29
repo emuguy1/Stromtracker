@@ -30,17 +30,17 @@ class UrlaubCompanion {
                             "ERROR_StringIsNoDate",
                             "Der eingegebene String ist kein Datum und lässt sich somit nicht konvertieren."
                         )
-                        //e.printStackTrace() //um die Fehlermeldung auf dem StackTrace auszugeben
+                        // e.printStackTrace() //um die Fehlermeldung auf dem StackTrace auszugeben
                         return false
                     }
                     if (tempSt != null && tempEnd != null) {
-                        if (tempSt.before(tempEnd) || tempSt == tempEnd)
+                        if (tempSt.before(tempEnd) || tempSt == tempEnd) {
                             return true
+                        }
                     }
                 }
             }
             return false
         }
     }
-
 }

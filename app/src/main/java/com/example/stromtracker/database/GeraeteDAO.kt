@@ -3,7 +3,6 @@ package com.example.stromtracker.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
-
 @Dao
 interface GeraeteDAO {
     @Query("SELECT * FROM geraete")
@@ -35,7 +34,6 @@ interface GeraeteDAO {
 
     @Query("UPDATE geraete SET raumID = :newID WHERE raumID = :oldID")
     fun updateGeraetByRaumID(oldID: Int, newID: Int)
-
 
     @Insert
     fun insertGeraete(vararg geraete: Geraete)

@@ -16,7 +16,6 @@ import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
 
-
 class GeraeteNewVerbraucherFragment(
     private val katList: ArrayList<Kategorie>,
     private val raumList: ArrayList<Raum>
@@ -79,7 +78,6 @@ class GeraeteNewVerbraucherFragment(
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 
-
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
             R.id.geraete_new_raum_spinner -> {
@@ -90,7 +88,6 @@ class GeraeteNewVerbraucherFragment(
             }
             else -> {
             }
-
         }
     }
 
@@ -163,8 +160,6 @@ class GeraeteNewVerbraucherFragment(
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
-
         }
-
     }
 }

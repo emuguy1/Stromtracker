@@ -36,5 +36,4 @@ class UrlaubViewModel(application: Application) : AndroidViewModel(application) 
     fun deleteUrlaub(u: Urlaub) {
         repo.deleteUrlaub(u)
     }
-
 }

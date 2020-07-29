@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.stromtracker.database.DataRepository
 import com.example.stromtracker.database.Haushalt
 
-
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
     private val repo: DataRepository = DataRepository(application)
 

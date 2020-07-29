@@ -70,6 +70,4 @@ data class Urlaub(
     fun setHaushaltID(id: Int) {
         haushaltID = id
     }
-
-
 }

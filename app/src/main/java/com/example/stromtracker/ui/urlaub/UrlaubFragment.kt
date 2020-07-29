@@ -48,7 +48,7 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
 
         val root = inflater.inflate(R.layout.fragment_urlaub, container, false)
 
-        //RecyclerView initialisieren
+        // RecyclerView initialisieren
         viewAdapter = UrlaubListAdapter(urlaubList, sharedViewModel.getHaushalt().value!!)
 
         viewManager = LinearLayoutManager(this.context)

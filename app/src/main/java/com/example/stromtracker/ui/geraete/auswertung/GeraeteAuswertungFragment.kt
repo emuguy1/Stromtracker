@@ -26,7 +26,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.withSign
 
-
 class GeraeteAuswertungFragment(
     private val verbraucherList: ArrayList<Geraete>,
     private val produzentList: ArrayList<Geraete>,
@@ -36,7 +35,7 @@ class GeraeteAuswertungFragment(
     private val currHaushalt: Haushalt
 ) : Fragment(), View.OnClickListener {
 
-    //Quelle (Stand 07.2020): https://www.stromvergleich.de/durchschnittlicher-stromverbrauch
+    // Quelle (Stand 07.2020): https://www.stromvergleich.de/durchschnittlicher-stromverbrauch
     private val dsBasisDeutschland: Double = 500.0
     private val dsVerbrauchDeutschland: Double = 1000.0
 
@@ -85,7 +84,6 @@ class GeraeteAuswertungFragment(
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
 
-
         return root
     }
 
@@ -97,7 +95,6 @@ class GeraeteAuswertungFragment(
     fun getProdVerbrauch(geraet: Geraete): Double {
         return geraet.getJahresverbrauch().withSign(1) * geraet.getEigenverbrauch()!! / 100
     }
-
 
     fun initPieChart(pie: Pie): Pie {
         pie.legend().title().enabled(true)
@@ -111,13 +108,13 @@ class GeraeteAuswertungFragment(
     }
 
     fun reloadVerbrauchsChart() {
-        //Geräte nach Verbrauchern filtern & data vorbereiten
+        // Geräte nach Verbrauchern filtern & data vorbereiten
         val data: MutableList<DataEntry> = ArrayList()
         for (geraet in verbraucherList)
             data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
 
         if (data.isNotEmpty()) {
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartVerbraucher)
 
             var pie = AnyChart.pie()
@@ -133,8 +130,9 @@ class GeraeteAuswertungFragment(
             pie.legend().title().text("Verbraucher")
 
             anyChartVerbraucher.setChart(pie)
-        } else
+        } else {
             anyChartVerbraucher.visibility = View.GONE
+        }
     }
 
     fun reloadProduziertVerbrauchChart() {
@@ -150,19 +148,20 @@ class GeraeteAuswertungFragment(
 
             pie.data(data)
             pie.title(
-                "Produzierte Energie, die verbraucht wird "
-                        + roundTo2Decimal(produzentList.sumByDouble { geraete ->
+                "Produzierte Energie, die verbraucht wird " +
+                        roundTo2Decimal(produzentList.sumByDouble { geraete ->
                     getProdVerbrauch(
                         geraete
                     )
-                })
-                        + " kWh"
+                }) +
+                        " kWh"
             )
             pie.legend().title().text("Produzenten")
 
             anyChartProduziertVerbrauch.setChart(pie)
-        } else
+        } else {
             anyChartProduziertVerbrauch.visibility = View.GONE
+        }
     }
 
     fun reloadBilanzChart() {
@@ -177,8 +176,9 @@ class GeraeteAuswertungFragment(
         for (currUrlaub in urlaubList) {
             if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt() == (Calendar.getInstance()
                     .get(Calendar.YEAR))
-            )
+            ) {
                 tempList.add(currUrlaub)
+            }
         }
         tempSum = tempList.sumByDouble { urlaub ->
             urlaub.getErsparnisProTag() * (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays - urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
@@ -209,13 +209,13 @@ class GeraeteAuswertungFragment(
     }
 
     fun reloadProduzentChart() {
-        //Geräte nach Produzenten filtern & data vorbereiten
+        // Geräte nach Produzenten filtern & data vorbereiten
         val data: MutableList<DataEntry> = ArrayList()
         for (geraet in produzentList)
             data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch().withSign(1)))
 
         if (data.isNotEmpty()) {
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartProduzent)
 
             var pie = AnyChart.pie()
@@ -223,22 +223,23 @@ class GeraeteAuswertungFragment(
 
             pie.data(data)
             pie.title(
-                "Gesamtproduktion "
-                        + roundTo2Decimal(produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() } * (-1))
-                        + " kWh"
+                "Gesamtproduktion " +
+                        roundTo2Decimal(produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() } * (-1)) +
+                        " kWh"
             )
             pie.legend().title().text("Produzenten")
 
             anyChartProduzent.setChart(pie)
-        } else
+        } else {
             anyChartProduzent.visibility = View.GONE
+        }
     }
 
     fun reloadKategorieChart() {
         val data: MutableList<DataEntry> = ArrayList()
 
-        //Geräte nach Kategorie Gruppieren, dann die Summe der Jahresverbrauche berechnen
-        //TODO Test mit mehreren Kategorien und mit Produzenten (diese sollten hier nicht angezeigt werden)
+        // Geräte nach Kategorie Gruppieren, dann die Summe der Jahresverbrauche berechnen
+        // TODO Test mit mehreren Kategorien und mit Produzenten (diese sollten hier nicht angezeigt werden)
         val sortedgeraete: Map<Int, List<Geraete>> =
             verbraucherList.groupBy(keySelector = { it.getKategorieID() })
         for (kat in sortedgeraete) {
@@ -250,8 +251,9 @@ class GeraeteAuswertungFragment(
             if (sum > 0) {
                 var name = ""
                 for (currKat in kategorieList) {
-                    if (currKat.getKategorieID() == currGeraeteInKat.first().getKategorieID())
+                    if (currKat.getKategorieID() == currGeraeteInKat.first().getKategorieID()) {
                         name = currKat.getName()
+                    }
                 }
                 data.add(
                     ValueDataEntry(
@@ -262,7 +264,7 @@ class GeraeteAuswertungFragment(
         }
 
         if (data.isNotEmpty()) {
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartKategorie)
 
             var pie = AnyChart.pie()
@@ -274,14 +276,15 @@ class GeraeteAuswertungFragment(
             pie.legend().title().text("Kategorien")
 
             anyChartKategorie.setChart(pie)
-        } else
+        } else {
             anyChartKategorie.visibility = View.GONE
+        }
     }
 
     fun reloadRaumChart() {
         val data: MutableList<DataEntry> = ArrayList()
 
-        //Geräte nach Raum Gruppieren, dann die Summe der Jahresverbrauche berechnen
+        // Geräte nach Raum Gruppieren, dann die Summe der Jahresverbrauche berechnen
         val sortedgeraete: Map<Int, List<Geraete>> =
             verbraucherList.groupBy(keySelector = { it.getRaumID() })
         for (raum in sortedgeraete) {
@@ -293,8 +296,9 @@ class GeraeteAuswertungFragment(
             if (sum > 0) {
                 var name = ""
                 for (currRaum in raumList) {
-                    if (currRaum.getRaumID() == currGeraeteInRaum.first().getRaumID())
+                    if (currRaum.getRaumID() == currGeraeteInRaum.first().getRaumID()) {
                         name = currRaum.getName()
+                    }
                 }
                 data.add(
                     ValueDataEntry(
@@ -305,7 +309,7 @@ class GeraeteAuswertungFragment(
         }
         if (data.isNotEmpty()) {
 
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartRaum)
 
             var pie = AnyChart.pie()
@@ -317,8 +321,9 @@ class GeraeteAuswertungFragment(
             pie.legend().title().text("Räume")
 
             anyChartRaum.setChart(pie)
-        } else
+        } else {
             anyChartRaum.visibility = View.GONE
+        }
     }
 
     fun generateDurchschnittText(verbr: Double): String {
@@ -335,9 +340,9 @@ class GeraeteAuswertungFragment(
         if (prozent > 1.0) {
             prozent = (prozent - 1) * 100
             str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% höher als der Durchschnitt."
-        } else if (prozent == 1.0)
+        } else if (prozent == 1.0) {
             str += "Somit liegt der Verbrauch genau im Durchschnitt."
-        else {
+        } else {
             prozent = (1 - prozent) * 100
             str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% geringer als der Durchschnitt."
         }

@@ -22,7 +22,6 @@ class ListAdapterHaushalt(datain: List<Haushalt>) :
         return ViewHolder(view)
     }
 
-
     override fun getItemCount(): Int {
         return data.size
     }
@@ -31,7 +30,6 @@ class ListAdapterHaushalt(datain: List<Haushalt>) :
         val item: String = data[position].getName()
         holder.textView.text = item
         holder.textView
-
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -47,13 +45,12 @@ class ListAdapterHaushalt(datain: List<Haushalt>) :
         override fun onClick(view: View?) {
             if (view != null) {
                 val frag = HaushaltBearbeitenLoeschenFragment(data[layoutPosition])
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = view.findFragment<HaushaltFragment>().parentFragmentManager
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
         }
-
     }
 }

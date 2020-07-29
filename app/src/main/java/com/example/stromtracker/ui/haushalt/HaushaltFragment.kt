@@ -15,7 +15,7 @@ import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.haushalt.haushaltErstellen.HaushaltErstellenFragment
 
-//deklariert Haushaltfragment als Unterklasse von Fragment
+// deklariert Haushaltfragment als Unterklasse von Fragment
 class HaushaltFragment : Fragment() {
     private lateinit var haushaltViewModel: HaushaltViewModel
     private lateinit var datain: ArrayList<Haushalt>
@@ -26,9 +26,9 @@ class HaushaltFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //Main Activity holen um auf die Haushaltliste in der MainActivity zugreifen zu können
+        // Main Activity holen um auf die Haushaltliste in der MainActivity zugreifen zu können
         mainact = requireActivity() as MainActivity
-        //View Model zuweisen, benötigt für DB Zugriff
+        // View Model zuweisen, benötigt für DB Zugriff
         haushaltViewModel = ViewModelProvider(this).get(HaushaltViewModel::class.java)
 
         haushaltViewModel.getAllHaushalt().observe(
@@ -37,26 +37,26 @@ class HaushaltFragment : Fragment() {
                 if (haushalte != null) {
 
                     if (haushalte.isEmpty()) {
-                        //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
+                        // Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
                         initHaushalt()
                         isinit = true
                     }
-                    //die alte Haushaltliste aus Main Activity holen, um zu schauen,
+                    // die alte Haushaltliste aus Main Activity holen, um zu schauen,
                     // welcher Haushalt erzeugt wurde und dem dann Standardräume hinzuzufügen
                     datatemp = mainact.getOldHaushaltList()
 
                     datain.clear()
                     datain.addAll(haushalte)
-                    //Die Haushaltliste in Main Activity erneuern.
+                    // Die Haushaltliste in Main Activity erneuern.
                     mainact.setOldHaushaltList(datain)
-                    //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
+                    // Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
                     if (datain.size > datatemp.size && !isinit && datatemp.size > 0) {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                     }
-                    //Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
-                    if (isinit && datain.size > 0) { //Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt werden.
+                    // Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
+                    if (isinit && datain.size > 0) { // Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt werden.
                         // Hier nach leer initialisierung und sobald das ganze in die Datenbank gekommen ist,deswegen wird hier gewartet, bis datain bei einem element ist,
-                        //bevor es in die if Schleife kommt
+                        // bevor es in die if Schleife kommt
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                         isinit = false
                     }
@@ -89,31 +89,31 @@ class HaushaltFragment : Fragment() {
             R.layout.fragment_haushalt,
             container,
             false
-        )//false weil es nur teil des root ist, aber nicht selber die root
+        ) // false weil es nur teil des root ist, aber nicht selber die root
 
-        //Initalisieren der Datenliste und des ViewAdapters
+        // Initalisieren der Datenliste und des ViewAdapters
         datain = ArrayList()
         viewAdapter = ListAdapterHaushalt(datain)
 
-        //Recyclerview, wo eine Liste aller Haushalte angezeigt wird. Alles weitere wird in ListAdapterHaushalt gesteuert
+        // Recyclerview, wo eine Liste aller Haushalte angezeigt wird. Alles weitere wird in ListAdapterHaushalt gesteuert
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_haushalt)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = viewAdapter
 
-        //Floating Action Button zum erstellen neuer Haushalte
-        //Floating actionbutton finden
+        // Floating Action Button zum erstellen neuer Haushalte
+        // Floating actionbutton finden
         val fab: View = root.findViewById(R.id.fab_haushalt)
-        //Click listener setzen
+        // Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = HaushaltErstellenFragment()
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
-                //und anschließend noch ein commit()
+                // und anschließend noch ein commit()
             }
         }
         return root

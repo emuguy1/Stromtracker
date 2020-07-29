@@ -37,7 +37,6 @@ class DataRepository(application: Application) {
         return mGeraeteDao.loadAllByHaushaltID(id)
     }
 
-
     fun getAllRaumByHaushaltID(id: Int): LiveData<List<Raum>> {
         return mRaumDAO.loadAllByHaushaltID(id)
     }
@@ -70,7 +69,7 @@ class DataRepository(application: Application) {
         return mHaushaltDAO.getHaushaltByID(id)
     }
 
-    fun getAllUrlaub():LiveData<List<Urlaub>> {
+    fun getAllUrlaub(): LiveData<List<Urlaub>> {
         return mAllUrlaub
     }
 
@@ -142,38 +141,30 @@ class DataRepository(application: Application) {
         updateAsyncTaskUrlaub(mUrlaubDAO).execute(urlaub)
     }
 
-
     companion object {
         class insertAsyncTaskGeraet(dao: GeraeteDAO) : AsyncTask<Geraete, Void, Void>() {
             private var mAsyncTaskDAO: GeraeteDAO = dao
-
 
             override fun doInBackground(vararg params: Geraete): Void? {
                 mAsyncTaskDAO.insertGeraete(params[0])
                 return null
             }
-
-
         }
 
         class deleteAsyncTaskGeraet(dao: GeraeteDAO) : AsyncTask<Geraete, Void, Void>() {
             private var mAsyncTaskDAO: GeraeteDAO = dao
 
-
             override fun doInBackground(vararg params: Geraete): Void? {
                 mAsyncTaskDAO.delete(params[0])
                 return null
             }
-
-
         }
 
         class updateAsyncTaskGeraetByRaumID(dao: GeraeteDAO) : AsyncTask<Int, Void, Void>() {
             private var mAsyncTaskDAO: GeraeteDAO = dao
 
-
             override fun doInBackground(vararg params: Int?): Void? {
-                //checks if params[0] and params[1] is null
+                // checks if params[0] and params[1] is null
                 params[0]?.let {
                     params[1]?.let { it1 ->
                         mAsyncTaskDAO.updateGeraetByRaumID(
@@ -184,26 +175,22 @@ class DataRepository(application: Application) {
                 }
                 return null
             }
-
         }
 
         class updateAsyncTaskGeraet(dao: GeraeteDAO) : AsyncTask<Geraete, Void, Void>() {
             private var mAsyncTaskDAO: GeraeteDAO = dao
 
-
             override fun doInBackground(vararg params: Geraete): Void? {
                 mAsyncTaskDAO.updateGeraet(params[0])
                 return null
             }
-
-
         }
 
         class updateAsyncTaskGeraetByKategorieID(dao: GeraeteDAO) : AsyncTask<Int, Void, Void>() {
             private var mAsyncTaskDAO: GeraeteDAO = dao
 
             override fun doInBackground(vararg params: Int?): Void? {
-                //Checks if params[0] and params[1] is null
+                // Checks if params[0] and params[1] is null
                 params[0]?.let {
                     params[1]?.let { it1 ->
                         mAsyncTaskDAO.updateGeraetByKategorieID(
@@ -219,147 +206,109 @@ class DataRepository(application: Application) {
         class insertAsyncTaskHaushalt(dao: HaushaltDAO) : AsyncTask<Haushalt, Void, Void>() {
             private var mAsyncTaskDAO: HaushaltDAO = dao
 
-
             override fun doInBackground(vararg params: Haushalt): Void? {
                 mAsyncTaskDAO.insertHaushalt(params[0])
                 return null
             }
-
-
         }
 
         class deleteAsyncTaskHaushalt(dao: HaushaltDAO) : AsyncTask<Haushalt, Void, Void>() {
             private var mAsyncTaskDAO: HaushaltDAO = dao
 
-
             override fun doInBackground(vararg params: Haushalt): Void? {
                 mAsyncTaskDAO.delete(params[0])
                 return null
             }
-
-
         }
 
         class updateAsyncTaskHaushalt(dao: HaushaltDAO) : AsyncTask<Haushalt, Void, Void>() {
             private var mAsyncTaskDAO: HaushaltDAO = dao
 
-
             override fun doInBackground(vararg params: Haushalt): Void? {
                 mAsyncTaskDAO.updateHaushalt(params[0])
                 return null
             }
-
-
         }
 
         class insertAsyncTaskKategorie(dao: KategorieDAO) : AsyncTask<Kategorie, Void, Void>() {
             private var mAsyncTaskDAO: KategorieDAO = dao
 
-
             override fun doInBackground(vararg params: Kategorie): Void? {
                 mAsyncTaskDAO.insertKategorie(params[0])
                 return null
             }
-
-
         }
 
         class deleteAsyncTaskKategorie(dao: KategorieDAO) : AsyncTask<Kategorie, Void, Void>() {
             private var mAsyncTaskDAO: KategorieDAO = dao
 
-
             override fun doInBackground(vararg params: Kategorie): Void? {
                 mAsyncTaskDAO.delete(params[0])
                 return null
             }
-
-
         }
 
         class updateAsyncTaskKategorie(dao: KategorieDAO) : AsyncTask<Kategorie, Void, Void>() {
             private var mAsyncTaskDAO: KategorieDAO = dao
 
-
             override fun doInBackground(vararg params: Kategorie): Void? {
                 mAsyncTaskDAO.updateKategorie(params[0])
                 return null
             }
-
-
         }
 
         class insertAsyncTaskRaum(dao: RaumDAO) : AsyncTask<Raum, Void, Void>() {
             private var mAsyncTaskDAO: RaumDAO = dao
 
-
             override fun doInBackground(vararg params: Raum): Void? {
                 mAsyncTaskDAO.insertRaum(params[0])
                 return null
             }
-
-
         }
 
         class deleteAsyncTaskRaum(dao: RaumDAO) : AsyncTask<Raum, Void, Void>() {
             private var mAsyncTaskDAO: RaumDAO = dao
 
-
             override fun doInBackground(vararg params: Raum): Void? {
                 mAsyncTaskDAO.delete(params[0])
                 return null
             }
-
-
         }
 
         class updateAsyncTaskRaum(dao: RaumDAO) : AsyncTask<Raum, Void, Void>() {
             private var mAsyncTaskDAO: RaumDAO = dao
 
-
             override fun doInBackground(vararg params: Raum): Void? {
                 mAsyncTaskDAO.updateRaum(params[0])
                 return null
             }
-
-
         }
 
         class insertAsyncTaskUrlaub(dao: UrlaubDAO) : AsyncTask<Urlaub, Void, Void>() {
             private var mAsyncTaskDAO: UrlaubDAO = dao
 
-
             override fun doInBackground(vararg params: Urlaub): Void? {
                 mAsyncTaskDAO.insertUrlaub(params[0])
                 return null
             }
-
-
         }
 
         class deleteAsyncTaskUrlaub(dao: UrlaubDAO) : AsyncTask<Urlaub, Void, Void>() {
             private var mAsyncTaskDAO: UrlaubDAO = dao
 
-
             override fun doInBackground(vararg params: Urlaub): Void? {
                 mAsyncTaskDAO.delete(params[0])
                 return null
             }
-
-
         }
 
         class updateAsyncTaskUrlaub(dao: UrlaubDAO) : AsyncTask<Urlaub, Void, Void>() {
             private var mAsyncTaskDAO: UrlaubDAO = dao
 
-
             override fun doInBackground(vararg params: Urlaub): Void? {
                 mAsyncTaskDAO.updateUrlaub(params[0])
                 return null
             }
-
-
         }
-
-
     }
 }

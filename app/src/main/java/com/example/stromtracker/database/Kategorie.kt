@@ -11,7 +11,6 @@ data class Kategorie(
     @PrimaryKey(autoGenerate = true)
     private var kategorieID: Int = 0
 
-
     fun getKategorieID(): Int {
         return kategorieID
     }
@@ -39,5 +38,4 @@ data class Kategorie(
     override fun toString(): String {
         return name
     }
-
 }

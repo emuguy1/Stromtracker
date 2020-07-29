@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var sp: Spinner
 
-
     private val iconArrayList: Array<Int> =
         arrayOf(
             R.drawable.ic_kategorien_monitor,
@@ -83,25 +82,21 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             sharedViewModel.setHaushalt(haushaltItems[pos])
                         }
-
-
                     }
-
-
                 }
             })
 
-        //Alte Haushaltliste initialisieren um damit auf neue Haushalte überprüfen
+        // Alte Haushaltliste initialisieren um damit auf neue Haushalte überprüfen
         setOldHaushaltList(haushaltItems)
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
             R.id.nav_urlaub, R.id.nav_geraete, R.id.nav_home,
-            R.id.nav_haushalt,R.id.nav_haushalt, R.id.nav_geraete,
-            R.id.nav_kategorien,R.id.nav_raeume,R.id.nav_verbrauchsrechner,
-            R.id.nav_amortisationsrechner,R.id.nav_amortisationsrechnerPV,
-            R.id.nav_co2bilanz,R.id.nav_importexport), drawerLayout)
+            R.id.nav_haushalt, R.id.nav_haushalt, R.id.nav_geraete,
+            R.id.nav_kategorien, R.id.nav_raeume, R.id.nav_verbrauchsrechner,
+            R.id.nav_amortisationsrechner, R.id.nav_amortisationsrechnerPV,
+            R.id.nav_co2bilanz, R.id.nav_importexport), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

@@ -1,6 +1,5 @@
 package com.example.stromtracker.ui.kategorien
 
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -23,12 +22,11 @@ class KategorienViewModel(application: Application) : AndroidViewModel(applicati
         repo.updateKategorie(k)
     }
 
-    fun updateGeraeteByKategorieID(alteKategorie: Int, neueKategorie : Int) {
+    fun updateGeraeteByKategorieID(alteKategorie: Int, neueKategorie: Int) {
         repo.updateGeraetByKategorieID(alteKategorie, neueKategorie)
     }
 
     fun deleteKategorie(k: Kategorie) {
         repo.deleteKategorie(k)
     }
-
 }

@@ -19,7 +19,6 @@ import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
 
-
 class GeraeteEditVerbraucherFragment(
     private val currGeraet: Geraete,
     private val katList: ArrayList<Kategorie>,
@@ -45,7 +44,6 @@ class GeraeteEditVerbraucherFragment(
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_geraete_edit_verbraucher, container, false)
-
 
         spinnerKat = root.findViewById(R.id.geraete_edit_kategorie_spinner)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -75,7 +73,6 @@ class GeraeteEditVerbraucherFragment(
         saveBtn.setOnClickListener(this)
         val delBtn = root.findViewById<Button>(R.id.geraete_edit_delete)
         delBtn.setOnClickListener(this)
-
 
         inputName = root.findViewById(R.id.geraete_edit_edit_name)
         inputName.setText(currGeraet.getName())
@@ -111,7 +108,6 @@ class GeraeteEditVerbraucherFragment(
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 
-
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
             R.id.geraete_edit_raum_spinner -> {
@@ -122,7 +118,6 @@ class GeraeteEditVerbraucherFragment(
             }
             else -> {
             }
-
         }
     }
 
@@ -179,7 +174,6 @@ class GeraeteEditVerbraucherFragment(
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-
                     } else {
                         GeraeteCompanion.validValues(this.context)
                     }
@@ -196,9 +190,7 @@ class GeraeteEditVerbraucherFragment(
             R.id.geraete_edit_delete -> {
                 alertDelete(fragMan)
             }
-
         }
-
     }
 
     private fun alertDelete(fragMan: FragmentManager) {
@@ -207,7 +199,7 @@ class GeraeteEditVerbraucherFragment(
         confirmDeleteBuilder.setPositiveButton(
             R.string.ja,
             DialogInterface.OnClickListener { dialog, id ->
-                //Daten werden aus der Datenbank gelöscht
+                // Daten werden aus der Datenbank gelöscht
                 geraeteViewModel.deleteGeraet(currGeraet)
                 val frag = GeraeteFragment()
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
@@ -221,6 +213,5 @@ class GeraeteEditVerbraucherFragment(
 
         val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
         confirmDeleteDialog.show()
-
     }
 }

@@ -97,7 +97,6 @@ class GeraeteEditProduzentFragment(
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 
-
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
             R.id.geraete_edit_produzent_spinner_raum -> {
@@ -108,10 +107,8 @@ class GeraeteEditProduzentFragment(
             }
             else -> {
             }
-
         }
     }
-
 
     override fun onClick(v: View) {
         val fragMan = parentFragmentManager
@@ -142,14 +139,11 @@ class GeraeteEditProduzentFragment(
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-
                     } else {
                         GeraeteCompanion.validValues(this.context)
-
                     }
                 } else {
                     GeraeteCompanion.validValues(this.context)
-
                 }
             }
             R.id.geraete_edit_produzent_button_abbrechen -> {
@@ -160,9 +154,7 @@ class GeraeteEditProduzentFragment(
             R.id.geraete_edit_produzent_button_loeschen -> {
                 alertDelete(fragMan)
             }
-
         }
-
     }
 
     private fun alertDelete(fragMan: FragmentManager) {
@@ -171,15 +163,15 @@ class GeraeteEditProduzentFragment(
         confirmDeleteBuilder.setPositiveButton(
             R.string.ja,
             DialogInterface.OnClickListener { dialog, id ->
-                //Daten werden aus der Datenbank gelöscht
+                // Daten werden aus der Datenbank gelöscht
                 geraeteViewModel.deleteGeraet(currGeraet)
-                //Man wir nur weitergeleitet, wenn man wirklich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // Man wir nur weitergeleitet, wenn man wirklich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = GeraeteFragment()
-                //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
-                //und anschließend noch ein commit()
+                // und anschließend noch ein commit()
                 dialog.cancel()
             })
 

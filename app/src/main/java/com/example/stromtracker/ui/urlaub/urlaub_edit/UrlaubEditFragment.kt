@@ -76,7 +76,6 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
         return root
     }
 
-
     private fun addCustomTextChangedListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
@@ -151,15 +150,17 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
                         val frag = UrlaubFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-                    } else
+                    } else {
                         Toast.makeText(
                             this.context,
                             R.string.toast_invalid_date,
                             Toast.LENGTH_SHORT
                         ).show()
-                } else
+                    }
+                } else {
                     Toast.makeText(this.context, R.string.toast_invalid_values, Toast.LENGTH_SHORT)
                         .show()
+                }
             }
             R.id.urlaub_edit_button_delete -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
@@ -167,15 +168,15 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
                 confirmDeleteBuilder.setPositiveButton(
                     R.string.ja
                 ) { dialog, _ ->
-                    //Daten werden aus der Datenbank gelöscht
+                    // Daten werden aus der Datenbank gelöscht
                     urlaubViewModel.deleteUrlaub(urlaub)
-                    //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                    //neues Fragment erstellen auf das weitergeleitet werden soll
+                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = UrlaubFragment()
-                    //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
-                    //und anschließend noch ein commit()
+                    // und anschließend noch ein commit()
                     dialog.cancel()
                 }
 
@@ -188,5 +189,4 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
             }
         }
     }
-
 }

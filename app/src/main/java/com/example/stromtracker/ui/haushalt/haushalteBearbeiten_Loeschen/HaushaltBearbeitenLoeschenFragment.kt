@@ -31,7 +31,6 @@ class HaushaltBearbeitenLoeschenFragment(
     private var currHaushalt: Haushalt
 ) : Fragment() {
 
-
     private lateinit var verbraucherInHaushalt: ArrayList<Geraete>
     private lateinit var produzentenInHaushalt: ArrayList<Geraete>
     private lateinit var urlaubeInHaushalt: ArrayList<Urlaub>
@@ -58,7 +57,7 @@ class HaushaltBearbeitenLoeschenFragment(
         produzentenInHaushalt = ArrayList()
         urlaubeInHaushalt = ArrayList()
 
-        //Die einzelnen Felder finden:
+        // Die einzelnen Felder finden:
         val haushaltsnameneditfeld =
             root.findViewById<EditText>(R.id.edit_text_haushalt_bearbeiten_name)
         val strompreiseditfeld =
@@ -77,7 +76,7 @@ class HaushaltBearbeitenLoeschenFragment(
         val oekomixeditfeld =
             root.findViewById<CheckBox>(R.id.check_box_haushalt_bearbeiten_oekostrom)
 
-        //Die Daten aus der RoomDatabse holen und in die Felder schreiben
+        // Die Daten aus der RoomDatabse holen und in die Felder schreiben
         haushaltsnameneditfeld.setText(currHaushalt.getName())
         strompreiseditfeld.setText(currHaushalt.getStromkosten().toString())
         personeneditfeld.setText(currHaushalt.getBewohnerAnzahl().toString())
@@ -85,7 +84,7 @@ class HaushaltBearbeitenLoeschenFragment(
         if (currHaushalt.getZaehlerstand() != null && currHaushalt.getDatum() != null) {
             var tempString = currHaushalt.getZaehlerstand().toString() + " kWh"
             zaehlerstandAkt.text = tempString
-            //currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
+            // currHaushalt.getDatum() kann nicht Null sein, da ja in der if Schleife genau dies überprüpft wird
             tempString = SimpleDateFormat(
                 "dd.MM.yyyy",
                 Locale.GERMAN
@@ -94,21 +93,21 @@ class HaushaltBearbeitenLoeschenFragment(
         }
         oekomixeditfeld.isChecked = currHaushalt.getOekostrom()
 
-        //Speicher Button zum speichern der eingegebenen Daten
-        //finde den save button
+        // Speicher Button zum speichern der eingegebenen Daten
+        // finde den save button
         val savebutton: View = root.findViewById(R.id.button_haushalt_bearbeiten_speichern)
-        //Click listener setzen
+        // Click listener setzen
         savebutton.setOnClickListener { view ->
             if (view != null) {
-                //try catch Block um Parser Fehler beim Datum abzufangen
+                // try catch Block um Parser Fehler beim Datum abzufangen
                 try {
-                    //Schauen, dass alle Werte die gesetzt sein müssen gesetzt wurden
+                    // Schauen, dass alle Werte die gesetzt sein müssen gesetzt wurden
                     if (haushaltsnameneditfeld.text.isNotEmpty() &&
                         personeneditfeld.text.isNotEmpty() &&
                         strompreiseditfeld.text.isNotEmpty()
                     ) {
 
-                        //Die Daten in die RoomDatabase speichern
+                        // Die Daten in die RoomDatabase speichern
                         currHaushalt.setName(haushaltsnameneditfeld.text.toString())
                         currHaushalt.setBewohnerAnzahl(personeneditfeld.text.toString().toInt())
                         currHaushalt.setStromkosten(strompreiseditfeld.text.toString().toDouble())
@@ -126,24 +125,24 @@ class HaushaltBearbeitenLoeschenFragment(
                             if (currDate != null && currZaehler != null) {
                                 if (tempDate.after(currHaushalt.getDatum()) && zaehlerNeu > currZaehler) {
                                     currHaushalt.setZaehlerstand(zaehlerNeu)
-                                    //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
+                                    // Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
                                     currHaushalt.setDatum(tempDate)
                                 }
                             } else {
                                 currHaushalt.setZaehlerstand(zaehlerNeu)
-                                //Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
+                                // Kann nicht null sein, da eventuelle Parser Fehler durch try catch abgefangen werden.
                                 currHaushalt.setDatum(tempDate)
                             }
                         }
                         haushaltViewModel.updateHaushalt(currHaushalt)
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
+                        // neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = HaushaltFragment()
-                        //Fragment Manager aus Main Activity holen
+                        // Fragment Manager aus Main Activity holen
                         val fragMan = parentFragmentManager
-                        //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                        // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-                        //und anschließend noch ein commit()
+                        // und anschließend noch ein commit()
                     } else {
                         Toast.makeText(
                             this.context,
@@ -151,53 +150,51 @@ class HaushaltBearbeitenLoeschenFragment(
                             Toast.LENGTH_SHORT
                         )
                             .show()
-
                     }
                 } catch (e: ParseException) {
                     Toast.makeText(this.context, R.string.parse_error_datum, Toast.LENGTH_SHORT)
                         .show()
                     e.printStackTrace()
                 }
-
             }
         }
-        //Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
-        //finde den abbrechen button
+        // Das gleiche noch für den Abbrechen Button, wobei hier einfach zurück gesprungen werden kann ohne etwas zu machen, da wir ja das ganze nicht speichern wollen
+        // finde den abbrechen button
         val abortbutton: View = root.findViewById(R.id.button_haushalt_bearbeiten_abbrechen)
-        //Click listener setzen
+        // Click listener setzen
         abortbutton.setOnClickListener { view ->
             if (view != null) {
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = HaushaltFragment()
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
-                //und anschließend noch ein commit()
+                // und anschließend noch ein commit()
             }
         }
-        //Delete Button zum löschen des ausgewählten Haushalts
-        //finde den löschen button
+        // Delete Button zum löschen des ausgewählten Haushalts
+        // finde den löschen button
         val deletebutton: View = root.findViewById(R.id.button_haushalt_bearbeiten_loeschen)
-        //Click listener setzen
+        // Click listener setzen
         deletebutton.setOnClickListener { view ->
             if (view != null) {
-                //Bestätigungsdialog mithilfe von AlertDialog
+                // Bestätigungsdialog mithilfe von AlertDialog
                 val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
                 builder1.setMessage(R.string.haushaltlöschen_confirm)
                 builder1.setPositiveButton(
                     R.string.ja
                 ) { dialog, _ ->
-                    //Daten werden aus der Datenbank gelöscht
+                    // Daten werden aus der Datenbank gelöscht
                     haushaltViewModel.deleteHaushalt(currHaushalt)
-                    //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                    //neues Fragment erstellen auf das weitergeleitet werden soll
+                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
+                    // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = HaushaltFragment()
-                    //Fragment Manager aus Main Activity holen
+                    // Fragment Manager aus Main Activity holen
                     val fragMan = parentFragmentManager
-                    //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
-                    //und anschließend noch ein commit()
+                    // und anschließend noch ein commit()
                     dialog.cancel()
                 }
                 builder1.setNegativeButton(
@@ -264,12 +261,13 @@ class HaushaltBearbeitenLoeschenFragment(
                                             "Auf ein Jahr hochgerechnet, ergibt sich ein Verbrauch von $perYear kWh pro Jahr.\n" +
                                             "Durch die eingetragenen Verbraucher, Produzenten und Urlaube wird ein Verbrauch von $estimatedGesamt kWh pro Jahr geschätzt."
                                 auswertung.text = tempStr
-                            } else
+                            } else {
                                 auswertung.text = null
+                            }
                         }
                     }
                 } catch (e: ParseException) {
-                    //e.printStackTrace()
+                    // e.printStackTrace()
                 }
             }
 
@@ -297,8 +295,9 @@ class HaushaltBearbeitenLoeschenFragment(
         for (currUrlaub in urlaubeInHaushalt) {
             if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt() == (Calendar.getInstance()
                     .get(Calendar.YEAR))
-            )
+            ) {
                 tempList.add(currUrlaub)
+            }
         }
         tempSum += tempList.sumByDouble { urlaub ->
             urlaub.getErsparnisProTag() * (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays - urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
@@ -311,5 +310,4 @@ class HaushaltBearbeitenLoeschenFragment(
     fun getProdVerbrauch(geraet: Geraete): Double {
         return geraet.getJahresverbrauch().withSign(1) * geraet.getEigenverbrauch()!! / 100
     }
-
 }

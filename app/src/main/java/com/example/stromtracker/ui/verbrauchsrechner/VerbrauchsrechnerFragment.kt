@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.stromtracker.R
 
-
 class VerbrauchsrechnerFragment : Fragment() {
 
     private lateinit var strompreis: EditText
@@ -23,7 +22,6 @@ class VerbrauchsrechnerFragment : Fragment() {
     private lateinit var verbrauchprojahr: TextView
     private lateinit var kostenprojahr: TextView
     private lateinit var warnungstext: TextView
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,7 +86,6 @@ class VerbrauchsrechnerFragment : Fragment() {
                     }
                     verbrauchprojahr.text = String.format("%.2f kWh pro Jahr", verbrauch)
                     kostenprojahr.text = String.format("%.2f € pro Jahr", euro)
-
                 } else {
                     verbrauchprojahr.text = null
                     kostenprojahr.text = null
@@ -99,6 +96,5 @@ class VerbrauchsrechnerFragment : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
         return edit
-
     }
 }
