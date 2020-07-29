@@ -201,7 +201,7 @@ class ImportExportFragment : Fragment() {
                 ).show()
             }
         }
-        val impCompanion = CompanionImport(importexportViewModel)
+        val impCompanion = CompanionImport()
         impCompanion.setHaushaltaltlist(haushaltlist)
         impCompanion.setgeraetealtlist(geraetlist)
         impCompanion.setkategorienaltlist(kategorielist)

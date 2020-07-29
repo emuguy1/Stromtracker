@@ -1,10 +1,9 @@
 package com.example.stromtracker.ui.importexport.Import
 
 import com.example.stromtracker.database.*
-import com.example.stromtracker.ui.importexport.ImportExportViewModel
 import java.util.*
 
-class CompanionImport(private var viewModel: ImportExportViewModel) {
+class CompanionImport {
     private lateinit var haushaltaltlist: ArrayList<Haushalt>
     private lateinit var geraetealtlist: ArrayList<Geraete>
     private lateinit var kategoriealtlist: ArrayList<Kategorie>

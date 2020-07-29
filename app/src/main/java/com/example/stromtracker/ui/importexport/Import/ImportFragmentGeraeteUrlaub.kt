@@ -42,6 +42,7 @@ class ImportFragmentGeraeteUrlaub(
     private lateinit var urlaubtext: TextView
     private lateinit var tmpgeraet: Geraete
     private lateinit var fertigButton: Button
+    private lateinit var raumidarray: IntArray
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,7 +108,7 @@ class ImportFragmentGeraeteUrlaub(
         //Die ID des ersten Elements, das neu Eingefügt wurde
         ersteneueID = raumlist[raumlist.size - eingefuegteraeume].getRaumID()
         //Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten Erstellung der neuen Objekte direkt dort hinein zu speichern
-        val raumidarray = IntArray(raumErzeugtidlist[raumErzeugtidlist.size - 1] + 1)
+        raumidarray = IntArray(raumErzeugtidlist[raumErzeugtidlist.size - 1] + 1)
         zaehler = 0
         //dem idarray die neuen IDs hinzufügen
         raumErzeugtidlist.forEach { id ->
@@ -157,7 +158,6 @@ class ImportFragmentGeraeteUrlaub(
     }
 
     private fun geraeteErstellen() {
-        //TODO: falschen Icons werden noch manchmal benutzt
         geraetelist.forEach { row ->
             val data = row.split(",")
             if (data[0].toInt() == 1) {
@@ -165,7 +165,7 @@ class ImportFragmentGeraeteUrlaub(
                 tmpgeraet = Geraete(
                     data[2],
                     kategorienidlist[data[3].toInt()],
-                    raumErzeugtidlist[data[4].toInt()],
+                    raumidarray[data[4].toInt()],
                     haushaltidlist[data[5].toInt()],
                     0.0,
                     null,
@@ -182,7 +182,7 @@ class ImportFragmentGeraeteUrlaub(
                 tmpgeraet = Geraete(
                     data[2],
                     kategorienidlist[data[3].toInt()],
-                    raumErzeugtidlist[data[4].toInt()],
+                    raumidarray[data[4].toInt()],
                     haushaltidlist[data[5].toInt()],
                     data[6].toDouble(),
                     null,
@@ -199,7 +199,7 @@ class ImportFragmentGeraeteUrlaub(
                 tmpgeraet = Geraete(
                     data[2],
                     kategorienidlist[data[3].toInt()],
-                    raumErzeugtidlist[data[4].toInt()],
+                    raumidarray[data[4].toInt()],
                     haushaltidlist[data[5].toInt()],
                     data[6].toDouble(),
                     null,
@@ -216,7 +216,7 @@ class ImportFragmentGeraeteUrlaub(
                 tmpgeraet = Geraete(
                     data[2],
                     kategorienidlist[data[3].toInt()],
-                    raumErzeugtidlist[data[4].toInt()],
+                    raumidarray[data[4].toInt()],
                     haushaltidlist[data[5].toInt()],
                     data[6].toDouble(),
                     data[7].toDouble(),
@@ -233,7 +233,7 @@ class ImportFragmentGeraeteUrlaub(
                 tmpgeraet = Geraete(
                     data[2],
                     kategorienidlist[data[3].toInt()],
-                    raumErzeugtidlist[data[4].toInt()],
+                    raumidarray[data[4].toInt()],
                     haushaltidlist[data[5].toInt()],
                     data[6].toDouble(),
                     data[7].toDouble(),
