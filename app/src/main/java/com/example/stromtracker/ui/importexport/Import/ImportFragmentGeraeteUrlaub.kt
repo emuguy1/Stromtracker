@@ -23,7 +23,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ImportFragmentGeraeteUrlaub(
-    private var companion: CompanionImport,
     private var haushaltidlist: IntArray,
     private var kategorienidlist: IntArray,
     private var kategorienneuidlist: ArrayList<Int>,
@@ -54,7 +53,7 @@ class ImportFragmentGeraeteUrlaub(
             ViewModelProvider(this).get(ImportExportViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport_import, container, false)
 
-        //Button finden und auf Invisible setzen bis man fertig ist mit dem Einfügen der restlichen Elemente
+        //Button finden und auf Invisible setzen, bis man fertig ist mit dem Einfügen der restlichen Elemente
         fertigButton = root.findViewById<Button>(R.id.import_export_button_fertig)
         fertigButton.visibility = View.INVISIBLE
 
@@ -266,7 +265,7 @@ class ImportFragmentGeraeteUrlaub(
                     raumlist.clear()
                     raumlist.addAll(raeume)
                     //Überprüfung ob alle Eingefügt wurden, damit die Funktion nicht mehrmals aufgerufen wird
-                    if (raumlist.size == companion.getraeumealtlist().size + raumErzeugtidlist.size) {
+                    if (raumlist.size == CompanionImport.getraeumealtlist().size + raumErzeugtidlist.size) {
                         createList2()
                     }
                 }
@@ -284,7 +283,7 @@ class ImportFragmentGeraeteUrlaub(
                     kategorieneulist.clear()
                     kategorieneulist.addAll(kategorie)
                     //Überprüfung pb schon alle eingefügt wurden, sodass nicht mehrmals die Funktion aufgerufen wird
-                    if (kategorieneulist.size == companion.getkategoriealtlist().size + kategorienneuidlist.size) {
+                    if (kategorieneulist.size == CompanionImport.getkategoriealtlist().size + kategorienneuidlist.size) {
                         makeGeraete()
                     }
                 }

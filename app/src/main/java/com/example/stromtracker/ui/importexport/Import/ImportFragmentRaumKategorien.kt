@@ -17,7 +17,6 @@ import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.importexport.ImportExportViewModel
 
 class ImportFragmentRaumKategorien(
-    private val companion: CompanionImport,
     private var daten: ArrayList<String>,
     private var alteHaushalteIDList: ArrayList<Int>,
     private var raumlist: ArrayList<String>,
@@ -28,7 +27,7 @@ class ImportFragmentRaumKategorien(
 
     private lateinit var importexportViewModel: ImportExportViewModel
     private lateinit var haushaltlist: ArrayList<Haushalt>
-    private var kategoriealtlist = companion.getkategoriealtlist()
+    private var kategoriealtlist = CompanionImport.getkategoriealtlist()
     private lateinit var haushalttext: TextView
     private lateinit var kategorieneuidlist: ArrayList<Int>
     private lateinit var katidarray: IntArray
@@ -92,7 +91,6 @@ class ImportFragmentRaumKategorien(
         haushalttext.text = getString(R.string.import_text_haushalte)
         //neues Fragment erstellen auf das weitergeleitet werden soll
         val frag = ImportFragmentGeraeteUrlaub(
-            companion,
             idarray,
             katidarray,
             kategorieneuidlist,
@@ -141,7 +139,7 @@ class ImportFragmentRaumKategorien(
                 if (haushalte != null) {
                     haushaltlist.clear()
                     haushaltlist.addAll(haushalte)
-                    if (haushaltlist.size == companion.getHaushaltaltlist().size + daten.size) {
+                    if (haushaltlist.size == CompanionImport.getHaushaltaltlist().size + daten.size) {
                         makeRaeume()
                     }
                 }

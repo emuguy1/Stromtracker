@@ -1,45 +1,39 @@
 package com.example.stromtracker.ui.importexport.Import
 
-import com.example.stromtracker.database.*
+import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.database.Raum
 import java.util.*
 
 class CompanionImport {
-    private lateinit var haushaltaltlist: ArrayList<Haushalt>
-    private lateinit var geraetealtlist: ArrayList<Geraete>
-    private lateinit var kategoriealtlist: ArrayList<Kategorie>
-    private lateinit var raeumealtlist: ArrayList<Raum>
-    private lateinit var urlaubaltlist: ArrayList<Urlaub>
+    companion object {
+        private lateinit var haushaltaltlist: ArrayList<Haushalt>
+        private lateinit var kategoriealtlist: ArrayList<Kategorie>
+        private lateinit var raeumealtlist: ArrayList<Raum>
 
-    fun setHaushaltaltlist(list: ArrayList<Haushalt>) {
-        haushaltaltlist = list
+        fun setHaushaltaltlist(list: ArrayList<Haushalt>) {
+            haushaltaltlist = list
+        }
+
+        fun getHaushaltaltlist(): ArrayList<Haushalt> {
+            return haushaltaltlist
+        }
+
+        fun setraeumealtlist(list: ArrayList<Raum>) {
+            raeumealtlist = list
+        }
+
+        fun getraeumealtlist(): ArrayList<Raum> {
+            return raeumealtlist
+        }
+
+        fun setkategorienaltlist(list: ArrayList<Kategorie>) {
+            kategoriealtlist = list
+        }
+
+        fun getkategoriealtlist(): ArrayList<Kategorie> {
+            return kategoriealtlist
+        }
+
     }
-
-    fun getHaushaltaltlist(): ArrayList<Haushalt> {
-        return haushaltaltlist
-    }
-
-    fun setraeumealtlist(list: ArrayList<Raum>) {
-        raeumealtlist = list
-    }
-
-    fun setkategorienaltlist(list: ArrayList<Kategorie>) {
-        kategoriealtlist = list
-    }
-
-    fun getkategoriealtlist(): ArrayList<Kategorie> {
-        return kategoriealtlist
-    }
-
-    fun setgeraetealtlist(list: ArrayList<Geraete>) {
-        geraetealtlist = list
-    }
-
-    fun getraeumealtlist(): ArrayList<Raum> {
-        return raeumealtlist
-    }
-
-    fun seturlaubaltlist(list: ArrayList<Urlaub>) {
-        urlaubaltlist = list
-    }
-
 }
