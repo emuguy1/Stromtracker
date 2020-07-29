@@ -65,11 +65,11 @@
     <string name="amort_pv_hint_amortdauer_zahl">X Jahre und X Tage bis zur Amortisation.</string>
     <string name="amort_pv_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
     <string name="amort_pv_hint_jahresertrag_euro_zahl">z.B. 406.35</string>
-    <string name="amort_pv_hint_kwh_pro_kwp">z.B. 1000.35</string>
+    <string name="amort_pv_hint_kwh_pro_kwp">z.B. 1000</string>
     <string name="amort_pv_hint_verguetung">z. B. 9.03</string>
     <string name="amort_pv_hint_eigenverbrauch">z. B. 30%</string>
     <string name="amort_pv_hint_preis_kwh">z. B. 26.40</string>
-    <string name="amort_pv_edit_kwh_pro_kwp">1000.5</string>
+    <string name="amort_pv_edit_kwh_pro_kwp">1000</string>
     <string name="amort_pv_edit_verguetung">9.03</string>
     <string name="amort_pv_edit_eigenverbrauch">30</string>
     <string name="amort_pv_edit_preis_kwh">26.4</string>
