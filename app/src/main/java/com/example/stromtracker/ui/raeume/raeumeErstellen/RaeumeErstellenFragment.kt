@@ -11,25 +11,26 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.raeume.RaeumeFragment
-import com.example.stromtracker.ui.raeume.RaeumeViewModel
 
 class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
-    private lateinit var raeumeViewModel: RaeumeViewModel
+    private lateinit var sharedViewModel:SharedViewModel
     private lateinit var raumnameneditfeld: EditText
     private lateinit var savebutton: Button
     private lateinit var informationfield: TextView
-    private var raumnameleer: String =
-        "Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde."
-    private var raumnamesonstiges: String = "Raum - Sonstiges - darf nicht erstellt werden!"
+    private var raumnameleer: String =getString(R.string.raum_name_leer)
+    private var raumnamesonstiges: String = getString(R.string.raum_sonstiges_erstellen)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        raeumeViewModel =
-            ViewModelProvider(this).get(RaeumeViewModel::class.java)
+
+        // sharedViewModel um auf das gemeinsame ViewModel und die DB zuzugreifen
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
         val root = inflater.inflate(
             R.layout.fragment_raeumeerstellen,
             container,
@@ -48,7 +49,7 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
                     // Die Daten in die RoomDatabase speichern
                     val raum =
                         Raum(raumnameneditfeld.text.toString(), currHaushaltid)
-                    raeumeViewModel.insertRaeume(raum)
+                    sharedViewModel.insertRaeume(raum)
                     // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = RaeumeFragment()
                     // Fragment Manager aus Main Activity holen

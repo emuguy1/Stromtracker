@@ -18,7 +18,6 @@ import com.example.stromtracker.ui.raeume.raeumeErstellen.RaeumeErstellenFragmen
 
 // deklariert Raeumefragment als Unterklasse von Fragment
 class RaeumeFragment : Fragment() {
-    private lateinit var raeumeViewModel: RaeumeViewModel
     private lateinit var datain: ArrayList<Raum>
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var sharedViewModel: SharedViewModel
@@ -28,11 +27,9 @@ class RaeumeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // sharedViewModel um auf das gemeinsame ViewModel zuzugreifen
+        // sharedViewModel um auf das gemeinsame ViewModel und die DB zuzugreifen
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        // View Model zuweisen, benötigt für DB Zugriff
-        raeumeViewModel = ViewModelProvider(this).get(RaeumeViewModel::class.java)
         val root = inflater.inflate(
             R.layout.fragment_raeume,
             container,
@@ -41,7 +38,7 @@ class RaeumeFragment : Fragment() {
 
         val raumData: LiveData<List<Raum>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                raeumeViewModel.getAllRaeumeByHaushaltId(haushalt.getHaushaltID())
+                sharedViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
             }
         raumData.observe(
             viewLifecycleOwner,

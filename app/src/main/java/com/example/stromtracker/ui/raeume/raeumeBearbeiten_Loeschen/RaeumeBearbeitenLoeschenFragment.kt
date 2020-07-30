@@ -14,31 +14,32 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.raeume.RaeumeFragment
-import com.example.stromtracker.ui.raeume.RaeumeViewModel
 
 // deklariert Raeumefragment als Unterklasse von Fragment
 class RaeumeBearbeitenLoeschenFragment(
     private var currRaum: Raum,
     private var raumliste: ArrayList<Raum>
 ) : Fragment() {
-    private lateinit var raeumeViewModel: RaeumeViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var savebutton: Button
     private lateinit var abortbutton: Button
     private lateinit var deletebutton: Button
     private lateinit var informationfield: TextView
     private lateinit var raumnameneditfeld: EditText
-    private var raumnameleer: String =
-        "Raum kann nicht gespeichert werden, da Kein Name eingegeben wurde."
-    private var raumnamesonstiges: String = "Raum - Sonstiges - darf nicht erstellt werden!"
+    private var raumnameleer: String =getString(R.string.raum_name_leer)
+    private var raumnamesonstiges: String = getString(R.string.raum_sonstiges_erstellen)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        raeumeViewModel =
-            ViewModelProvider(this).get(RaeumeViewModel::class.java)
+
+        // sharedViewModel um auf das gemeinsame ViewModel und die DB zuzugreifen
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
         val root = inflater.inflate(
             R.layout.fragment_raeume_bearbeiten_loeschen,
             container,
@@ -85,7 +86,7 @@ class RaeumeBearbeitenLoeschenFragment(
                 // Die Daten in die Roomdatabase speichern
                 if (!raumnameneditfeld.text.toString().isBlank()) {
                     currRaum.setName(raumnameneditfeld.text.toString())
-                    raeumeViewModel.updateRaeume(currRaum)
+                    sharedViewModel.updateRaeume(currRaum)
                     // neues Fragment erstellen auf das weitergeleitet werden soll
                     val frag = RaeumeFragment()
                     // Fragment Manager aus Main Activity holen
@@ -128,10 +129,10 @@ class RaeumeBearbeitenLoeschenFragment(
                 ) { dialog, _ ->
                     // Alle Geräte die dem aktuellen Raum hinzugefügt sind,
                     // werden dem Sonstigeraum zugeordnet
-                    raeumeViewModel.updateGeraeteByRaumId(currRaum.getRaumID(), sonstigesraumid)
+                    sharedViewModel.updateGeraeteByRaumId(currRaum.getRaumID(), sonstigesraumid)
                     // Daten werden aus der Datenbank gelöscht
                     // Daten aus Datenbank löschen
-                    raeumeViewModel.deleteRaeume(currRaum)
+                    sharedViewModel.deleteRaeume(currRaum)
                     // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
                     // Deswegen nur bei positiv der Fragmentwechsel.
                     // neues Fragment erstellen auf das weitergeleitet werden soll
