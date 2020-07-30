@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             R.drawable.ic_menu_amortrechnerpv
         )
 
-    private lateinit var oldhaushaltList: ArrayList<Haushalt>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -296,14 +296,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum_prd -> {
-                /*val sortedRaum = produzentList.sortedWith(compareBy {
-                    produzentList[it.getRaumID() - 1].getName().toLowerCase()
-                })
-                */
-                /*produzentList.clear()
+                var sortedRaum = produzentList.sortedWith(compareBy { it.getRaumID() })
+                produzentList.clear()
                 produzentList.addAll(sortedRaum)
 
-                 */
                 produzentViewAdapter.notifyDataSetChanged()
                 buttonSortRaum_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0

@@ -40,8 +40,11 @@ class GeraeteListAdapter(
     override fun onBindViewHolder(holder: GeraeteListAdapter.GeraeteViewHolder, position: Int) {
         holder.mTextView.text = geraeteList[position].getName()
         //.withSign(1) lässt den "Verbrauch" bzw. die Produktion von Produzenten positiv anzeigen, da diese als negativer Verbrauch in der DB gespeichert ist
-        holder.mVerbrauchView.text =
-            String.format("%.2f", geraeteList[position].getJahresverbrauch().withSign(1))
+        var text = String.format(
+            "%.2f",
+            geraeteList[position].getJahresverbrauch().withSign(1)
+        ) + " [kWh/J]"
+        holder.mVerbrauchView.text = text
         val raumID = geraeteList[position].getRaumID()
         for (raum in raumListHaushalt) {
             if (raum.getRaumID() == raumID) {

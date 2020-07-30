@@ -47,7 +47,7 @@
                 android:layout_marginBottom="@dimen/geraet_cardview_margin"
                 android:layout_weight="2.625"
                 android:background="@color/colorWhite"
-                android:gravity="left"
+                android:gravity="start"
                 android:hint="@string/geraete_hint"
                 android:textSize="@dimen/geraet_text_recycler"
                 app:autoSizeTextType="uniform" />
@@ -65,7 +65,6 @@
 
                 android:background="@color/colorWhite"
                 android:gravity="center_vertical"
-                android:hint="@string/geraete_hint"
                 android:textSize="@dimen/geraet_text_recycler" />
 
             <TextView
@@ -78,7 +77,6 @@
                 android:layout_weight="1.75"
                 android:background="@color/colorWhite"
                 android:gravity="center_vertical"
-                android:hint="@string/geraete_hint"
                 android:textSize="@dimen/geraet_text_recycler" />
 
 
