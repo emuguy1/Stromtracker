@@ -13,6 +13,9 @@ import com.example.stromtracker.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
+private const val centToEuro = 0.01
+private const val yearToDays = 365
+
 class AmortisationsrechnerFragment : Fragment() {
 
     private lateinit var editVerbrauchAkt: EditText
@@ -30,7 +33,11 @@ class AmortisationsrechnerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_amortisationsrechner, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_amortisationsrechner,
+            container,
+            false
+        )
 
         editVerbrauchAkt = root.findViewById(R.id.amort_edit_verbrauch_akt)
         editVerbrauchNeu = root.findViewById(R.id.amort_edit_verbrauch_neu)
@@ -94,7 +101,7 @@ class AmortisationsrechnerFragment : Fragment() {
                 // Ausgabe der Dauer in Jahren und Tagen
                 neuStr = df.format(amortDouble) + " Jahre und " + String.format(
                     "%.1f",
-                    (amortDouble.rem(1) * 365)
+                    (amortDouble.rem(1) * yearToDays)
                 ) + " Tage bis zur Amortisation."
                 outAmortdauer.text = neuStr
                 // Ausrechnen der Ersparnis nach Amortisation
@@ -116,6 +123,6 @@ class AmortisationsrechnerFragment : Fragment() {
     }
 
     fun berechneStromkosten(stromkosten: Double, verbrauch: Double): Double {
-        return (verbrauch * stromkosten / 100)
+        return (verbrauch * stromkosten * centToEuro)
     }
 }

@@ -13,6 +13,10 @@ import com.example.stromtracker.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
+private const val centToEuro = 0.01
+private const val numToProzent = 100.0
+private const val yearToDays = 365
+
 class AmortisationsrechnerPVFragment : Fragment() {
 
     private lateinit var editLeistung: EditText
@@ -90,7 +94,10 @@ class AmortisationsrechnerPVFragment : Fragment() {
 
             if (ak != null && eigenverbrauch != null && preisKwh != null) {
                 val JEeuro: Double =
-                    ((leistung * ertrag * verguetung / 100 * (1 - eigenverbrauch / 100)) + (leistung * ertrag * preisKwh / 100 * eigenverbrauch / 100))
+                    ((leistung * ertrag * verguetung * centToEuro
+                            * (1 - eigenverbrauch / numToProzent)) +
+                            (leistung * ertrag * preisKwh * centToEuro
+                                    * eigenverbrauch / numToProzent))
                 outStr = String.format("%.2f", JEeuro) + " €"
                 outJahresertragEuro.text = outStr
 
@@ -100,7 +107,7 @@ class AmortisationsrechnerPVFragment : Fragment() {
                 df.roundingMode = RoundingMode.DOWN
                 outStr = df.format(amortDouble) + " Jahre und " + String.format(
                     "%.1f",
-                    (amortDouble.rem(1) * 365)
+                    (amortDouble.rem(1) * yearToDays)
                 ) + " Tage bis zur Amortisation"
                 outAmortdauer.text = outStr
                 outStr = "Danach: " + JEeuro.toString() + "€ Ersparnis im Jahr."

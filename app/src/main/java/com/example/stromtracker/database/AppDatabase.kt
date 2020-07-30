@@ -7,7 +7,15 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = arrayOf(Geraete::class, Haushalt::class, Kategorie::class, Raum::class, Urlaub::class), version = 1)
+@Database(
+    entities = arrayOf(
+        Geraete::class,
+        Haushalt::class,
+        Kategorie::class,
+        Raum::class,
+        Urlaub::class
+    ), version = 1
+)
 @TypeConverters(DateConverters::class)
 
 abstract class AppDatabase : RoomDatabase() {
