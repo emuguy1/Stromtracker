@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.raeume.RaeumeFragment"
-    android:background="@color/colorBackgroundGrey">
+    android:background="@color/colorBackgroundGrey"
+    tools:context=".ui.raeume.RaeumeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_raeume"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.raeume.RaeumeFragment"/>
+        tools:context=".ui.raeume.RaeumeFragment" />
 
     <com.getbase.floatingactionbutton.AddFloatingActionButton
         android:id="@+id/fab_raeume"
@@ -22,9 +22,6 @@
         app:fab_plusIconColor="@color/half_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:context=".ui.raeume.RaeumeFragment"/>
-
-
-
+        tools:context=".ui.raeume.RaeumeFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

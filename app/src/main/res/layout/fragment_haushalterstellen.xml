@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".ui.haushalt.haushaltErstellen.HaushaltErstellenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/text_view_haushalt_erstellen_name"
             android:layout_width="wrap_content"
@@ -27,11 +28,11 @@
             android:layout_height="@dimen/haushalt_edit_text_height"
             android:layout_marginStart="@dimen/haushalt_margin_start"
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
-            android:maxLength="30"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="@string/haushaltedithint_name"
             android:autofillHints="@string/haushaltedithint_name"
+            android:ems="10"
+            android:hint="@string/haushaltedithint_name"
+            android:inputType="text"
+            android:maxLength="30"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_name" />
 
@@ -51,10 +52,10 @@
             android:layout_height="@dimen/haushalt_edit_text_height"
             android:layout_marginStart="@dimen/haushalt_margin_start"
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
-            android:hint="@string/haushaltedithint_strompreis"
             android:autofillHints="@string/haushaltedithint_strompreis"
-            android:maxLength="6"
+            android:hint="@string/haushaltedithint_strompreis"
             android:inputType="numberDecimal"
+            android:maxLength="6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_strompreis" />
 
@@ -86,10 +87,10 @@
             android:layout_height="@dimen/haushalt_edit_text_height"
             android:layout_marginStart="@dimen/haushalt_margin_start"
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
+            android:autofillHints="@string/haushaltedithint_personen"
+            android:hint="@string/haushaltedithint_personen"
             android:inputType="number"
             android:maxLength="3"
-            android:hint="@string/haushaltedithint_personen"
-            android:autofillHints="@string/haushaltedithint_personen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_anzahl_personen" />
 
@@ -109,10 +110,10 @@
             android:layout_height="@dimen/haushalt_edit_text_height"
             android:layout_marginStart="@dimen/haushalt_margin_start"
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
-            android:hint="@string/haushaltedithint_stand"
             android:autofillHints="@string/haushaltedithint_stand"
-            android:maxLength="16"
+            android:hint="@string/haushaltedithint_stand"
             android:inputType="numberDecimal"
+            android:maxLength="16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_zaehlerstand" />
 
@@ -144,8 +145,8 @@
             android:layout_height="@dimen/haushalt_edit_text_height"
             android:layout_marginStart="@dimen/haushalt_margin_start"
             android:layout_marginTop="@dimen/haushalt_margin_top_klein"
-            android:hint="@string/haushaltedithint_datum"
             android:autofillHints="@string/haushaltedithint_datum"
+            android:hint="@string/haushaltedithint_datum"
             android:inputType="date"
             android:maxLength="10"
             app:layout_constraintStart_toStartOf="parent"

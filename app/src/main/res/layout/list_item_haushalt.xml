@@ -11,19 +11,15 @@
         android:id="@+id/recycler_card_haushalt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/recyclerview_marginLeft"
         android:layout_marginStart="@dimen/recyclerview_marginLeft"
-        android:layout_marginRight="@dimen/recyclerview_marginRight"
+        android:layout_marginTop="@dimen/recyclerview_marginTop"
         android:layout_marginEnd="@dimen/recyclerview_marginRight"
         android:layout_marginBottom="@dimen/recyclerview_marginBottom"
-        android:layout_marginTop="@dimen/recyclerview_marginTop"
         app:cardBackgroundColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,12 +30,7 @@
                 android:id="@+id/text_view_haushalt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_margin="@dimen/content_margin_normal"
                 android:background="@color/colorWhite"
                 android:drawableStart="@drawable/ic_menu_haushalt"
                 android:drawableLeft="@drawable/ic_menu_haushalt"
@@ -51,7 +42,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlHardcoded" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

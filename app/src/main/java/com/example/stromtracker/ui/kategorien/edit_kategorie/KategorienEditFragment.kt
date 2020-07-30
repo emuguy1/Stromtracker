@@ -50,7 +50,7 @@ class KategorienEditFragment(
             R.layout.fragment_kategorien_edit,
             container,
             false)
-        currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_editName)
+        currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_edit_name)
         currNameEdit.setText(currKategorie.getName())
         customTextListener(currNameEdit)
         infoFeld = root.findViewById(R.id.kategorie_edit_info)

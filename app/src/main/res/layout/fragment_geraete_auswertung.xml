@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/geraet_auswertung_text_auswertung"
-            android:textSize="18sp"
+            android:textSize="@dimen/content_text_bigger"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
@@ -55,7 +55,7 @@
                         android:id="@+id/geraete_auswertung_text_durchschnitt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp" />
+                        android:layout_margin="@dimen/content_margin_small" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
