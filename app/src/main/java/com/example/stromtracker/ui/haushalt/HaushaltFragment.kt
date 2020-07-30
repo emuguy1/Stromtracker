@@ -13,6 +13,7 @@ import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.haushalt.haushaltErstellen.HaushaltErstellenFragment
 
 private const val defaultName = "Haushalt1"
@@ -29,7 +30,7 @@ private val defaultEntry: Haushalt = Haushalt(
 
 // deklariert Haushaltfragment als Unterklasse von Fragment
 class HaushaltFragment : Fragment() {
-    private lateinit var haushaltViewModel: HaushaltViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var datain: ArrayList<Haushalt>
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var datatemp: ArrayList<Haushalt>
@@ -41,9 +42,9 @@ class HaushaltFragment : Fragment() {
         // Main Activity holen um auf die Haushaltliste in der MainActivity zugreifen zu können
         mainact = requireActivity() as MainActivity
         // View Model zuweisen, benötigt für DB Zugriff
-        haushaltViewModel = ViewModelProvider(this).get(HaushaltViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        haushaltViewModel.getAllHaushalt().observe(
+        sharedViewModel.getAllHaushalt().observe(
             viewLifecycleOwner,
             Observer { haushalte ->
                 if (haushalte != null) {
@@ -84,16 +85,16 @@ class HaushaltFragment : Fragment() {
 
     private fun initHaushalt() {
         val haushalt = defaultEntry
-        haushaltViewModel.insertHaushalt(haushalt)
+        sharedViewModel.insertHaushalt(haushalt)
     }
 
     private fun initRaeume(hausid: Int) {
         var newraum = Raum("Schlafzimmer", hausid)
-        haushaltViewModel.insertRaum(newraum)
+        sharedViewModel.insertRaum(newraum)
         newraum = Raum("Wohnzimmer", hausid)
-        haushaltViewModel.insertRaum(newraum)
+        sharedViewModel.insertRaum(newraum)
         newraum = Raum("Sonstiges", hausid)
-        haushaltViewModel.insertRaum(newraum)
+        sharedViewModel.insertRaum(newraum)
     }
 
     override fun onCreateView(

@@ -11,16 +11,16 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
 
 class GeraeteNewVerbraucherFragment(
     private val katList: ArrayList<Kategorie>,
     private val raumList: ArrayList<Raum>
 ) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var inputName: EditText
     private lateinit var inputVolllast: EditText
     private lateinit var inputStandBy: EditText
@@ -47,13 +47,13 @@ class GeraeteNewVerbraucherFragment(
 
         spinnerKat = root.findViewById(R.id.geraete_new_kategorie_spinner)
         val katAdapter: ArrayAdapter<Kategorie> =
-            ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
+            ArrayAdapter(root.context, android.R.layout.simple_spinner_item, katList)
         spinnerKat.adapter = katAdapter
         spinnerKat.onItemSelectedListener = this
 
         spinnerRaum = root.findViewById(R.id.geraete_new_raum_spinner)
         val raumAdapter: ArrayAdapter<Raum> =
-            ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
+            ArrayAdapter(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
         spinnerRaum.onItemSelectedListener = this
 
@@ -76,7 +76,7 @@ class GeraeteNewVerbraucherFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -155,7 +155,7 @@ class GeraeteNewVerbraucherFragment(
                             null,
                             notiz
                         )
-                        geraeteViewModel.insertGeraet(geraet)
+                        sharedViewModel.insertGeraet(geraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()

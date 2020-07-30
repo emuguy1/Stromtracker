@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.anychart.APIlib
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
@@ -20,7 +19,6 @@ import com.anychart.enums.Orientation
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.geraete.GeraeteFragment
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import java.util.*
 import kotlin.collections.ArrayList
@@ -50,7 +48,6 @@ class GeraeteAuswertungFragment(
     private var gesamtverbrauchEuro: Double = 0.0
 
     private lateinit var root: View
-    private lateinit var geraeteViewModel: GeraeteViewModel
 
     private lateinit var anyChartVerbraucher: AnyChartView
     private lateinit var textAvg: TextView
@@ -95,7 +92,6 @@ class GeraeteAuswertungFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
     }
 
     private fun getProdVerbrauch(geraet: Geraete): Double {
@@ -189,7 +185,7 @@ class GeraeteAuswertungFragment(
 
         val tempList: ArrayList<Urlaub> = ArrayList()
         for (currUrlaub in urlaubList) {
-            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt()
+            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears)
                 == (Calendar.getInstance()
                     .get(Calendar.YEAR))
             ) {

@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
-import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HaushaltErstellenFragment : Fragment() {
-    private lateinit var haushaltViewModel: HaushaltViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var newHaushalt: Haushalt
 
     override fun onCreateView(
@@ -26,8 +26,8 @@ class HaushaltErstellenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        haushaltViewModel =
-            ViewModelProvider(this).get(HaushaltViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val root = inflater.inflate(
             R.layout.fragment_haushalterstellen,
             container,
@@ -97,7 +97,7 @@ class HaushaltErstellenFragment : Fragment() {
                                 )
                         }
                         // Haushalt in Room Datenbank speichern
-                        haushaltViewModel.insertHaushalt(newHaushalt)
+                        sharedViewModel.insertHaushalt(newHaushalt)
 
                         // neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = HaushaltFragment()

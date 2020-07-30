@@ -14,9 +14,9 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
 class GeraeteEditProduzentFragment(
     private val currGeraet: Geraete,
@@ -25,7 +25,7 @@ class GeraeteEditProduzentFragment(
 ) :
     Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var inputName: EditText
     private lateinit var inputProdProJahr: EditText
     private lateinit var inputVerbrauch: EditText
@@ -95,7 +95,7 @@ class GeraeteEditProduzentFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -144,7 +144,7 @@ class GeraeteEditProduzentFragment(
                         currGeraet.setEigenverbrauch(eigenverbrauch)
                         currGeraet.setNotiz(notiz)
 
-                        geraeteViewModel.updateGeraet(currGeraet)
+                        sharedViewModel.updateGeraet(currGeraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
@@ -170,25 +170,25 @@ class GeraeteEditProduzentFragment(
         val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
         confirmDeleteBuilder.setMessage(R.string.geraete_edit_confirmDelete)
         confirmDeleteBuilder.setPositiveButton(
-            R.string.ja,
-            DialogInterface.OnClickListener { dialog, _ ->
-                // Daten werden aus der Datenbank gelöscht
-                geraeteViewModel.deleteGeraet(currGeraet)
-                // Man wir nur weitergeleitet, wenn man wirklich löschen will.
-                // Deswegen nur bei positiv der Fragmentwechsel.
-                // neues Fragment erstellen auf das weitergeleitet werden soll
-                val frag = GeraeteFragment()
-                // Fragment container aus content_main.xml muss ausgeählt werden,
-                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                    .addToBackStack(null).commit()
-                // und anschließend noch ein commit()
-                dialog.cancel()
-            })
+            R.string.ja
+        ) { dialog, _ ->
+            // Daten werden aus der Datenbank gelöscht
+            sharedViewModel.deleteGeraet(currGeraet)
+            // Man wir nur weitergeleitet, wenn man wirklich löschen will.
+            // Deswegen nur bei positiv der Fragmentwechsel.
+            // neues Fragment erstellen auf das weitergeleitet werden soll
+            val frag = GeraeteFragment()
+            // Fragment container aus content_main.xml muss ausgeählt werden,
+            // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+            fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                .addToBackStack(null).commit()
+            // und anschließend noch ein commit()
+            dialog.cancel()
+        }
 
         confirmDeleteBuilder.setNegativeButton(
-            R.string.nein,
-            DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
+            R.string.nein
+        ) { dialog, _ -> dialog.cancel() }
 
         val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
         confirmDeleteDialog.show()

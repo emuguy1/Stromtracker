@@ -11,9 +11,9 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
 class GeraeteNewProduzentFragment(
     private val katList: ArrayList<Kategorie>,
@@ -21,7 +21,7 @@ class GeraeteNewProduzentFragment(
 ) :
     Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var inputName: EditText
     private lateinit var inputProdProJahr: EditText
     private lateinit var inputVerbrauch: EditText
@@ -73,7 +73,7 @@ class GeraeteNewProduzentFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -128,7 +128,7 @@ class GeraeteNewProduzentFragment(
                             eigenverbrauch,
                             notiz
                         )
-                        geraeteViewModel.insertGeraet(geraet)
+                        sharedViewModel.insertGeraet(geraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()

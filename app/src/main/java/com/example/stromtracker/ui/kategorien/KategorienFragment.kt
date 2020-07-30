@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import com.getbase.floatingactionbutton.AddFloatingActionButton
 import java.util.*
@@ -21,7 +22,7 @@ import kotlin.collections.ArrayList
 
 class KategorienFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var kategorienViewModel: KategorienViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var myKategorien: ArrayList<Kategorie>
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -64,8 +65,8 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
 
         // View Model zuweisen, benötigt für DB Zugriff
-        kategorienViewModel = ViewModelProvider(this).get(KategorienViewModel::class.java)
-        kategorienViewModel.getAllKategorie().observe(
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        sharedViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorien ->
                 if (kategorien != null) {

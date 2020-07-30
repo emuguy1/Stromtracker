@@ -18,8 +18,8 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
-import com.example.stromtracker.ui.haushalt.HaushaltViewModel
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -37,9 +37,7 @@ class HaushaltBearbeitenLoeschenFragment(
     private lateinit var verbraucherInHaushalt: ArrayList<Geraete>
     private lateinit var produzentenInHaushalt: ArrayList<Geraete>
     private lateinit var urlaubeInHaushalt: ArrayList<Urlaub>
-
-    private lateinit var haushaltViewModel: HaushaltViewModel
-
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var zaehlerstandAkt: TextView
     private lateinit var datumAkt: TextView
     private lateinit var zaehlerstandNeu: EditText
@@ -51,8 +49,8 @@ class HaushaltBearbeitenLoeschenFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        haushaltViewModel =
-            ViewModelProvider(this).get(HaushaltViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val root =
             inflater.inflate(
                 R.layout.fragment_haushalt_bearbeiten_loeschen,
@@ -96,7 +94,7 @@ class HaushaltBearbeitenLoeschenFragment(
             tempString = SimpleDateFormat(
                 "dd.MM.yyyy",
                 Locale.GERMAN
-            ).format(currHaushalt.getDatum())
+            ).format(currHaushalt.getDatum()!!)
             datumAkt.text = tempString
         }
         oekomixeditfeld.isChecked = currHaushalt.getOekostrom()
@@ -131,7 +129,7 @@ class HaushaltBearbeitenLoeschenFragment(
                             val currDate = currHaushalt.getDatum()
                             val currZaehler = currHaushalt.getZaehlerstand()
                             if (currDate != null && currZaehler != null) {
-                                if (tempDate.after(currHaushalt.getDatum()) &&
+                                if (tempDate!!.after(currHaushalt.getDatum()) &&
                                     zaehlerNeu > currZaehler
                                 ) {
                                     currHaushalt.setZaehlerstand(zaehlerNeu)
@@ -143,10 +141,10 @@ class HaushaltBearbeitenLoeschenFragment(
                                 currHaushalt.setZaehlerstand(zaehlerNeu)
                                 // Kann nicht null sein,
                                 // da eventuelle Parser Fehler durch try catch abgefangen werden.
-                                currHaushalt.setDatum(tempDate)
+                                currHaushalt.setDatum(tempDate!!)
                             }
                         }
-                        haushaltViewModel.updateHaushalt(currHaushalt)
+                        sharedViewModel.updateHaushalt(currHaushalt)
                         // neues Fragment erstellen auf das weitergeleitet werden soll
                         val frag = HaushaltFragment()
                         // Fragment Manager aus Main Activity holen
@@ -202,7 +200,7 @@ class HaushaltBearbeitenLoeschenFragment(
                     R.string.ja
                 ) { dialog, _ ->
                     // Daten werden aus der Datenbank gelöscht
-                    haushaltViewModel.deleteHaushalt(currHaushalt)
+                    sharedViewModel.deleteHaushalt(currHaushalt)
                     // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
                     // Deswegen nur bei positiv der Fragmentwechsel.
                     // neues Fragment erstellen auf das weitergeleitet werden soll
@@ -228,21 +226,21 @@ class HaushaltBearbeitenLoeschenFragment(
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        haushaltViewModel.getAllVerbraucherByHaushaltID(currHaushalt.getHaushaltID()).observe(
+        sharedViewModel.getAllVerbraucherByHaushaltID(currHaushalt.getHaushaltID()).observe(
             viewLifecycleOwner,
             Observer { verbraucher ->
                 verbraucherInHaushalt.clear()
                 verbraucherInHaushalt.addAll(verbraucher)
             }
         )
-        haushaltViewModel.getAllProduzentenByHaushaltID(currHaushalt.getHaushaltID()).observe(
+        sharedViewModel.getAllProduzentenByHaushaltID(currHaushalt.getHaushaltID()).observe(
             viewLifecycleOwner,
             Observer { produzent ->
                 produzentenInHaushalt.clear()
                 produzentenInHaushalt.addAll(produzent)
             }
         )
-        haushaltViewModel.getAllUrlaubByHaushaltID(currHaushalt.getHaushaltID()).observe(
+        sharedViewModel.getAllUrlaubByHaushaltID(currHaushalt.getHaushaltID()).observe(
             viewLifecycleOwner,
             Observer { urlaub ->
                 urlaubeInHaushalt.clear()
@@ -266,7 +264,7 @@ class HaushaltBearbeitenLoeschenFragment(
                         val currDate = currHaushalt.getDatum()
                         val currZaehler = currHaushalt.getZaehlerstand()
                         if (currDate != null && currZaehler != null) {
-                            if (tempDate.after(currHaushalt.getDatum()) &&
+                            if (tempDate!!.after(currHaushalt.getDatum()) &&
                                 zaehlerNeu > currZaehler
                             ) {
                                 val tempStr: String
@@ -323,7 +321,7 @@ class HaushaltBearbeitenLoeschenFragment(
 
         val tempList: ArrayList<Urlaub> = ArrayList()
         for (currUrlaub in urlaubeInHaushalt) {
-            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt()
+            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears)
                 == (Calendar.getInstance()
                     .get(Calendar.YEAR))
             ) {
@@ -343,7 +341,7 @@ class HaushaltBearbeitenLoeschenFragment(
         return tempSum
     }
 
-    fun getProdVerbrauch(geraet: Geraete): Double {
+    private fun getProdVerbrauch(geraet: Geraete): Double {
         return (geraet.getJahresverbrauch().withSign(1) *
                 geraet.getEigenverbrauch()!!
                 * numToProzent)

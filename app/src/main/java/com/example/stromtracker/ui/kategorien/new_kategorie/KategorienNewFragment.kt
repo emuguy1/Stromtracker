@@ -11,19 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.kategorien.KategorienFragment
-import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
 
 class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
-    private lateinit var katViewModel: KategorienViewModel
 
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var inputName: EditText
     private lateinit var infoFeld: TextView
     private var selectedIcon: Int = 0
-
     private lateinit var abbrBtn: Button
     private lateinit var saveBtn: Button
 
@@ -62,7 +61,7 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
         super.onActivityCreated(savedInstanceState)
 
         // View Model zuweisen, benötigt für DB Zugriff
-        katViewModel = ViewModelProvider(this).get(KategorienViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(sharedViewModel::class.java)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
@@ -96,7 +95,7 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
                     // Neue Kategorie anlegen, die gleich Insertet wird
                     val newKategorie = Kategorie(inputName.text.toString(), selectedIcon)
                     // In DB speichern
-                    katViewModel.insertKategorie(newKategorie)
+                    sharedViewModel.insertKategorie(newKategorie)
                     // neues Fragment erstellen,
                     // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                     val frag = KategorienFragment()

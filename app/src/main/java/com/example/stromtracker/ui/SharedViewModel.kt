@@ -127,4 +127,23 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     fun deleteUrlaub(u: Urlaub) {
         repo.deleteUrlaub(u)
     }
+    fun updateKategorie(k: Kategorie) {
+        repo.updateKategorie(k)
+    }
+
+    fun updateGeraeteByKategorieID(alteKategorie: Int, neueKategorie: Int) {
+        repo.updateGeraetByKategorieID(alteKategorie, neueKategorie)
+    }
+
+    fun deleteKategorie(k: Kategorie) {
+        repo.deleteKategorie(k)
+    }
+
+    fun updateHaushalt(a: Haushalt) {
+        repo.updateHaushalt(a)
+    }
+
+    fun deleteHaushalt(a: Haushalt) {
+        repo.deleteHaushalt(a)
+    }
 }
