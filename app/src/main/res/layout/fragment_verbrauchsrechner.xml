@@ -16,15 +16,12 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp">
+            android:layout_margin="@dimen/card_view_margin">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp">
+                android:layout_margin="@dimen/content_margin_normal">
 
                 <TextView
                     android:id="@+id/text_view_verbrauchsrechner_strompreis_kwh"
@@ -45,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
-                    android:maxLength="16"
+                    android:maxLength="@integer/length_strompreis"
                     android:ems="5"
                     android:hint="@string/verbrauchsrechner_beispiel_stromkosten"
                     android:autofillHints="@string/verbrauchsrechner_beispiel_stromkosten"
@@ -84,7 +81,7 @@
                     android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:ems="5"
-                    android:maxLength="16"
+                    android:maxLength="@integer/length_verbrauch"
                     android:inputType="numberDecimal"
                     android:hint="@string/verbrauchsrechner_beispiel_stromverbrauch"
                     android:autofillHints="@string/verbrauchsrechner_beispiel_stromverbrauch"
@@ -121,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft2"
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
-                    android:maxLength="16"
+                    android:maxLength="@integer/length_stunden"
                     android:hint="@string/verbrauchsrechner_beispiel_vollastzeit"
                     android:autofillHints="@string/verbrauchsrechner_beispiel_vollastzeit"
                     android:ems="4"
@@ -160,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
-                    android:maxLength="16"
+                    android:maxLength="@integer/length_verbrauch"
                     android:hint="@string/verbrauchsrechner_beispiel_standby_verbrauch"
                     android:autofillHints="@string/verbrauchsrechner_beispiel_standby_verbrauch"
                     android:ems="5"
@@ -198,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft2"
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
-                    android:maxLength="16"
+                    android:maxLength="@integer/length_stunden"
                     android:hint="@string/verbrauchsrechner_beispiel_standby_zeit"
                     android:autofillHints="@string/verbrauchsrechner_beispiel_standby_zeit"
                     android:ems="4"

@@ -54,6 +54,7 @@
                     android:hint="@string/amort_hint_verbrauch_akt"
                     android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
+                    android:maxLength="@integer/length_verbrauch"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_verbrauch_akt"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_verbrauch_akt" />
 
@@ -86,6 +87,7 @@
                     android:hint="@string/amort_hint_verbrauch_neu"
                     android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
+                    android:maxLength="@integer/length_verbrauch"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_verbrauch_neu"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_verbrauch_neu" />
 
@@ -118,6 +120,7 @@
                     android:hint="@string/amort_hint_anschaffung"
                     android:inputType="numberDecimal"
                     android:textSize="@dimen/content_text_big"
+                    android:maxLength="@integer/length_kosten"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_anschaffung_neu"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_anschaffung_neu" />
 
@@ -161,6 +164,7 @@
                     android:inputType="numberDecimal"
                     android:text="@string/amort_edit_strompreis"
                     android:textSize="@dimen/content_text_big"
+                    android:maxLength="@integer/length_strompreis"
                     app:layout_constraintStart_toStartOf="@+id/amort_text_strompreis"
                     app:layout_constraintTop_toBottomOf="@+id/amort_text_strompreis" />
 
