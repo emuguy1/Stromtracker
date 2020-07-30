@@ -1,10 +1,12 @@
 package com.example.stromtracker.ui.haushalt
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,20 +23,29 @@ class HaushaltFragment : Fragment() {
     private lateinit var datain: ArrayList<Haushalt>
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var datatemp: ArrayList<Haushalt>
-    private lateinit var mainact: MainActivity
     private var isinit: Boolean = false
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //Main Activity holen um auf die Haushaltliste in der MainActivity zugreifen zu können
-        mainact = requireActivity() as MainActivity
-        //View Model zuweisen, benötigt für DB Zugriff
+
+    private fun initHaushalt() {
+        val haushalt = Haushalt("Haushalt", 12.5, 5, null, null, true)
+        haushaltViewModel.insertHaushalt(haushalt)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         haushaltViewModel = ViewModelProvider(this).get(HaushaltViewModel::class.java)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("TAG", "test")
 
         haushaltViewModel.getAllHaushalt().observe(
             viewLifecycleOwner,
             Observer { haushalte ->
                 if (haushalte != null) {
+                    Log.d("TAG", viewLifecycleOwner.toString())
 
                     if (haushalte.isEmpty()) {
                         //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
@@ -43,12 +54,12 @@ class HaushaltFragment : Fragment() {
                     }
                     //die alte Haushaltliste aus Main Activity holen, um zu schauen,
                     // welcher Haushalt erzeugt wurde und dem dann Standardräume hinzuzufügen
-                    datatemp = mainact.getOldHaushaltList()
+                    datatemp = getOldHaushaltList()
 
                     datain.clear()
                     datain.addAll(haushalte)
                     //Die Haushaltliste in Main Activity erneuern.
-                    mainact.setOldHaushaltList(datain)
+                    setOldHaushaltList(datain)
                     //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
                     if (datain.size > datatemp.size && !isinit && datatemp.size > 0) {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
@@ -64,11 +75,6 @@ class HaushaltFragment : Fragment() {
                 }
             }
         )
-    }
-
-    private fun initHaushalt() {
-        val haushalt = Haushalt("Haushalt", 12.5, 5, null, null, true)
-        haushaltViewModel.insertHaushalt(haushalt)
     }
 
     private fun initRaeume(hausid: Int) {
@@ -117,5 +123,17 @@ class HaushaltFragment : Fragment() {
             }
         }
         return root
+    }
+
+    companion object {
+        private lateinit var oldHaushaltList: ArrayList<Haushalt>
+
+        fun setOldHaushaltList(h: ArrayList<Haushalt>) {
+            oldHaushaltList = h
+        }
+
+        fun getOldHaushaltList(): ArrayList<Haushalt> {
+            return oldHaushaltList
+        }
     }
 }

@@ -8,15 +8,23 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 
-@Database(entities = arrayOf(Geraete::class, Haushalt::class, Kategorie::class, Raum::class, Urlaub::class), version = 1)
+@Database(
+    entities = arrayOf(
+        Geraete::class,
+        Haushalt::class,
+        Kategorie::class,
+        Raum::class,
+        Urlaub::class
+    ), version = 1
+)
 @TypeConverters(DateConverters::class)
 
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun geraeteDao(): GeraeteDAO
     abstract fun haushaltDao(): HaushaltDAO
-    abstract fun kategorieDao():KategorieDAO
-    abstract fun raumDao():RaumDAO
+    abstract fun kategorieDao(): KategorieDAO
+    abstract fun raumDao(): RaumDAO
     abstract fun urlaubDAO(): UrlaubDAO
 
     companion object {
@@ -77,7 +85,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         }
     }
-
 
 
 }
