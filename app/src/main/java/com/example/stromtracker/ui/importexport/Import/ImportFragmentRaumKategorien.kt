@@ -56,7 +56,7 @@ class ImportFragmentRaumKategorien(
     }
 
     private fun makeRaeume() {
-
+        //TODO: In companion Objekt bei Haushalt schieben
         //Alte Haushaltliste setzen, sodass nicht die Standardräume nochmal erzeugt werden
         val mainact = requireActivity() as MainActivity
         mainact.setOldHaushaltList(haushaltlist)
