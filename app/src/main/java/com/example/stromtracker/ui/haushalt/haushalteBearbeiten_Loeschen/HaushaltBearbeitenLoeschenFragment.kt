@@ -292,6 +292,10 @@ class HaushaltBearbeitenLoeschenFragment(
                                 auswertung.text = null
                             }
                         }
+                        else {
+                            val tempStr = "Neuer Zählerstand von $zaehlerNeu kWh."
+                            auswertung.text = tempStr
+                        }
                     }
                 } catch (e: ParseException) {
                     // e.printStackTrace()
