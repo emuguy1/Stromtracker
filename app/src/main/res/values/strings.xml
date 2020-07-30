@@ -202,5 +202,8 @@
 
     <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
     <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
+    <string name="verbrauchsrechner_zeitueberschreitung">Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt:</string>
+    <string name="verbrauchsrechner_kwhprojahr">" kWh pro Jahr"</string>
+    <string name="verbrauchsrechner_euro_pro_jahr">" € pro Jahr"</string>
 
 </resources>

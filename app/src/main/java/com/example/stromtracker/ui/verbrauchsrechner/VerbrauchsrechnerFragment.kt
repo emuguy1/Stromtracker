@@ -67,31 +67,31 @@ class VerbrauchsrechnerFragment : Fragment() {
                 var euro: Double
                 if (neustrompreis != null && lastverbrauch != null && volllastzeit != null) {
 
-                    verbrauch = (((lastverbrauch * volllastzeit) / wattToKiloWatt) * jahrTag)
+                    verbrauch = (((lastverbrauch * volllastzeit) * wattToKiloWatt) * jahrTag)
                     euro =
-                        (((lastverbrauch * volllastzeit) / wattToKiloWatt) * neustrompreis * centToEuro * jahrTag)
+                        (((lastverbrauch * volllastzeit) * wattToKiloWatt) * neustrompreis * centToEuro * jahrTag)
                     if (volllastzeit > tagStunden) {
                         warnungstext.text = String.format(
-                            "Die Zeit unter Last überschreitet 24h! Sie beträgt: %.1f h",
+                            getString(R.string.verbrauchsrechner_zeitueberschreitung)+" %.1f h",
                             volllastzeit
                         )
                     } else {
                         warnungstext.text = null
                     }
                     if (standbystromverbrauch != null && standbydauer != null) {
-                        verbrauch += ((standbystromverbrauch * standbydauer) / wattToKiloWatt) * jahrTag
+                        verbrauch += ((standbystromverbrauch * standbydauer) * wattToKiloWatt) * jahrTag
                         euro = verbrauch * neustrompreis * centToEuro
                         if ((volllastzeit + standbydauer) > tagStunden) {
-                            warnungstext.text = String.format(
-                                "Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt: %.1f h",
+                            warnungstext.text = String.format(getString(R.string.verbrauchsrechner_zeitueberschreitung)
+                                +" %.1f h",
                                 (volllastzeit + standbydauer)
                             )
                         } else {
                             warnungstext.text = null
                         }
                     }
-                    verbrauchprojahr.text = String.format("%.2f kWh pro Jahr", verbrauch)
-                    kostenprojahr.text = String.format("%.2f € pro Jahr", euro)
+                    verbrauchprojahr.text = String.format("%.2f"+getString(R.string.verbrauchsrechner_kwhprojahr), verbrauch)
+                    kostenprojahr.text = String.format("%.2f"+getString(R.string.verbrauchsrechner_euro_pro_jahr), euro)
                 } else {
                     verbrauchprojahr.text = null
                     kostenprojahr.text = null

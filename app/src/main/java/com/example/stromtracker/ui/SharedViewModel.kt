@@ -115,4 +115,16 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     fun updateGeraeteByRaumId(alterRaum: Int, neuerRaum: Int) {
         repo.updateGeraetByRaumID(alterRaum, neuerRaum)
     }
+
+    fun insertUrlaub(u: Urlaub) {
+        repo.insertUrlaub(u)
+    }
+
+    fun updateUrlaub(u: Urlaub) {
+        repo.updateUrlaub(u)
+    }
+
+    fun deleteUrlaub(u: Urlaub) {
+        repo.deleteUrlaub(u)
+    }
 }

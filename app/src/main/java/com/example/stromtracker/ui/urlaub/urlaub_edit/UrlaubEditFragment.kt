@@ -17,18 +17,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.centToEuro
 import com.example.stromtracker.ui.urlaub.UrlaubFragment
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.checkDates
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.dateTimeToDays
-import com.example.stromtracker.ui.urlaub.UrlaubViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: Haushalt) :
     Fragment(), View.OnClickListener {
 
-    private lateinit var urlaubViewModel: UrlaubViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var fragMan: FragmentManager
 
     private lateinit var name: EditText
@@ -47,7 +47,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        urlaubViewModel = ViewModelProvider(this).get(UrlaubViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_urlaub_edit, container, false)
         fragMan = parentFragmentManager
@@ -145,7 +145,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
                         urlaub.setDateVon(tempDateStart)
                         urlaub.setDateBis(tempDateEnde)
 
-                        urlaubViewModel.updateUrlaub(urlaub)
+                        sharedViewModel.updateUrlaub(urlaub)
 
                         val frag = UrlaubFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
@@ -173,7 +173,7 @@ class UrlaubEditFragment(private var urlaub: Urlaub, private val currHaushalt: H
                     R.string.ja
                 ) { dialog, _ ->
                     // Daten werden aus der Datenbank gelöscht
-                    urlaubViewModel.deleteUrlaub(urlaub)
+                    sharedViewModel.deleteUrlaub(urlaub)
                     // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
                     // Deswegen nur bei positiv der Fragmentwechsel.
                     // neues Fragment erstellen auf das weitergeleitet werden soll

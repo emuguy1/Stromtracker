@@ -16,6 +16,7 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Urlaub
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.urlaub.UrlaubFragment
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.centToEuro
@@ -23,14 +24,13 @@ import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.dateTimeToDa
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.dayLen
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.wattToKW
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion.Companion.yearToDay
-import com.example.stromtracker.ui.urlaub.UrlaubViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaushalt: Haushalt) :
     Fragment(), View.OnClickListener {
 
-    private lateinit var urlaubViewModel: UrlaubViewModel
+    private lateinit var sharedViewModel: SharedViewModel
 
     private var gesamtverbrauchNeuPT: Double = 0.0
     private var gesamtverbrauchAktPT: Double = 0.0
@@ -51,7 +51,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        urlaubViewModel = ViewModelProvider(this).get(UrlaubViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_urlaub_new, container, false)
 
@@ -76,7 +76,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
 
     private fun loadGesamtverbrauch() {
         for (geraet in geraete) {
-            if (geraet.getUrlaubsmodus() == false) {
+            if (!geraet.getUrlaubsmodus()) {
                 if (geraet.getStromStandBy() != null && geraet.getBetriebszeitStandBy() != null) {
                     gesamtverbrauchNeuPT += geraet.getStromStandBy()!! * dayLen
                 } else {
@@ -164,7 +164,7 @@ class UrlaubNewFragment(private val geraete: List<Geraete>, private val currHaus
                             ersparniskWhPT,
                             currHaushalt.getHaushaltID()
                         )
-                        urlaubViewModel.insertUrlaub(urlaub)
+                        sharedViewModel.insertUrlaub(urlaub)
                         val frag = UrlaubFragment()
                         val fragman = parentFragmentManager
                         fragman.beginTransaction().replace(R.id.nav_host_fragment, frag)
