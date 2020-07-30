@@ -12,8 +12,8 @@
         android:autofillHints="@string/haushaltedithint_datum"
         android:hint="@string/haushaltedithint_datum"
         android:inputType="date"
-        android:textSize="@dimen/content_text_big"
         android:maxLength="@integer/length_datum"
+        android:textSize="@dimen/content_text_big"
         app:layout_constraintStart_toStartOf="@+id/urlaub_edit_text_datum_bis"
         app:layout_constraintTop_toBottomOf="@+id/urlaub_edit_text_datum_bis" />
 
@@ -97,8 +97,8 @@
         android:autofillHints="@string/haushaltedithint_datum"
         android:hint="@string/haushaltedithint_datum"
         android:inputType="date"
-        android:textSize="@dimen/content_text_big"
         android:maxLength="@integer/length_datum"
+        android:textSize="@dimen/content_text_big"
         app:layout_constraintStart_toStartOf="@+id/urlaub_edit_text_datum_von"
         app:layout_constraintTop_toBottomOf="@+id/urlaub_edit_text_datum_von" />
 

@@ -87,5 +87,6 @@
     <integer name="length_sonstige_double">16</integer>
     <integer name="length_prozent">5</integer>
     <integer name="length_notizen">128</integer>
+    <integer name="length_kosten">8</integer>
 
 </resources>

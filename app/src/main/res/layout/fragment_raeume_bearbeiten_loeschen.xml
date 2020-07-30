@@ -2,16 +2,17 @@
 
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".ui.raeume.raeumeBearbeiten_Loeschen.RaeumeBearbeitenLoeschenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/text_view_raum_bearbeiten_name"
             android:layout_width="wrap_content"
@@ -29,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:ems="10"
-            android:maxLength="30"
-            android:inputType="textPersonName"
-            android:hint="@string/raumedithint_name"
             android:autofillHints="@string/raumedithint_name"
+            android:ems="10"
+            android:hint="@string/raumedithint_name"
+            android:inputType="textPersonName"
+            android:maxLength="30"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_raum_bearbeiten_name" />
 
@@ -72,8 +73,7 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button_raeume_bearbeiten_abbrechen"
@@ -89,7 +89,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
-
-
-
-

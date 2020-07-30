@@ -1,7 +1,6 @@
 package com.example.stromtracker
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -111,12 +110,6 @@ class MainActivity : AppCompatActivity() {
 
     fun getIconArray(): Array<Int> {
         return iconArrayList
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {

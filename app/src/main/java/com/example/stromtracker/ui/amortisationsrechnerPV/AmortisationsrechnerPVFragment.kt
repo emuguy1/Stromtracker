@@ -45,8 +45,8 @@ class AmortisationsrechnerPVFragment : Fragment() {
         editEigenverbrauch = root.findViewById(R.id.amort_pv_edit_eigenverbrauch)
         editPreisKwh = root.findViewById(R.id.amort_pv_edit_preis_kwh)
 
-        outJahresertragkWh = root.findViewById(R.id.amort_pv_text_jahresertragkWh_zahl)
-        outJahresertragEuro = root.findViewById(R.id.amort_pv_text_JahresertragEuro_zahl)
+        outJahresertragkWh = root.findViewById(R.id.amort_pv_text_jahresertrag_kwh_zahl)
+        outJahresertragEuro = root.findViewById(R.id.amort_pv_text_jahresertrag_euro_zahl)
         outAmortdauer = root.findViewById(R.id.amort_pv_text_amortdauer_zahl)
         outAmortersparnis = root.findViewById(R.id.amort_pv_text_amort_ersparnis)
 

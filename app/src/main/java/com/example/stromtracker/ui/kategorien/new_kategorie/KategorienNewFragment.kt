@@ -51,7 +51,7 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
         abbrBtn.setOnClickListener(this)
         saveBtn = root.findViewById<Button>(R.id.kategorie_new_button_speichern)
         saveBtn.setOnClickListener(this)
-        inputName = root.findViewById(R.id.kategorie_new_editName)
+        inputName = root.findViewById(R.id.kategorie_new_edit_name)
         customTextListener(inputName)
         infoFeld = root.findViewById(R.id.kategorie_new_info)
 

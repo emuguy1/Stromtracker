@@ -27,7 +27,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/kategorie_edit_textName"
+            android:id="@+id/kategorie_edit_text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_margin_sides_normal"
@@ -37,25 +37,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/kategorie_edit_editName"
+            android:id="@+id/kategorie_edit_edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin_top_small"
             android:autofillHints="@string/hint_kategorie_input"
             android:hint="@string/hint_kategorie_input"
-            android:maxLength="@integer/length_namen"
             android:inputType="text"
-            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textName"
-            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textName" />
+            android:maxLength="@integer/length_namen"
+            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_text_name"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_text_name" />
 
         <TextView
-            android:id="@+id/kategorie_edit_textIcon"
+            android:id="@+id/kategorie_edit_text_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/kategorie_edit_icon"
-            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_editName"
-            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_editName" />
+            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_edit_name" />
 
         <Button
             android:id="@+id/kategorie_edit_button_speichern"
@@ -101,8 +101,8 @@
             android:layout_height="@dimen/spinner_icon_height"
             android:layout_marginTop="@dimen/content_margin_top_small"
             android:dropDownWidth="@dimen/spinner_icon_dropdown_width"
-            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_textIcon"
-            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_textIcon" />
+            app:layout_constraintStart_toStartOf="@+id/kategorie_edit_text_icon"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_edit_text_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

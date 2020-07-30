@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
@@ -14,7 +13,7 @@
             android:id="@+id/nav_haushalt"
             android:icon="@drawable/ic_menu_haushalt"
             android:title="@string/menu_haushalt"
-            app:actionLayout="@layout/spinner_menu"/>
+            app:actionLayout="@layout/spinner_menu" />
 
         <item
             android:id="@+id/nav_geraete"
@@ -45,9 +44,9 @@
             android:icon="@drawable/ic_menu_co2bilanz"
             android:title="@string/menu_co2bilanz" />
         <item
-        android:id="@+id/nav_importexport"
-        android:icon="@drawable/ic_menu_importexport"
-        android:title="@string/menu_importexport" />
+            android:id="@+id/nav_importexport"
+            android:icon="@drawable/ic_menu_importexport"
+            android:title="@string/menu_importexport" />
 
         <item
             android:id="@+id/nav_urlaub"
