@@ -59,6 +59,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var buttonZuAuswertung: Button
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -274,8 +275,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_name_prod -> {
-                val sortedName = produzentList.sortedWith(compareBy { it.getName().toLowerCase(
-                    Locale.ROOT) })
+                val sortedName = produzentList.sortedWith(compareBy {
+                    it.getName().toLowerCase(
+                        Locale.ROOT
+                    )
+                })
                 produzentList.clear()
                 produzentList.addAll(sortedName)
                 produzentViewAdapter.notifyDataSetChanged()
