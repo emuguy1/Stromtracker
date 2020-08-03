@@ -113,6 +113,7 @@ class HaushaltFragment : Fragment() {
         // Recyclerview, wo eine Liste aller Haushalte angezeigt wird.
         // Alles weitere wird in ListAdapterHaushalt gesteuert
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_haushalt)
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = viewAdapter
 

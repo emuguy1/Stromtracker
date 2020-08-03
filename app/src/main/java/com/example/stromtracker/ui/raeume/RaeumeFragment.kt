@@ -55,6 +55,7 @@ class RaeumeFragment : Fragment() {
         // Recyclerview, wo eine Liste aller Raeume angezeigt wird.
         // Alles weitere in ListAdapterraeume:
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_raeume)
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         viewAdapter = ListAdapterraeume(datain)
         recyclerView.adapter = viewAdapter

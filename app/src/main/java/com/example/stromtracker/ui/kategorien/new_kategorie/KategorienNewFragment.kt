@@ -59,9 +59,8 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         // View Model zuweisen, benötigt für DB Zugriff
-        sharedViewModel = ViewModelProvider(requireActivity()).get(sharedViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
