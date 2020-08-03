@@ -1,6 +1,6 @@
 package com.example.stromtracker.ui.importexport
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +36,10 @@ class ImportExportFragment : Fragment() {
     private lateinit var geraetlist: ArrayList<Geraete>
     private lateinit var urlaublist: ArrayList<Urlaub>
     private lateinit var haushaltidlist: ArrayList<Int>
+    private val CREATE_REQUEST_CODE = 40
+    private val OPEN_REQUEST_CODE = 41
+    private val SAVE_REQUEST_CODE = 42
+    private lateinit var textview: TextView
 
     // Request code for creating a PDF document.
     private val CREATE_FILE = 1
@@ -49,6 +53,8 @@ class ImportExportFragment : Fragment() {
         importexportViewModel =
             ViewModelProvider(this).get(ImportExportViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport, container, false)
+
+        textview = root.findViewById(R.id.text_view_import_export_erklärung)
 
         val exportbut: Button = root.findViewById(R.id.importexport_exportbutton)
         exportbut.setOnClickListener { view ->
@@ -116,6 +122,7 @@ class ImportExportFragment : Fragment() {
                                     datum,
                                     oekomix
                                 )
+                                //TODO: der Haushalt wird nicht eingefügt, wenn ein Datum und Zählerstand vorhanden ist
                                 //haushaltneuidlist.add(importexportViewModel.insertHaushalt(tempHaushalt))
                             } catch (e: ParseException) {
                                 Toast.makeText(
@@ -221,7 +228,8 @@ class ImportExportFragment : Fragment() {
         )
         //Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
-        //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+        //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment
+        // ersetzen, dass oben erstellt wurde
         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
             .addToBackStack(null).commit()
         //und anschließend noch ein commit()
@@ -303,7 +311,9 @@ class ImportExportFragment : Fragment() {
                 writeRow("-----------------------------------")
                 writeRow(
                     listOf(
-                        "[GeraeteTyp]",  //Um  beim Import die unterschiedlichen Typen zu unterscheiden. 1 ist Produzent; 2,3,4 und 5 sind unterschiedliche verbraucher mit unterschidlichen Feldern leer
+                        "[GeraeteTyp]",  //Um  beim Import die unterschiedlichen Typen zu
+                        // unterscheiden. 1 ist Produzent; 2,3,4 und 5 sind unterschiedliche
+                        // verbraucher mit unterschidlichen Feldern leer
                         "[GeraeteID]",
                         "[Geraetename]",
                         "[KategorieID]",
@@ -470,11 +480,23 @@ class ImportExportFragment : Fragment() {
         }
     }
 
+//    private fun generateFile2(uri:Uri): File? {
+//        val csvFile = File(uri)
+//        csvFile.createNewFile()
+//
+//        return if (csvFile.exists()) {
+//            csvFile
+//        } else {
+//            null
+//        }
+//    }
+
     private fun createFile(pickerInitialUri: Uri) {
+
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
-            type = "application/csv"
-            putExtra(Intent.EXTRA_TITLE, "invoice.csv")
+            type = "text/csv"
+            putExtra(Intent.EXTRA_TITLE, "Stromtacker_Export.csv")
 
             // Optionally, specify a URI for the directory that should be opened in
             // the system file picker before your app creates the document.
@@ -483,17 +505,31 @@ class ImportExportFragment : Fragment() {
         startActivityForResult(intent, CREATE_FILE)
     }
 
-    private fun goToFileIntent(context: Context, file: File): Intent {
+    override fun onActivityResult(
+        requestCode: Int, resultCode: Int,
+        resultData: Intent?
+    ) {
+        var currentUri: Uri? = null
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CREATE_REQUEST_CODE) {
+                if (resultData != null) {
+                    textview.text = ""
+                }
+            } else if (requestCode == SAVE_REQUEST_CODE) {
+                if (resultData != null) {
+                    currentUri = resultData.data
+                    //generateFile2(currentUri!!)
+                    //val csFIle=File(currentUri)
+                    textview.text = "wurde aufgerufen"
+                }
+            } else {
+                val csv = File(resultData?.data?.path!!)
+                // writeCSVFile(csv)
 
-        val intent = Intent(Intent.ACTION_VIEW)
-        val contentUri =
-            FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
-        val mimeType = context.contentResolver.getType(contentUri)
-        intent.setDataAndType(contentUri, mimeType)
-        intent.flags =
-            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-
-        return intent
+                textview.text = resultData.toString() + "    " + resultCode.toString()
+            }
+        }
     }
+
 
 }
