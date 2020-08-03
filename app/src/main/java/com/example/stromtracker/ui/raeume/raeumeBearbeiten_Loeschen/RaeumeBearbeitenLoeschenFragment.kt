@@ -28,8 +28,8 @@ class RaeumeBearbeitenLoeschenFragment(
     private lateinit var deletebutton: Button
     private lateinit var informationfield: TextView
     private lateinit var raumnameneditfeld: EditText
-    private var raumnameleer: String =getString(R.string.raum_name_leer)
-    private var raumnamesonstiges: String = getString(R.string.raum_sonstiges_erstellen)
+    private lateinit var raumnameleer: String
+    private lateinit var raumnamesonstiges: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +45,11 @@ class RaeumeBearbeitenLoeschenFragment(
             container,
             false
         ) // false weil es nur teil des root ist, aber nicht selber die root
+
+        //raumnameleer und raumnamesonstiges aus Strings.xml holen
+        raumnameleer = getString(R.string.raum_name_leer)
+        raumnamesonstiges = getString(R.string.raum_sonstiges_erstellen)
+
         // finde die buttons
         savebutton = root.findViewById(R.id.button_raeume_bearbeiten_speichern)
         abortbutton = root.findViewById(R.id.button_raeume_bearbeiten_abbrechen)

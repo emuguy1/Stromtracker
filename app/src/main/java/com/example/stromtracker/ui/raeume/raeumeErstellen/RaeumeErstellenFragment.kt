@@ -6,7 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
@@ -15,12 +17,12 @@ import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.raeume.RaeumeFragment
 
 class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
-    private lateinit var sharedViewModel:SharedViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var raumnameneditfeld: EditText
     private lateinit var savebutton: Button
     private lateinit var informationfield: TextView
-    private var raumnameleer: String =getString(R.string.raum_name_leer)
-    private var raumnamesonstiges: String = getString(R.string.raum_sonstiges_erstellen)
+    private lateinit var raumnameleer: String
+    private lateinit var raumnamesonstiges: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +38,8 @@ class RaeumeErstellenFragment(private val currHaushaltid: Int) : Fragment() {
             container,
             false
         )
+        raumnameleer = getString(R.string.raum_name_leer)
+        raumnamesonstiges = getString(R.string.raum_sonstiges_erstellen)
         raumnameneditfeld = root.findViewById(R.id.edit_text_raum_erstellen_name)
         customTextListener(raumnameneditfeld)
         informationfield = root.findViewById(R.id.text_view_raum_erstellen_info)
