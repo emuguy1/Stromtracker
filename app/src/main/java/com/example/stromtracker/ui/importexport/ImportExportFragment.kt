@@ -495,7 +495,7 @@ class ImportExportFragment : Fragment() {
 
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
-            type = "text/csv"
+            type = "csv"
             putExtra(Intent.EXTRA_TITLE, "Stromtacker_Export.csv")
 
             // Optionally, specify a URI for the directory that should be opened in
@@ -520,11 +520,13 @@ class ImportExportFragment : Fragment() {
                     currentUri = resultData.data
                     //generateFile2(currentUri!!)
                     //val csFIle=File(currentUri)
-                    textview.text = "wurde aufgerufen"
                 }
-            } else {
-                val csv = File(resultData?.data?.path!!)
-                // writeCSVFile(csv)
+            } else if (requestCode == 1) {
+                resultData?.data?.also { uri ->
+                    // Perform operations on the document using its URI.
+                    val csv = File(uri.path!!)
+                    //writeCSVFile(csv)
+                }
 
                 textview.text = resultData.toString() + "    " + resultCode.toString()
             }
