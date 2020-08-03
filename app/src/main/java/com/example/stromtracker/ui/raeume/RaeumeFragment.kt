@@ -15,6 +15,7 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.raeume.raeumeErstellen.RaeumeErstellenFragment
+import com.getbase.floatingactionbutton.AddFloatingActionButton
 
 // deklariert Raeumefragment als Unterklasse von Fragment
 class RaeumeFragment : Fragment() {
@@ -62,7 +63,7 @@ class RaeumeFragment : Fragment() {
 
         // Floating Action Button zum erstellen neuer Raeume
         // Floating actionbutton finden
-        val fab: View = root.findViewById(R.id.fab_raeume)
+        val fab: AddFloatingActionButton = root.findViewById(R.id.fab_raeume)
         // Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {
