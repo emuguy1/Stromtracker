@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.haushalt
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,27 +14,35 @@ import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.haushalt.haushaltErstellen.HaushaltErstellenFragment
 
-//deklariert Haushaltfragment als Unterklasse von Fragment
+private const val defaultName = "Haushalt1"
+private const val defaultStromkosten = 26.5
+private const val defaultPersonen = 1
+private val defaultEntry: Haushalt = Haushalt(
+    defaultName,
+    defaultStromkosten,
+    defaultPersonen,
+    null,
+    null,
+    false
+)
+
+// deklariert Haushaltfragment als Unterklasse von Fragment
 class HaushaltFragment : Fragment() {
-    private lateinit var haushaltViewModel: HaushaltViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var datain: ArrayList<Haushalt>
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var datatemp: ArrayList<Haushalt>
+    private lateinit var mainact: MainActivity
     private var isinit: Boolean = false
-
-
-    private fun initHaushalt() {
-        val haushalt = Haushalt("Haushalt", 12.5, 5, null, null, true)
-        haushaltViewModel.insertHaushalt(haushalt)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        haushaltViewModel = ViewModelProvider(this).get(HaushaltViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        haushaltViewModel.getAllHaushalt().observe(
+        sharedViewModel.getAllHaushalt().observe(
             this,
             Observer { haushalte ->
                 if (haushalte != null) {
@@ -56,10 +63,14 @@ class HaushaltFragment : Fragment() {
                     if (datain.size > datatemp.size && !isinit && datatemp.size > 0) {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                     }
-                    //Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
-                    if (isinit && datain.size > 0) { //Sobald neues Haushalt erstellt wurde, sollen ein paar Standardräume erzeugt werden.
-                        // Hier nach leer initialisierung und sobald das ganze in die Datenbank gekommen ist,deswegen wird hier gewartet, bis datain bei einem element ist,
-                        //bevor es in die if Schleife kommt
+                    // Neue Räume erzeugen, anchdem ein Brnad neuer Erzeugt wurde.
+                    if (isinit && datain.size > 0) {
+                        // Sobald neues Haushalt erstellt wurde,
+                        // sollen ein paar Standardräume erzeugt werden.
+                        // Hier nach leer initialisierung und sobald das ganze in die Datenbank
+                        // gekommen ist,deswegen wird hier gewartet,
+                        // bis datain bei einem element ist,
+                        // bevor es in die if Schleife kommt
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                         isinit = false
                     }
@@ -67,16 +78,18 @@ class HaushaltFragment : Fragment() {
                 }
             }
         )
+    }
 
+    private fun initHaushalt() {
+        sharedViewModel.insertHaushalt(defaultEntry)
     }
 
     private fun initRaeume(hausid: Int) {
-        var newraum = Raum("Schlafzimmer", hausid)
-        haushaltViewModel.insertRaum(newraum)
-        newraum = Raum("Wohnzimmer", hausid)
-        haushaltViewModel.insertRaum(newraum)
-        newraum = Raum("Sonstiges", hausid)
-        haushaltViewModel.insertRaum(newraum)
+        sharedViewModel.insertRaum(Raum("Sonstiges", hausid))
+        sharedViewModel.insertRaum(Raum("Wohnzimmer", hausid))
+        sharedViewModel.insertRaum(Raum("Schlafzimmer", hausid))
+        sharedViewModel.insertRaum(Raum("Küche", hausid))
+        sharedViewModel.insertRaum(Raum("Badezimmer", hausid))
     }
 
     override fun onCreateView(
@@ -88,31 +101,34 @@ class HaushaltFragment : Fragment() {
             R.layout.fragment_haushalt,
             container,
             false
-        )//false weil es nur teil des root ist, aber nicht selber die root
+        ) // false weil es nur teil des root ist, aber nicht selber die root
 
-        //Initalisieren der Datenliste und des ViewAdapters
+        // Initalisieren der Datenliste und des ViewAdapters
         datain = ArrayList()
         viewAdapter = ListAdapterHaushalt(datain)
 
-        //Recyclerview, wo eine Liste aller Haushalte angezeigt wird. Alles weitere wird in ListAdapterHaushalt gesteuert
+        // Recyclerview, wo eine Liste aller Haushalte angezeigt wird.
+        // Alles weitere wird in ListAdapterHaushalt gesteuert
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_haushalt)
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = viewAdapter
 
-        //Floating Action Button zum erstellen neuer Haushalte
-        //Floating actionbutton finden
+        // Floating Action Button zum erstellen neuer Haushalte
+        // Floating actionbutton finden
         val fab: View = root.findViewById(R.id.fab_haushalt)
-        //Click listener setzen
+        // Click listener setzen
         fab.setOnClickListener { view ->
             if (view != null) {
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = HaushaltErstellenFragment()
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                // Ftagment container aus content_main.xml muss ausgeählt werden,
+                // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
-                //und anschließend noch ein commit()
+                // und anschließend noch ein commit()
             }
         }
         return root

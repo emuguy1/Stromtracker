@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.anychart.APIlib
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
@@ -20,12 +19,20 @@ import com.anychart.enums.Orientation
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.geraete.GeraeteFragment
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.withSign
 
+private const val numToProzent = 100.0
+private const val centToEuro = 0.01
+
+// Quelle (Stand 07.2020): https://www.stromvergleich.de/durchschnittlicher-stromverbrauch
+private const val dsBasisDeutschland: Double = 500.0
+private const val dsVerbrauchDeutschland: Double = 1000.0
+
+private const val piePaddingTop = 10.0
+private const val piePaddingSides = 0.0
 
 class GeraeteAuswertungFragment(
     private val verbraucherList: ArrayList<Geraete>,
@@ -36,16 +43,11 @@ class GeraeteAuswertungFragment(
     private val currHaushalt: Haushalt
 ) : Fragment(), View.OnClickListener {
 
-    //Quelle (Stand 07.2020): https://www.stromvergleich.de/durchschnittlicher-stromverbrauch
-    private val dsBasisDeutschland: Double = 500.0
-    private val dsVerbrauchDeutschland: Double = 1000.0
-
     private var anzPersonen: Int = 1
     private var gesamtverbrauchkWh: Double = 0.0
     private var gesamtverbrauchEuro: Double = 0.0
 
     private lateinit var root: View
-    private lateinit var geraeteViewModel: GeraeteViewModel
 
     private lateinit var anyChartVerbraucher: AnyChartView
     private lateinit var textAvg: TextView
@@ -85,23 +87,23 @@ class GeraeteAuswertungFragment(
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
 
-
         return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
     }
 
-    fun getProdVerbrauch(geraet: Geraete): Double {
-        return geraet.getJahresverbrauch().withSign(1) * geraet.getEigenverbrauch()!! / 100
+    private fun getProdVerbrauch(geraet: Geraete): Double {
+        return geraet.getJahresverbrauch().withSign(1) *
+                geraet.getEigenverbrauch()!! / numToProzent
     }
 
-
-    fun initPieChart(pie: Pie): Pie {
+    private fun initPieChart(pie: Pie): Pie {
         pie.legend().title().enabled(true)
-        pie.legend().title().padding(10.0, 0.0, 0.0, 0.0)
+        pie.legend().title().padding(
+            piePaddingTop, piePaddingSides, piePaddingSides, piePaddingSides
+        )
         pie.legend()
             .position(Orientation.RIGHT)
             .itemsLayout(LegendLayout.VERTICAL)
@@ -110,35 +112,39 @@ class GeraeteAuswertungFragment(
         return pie
     }
 
-    fun reloadVerbrauchsChart() {
-        //Geräte nach Verbrauchern filtern & data vorbereiten
+    private fun reloadVerbrauchsChart() {
+        // Geräte nach Verbrauchern filtern & data vorbereiten
         val data: MutableList<DataEntry> = ArrayList()
         for (geraet in verbraucherList)
             data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
 
         if (data.isNotEmpty()) {
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
+            // neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartVerbraucher)
 
             var pie = AnyChart.pie()
             pie = initPieChart(pie)
 
             pie.data(data)
-            gesamtverbrauchkWh =
-                roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
+            gesamtverbrauchkWh = roundTo2Decimal(
+                verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
             gesamtverbrauchEuro =
-                roundTo2Decimal(gesamtverbrauchkWh * currHaushalt.getStromkosten() / 100)
+                roundTo2Decimal(
+                    gesamtverbrauchkWh * currHaushalt.getStromkosten() * centToEuro
+                )
             pie.title(
                 "Gesamtverbrauch $gesamtverbrauchkWh kWh bzw. $gesamtverbrauchEuro€"
             )
             pie.legend().title().text("Verbraucher")
 
             anyChartVerbraucher.setChart(pie)
-        } else
+        } else {
             anyChartVerbraucher.visibility = View.GONE
+        }
     }
 
-    fun reloadProduziertVerbrauchChart() {
+    private fun reloadProduziertVerbrauchChart() {
         val data: MutableList<DataEntry> = ArrayList()
         for (geraet in produzentList)
             data.add(ValueDataEntry(geraet.getName(), getProdVerbrauch(geraet)))
@@ -151,38 +157,45 @@ class GeraeteAuswertungFragment(
 
             pie.data(data)
             pie.title(
-                "Produzierte Energie, die verbraucht wird "
-                        + roundTo2Decimal(produzentList.sumByDouble { geraete ->
-                    getProdVerbrauch(
-                        geraete
-                    )
-                })
-                        + " kWh"
+                "Produzierte Energie, die verbraucht wird " +
+                        roundTo2Decimal(produzentList.sumByDouble { geraete ->
+                            getProdVerbrauch(
+                                geraete
+                            )
+                        }) +
+                        " kWh"
             )
             pie.legend().title().text("Produzenten")
 
             anyChartProduziertVerbrauch.setChart(pie)
-        } else
+        } else {
             anyChartProduziertVerbrauch.visibility = View.GONE
+        }
     }
 
-    fun reloadBilanzChart() {
+    private fun reloadBilanzChart() {
         val data: MutableList<DataEntry> = ArrayList()
         var tempSum = verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
         data.add(ValueDataEntry("Verbraucher", tempSum))
 
-        tempSum = produzentList.sumByDouble { geraete -> getProdVerbrauch(geraete) }.withSign(-1)
+        tempSum = produzentList.sumByDouble { geraete ->
+            getProdVerbrauch(geraete)
+        }.withSign(-1)
         data.add(ValueDataEntry("Produzenten", tempSum))
 
         val tempList: ArrayList<Urlaub> = ArrayList()
         for (currUrlaub in urlaubList) {
-            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears).toInt() == (Calendar.getInstance()
+            if ((currUrlaub.getDateVon().year + UrlaubCompanion.dateTimeToYears)
+                == (Calendar.getInstance()
                     .get(Calendar.YEAR))
-            )
+            ) {
                 tempList.add(currUrlaub)
+            }
         }
         tempSum = tempList.sumByDouble { urlaub ->
-            urlaub.getErsparnisProTag() * (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays - urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
+            urlaub.getErsparnisProTag() *
+                    (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays -
+                            urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
         }
         tempSum = tempSum.withSign(-1)
         tempSum = roundTo2Decimal(tempSum)
@@ -209,14 +222,19 @@ class GeraeteAuswertungFragment(
         }
     }
 
-    fun reloadProduzentChart() {
-        //Geräte nach Produzenten filtern & data vorbereiten
+    private fun reloadProduzentChart() {
+        // Geräte nach Produzenten filtern & data vorbereiten
         val data: MutableList<DataEntry> = ArrayList()
         for (geraet in produzentList)
-            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch().withSign(1)))
+            data.add(
+                ValueDataEntry(
+                    geraet.getName(), geraet.getJahresverbrauch().withSign(1)
+                )
+            )
 
         if (data.isNotEmpty()) {
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
+            // neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartProduzent)
 
             var pie = AnyChart.pie()
@@ -224,35 +242,39 @@ class GeraeteAuswertungFragment(
 
             pie.data(data)
             pie.title(
-                "Gesamtproduktion "
-                        + roundTo2Decimal(produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() } * (-1))
-                        + " kWh"
+                "Gesamtproduktion " +
+                        roundTo2Decimal(
+                            produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
+                                .withSign(1)
+                        ) +
+                        " kWh"
             )
             pie.legend().title().text("Produzenten")
 
             anyChartProduzent.setChart(pie)
-        } else
+        } else {
             anyChartProduzent.visibility = View.GONE
+        }
     }
 
-    fun reloadKategorieChart() {
+    private fun reloadKategorieChart() {
         val data: MutableList<DataEntry> = ArrayList()
 
-        //Geräte nach Kategorie Gruppieren, dann die Summe der Jahresverbrauche berechnen
-        //TODO Test mit mehreren Kategorien und mit Produzenten (diese sollten hier nicht angezeigt werden)
+        // Geräte nach Kategorie Gruppieren, dann die Summe der Jahresverbrauche berechnen
         val sortedgeraete: Map<Int, List<Geraete>> =
             verbraucherList.groupBy(keySelector = { it.getKategorieID() })
         for (kat in sortedgeraete) {
             val currGeraeteInKat = kat.value
-            var sum: Double = 0.0
+            var sum = 0.0
             for (geraet in currGeraeteInKat) {
                 sum += geraet.getJahresverbrauch()
             }
             if (sum > 0) {
                 var name = ""
                 for (currKat in kategorieList) {
-                    if (currKat.getKategorieID() == currGeraeteInKat.first().getKategorieID())
+                    if (currKat.getKategorieID() == currGeraeteInKat.first().getKategorieID()) {
                         name = currKat.getName()
+                    }
                 }
                 data.add(
                     ValueDataEntry(
@@ -263,7 +285,8 @@ class GeraeteAuswertungFragment(
         }
 
         if (data.isNotEmpty()) {
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
+            // neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartKategorie)
 
             var pie = AnyChart.pie()
@@ -275,14 +298,15 @@ class GeraeteAuswertungFragment(
             pie.legend().title().text("Kategorien")
 
             anyChartKategorie.setChart(pie)
-        } else
+        } else {
             anyChartKategorie.visibility = View.GONE
+        }
     }
 
-    fun reloadRaumChart() {
+    private fun reloadRaumChart() {
         val data: MutableList<DataEntry> = ArrayList()
 
-        //Geräte nach Raum Gruppieren, dann die Summe der Jahresverbrauche berechnen
+        // Geräte nach Raum Gruppieren, dann die Summe der Jahresverbrauche berechnen
         val sortedgeraete: Map<Int, List<Geraete>> =
             verbraucherList.groupBy(keySelector = { it.getRaumID() })
         for (raum in sortedgeraete) {
@@ -294,8 +318,9 @@ class GeraeteAuswertungFragment(
             if (sum > 0) {
                 var name = ""
                 for (currRaum in raumList) {
-                    if (currRaum.getRaumID() == currGeraeteInRaum.first().getRaumID())
+                    if (currRaum.getRaumID() == currGeraeteInRaum.first().getRaumID()) {
                         name = currRaum.getName()
+                    }
                 }
                 data.add(
                     ValueDataEntry(
@@ -306,7 +331,8 @@ class GeraeteAuswertungFragment(
         }
         if (data.isNotEmpty()) {
 
-            //WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen / neu Zeichnen das aktuelle als aktiv markieren
+            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
+            // neu Zeichnen das aktuelle als aktiv markieren
             APIlib.getInstance().setActiveAnyChartView(anyChartRaum)
 
             var pie = AnyChart.pie()
@@ -318,34 +344,38 @@ class GeraeteAuswertungFragment(
             pie.legend().title().text("Räume")
 
             anyChartRaum.setChart(pie)
-        } else
+        } else {
             anyChartRaum.visibility = View.GONE
+        }
     }
 
-    fun generateDurchschnittText(verbr: Double): String {
-        val proPerson: Double = roundTo2Decimal(gesamtverbrauchkWh / anzPersonen)
+    private fun generateDurchschnittText(verbr: Double): String {
+        val proPerson: Double = roundTo2Decimal(verbr / anzPersonen)
         val dsGes: Double =
             roundTo2Decimal(dsVerbrauchDeutschland * anzPersonen + dsBasisDeutschland)
         var prozent = roundTo2Decimal(gesamtverbrauchkWh / dsGes)
         var str: String =
-            "Der durchschnittliche Basisverbrauch pro Haushalt liegt in Deutschland bei $dsBasisDeutschland kWh/Jahr " +
+            "Der durchschnittliche Basisverbrauch pro Haushalt liegt in Deutschland bei" +
+                    " $dsBasisDeutschland kWh/Jahr " +
                     "und der Verbrauch pro Person bei $dsVerbrauchDeutschland kWh/Jahr.\n" +
                     "Im aktuellen Haushalt befinden sich $anzPersonen Personen " +
                     "mit einem Gesamtverbrauch von $gesamtverbrauchkWh kWh. " +
                     "Daraus ergibt sich ein Verbrauch von $proPerson kWh pro Person.\n"
         if (prozent > 1.0) {
-            prozent = (prozent - 1) * 100
-            str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% höher als der Durchschnitt."
-        } else if (prozent == 1.0)
+            prozent = (prozent - 1) * numToProzent
+            str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% " +
+                    "höher als der Durchschnitt."
+        } else if (prozent == 1.0) {
             str += "Somit liegt der Verbrauch genau im Durchschnitt."
-        else {
-            prozent = (1 - prozent) * 100
-            str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% geringer als der Durchschnitt."
+        } else {
+            prozent = (1 - prozent) * numToProzent
+            str += "Somit ist der Verbrauch um " + roundTo2Decimal(prozent) + "% " +
+                    "geringer als der Durchschnitt."
         }
         return str
     }
 
-    fun roundTo2Decimal(num: Double): Double {
+    private fun roundTo2Decimal(num: Double): Double {
         return String.format("%.2f", num).toDouble()
     }
 

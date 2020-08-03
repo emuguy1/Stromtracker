@@ -1,31 +1,29 @@
 package com.example.stromtracker
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.SharedViewModel
+import com.google.android.material.navigation.NavigationView
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var sp: Spinner
-
 
     private val iconArrayList: Array<Int> =
         arrayOf(
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        var sharedViewModel: SharedViewModel =
+        val sharedViewModel: SharedViewModel =
             ViewModelProvider(this).get(SharedViewModel::class.java)
         val haushaltItems: ArrayList<Haushalt> = ArrayList()
         setSupportActionBar(toolbar)
@@ -83,11 +81,7 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             sharedViewModel.setHaushalt(haushaltItems[pos])
                         }
-
-
                     }
-
-
                 }
             })
 
@@ -112,12 +106,6 @@ class MainActivity : AppCompatActivity() {
 
     fun getIconArray(): Array<Int> {
         return iconArrayList
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {

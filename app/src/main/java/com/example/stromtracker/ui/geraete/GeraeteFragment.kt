@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
@@ -19,11 +22,11 @@ import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
-
+import java.util.*
+import kotlin.collections.ArrayList
 
 class GeraeteFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var geraeteViewModel: GeraeteViewModel
     private lateinit var sharedViewModel: SharedViewModel
 
     private lateinit var verbraucherList: ArrayList<Geraete>
@@ -55,7 +58,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var iconArray: Array<Int>
 
     private lateinit var buttonZuAuswertung: Button
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,10 +93,8 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         raumListHaushalt = ArrayList()
         urlaubList = ArrayList()
 
-        var mainAct = requireActivity() as MainActivity
+        val mainAct = requireActivity() as MainActivity
         iconArray = mainAct.getIconArray()
-
-
 
         viewManager = LinearLayoutManager(this.context)
 
@@ -119,17 +119,14 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
         return root
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-
 
         val verbraucherData: LiveData<List<Geraete>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                geraeteViewModel.getAllVerbraucherByHaushaltID(haushalt.getHaushaltID())
+                sharedViewModel.getAllVerbraucherByHaushaltID(haushalt.getHaushaltID())
             }
         verbraucherData.observe(
             viewLifecycleOwner,
@@ -143,7 +140,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         val raumDataHaushalt: LiveData<List<Raum>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                geraeteViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
+                sharedViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
             }
         raumDataHaushalt.observe(
             viewLifecycleOwner,
@@ -164,7 +161,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         val produzentData: LiveData<List<Geraete>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                geraeteViewModel.getAllProduzentenByHaushaltID(haushalt.getHaushaltID())
+                sharedViewModel.getAllProduzentenByHaushaltID(haushalt.getHaushaltID())
             }
         produzentData.observe(
             viewLifecycleOwner,
@@ -176,7 +173,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 }
             }
         )
-        geraeteViewModel.getAllKategorie().observe(
+        sharedViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorie ->
                 if (kategorie != null) {
@@ -188,7 +185,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
         val urlaubData: LiveData<List<Urlaub>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                geraeteViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
+                sharedViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
             }
         urlaubData.observe(
             viewLifecycleOwner,
@@ -198,8 +195,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     urlaubList.addAll(urlaub)
                 }
             })
-
-
     }
 
     override fun onClick(v: View) {
@@ -217,7 +212,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                     .addToBackStack(null).commit()
             }
             R.id.geraete_button_sort_verbrauch -> {
-                var sortedVerbrauch =
+                val sortedVerbrauch =
                     verbraucherList.sortedWith(compareByDescending { it.getJahresverbrauch() })
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedVerbrauch)
@@ -225,15 +220,15 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortVerbrauch.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortName.paintFlags = 0
                 buttonSortRaum.paintFlags = 0
-                //TODO schönere Lösung?
+                // TODO schönere Lösung?
                 buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName.typeface = Typeface.DEFAULT_BOLD
                 buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
             }
 
             R.id.geraete_button_sort_name -> {
-                var sortedName =
-                    verbraucherList.sortedWith(compareBy { it.getName().toLowerCase() })
+                val sortedName =
+                    verbraucherList.sortedWith(compareBy { it.getName().toLowerCase(Locale.ROOT) })
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedName)
                 viewAdapter.notifyDataSetChanged()
@@ -243,15 +238,12 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName.typeface = Typeface.DEFAULT_BOLD
                 buttonSortVerbrauch.typeface = Typeface.DEFAULT_BOLD
-
-
             }
 
             R.id.geraete_button_sort_raum -> {
 
-                //TODO sortieren über Name? Problem: Gerät zu dem jeweiligen Raum matchen, eventuell for Schleife
-                var sortedRaum = verbraucherList.sortedWith(compareBy { it.getRaumID() })
-
+                // TODO sortieren über Name? Problem: Gerät zu dem jeweiligen Raum matchen, eventuell for Schleife
+                val sortedRaum = verbraucherList.sortedWith(compareBy { it.getRaumID() })
 
                 verbraucherList.clear()
                 verbraucherList.addAll(sortedRaum)
@@ -279,11 +271,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortProduktion_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName_prod.typeface = Typeface.DEFAULT_BOLD
-
             }
 
             R.id.geraete_button_sort_name_prod -> {
-                val sortedName = produzentList.sortedWith(compareBy { it.getName().toLowerCase() })
+                val sortedName = produzentList.sortedWith(compareBy { it.getName().toLowerCase(
+                    Locale.ROOT) })
                 produzentList.clear()
                 produzentList.addAll(sortedName)
                 produzentViewAdapter.notifyDataSetChanged()
@@ -307,7 +299,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
                 buttonSortRaum_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortProduktion_prod.typeface = Typeface.DEFAULT_BOLD
                 buttonSortName_prod.typeface = Typeface.DEFAULT_BOLD
-
             }
 
             R.id.geraete_button_auswertung -> {

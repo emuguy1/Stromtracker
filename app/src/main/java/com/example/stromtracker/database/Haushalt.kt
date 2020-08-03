@@ -1,6 +1,5 @@
 package com.example.stromtracker.database
 
-
 import androidx.room.*
 import java.util.*
 

@@ -6,7 +6,7 @@ import com.example.stromtracker.R
 import kotlin.math.round
 
 class GeraeteCompanion {
-    //often used functions and values for Geraete
+    // often used functions and values for Geraete
     companion object {
         private const val daysInYear: Double = 365.0
         private const val wattToKWatt: Double = 1000.0

@@ -71,6 +71,7 @@
     <dimen name="margin_top_edit_text">8dp</dimen>
     <dimen name="margin_top_text_einheit">24dp</dimen>
     <dimen name="margin_image_in_card">8dp</dimen>
+    <dimen name="margin_bottom_infotext_large">60dp</dimen>
 
     <dimen name="divider_width_thin">1dp</dimen>
 
@@ -83,9 +84,11 @@
     <integer name="length_datum">10</integer>
     <integer name="length_strompreis">6</integer>
     <integer name="length_verbrauch">8</integer>
+    <integer name="length_zaehlerstand">10</integer>
     <integer name="length_stunden">5</integer>
     <integer name="length_sonstige_double">16</integer>
     <integer name="length_prozent">5</integer>
     <integer name="length_notizen">128</integer>
+    <integer name="length_kosten">8</integer>
 
 </resources>

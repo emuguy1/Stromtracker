@@ -1,6 +1,5 @@
 package com.example.stromtracker.database
 
-
 import androidx.room.*
 
 @Entity(
@@ -75,7 +74,6 @@ data class Geraete(
         stromVollast = v
     }
 
-
     fun getKategorieID(): Int {
         return kategorieID
     }
@@ -147,5 +145,4 @@ data class Geraete(
     fun setBetriebszeitStandBy(zeit: Double?) {
         betriebszeitStandBy = zeit
     }
-
 }

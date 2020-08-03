@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/kategorie_new_textName"
+            android:id="@+id/kategorie_new_text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_margin_sides_normal"
@@ -60,25 +60,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/kategorie_new_editName"
+            android:id="@+id/kategorie_new_edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin_top_small"
             android:autofillHints="@string/hint_kategorie_input"
             android:hint="@string/hint_kategorie_input"
-            android:maxLength="@integer/length_namen"
             android:inputType="text"
-            app:layout_constraintStart_toStartOf="@+id/kategorie_new_textName"
-            app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textName" />
+            android:maxLength="@integer/length_namen"
+            app:layout_constraintStart_toStartOf="@+id/kategorie_new_text_name"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_new_text_name" />
 
         <TextView
-            android:id="@+id/kategorie_new_textIcon"
+            android:id="@+id/kategorie_new_text_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin_top"
             android:text="@string/kategorie_edit_icon"
-            app:layout_constraintStart_toStartOf="@+id/kategorie_new_editName"
-            app:layout_constraintTop_toBottomOf="@+id/kategorie_new_editName" />
+            app:layout_constraintStart_toStartOf="@+id/kategorie_new_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_new_edit_name" />
 
         <Spinner
             android:id="@+id/kategorie_new_icon_spinner"
@@ -86,8 +86,8 @@
             android:layout_height="@dimen/spinner_icon_height"
             android:layout_marginTop="@dimen/content_margin_top_small"
             android:dropDownWidth="@dimen/spinner_icon_dropdown_width"
-            app:layout_constraintStart_toStartOf="@+id/kategorie_new_textIcon"
-            app:layout_constraintTop_toBottomOf="@+id/kategorie_new_textIcon" />
+            app:layout_constraintStart_toStartOf="@+id/kategorie_new_text_icon"
+            app:layout_constraintTop_toBottomOf="@+id/kategorie_new_text_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

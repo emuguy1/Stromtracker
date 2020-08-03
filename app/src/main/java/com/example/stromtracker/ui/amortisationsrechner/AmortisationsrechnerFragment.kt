@@ -13,6 +13,9 @@ import com.example.stromtracker.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
+private const val centToEuro = 0.01
+private const val yearToDays = 365
+
 class AmortisationsrechnerFragment : Fragment() {
 
     private lateinit var editVerbrauchAkt: EditText
@@ -25,12 +28,17 @@ class AmortisationsrechnerFragment : Fragment() {
     private lateinit var outAmortdauer: TextView
     private lateinit var outAmortersparnis: TextView
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_amortisationsrechner, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_amortisationsrechner,
+            container,
+            false
+        )
 
         editVerbrauchAkt = root.findViewById(R.id.amort_edit_verbrauch_akt)
         editVerbrauchNeu = root.findViewById(R.id.amort_edit_verbrauch_neu)
@@ -70,7 +78,7 @@ class AmortisationsrechnerFragment : Fragment() {
         var neuStr: String
         if (stromkosten != null) {
             if (verbrAkt != null) {
-                //Setzen der aktuellen Stromkosten pro Jahr
+                // Setzen der aktuellen Stromkosten pro Jahr
                 val aktDouble: Double = berechneStromkosten(stromkosten, verbrAkt)
                 neuStr = String.format("%.2f", aktDouble) + "€ "
                 outKostenAkt.text = neuStr
@@ -78,7 +86,7 @@ class AmortisationsrechnerFragment : Fragment() {
                 outKostenAkt.text = null
             }
             if (verbrNeu != null) {
-                //Setzen der neuen Stromkosten pro Jahr
+                // Setzen der neuen Stromkosten pro Jahr
                 val neuDouble: Double = berechneStromkosten(stromkosten, verbrNeu)
                 neuStr = String.format("%.2f", neuDouble) + "€ "
                 outKostenNeu.text = neuStr
@@ -86,18 +94,18 @@ class AmortisationsrechnerFragment : Fragment() {
                 outKostenNeu.text = null
             }
             if (verbrAkt != null && verbrNeu != null && ak != null && verbrAkt > verbrNeu) {
-                //Ausrechnen der Amortisationsdauer
+                // Ausrechnen der Amortisationsdauer
                 val amortDouble = (ak / (berechneStromkosten(stromkosten, (verbrAkt - verbrNeu))))
-                //Das Jahr wird immer auf ganze Zahlen abgerundet
+                // Das Jahr wird immer auf ganze Zahlen abgerundet
                 val df = DecimalFormat("#")
                 df.roundingMode = RoundingMode.DOWN
-                //Ausgabe der Dauer in Jahren und Tagen
+                // Ausgabe der Dauer in Jahren und Tagen
                 neuStr = df.format(amortDouble) + " Jahre und " + String.format(
                     "%.1f",
-                    (amortDouble.rem(1) * 365)
+                    (amortDouble.rem(1) * yearToDays)
                 ) + " Tage bis zur Amortisation."
                 outAmortdauer.text = neuStr
-                //Ausrechnen der Ersparnis nach Amortisation
+                // Ausrechnen der Ersparnis nach Amortisation
                 neuStr = "Danach: " + String.format(
                     "%.2f",
                     berechneStromkosten(stromkosten, (verbrAkt - verbrNeu))
@@ -116,7 +124,6 @@ class AmortisationsrechnerFragment : Fragment() {
     }
 
     fun berechneStromkosten(stromkosten: Double, verbrauch: Double): Double {
-        return (verbrauch * stromkosten / 100)
+        return (verbrauch * stromkosten * centToEuro)
     }
-
 }

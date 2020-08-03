@@ -3,5 +3,5 @@
     android:id="@+id/spinnerTarget"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textSize="@dimen/nav_spinner_text"
-    android:gravity="center"/>
+    android:gravity="center"
+    android:textSize="@dimen/nav_spinner_text" />

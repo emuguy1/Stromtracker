@@ -11,21 +11,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.kategorien.KategorienFragment
-import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
 
 class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
-    private lateinit var katViewModel: KategorienViewModel
 
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var inputName: EditText
-    private lateinit var infoFeld : TextView
+    private lateinit var infoFeld: TextView
     private var selectedIcon: Int = 0
-
-    private lateinit var abbrBtn : Button
-    private lateinit var saveBtn : Button
+    private lateinit var abbrBtn: Button
+    private lateinit var saveBtn: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,12 +45,12 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
-        //Button Funktion zuweisen
+        // Button Funktion zuweisen
         abbrBtn = root.findViewById<Button>(R.id.kategorie_new_button_abbrechen)
         abbrBtn.setOnClickListener(this)
         saveBtn = root.findViewById<Button>(R.id.kategorie_new_button_speichern)
         saveBtn.setOnClickListener(this)
-        inputName = root.findViewById(R.id.kategorie_new_editName)
+        inputName = root.findViewById(R.id.kategorie_new_edit_name)
         customTextListener(inputName)
         infoFeld = root.findViewById(R.id.kategorie_new_info)
 
@@ -60,9 +59,8 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        //View Model zuweisen, benötigt für DB Zugriff
-        katViewModel = ViewModelProvider(this).get(KategorienViewModel::class.java)
+        // View Model zuweisen, benötigt für DB Zugriff
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
@@ -76,28 +74,32 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
     }
 
     override fun onClick(v: View) {
-        //Fragment Manager aus Main Activity holen
+        // Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
-        //switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
+        // switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
         when (v.id) {
             R.id.kategorie_new_button_abbrechen -> {
-                //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                // neues Fragment erstellen,
+                // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                // mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
             R.id.kategorie_new_button_speichern -> {
 
                 if (inputName.text.isNotEmpty()) {
-                    //Zuerst Daten in DB speichern
-                    //Neue Kategorie anlegen, die gleich Insertet wird
+                    // Zuerst Daten in DB speichern
+                    // Neue Kategorie anlegen, die gleich Insertet wird
                     val newKategorie = Kategorie(inputName.text.toString(), selectedIcon)
-                    //In DB speichern
-                    katViewModel.insertKategorie(newKategorie)
-                    //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                    // In DB speichern
+                    sharedViewModel.insertKategorie(newKategorie)
+                    // neues Fragment erstellen,
+                    // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                     val frag = KategorienFragment()
-                    //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                    // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                    // mit dem neuen Fragment ersetzen und dann committen.
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
                 } else {
@@ -134,7 +136,5 @@ class KategorienNewFragment(private val iconArray: Array<Int>) : Fragment(), Vie
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
         return edit
-
     }
-
 }

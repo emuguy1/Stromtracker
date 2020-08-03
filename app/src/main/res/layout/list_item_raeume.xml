@@ -11,19 +11,17 @@
         android:id="@+id/recycler_card_raeume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/recyclerview_marginLeft"
         android:layout_marginStart="@dimen/recyclerview_marginLeft"
-        android:layout_marginRight="@dimen/recyclerview_marginRight"
-        android:layout_marginEnd="@dimen/recyclerview_marginRight"
-        android:layout_marginBottom="@dimen/recyclerview_marginBottom"
+        android:layout_marginLeft="@dimen/recyclerview_marginLeft"
         android:layout_marginTop="@dimen/recyclerview_marginTop"
+        android:layout_marginEnd="@dimen/recyclerview_marginRight"
+        android:layout_marginRight="@dimen/recyclerview_marginRight"
+        android:layout_marginBottom="@dimen/recyclerview_marginBottom"
         app:cardBackgroundColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,24 +32,21 @@
                 android:id="@+id/text_view_raeume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="@dimen/content_margin_sides_normal"
+                android:layout_marginTop="@dimen/content_margin_top"
+                android:layout_marginEnd="@dimen/content_margin_sides_normal"
+                android:layout_marginBottom="@dimen/content_margin_bottom"
                 android:background="@color/colorWhite"
+                android:drawableStart="@drawable/ic_menu_raeume_klein"
+                android:drawableLeft="@drawable/ic_menu_raeume_klein"
+                android:drawablePadding="5dp"
                 android:gravity="left"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:drawableLeft="@drawable/ic_menu_raeume_klein"
-                android:drawableStart="@drawable/ic_menu_raeume_klein"
-                android:drawablePadding="5dp"
                 tools:ignore="RtlHardcoded" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
