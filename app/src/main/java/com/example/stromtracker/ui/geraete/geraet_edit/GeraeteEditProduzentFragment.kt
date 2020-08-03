@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.geraete.geraet_edit
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

@@ -46,7 +46,7 @@ class RaeumeBearbeitenLoeschenFragment(
             false
         ) // false weil es nur teil des root ist, aber nicht selber die root
 
-        //raumnameleer und raumnamesonstiges aus Strings.xml holen
+        // raumnameleer und raumnamesonstiges aus Strings.xml holen
         raumnameleer = getString(R.string.raum_name_leer)
         raumnamesonstiges = getString(R.string.raum_sonstiges_erstellen)
 

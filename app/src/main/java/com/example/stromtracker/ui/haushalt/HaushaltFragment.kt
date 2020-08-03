@@ -88,11 +88,11 @@ class HaushaltFragment : Fragment() {
     }
 
     private fun initRaeume(hausid: Int) {
-        sharedViewModel.insertRaum(Raum("Sonstiges",hausid))
-        sharedViewModel.insertRaum(Raum("Wohnzimmer",hausid))
-        sharedViewModel.insertRaum(Raum("Schlafzimmer",hausid))
-        sharedViewModel.insertRaum(Raum("Küche",hausid))
-        sharedViewModel.insertRaum(Raum("Badezimmer",hausid))
+        sharedViewModel.insertRaum(Raum("Sonstiges", hausid))
+        sharedViewModel.insertRaum(Raum("Wohnzimmer", hausid))
+        sharedViewModel.insertRaum(Raum("Schlafzimmer", hausid))
+        sharedViewModel.insertRaum(Raum("Küche", hausid))
+        sharedViewModel.insertRaum(Raum("Badezimmer", hausid))
     }
 
     override fun onCreateView(

@@ -17,7 +17,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     var raumList: LiveData<List<Raum>> = repo.getAllRaeume()
     var urlaubList: LiveData<List<Urlaub>> = repo.getAllUrlaub()
 
-    fun getAllUrlaub(): LiveData<List<Urlaub>>{
+    fun getAllUrlaub(): LiveData<List<Urlaub>> {
         return urlaubList
     }
 
@@ -89,7 +89,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         repo.updateGeraete(g)
     }
 
-
     fun getHaushalt(): LiveData<Haushalt> {
         return selectedHaushalt
     }
@@ -97,8 +96,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     fun setHaushalt(haushalt: Haushalt) {
         selectedHaushalt.value = haushalt
     }
-
-
 
     fun insertRaeume(a: Raum) {
         repo.insertRaum(a)

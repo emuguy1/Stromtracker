@@ -66,8 +66,8 @@ abstract class AppDatabase : RoomDatabase() {
             db.raumDao().insertRaum(Raum("Sonstiges", 1))
             db.raumDao().insertRaum(Raum("Wohnzimmer", 1))
             db.raumDao().insertRaum(Raum("Schlafzimmer", 1))
-            db.raumDao().insertRaum(Raum("Küche",1))
-            db.raumDao().insertRaum(Raum("Badezimmer",1))
+            db.raumDao().insertRaum(Raum("Küche", 1))
+            db.raumDao().insertRaum(Raum("Badezimmer", 1))
             db.kategorieDao().insertKategorie(
                 Kategorie("Sonstiges", 7),
                 Kategorie("Fernseher", 0),

@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.kategorien.edit_kategorie
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
@@ -18,7 +16,6 @@ import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.kategorien.KategorienFragment
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class KategorienEditFragment(
     private var currKategorie: Kategorie,
