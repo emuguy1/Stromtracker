@@ -221,7 +221,9 @@
     <string name="co2_text_main_normal">Der derzeitige Gesamtverbrauch beträgt %.2f kWh pro Jahr. Dies entspricht einem
                         gesamten CO2-Ausstoß von %.2fkg, bzw. %.2fkg pro Person."</string>
     <string name="co2_text_comp_avg">Dies entspricht dem exakten deutschen Durchschnitt.</string>
-    <string name="co2_text_comp_main">Dies ist um %.2f%%  %s als der durchschnittliche Haushalt dieser Größe
+    <string name="co2_text_comp_main">Dies ist um %.2f%%  %s als der durchschnittliche Haushalt dieser Größe,
                             dadurch werden insgesamt %.2fkg CO2 eingespart.</string>
+    <string name="co2_text_groeßer">größer</string>
+    <string name="co2_text_kleiner">kleiner</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.co2bilanz
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -148,21 +147,13 @@ class CO2BilanzFragment : Fragment() {
         if (!currHaushalt.getOekostrom()) {
             if (ausstoss > avgAusstoss) {
                 diff = roundDouble(ausstoss - avgAusstoss)
-                /*avgString =
-                    "Dies ist um $percentage" + "% größer als der durchschnittliche Haushalt dieser Größe, " +
-                            "es könnten insgesamt $diff" + "kg CO2 eingespart werden."
-
-                 */
-                comp = "größer"
+                comp = getString(R.string.co2_text_groeßer)
                 avgString =
                     String.format(getString(R.string.co2_text_comp_main), percentage, comp, diff)
             } else if (ausstoss < avgAusstoss) {
                 diff = roundDouble(avgAusstoss - ausstoss)
-                /*avgString =
-                    "Dies ist um $percentage" + "% kleiner als der durchschnittliche Haushalt dieser Größe, " +
-                            "dadurch werden insgesamt $diff" + "kg CO2 eingespart."
-                 */
-                comp = "kleiner"
+
+                comp = getString(R.string.co2_text_kleiner)
                 avgString =
                     String.format(
                         getString(R.string.co2_text_comp_main),
@@ -173,12 +164,6 @@ class CO2BilanzFragment : Fragment() {
             } else {
                 avgString = getString(R.string.co2_text_comp_avg)
             }
-            /*string =
-                "Der derzeitige Gesamtverbrauch beträgt $verbrauch kWh pro Jahr. Dies entspricht einem " +
-                        "gesamten CO2-Ausstoß von $ausstoss" + "kg, bzw. $proPerson" + "kg pro Person."
-
-             */
-
             string = String.format(
                 getString(R.string.co2_text_main_normal),
                 verbrauch,
