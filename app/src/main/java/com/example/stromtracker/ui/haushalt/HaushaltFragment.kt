@@ -35,18 +35,10 @@ class HaushaltFragment : Fragment() {
         super.onCreate(savedInstanceState)
         haushaltViewModel = ViewModelProvider(this).get(HaushaltViewModel::class.java)
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.d("TAG", "test")
-
         haushaltViewModel.getAllHaushalt().observe(
-            viewLifecycleOwner,
+            this,
             Observer { haushalte ->
                 if (haushalte != null) {
-                    Log.d("TAG", viewLifecycleOwner.toString())
-
                     if (haushalte.isEmpty()) {
                         //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
                         initHaushalt()
@@ -75,6 +67,7 @@ class HaushaltFragment : Fragment() {
                 }
             }
         )
+
     }
 
     private fun initRaeume(hausid: Int) {
