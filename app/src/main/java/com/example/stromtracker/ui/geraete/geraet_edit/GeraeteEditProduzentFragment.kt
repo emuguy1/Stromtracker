@@ -50,14 +50,14 @@ class GeraeteEditProduzentFragment(
 
         spinnerKat = root.findViewById(R.id.geraete_edit_produzent_spinner_kategorie)
         val katAdapter: ArrayAdapter<Kategorie> =
-            ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
+            ArrayAdapter(root.context, android.R.layout.simple_spinner_item, katList)
         spinnerKat.adapter = katAdapter
         spinnerKat.onItemSelectedListener = this
         spinnerKat.setSelection(currGeraet.getKategorieID() - 1)
 
         spinnerRaum = root.findViewById(R.id.geraete_edit_produzent_spinner_raum)
         val raumAdapter: ArrayAdapter<Raum> =
-            ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
+            ArrayAdapter(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
         spinnerRaum.onItemSelectedListener = this
         var count = 0

@@ -288,7 +288,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum_prd -> {
-                //TODO: Rauslöschen?
+                // TODO: Rauslöschen?
                 /*val sortedRaum = produzentList.sortedWith(compareBy {
                     produzentList[it.getRaumID() - 1].getName().toLowerCase()
                 })

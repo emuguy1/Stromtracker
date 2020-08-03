@@ -46,15 +46,15 @@ class VerbrauchsrechnerFragment : Fragment() {
         kostenprojahr = root.findViewById(R.id.text_view_verbrauchsrechner_erg_kosten_jahr)
         warnungstext = root.findViewById(R.id.text_view_verbrauchsrechner_warnung)
 
-        CustomTextListener(strompreis)
-        CustomTextListener(leistungsverbrauch)
-        CustomTextListener(standbyverbrauch)
-        CustomTextListener(standbyzeit)
-        CustomTextListener(lastzeit)
+        customTextListener(strompreis)
+        customTextListener(leistungsverbrauch)
+        customTextListener(standbyverbrauch)
+        customTextListener(standbyzeit)
+        customTextListener(lastzeit)
         return root
     }
 
-    private fun CustomTextListener(edit: EditText): EditText {
+    private fun customTextListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 val neustrompreis: Double? = strompreis.text.toString().toDoubleOrNull()

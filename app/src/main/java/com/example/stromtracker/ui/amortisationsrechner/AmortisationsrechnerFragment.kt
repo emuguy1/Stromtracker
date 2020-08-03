@@ -28,6 +28,7 @@ class AmortisationsrechnerFragment : Fragment() {
     private lateinit var outAmortdauer: TextView
     private lateinit var outAmortersparnis: TextView
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
