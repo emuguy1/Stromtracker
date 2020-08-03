@@ -32,7 +32,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:text="@string/verbrauchsrechner_strompreispkwh"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
                     android:text="@string/einheit_cent"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_strompreis_kwh_input"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_strompreis_kwh" />
 
@@ -71,7 +71,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:text="@string/verbrauchsrechner_leistung_kwh"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_strompreis_kwh_input" />
 
@@ -97,7 +97,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
                     android:text="@string/einheit_watt"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_leistung_kwh_input"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_leistung_kwh" />
 
@@ -110,7 +110,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:text="@string/verbrauchsrechner_zeit_leistung"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_strompreis_kwh_input" />
 
@@ -137,7 +137,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
                     android:text="@string/einheit_stunden_tag"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_leistung_zeit_kwh_input"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_leistung_zeit_kwh" />
 
@@ -150,7 +150,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:text="@string/verbrauchsrechner_standby_leistung"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_leistung_kwh_input" />
 
@@ -176,7 +176,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
                     android:text="@string/einheit_watt"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_stand_by_leistung_kwh_input"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_stand_by_leistung_kwh" />
 
@@ -189,7 +189,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:text="@string/verbrauchsrechner_zeit_standby"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_leistung_kwh_input" />
 
@@ -215,7 +215,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
                     android:text="@string/einheit_stunden_tag"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_stand_by_leistung_zeit_kwh_input"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_stand_by_leistung_zeit_kwh" />
 
@@ -239,7 +239,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:text="@string/verbrauchsrechner_verbrauchjahr"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider_verbrauchsrechner" />
 
@@ -269,7 +269,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:text="@string/verbrauchsrechner_kosten_jahr"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/content_text_small"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/card_verbrauchsrechner_verbrauch_jahr" />
 
@@ -279,7 +279,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
-                    android:layout_marginBottom="40dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_kosten_jahr">
 
@@ -300,7 +299,7 @@
                     android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
                     android:textAlignment="center"
                     android:textColor="@color/text_warnung"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/content_text_bigger"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/card_verbrauchsrechner_kosten_jahr" />
             </androidx.constraintlayout.widget.ConstraintLayout>
