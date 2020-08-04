@@ -21,7 +21,6 @@ import com.getbase.floatingactionbutton.FloatingActionButton
 
 class UrlaubFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var urlaubViewModel: UrlaubViewModel
     private lateinit var sharedViewModel: SharedViewModel
 
     private lateinit var urlaubList: ArrayList<Urlaub>
@@ -39,8 +38,6 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        urlaubViewModel = ViewModelProvider(this).get(UrlaubViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         urlaubList = ArrayList()
@@ -48,7 +45,7 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
 
         val root = inflater.inflate(R.layout.fragment_urlaub, container, false)
 
-        //RecyclerView initialisieren
+        // RecyclerView initialisieren
         viewAdapter = UrlaubListAdapter(urlaubList, sharedViewModel.getHaushalt().value!!)
 
         viewManager = LinearLayoutManager(this.context)
@@ -69,7 +66,7 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
 
         val verbraucherData: LiveData<List<Geraete>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                urlaubViewModel.getAllVerbraucherByHaushaltID(haushalt.getHaushaltID())
+                sharedViewModel.getAllVerbraucherByHaushaltID(haushalt.getHaushaltID())
             }
         verbraucherData.observe(
             viewLifecycleOwner,
@@ -78,13 +75,13 @@ class UrlaubFragment : Fragment(), View.OnClickListener {
 
                     verbraucherList.clear()
                     verbraucherList.addAll(geraete)
-                    viewAdapter.notifyDataSetChanged();
+                    viewAdapter.notifyDataSetChanged()
                 }
             })
 
         val urlaubData: LiveData<List<Urlaub>> =
             Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                urlaubViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
+                sharedViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
             }
         urlaubData.observe(
             viewLifecycleOwner,

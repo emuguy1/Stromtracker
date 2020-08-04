@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.kategorien.new_kategorie.KategorienNewFragment
 import com.getbase.floatingactionbutton.AddFloatingActionButton
 import java.util.*
@@ -21,7 +22,7 @@ import kotlin.collections.ArrayList
 
 class KategorienFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var kategorienViewModel: KategorienViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var myKategorien: ArrayList<Kategorie>
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -36,15 +37,15 @@ class KategorienFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        //IconArray initialisieren
+        // IconArray initialisieren
         val mainAct = requireActivity() as MainActivity
         iconArray = mainAct.getIconArray()
 
-        //root festlegen -> root ist ConstraintLayout
+        // root festlegen -> root ist ConstraintLayout
         root = inflater.inflate(R.layout.fragment_kategorien, container, false)
         myKategorien = ArrayList()
 
-        //RecyclerView mit geholten Daten aus DB initialisieren
+        // RecyclerView mit geholten Daten aus DB initialisieren
         viewAdapter = KategorienListAdapter(myKategorien, iconArray)
 
         viewManager = LinearLayoutManager(this.context)
@@ -54,7 +55,7 @@ class KategorienFragment : Fragment(), View.OnClickListener {
             adapter = viewAdapter
         }
 
-        //Buttons finden und Click Listener zuweisen
+        // Buttons finden und Click Listener zuweisen
         buttonAdd = root.findViewById(R.id.kategorie_button_add)
         buttonAdd.setOnClickListener(this)
         return root
@@ -63,15 +64,16 @@ class KategorienFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //View Model zuweisen, benötigt für DB Zugriff
-        kategorienViewModel = ViewModelProvider(this).get(KategorienViewModel::class.java)
-        kategorienViewModel.getAllKategorie().observe(
+        // View Model zuweisen, benötigt für DB Zugriff
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        sharedViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorien ->
                 if (kategorien != null) {
                     myKategorien.clear()
 
-                    //Kategorien alphabetisch sortieren. Geht nicht in DB, da dort kein toLower Case angewendet wird
+                    // Kategorien alphabetisch sortieren.
+                    // Geht nicht in DB, da dort kein toLower Case angewendet wird
                     // -> klein geschriebene Kategorien würden unter groß geschriebenen stehen
                     myKategorien.addAll(kategorien.sortedWith(compareBy({
                         it.getName().toLowerCase(Locale.ROOT)
@@ -84,14 +86,16 @@ class KategorienFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        //switch-case in Kotlin: (Zur Unterscheidung der Buttons. Hier eigentlich nicht notwendig)
+        // switch-case in Kotlin: (Zur Unterscheidung der Buttons. Hier eigentlich nicht notwendig)
         when (v.id) {
             R.id.kategorie_button_add -> {
-                //neues Fragment erstellen, Beim Klick soll ja auf die Seite zum neu erstellen weitergeleitet werden
+                // neues Fragment erstellen,
+                // Beim Klick soll ja auf die Seite zum neu erstellen weitergeleitet werden
                 val frag = KategorienNewFragment(iconArray)
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                // mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }

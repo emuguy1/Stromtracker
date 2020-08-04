@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.kategorien.edit_kategorie
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,30 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Kategorie
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.kategorien.KategorienFragment
-import com.example.stromtracker.ui.kategorien.KategorienViewModel
 import com.example.stromtracker.ui.kategorien.SimpleImageArrayAdapter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class KategorienEditFragment(
     private var currKategorie: Kategorie,
     private var katList: ArrayList<Kategorie>,
     private val iconArray: Array<Int>
 ) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private lateinit var katViewModel: KategorienViewModel
 
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var currNameEdit: EditText
     private lateinit var infoFeld: TextView
     private var selectedIcon: Int = 0
-
     private var sonstigesKatID = 0
-
     private lateinit var abbrBtn: Button
     private lateinit var delBtn: Button
     private lateinit var saveBtn: Button
@@ -43,11 +38,14 @@ class KategorienEditFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        katViewModel =
-            ViewModelProvider(this).get(KategorienViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_kategorien_edit, container, false)
-        currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_editName)
+        val root = inflater.inflate(
+            R.layout.fragment_kategorien_edit,
+            container,
+            false)
+        currNameEdit = root.findViewById<EditText>(R.id.kategorie_edit_edit_name)
         currNameEdit.setText(currKategorie.getName())
         customTextListener(currNameEdit)
         infoFeld = root.findViewById(R.id.kategorie_edit_info)
@@ -79,7 +77,8 @@ class KategorienEditFragment(
             }
         }
 
-        //Wenn Raum Sonstiges ist, soll der Name nicht geändert werden können under Raum auch nicht gelöscht werden können.
+        // Wenn Raum Sonstiges ist,
+        // soll der Name nicht geändert werden können under Raum auch nicht gelöscht werden können.
         if (currKategorie.getName() == "Sonstiges") {
             saveBtn.visibility = View.INVISIBLE
             delBtn.visibility = View.INVISIBLE
@@ -99,43 +98,48 @@ class KategorienEditFragment(
     }
 
     override fun onClick(v: View) {
-        //Fragment Manager aus Main Activity holen
+        // Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
-        //switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
+        // switch-case in Kotlin: (Zur Unterscheidung der Buttons.)
         when (v.id) {
             R.id.kategorie_edit_button_abbrechen -> {
-                //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                // neues Fragment erstellen,
+                // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                 val frag = KategorienFragment()
-                //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                // mit dem neuen Fragment ersetzen und dann committen.
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
             R.id.kategorie_edit_button_loeschen -> {
                 val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                confirmDeleteBuilder.setMessage(R.string.kategorie_edit_LöschenConfirm)
+                confirmDeleteBuilder.setMessage(R.string.kategorie_edit_loeschen_confirm)
                 confirmDeleteBuilder.setPositiveButton(
-                    R.string.ja,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        //Alle Geräte die der aktuellen Kategorie hinzugefügt sind, werden dem SonstigeKategorie zugeordnet
-                        katViewModel.updateGeraeteByKategorieID(
-                            currKategorie.getKategorieID(),
-                            sonstigesKatID
-                        )
-                        //Daten werden aus der Datenbank gelöscht
-                        katViewModel.deleteKategorie(currKategorie)
-                        //Man wir nur weitergeleitet, wenn man wirkllich löschen will. Deswegen nur bei positiv der Fragmentwechsel.
-                        //neues Fragment erstellen auf das weitergeleitet werden soll
-                        val frag = KategorienFragment()
-                        //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
-                        fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                            .addToBackStack(null).commit();
-                        //und anschließend noch ein commit()
-                        dialog.cancel()
-                    })
+                    R.string.ja
+                ) { dialog, _ ->
+                    // Alle Geräte die der aktuellen Kategorie hinzugefügt sind,
+                    // werden dem SonstigeKategorie zugeordnet
+                    sharedViewModel.updateGeraeteByKategorieID(
+                        currKategorie.getKategorieID(),
+                        sonstigesKatID
+                    )
+                    // Daten werden aus der Datenbank gelöscht
+                    sharedViewModel.deleteKategorie(currKategorie)
+                    // Man wir nur weitergeleitet, wenn man wirkllich löschen will.
+                    // Deswegen nur bei positiv der Fragmentwechsel.
+                    // neues Fragment erstellen auf das weitergeleitet werden soll
+                    val frag = KategorienFragment()
+                    // Fragment container aus content_main.xml muss ausgeählt werden,
+                    // dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                    fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                        .addToBackStack(null).commit()
+                    // und anschließend noch ein commit()
+                    dialog.cancel()
+                }
 
                 confirmDeleteBuilder.setNegativeButton(
-                    R.string.nein,
-                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                    R.string.nein
+                ) { dialog, _ -> dialog.cancel() }
 
                 val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
                 confirmDeleteDialog.show()
@@ -144,17 +148,19 @@ class KategorienEditFragment(
                 if (currNameEdit.text.isNotEmpty()) {
                     currKategorie.setName(currNameEdit.text.toString())
                     currKategorie.setIcon(selectedIcon)
-                    //Daten werden in der DB gespeichert
-                    katViewModel.updateKategorie(currKategorie)
-                    //neues Fragment erstellen, Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
+                    // Daten werden in der DB gespeichert
+                    sharedViewModel.updateKategorie(currKategorie)
+                    // neues Fragment erstellen,
+                    // Beim Klick soll ja auf die Seite der Kategorien weitergeleitet werden
                     val frag = KategorienFragment()
-                    //Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen! mit dem neuen Fragment ersetzen und dann committen.
+                    // Wichtig: Hier bei R.id. die Fragment View aus dem content_main.xml auswählen!
+                    // mit dem neuen Fragment ersetzen und dann committen.
                     fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                         .addToBackStack(null).commit()
                 } else {
                     Toast.makeText(
                         this.context,
-                        R.string.kategorie_new_ungültiger_Wert,
+                        R.string.kategorie_new_invalid_value,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

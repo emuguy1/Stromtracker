@@ -7,16 +7,23 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-
-@Database(entities = arrayOf(Geraete::class, Haushalt::class, Kategorie::class, Raum::class, Urlaub::class), version = 1)
+@Database(
+    entities = arrayOf(
+        Geraete::class,
+        Haushalt::class,
+        Kategorie::class,
+        Raum::class,
+        Urlaub::class
+    ), version = 1
+)
 @TypeConverters(DateConverters::class)
 
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun geraeteDao(): GeraeteDAO
     abstract fun haushaltDao(): HaushaltDAO
-    abstract fun kategorieDao():KategorieDAO
-    abstract fun raumDao():RaumDAO
+    abstract fun kategorieDao(): KategorieDAO
+    abstract fun raumDao(): RaumDAO
     abstract fun urlaubDAO(): UrlaubDAO
 
     companion object {
@@ -25,7 +32,6 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(context: Context): AppDatabase {
 
             synchronized(this) {
-
 
                 if (INSTANCE == null) {
                     buildDatabase(context)
@@ -44,11 +50,9 @@ abstract class AppDatabase : RoomDatabase() {
                     super.onCreate(db)
                     Thread(Runnable { prepopulateDb(context, getInstance(context)) }
                     ).start()
-
                 }
             })
                 .build()
-
         }
 
         fun destroyInstance() {
@@ -62,6 +66,8 @@ abstract class AppDatabase : RoomDatabase() {
             db.raumDao().insertRaum(Raum("Sonstiges", 1))
             db.raumDao().insertRaum(Raum("Wohnzimmer", 1))
             db.raumDao().insertRaum(Raum("Schlafzimmer", 1))
+            db.raumDao().insertRaum(Raum("Küche", 1))
+            db.raumDao().insertRaum(Raum("Badezimmer", 1))
             db.kategorieDao().insertKategorie(
                 Kategorie("Sonstiges", 7),
                 Kategorie("Fernseher", 0),
@@ -74,10 +80,6 @@ abstract class AppDatabase : RoomDatabase() {
                 Kategorie("Stromerzeugung", 8)
             )
             return
-
         }
     }
-
-
-
 }

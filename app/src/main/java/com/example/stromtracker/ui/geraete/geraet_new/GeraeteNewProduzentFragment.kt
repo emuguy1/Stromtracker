@@ -11,9 +11,9 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
 
 class GeraeteNewProduzentFragment(
     private val katList: ArrayList<Kategorie>,
@@ -21,10 +21,11 @@ class GeraeteNewProduzentFragment(
 ) :
     Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private lateinit var geraeteViewModel: GeraeteViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var inputName: EditText
     private lateinit var inputProdProJahr: EditText
     private lateinit var inputVerbrauch: EditText
+    private lateinit var inputNotiz: EditText
 
     private lateinit var spinnerRaum: Spinner
     private lateinit var spinnerKat: Spinner
@@ -38,8 +39,11 @@ class GeraeteNewProduzentFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_new_produzent, container, false)
-
+        val root = inflater.inflate(
+            R.layout.fragment_geraete_new_produzent,
+            container,
+            false
+        )
 
         spinnerKat = root.findViewById(R.id.geraete_new_produzent_spinner_kategorie)
         val katAdapter: ArrayAdapter<Kategorie> =
@@ -62,17 +66,18 @@ class GeraeteNewProduzentFragment(
         inputProdProJahr = root.findViewById(R.id.geraete_new_produzent_edit_prod)
         inputVerbrauch = root.findViewById(R.id.geraete_new_produzent_edit_verbrauch)
 
+        inputNotiz = root.findViewById(R.id.geraete_prod_new_edit_notiz)
+
         return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
-
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
@@ -87,7 +92,6 @@ class GeraeteNewProduzentFragment(
         }
     }
 
-
     override fun onClick(v: View) {
         val fragMan = parentFragmentManager
         when (v.id) {
@@ -96,9 +100,19 @@ class GeraeteNewProduzentFragment(
 
                     val prodProJahr: Double? = inputProdProJahr.text.toString().toDoubleOrNull()
                     val eigenverbrauch: Double? = inputVerbrauch.text.toString().toDoubleOrNull()
+                    var notiz: String? = inputNotiz.text.toString()
 
-                    if (prodProJahr != null && prodProJahr > 0.0 && eigenverbrauch != null && eigenverbrauch > 0.0) {
-                        //negativer Verbrauch = Produzent, kein Verbraucher
+                    if (prodProJahr != null &&
+                        prodProJahr > 0.0 &&
+                        eigenverbrauch != null &&
+                        eigenverbrauch > 0.0 &&
+                        notiz != null
+                    ) {
+                        // negativer Verbrauch = Produzent, kein Verbraucher
+
+                        if (notiz.isEmpty()) {
+                            notiz = null
+                        }
                         val jahresverbrauch: Double = prodProJahr * (-1)
                         val geraet = Geraete(
                             inputName.text.toString(),
@@ -112,13 +126,12 @@ class GeraeteNewProduzentFragment(
                             false,
                             GeraeteCompanion.roundDouble(jahresverbrauch),
                             eigenverbrauch,
-                            null
+                            notiz
                         )
-                        geraeteViewModel.insertGeraet(geraet)
+                        sharedViewModel.insertGeraet(geraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-
                     } else {
                         GeraeteCompanion.validValues(this.context)
                     }
@@ -131,10 +144,6 @@ class GeraeteNewProduzentFragment(
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                     .addToBackStack(null).commit()
             }
-
-
         }
-
     }
-
 }

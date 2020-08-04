@@ -33,15 +33,8 @@ class ImportExportFragment : Fragment() {
     private lateinit var geraetlist: ArrayList<Geraete>
     private lateinit var urlaublist: ArrayList<Urlaub>
     private lateinit var haushaltidlist: ArrayList<Int>
-    private val CREATE_REQUEST_CODE = 40
-    private val OPEN_REQUEST_CODE = 41
-    private val SAVE_REQUEST_CODE = 42
     private lateinit var textview: TextView
     private lateinit var outputtextfield: EditText
-
-    // Request code for creating a PDF document.
-    private val CREATE_FILE = 1
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

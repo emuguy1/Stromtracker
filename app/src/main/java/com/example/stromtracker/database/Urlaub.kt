@@ -1,6 +1,6 @@
 package com.example.stromtracker.database
 
-import androidx.room.*;
+import androidx.room.*
 import java.util.*
 
 @Entity(
@@ -70,6 +70,4 @@ data class Urlaub(
     fun setHaushaltID(id: Int) {
         haushaltID = id
     }
-
-
 }

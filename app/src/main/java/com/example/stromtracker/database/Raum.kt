@@ -46,6 +46,4 @@ data class Raum(
     override fun toString(): String {
         return name
     }
-
-
 }

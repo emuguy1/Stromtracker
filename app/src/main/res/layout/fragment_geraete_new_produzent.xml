@@ -27,8 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_edit_text"
-            android:hint="@string/geraet_new_name"
+            android:autofillHints="@string/geraet_new_produzent_hint_name"
+            android:hint="@string/geraet_new_produzent_hint_name"
             android:inputType="text"
+            android:maxLength="@integer/length_namen"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_name"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_name" />
 
@@ -74,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_margin_top"
-            android:text="@string/geraet_new_produzent_prodProJahr"
+            android:text="@string/geraet_new_produzent_prod_pro_jahr"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_spinner_kategorie"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_spinner_kategorie" />
 
@@ -83,9 +85,11 @@
             android:id="@+id/geraete_new_produzent_edit_prod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_edit_text"
-            android:hint="@string/geraet_prod_hint_prodproJahr"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/geraet_new_produzent_hint_prod"
+            android:hint="@string/geraet_new_produzent_hint_prod"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_verbrauch"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_prod"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
 
@@ -95,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
-            android:text="@string/Einheit_Watt"
+            android:text="@string/einheit_kwh"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_prod"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_prod" />
@@ -114,9 +118,11 @@
             android:id="@+id/geraete_new_produzent_edit_verbrauch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_edit_text"
-            android:hint="@string/geraet_new_produzent_hint_prozent"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/geraet_produzent_edit_hint_verbrauch"
+            android:hint="@string/geraet_produzent_edit_hint_verbrauch"
             android:inputType="numberDecimal"
+            android:maxLength="@integer/length_prozent"
             app:layout_constraintStart_toStartOf="@+id/geraete_new_produzent_text_verbrauch"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_verbrauch" />
 
@@ -126,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_top_text_einheit"
-            android:text="@string/Einheit_Prozent"
+            android:text="@string/einheit_prozent"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/geraete_new_produzent_edit_verbrauch"
             app:layout_constraintTop_toBottomOf="@+id/geraete_new_produzent_text_verbrauch" />
@@ -144,10 +150,12 @@
             android:id="@+id/geraete_prod_new_edit_notiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:layout_marginTop="@dimen/content_margin_top_small"
             android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:autofillHints="@string/geraet_edit_edit_notiz"
             android:hint="@string/geraet_edit_edit_notiz"
             android:inputType="textMultiLine"
+            android:maxLength="@integer/length_notizen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/geraete_prod_edit_text_notiz"

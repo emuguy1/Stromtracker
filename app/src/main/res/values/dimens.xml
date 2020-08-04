@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="nav_spinner_width">120dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="content_text_bigger">20sp</dimen>
@@ -12,6 +13,8 @@
     <dimen name="content_text_small">14sp</dimen>
     <dimen name="content_text_smaller">12sp</dimen>
     <dimen name="content_text_smallest">10sp</dimen>
+
+    <dimen name="nav_spinner_text">16sp</dimen>
 
 
     <dimen name="geraet_sort_cardview_margin">8dp</dimen>
@@ -28,14 +31,12 @@
 
     <dimen name="spinner_icon_dropdown_width">64dp</dimen>
     <dimen name="spinner_icon_dropdown_height">64dp</dimen>
-    <dimen name="spinner_icon_width">96dp</dimen>
+    <dimen name="spinner_icon_width">110dp</dimen>
     <dimen name="spinner_icon_height">96dp</dimen>
     <dimen name="spinner_icon_margin_bottom">8dp</dimen>
 
     <dimen name="recycler_kat_icon">40dp</dimen>
 
-    <dimen name="amort_pv_margin_top">16dp</dimen>
-    <dimen name="amort_pv_edit_numbers">80dp</dimen>
     <dimen name="amort_pv_edit_measure_margin_top">12dp</dimen>
 
     <dimen name="verbrauchsrechner_marginTop">20dp</dimen>
@@ -44,7 +45,7 @@
     <dimen name="verbrauchsrechner_marginTopEinheiten">35dp</dimen>
 
     <dimen name="amort_edit_measure_margin_top">12dp</dimen>
-    <dimen name="amort_edit_numbers">80dp</dimen>
+
     <dimen name="haushalt_margin_start">20dp</dimen>
     <dimen name="haushalt_margin_top_groß">35dp</dimen>
     <dimen name="haushalt_margin_top_klein">20dp</dimen>
@@ -54,22 +55,41 @@
     <dimen name="haushalt_margin_row_text_and_checkbox">8dp</dimen>
     <dimen name="urlaub_margin_recycler_name">16dp</dimen>
 
+    <dimen name="content_margin_normal">16dp</dimen>
+    <dimen name="content_margin_small">8dp</dimen>
     <dimen name="content_margin_top">16dp</dimen>
+    <dimen name="content_margin_top_large">32dp</dimen>
     <dimen name="content_margin_top_small">8dp</dimen>
     <dimen name="content_margin_sides_small">8dp</dimen>
     <dimen name="content_margin_sides_normal">16dp</dimen>
     <dimen name="content_margin_bottom">16dp</dimen>
+    <dimen name="content_margin_bottom_large">32dp</dimen>
     <dimen name="button_margin_between">16dp</dimen>
     <dimen name="card_view_margin">8dp</dimen>
     <dimen name="margin_edit_and_text_one_line">14dp</dimen>
     <dimen name="margin_bottom_because_fab">77dp</dimen>
     <dimen name="margin_top_edit_text">8dp</dimen>
     <dimen name="margin_top_text_einheit">24dp</dimen>
+    <dimen name="margin_image_in_card">8dp</dimen>
+    <dimen name="margin_bottom_infotext_large">60dp</dimen>
 
+    <dimen name="divider_width_thin">1dp</dimen>
 
     <dimen name="edit_name_width_long">250dp</dimen>
     <dimen name="edit_date_width">115dp</dimen>
     <dimen name="edit_num_len_six">85dp</dimen>
+
+    <integer name="length_namen">30</integer>
+    <integer name="length_personen">3</integer>
+    <integer name="length_datum">10</integer>
+    <integer name="length_strompreis">6</integer>
+    <integer name="length_verbrauch">8</integer>
+    <integer name="length_zaehlerstand">10</integer>
+    <integer name="length_stunden">5</integer>
+    <integer name="length_sonstige_double">16</integer>
+    <integer name="length_prozent">5</integer>
+    <integer name="length_notizen">128</integer>
+    <integer name="length_kosten">8</integer>
 
     <dimen name="DualButtonLeft">8dp</dimen>
     <dimen name="DualButtonRight">8dp</dimen>

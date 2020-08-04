@@ -1,6 +1,5 @@
 package com.example.stromtracker.ui.geraete.geraet_edit
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +13,18 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.geraete.GeraeteCompanion
 import com.example.stromtracker.ui.geraete.GeraeteFragment
-import com.example.stromtracker.ui.geraete.GeraeteViewModel
 import kotlin.collections.ArrayList
-
 
 class GeraeteEditVerbraucherFragment(
     private val currGeraet: Geraete,
     private val katList: ArrayList<Kategorie>,
     private val raumList: ArrayList<Raum>
 ) : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private lateinit var geraeteViewModel: GeraeteViewModel
+
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var inputName: EditText
     private lateinit var inputVolllast: EditText
     private lateinit var inputStandBy: EditText
@@ -44,19 +43,21 @@ class GeraeteEditVerbraucherFragment(
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_geraete_edit_verbraucher, container, false)
-
+        val root = inflater.inflate(
+            R.layout.fragment_geraete_edit_verbraucher,
+            container,
+            false)
 
         spinnerKat = root.findViewById(R.id.geraete_edit_kategorie_spinner)
         val katAdapter: ArrayAdapter<Kategorie> =
-            ArrayAdapter<Kategorie>(root.context, android.R.layout.simple_spinner_item, katList)
+            ArrayAdapter(root.context, android.R.layout.simple_spinner_item, katList)
         spinnerKat.adapter = katAdapter
         spinnerKat.onItemSelectedListener = this
         spinnerKat.setSelection(currGeraet.getKategorieID() - 1)
 
         spinnerRaum = root.findViewById(R.id.geraete_edit_raum_spinner)
         val raumAdapter: ArrayAdapter<Raum> =
-            ArrayAdapter<Raum>(root.context, android.R.layout.simple_spinner_item, raumList)
+            ArrayAdapter(root.context, android.R.layout.simple_spinner_item, raumList)
         spinnerRaum.adapter = raumAdapter
         spinnerRaum.onItemSelectedListener = this
         var count = 0
@@ -75,7 +76,6 @@ class GeraeteEditVerbraucherFragment(
         saveBtn.setOnClickListener(this)
         val delBtn = root.findViewById<Button>(R.id.geraete_edit_delete)
         delBtn.setOnClickListener(this)
-
 
         inputName = root.findViewById(R.id.geraete_edit_edit_name)
         inputName.setText(currGeraet.getName())
@@ -105,12 +105,11 @@ class GeraeteEditVerbraucherFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        geraeteViewModel = ViewModelProvider(this).get(GeraeteViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
-
 
     override fun onItemSelected(parent: AdapterView<*>, v: View, pos: Int, id: Long) {
         when (parent.id) {
@@ -122,7 +121,6 @@ class GeraeteEditVerbraucherFragment(
             }
             else -> {
             }
-
         }
     }
 
@@ -130,7 +128,9 @@ class GeraeteEditVerbraucherFragment(
         val fragMan = parentFragmentManager
         when (v.id) {
             R.id.geraete_edit_save -> {
-                if (inputName.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() && inputVolllast.text.isNotEmpty()) {
+                if (inputName.text.isNotEmpty() && inputZeitVolllast.text.isNotEmpty() &&
+                    inputVolllast.text.isNotEmpty()
+                ) {
 
                     val volllast: Double? = inputVolllast.text.toString().toDoubleOrNull()
                     val standby: Double? = inputStandBy.text.toString().toDoubleOrNull()
@@ -141,9 +141,14 @@ class GeraeteEditVerbraucherFragment(
 
                     if (volllast != null && zeitVolllast != null && notiz != null) {
                         if (zeitStandBy != null && standby != null) {
-                            if (zeitStandBy <= GeraeteCompanion.maxHours && zeitVolllast <= GeraeteCompanion.maxHours && (zeitStandBy + zeitVolllast) <= GeraeteCompanion.maxHours) {
+                            if (zeitStandBy <= GeraeteCompanion.maxHours &&
+                                zeitVolllast <= GeraeteCompanion.maxHours &&
+                                (zeitStandBy + zeitVolllast) <= GeraeteCompanion.maxHours
+                            ) {
                                 jahresverbrauch =
-                                    GeraeteCompanion.calculateKWH((volllast * zeitVolllast) + (zeitStandBy * standby))
+                                    GeraeteCompanion.calculateKWH(
+                                        (volllast * zeitVolllast) + (zeitStandBy * standby)
+                                    )
                             } else {
                                 GeraeteCompanion.validTimes(this.context)
                                 return
@@ -175,11 +180,10 @@ class GeraeteEditVerbraucherFragment(
                         currGeraet.setName(inputName.text.toString())
                         currGeraet.setNotiz(notiz)
 
-                        geraeteViewModel.updateGeraet(currGeraet)
+                        sharedViewModel.updateGeraet(currGeraet)
                         val frag = GeraeteFragment()
                         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
                             .addToBackStack(null).commit()
-
                     } else {
                         GeraeteCompanion.validValues(this.context)
                     }
@@ -196,32 +200,28 @@ class GeraeteEditVerbraucherFragment(
             R.id.geraete_edit_delete -> {
                 alertDelete(fragMan)
             }
-
         }
-
     }
 
     private fun alertDelete(fragMan: FragmentManager) {
         val confirmDeleteBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
         confirmDeleteBuilder.setMessage(R.string.geraete_edit_confirmDelete)
         confirmDeleteBuilder.setPositiveButton(
-            R.string.ja,
-            DialogInterface.OnClickListener { dialog, id ->
-                //Daten werden aus der Datenbank gelöscht
-                geraeteViewModel.deleteGeraet(currGeraet)
-                val frag = GeraeteFragment()
-                fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
-                    .addToBackStack(null).commit();
-                dialog.cancel()
-            })
+            R.string.ja
+        ) { dialog, _ ->
+            // Daten werden aus der Datenbank gelöscht
+            sharedViewModel.deleteGeraet(currGeraet)
+            val frag = GeraeteFragment()
+            fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
+                .addToBackStack(null).commit()
+            dialog.cancel()
+        }
 
         confirmDeleteBuilder.setNegativeButton(
-            R.string.nein,
-            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+            R.string.nein
+        ) { dialog, _ -> dialog.cancel() }
 
         val confirmDeleteDialog: AlertDialog = confirmDeleteBuilder.create()
         confirmDeleteDialog.show()
-
     }
 }
-
