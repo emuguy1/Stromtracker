@@ -39,7 +39,7 @@ class GeraeteCompanion {
         }
 
         fun calculateKWH(verbrauch: Double): Double {
-            return (verbrauch * wattToKWatt) / daysInYear
+            return (verbrauch * daysInYear) / wattToKWatt
         }
     }
 }

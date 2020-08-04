@@ -59,6 +59,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
     private lateinit var buttonZuAuswertung: Button
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -274,8 +275,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_name_prod -> {
-                val sortedName = produzentList.sortedWith(compareBy { it.getName().toLowerCase(
-                    Locale.ROOT) })
+                val sortedName = produzentList.sortedWith(compareBy {
+                    it.getName().toLowerCase(
+                        Locale.ROOT
+                    )
+                })
                 produzentList.clear()
                 produzentList.addAll(sortedName)
                 produzentViewAdapter.notifyDataSetChanged()
@@ -288,15 +292,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum_prd -> {
-                // TODO: Rauslöschen?
-                /*val sortedRaum = produzentList.sortedWith(compareBy {
-                    produzentList[it.getRaumID() - 1].getName().toLowerCase()
-                })
-                */
-                /*produzentList.clear()
+                var sortedRaum = produzentList.sortedWith(compareBy { it.getRaumID() })
+                produzentList.clear()
                 produzentList.addAll(sortedRaum)
 
-                 */
                 produzentViewAdapter.notifyDataSetChanged()
                 buttonSortRaum_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0

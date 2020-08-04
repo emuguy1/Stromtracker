@@ -2,7 +2,10 @@ package com.example.stromtracker.database
 
 import android.app.Application
 import android.os.AsyncTask
+import android.util.Log
 import androidx.lifecycle.LiveData
+import java.lang.Exception
+import java.lang.RuntimeException
 
 class DataRepository(application: Application) {
 
@@ -118,7 +121,11 @@ class DataRepository(application: Application) {
     }
 
     fun insertRaum(Raum: Raum) {
-        insertAsyncTaskRaum(mRaumDAO).execute(Raum)
+        try {
+            insertAsyncTaskRaum(mRaumDAO).execute(Raum)
+        } catch (e: Exception) {
+            Log.d("TAGError", e.toString())
+        }
     }
 
     fun deleteRaum(Raum: Raum) {
@@ -261,7 +268,11 @@ class DataRepository(application: Application) {
             private var mAsyncTaskDAO: RaumDAO = dao
 
             override fun doInBackground(vararg params: Raum): Void? {
-                mAsyncTaskDAO.insertRaum(params[0])
+                try {
+                    mAsyncTaskDAO.insertRaum(params[0])
+                } catch (e: RuntimeException) {
+                    Log.d("TAGError", e.toString())
+                }
                 return null
             }
         }

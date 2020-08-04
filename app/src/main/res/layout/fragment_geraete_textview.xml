@@ -65,7 +65,6 @@
 
                 android:background="@color/colorWhite"
                 android:gravity="center_vertical"
-                android:hint="@string/geraete_hint"
                 android:textSize="@dimen/geraet_text_recycler" />
 
             <TextView
@@ -78,7 +77,6 @@
                 android:layout_weight="1.75"
                 android:background="@color/colorWhite"
                 android:gravity="center_vertical"
-                android:hint="@string/geraete_hint"
                 android:textSize="@dimen/geraet_text_recycler" />
 
         </LinearLayout>
