@@ -1,14 +1,11 @@
 package com.example.stromtracker.ui.importexport
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -40,6 +37,7 @@ class ImportExportFragment : Fragment() {
     private val OPEN_REQUEST_CODE = 41
     private val SAVE_REQUEST_CODE = 42
     private lateinit var textview: TextView
+    private lateinit var outputtextfield: EditText
 
     // Request code for creating a PDF document.
     private val CREATE_FILE = 1
@@ -55,6 +53,7 @@ class ImportExportFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_importexport, container, false)
 
         textview = root.findViewById(R.id.text_view_import_export_erklärung)
+        outputtextfield = root.findViewById(R.id.edit_text_multiline_import)
 
         val exportbut: Button = root.findViewById(R.id.importexport_exportbutton)
         exportbut.setOnClickListener { view ->
@@ -67,7 +66,13 @@ class ImportExportFragment : Fragment() {
         val importbut: Button = root.findViewById(R.id.importexport_importbutton)
         importbut.setOnClickListener { view ->
             if (view != null) {
-                createFile(Uri.EMPTY)
+                val csvFile = generateFile()
+                if (csvFile != null) {
+                    csvFile.writeText(outputtextfield.text.toString())
+                    getDatafromcsv(csvFile)
+                }
+
+                //createFile(Uri.EMPTY)
             }
         }
 
@@ -396,14 +401,8 @@ class ImportExportFragment : Fragment() {
 
 
             }
-            Toast.makeText(
-                this.context,
-                "CSV File wurde Erstellet" + csvFile.readText(),
-                Toast.LENGTH_SHORT
-            ).show()
-            //TODO : für besseres Testen
-            getDatafromcsv(csvFile)
-
+            //Schreiben der CSV Dateiinhalte in den Input um dort dann die Daten rauszukopieren
+            outputtextfield.setText(csvFile.readText())
 
         } else {
             Toast.makeText(
@@ -411,7 +410,6 @@ class ImportExportFragment : Fragment() {
                 "CSV File konnte nicht erstellt werden",
                 Toast.LENGTH_LONG
             ).show()
-
         }
     }
 
@@ -479,59 +477,4 @@ class ImportExportFragment : Fragment() {
             null
         }
     }
-
-//    private fun generateFile2(uri:Uri): File? {
-//        val csvFile = File(uri)
-//        csvFile.createNewFile()
-//
-//        return if (csvFile.exists()) {
-//            csvFile
-//        } else {
-//            null
-//        }
-//    }
-
-    private fun createFile(pickerInitialUri: Uri) {
-
-        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "csv"
-            putExtra(Intent.EXTRA_TITLE, "Stromtacker_Export.csv")
-
-            // Optionally, specify a URI for the directory that should be opened in
-            // the system file picker before your app creates the document.
-            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
-        }
-        startActivityForResult(intent, CREATE_FILE)
-    }
-
-    override fun onActivityResult(
-        requestCode: Int, resultCode: Int,
-        resultData: Intent?
-    ) {
-        var currentUri: Uri? = null
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == CREATE_REQUEST_CODE) {
-                if (resultData != null) {
-                    textview.text = ""
-                }
-            } else if (requestCode == SAVE_REQUEST_CODE) {
-                if (resultData != null) {
-                    currentUri = resultData.data
-                    //generateFile2(currentUri!!)
-                    //val csFIle=File(currentUri)
-                }
-            } else if (requestCode == 1) {
-                resultData?.data?.also { uri ->
-                    // Perform operations on the document using its URI.
-                    val csv = File(uri.path!!)
-                    //writeCSVFile(csv)
-                }
-
-                textview.text = resultData.toString() + "    " + resultCode.toString()
-            }
-        }
-    }
-
-
 }
