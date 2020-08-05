@@ -9,6 +9,7 @@
     <string name="ja">ja</string>
     <string name="nein">nein</string>
     <string name="ok">OK</string>
+    <string name="ueberspringen">Überspirngen</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_urlaub">Urlaubsmodus</string>
@@ -221,5 +222,11 @@
     <string name="import_text_raeume">Räume wurden erstellt</string>
     <string name="import_text_geraete">Geräte wurden erstellt</string>
     <string name="import_text_urlaub">Urlaube wurden erstellt</string>
+    <string name="import_confirm">Wenn sie die Daten importieren können durch fehlerhafte Einträge falsche Einträge entstehen und die App abstürzen. Nach einem Appneustart müssen sie eventuelle falsche Einträge löschen. Sind sie sicher, dass sie fortfahren wollen?</string>
+    <string name="import_export_keine_daten_zum_importieren">Keine Daten zum Importieren. Es können nur ganze Haushalte erstellt werden.</string>
+    <string name="import_erklaerung1">Hier eine kleine Erklärung zur Import-Export Funktion.\nWenn sie etwas falsches eingeben, können unter Umständen falsche Datensätze erzeugt werden.\nWenn sie auf Import klicken wenn das Eingabefeld leer ist, wird eine leere Vorlage erstellt.\nWenn sie auf Export klicken wird eine aktuelle Kopie des Datenbankinhalts hineingeladen, den sie sich dann herrauskopieren können.\n1/3</string>
+    <string name="import_erklaerung2">Datensätze müssen immer mit einem Enter abgetrennt werden und die einzelnen Werte durch ein Komma.\nDezimalzahlen werden mit einem Punkt erstellt. Bitte ändern sie nichts an der Vorlage, da sonst ein fehlerhafter Import passieren könnte.\nAchten sie bei Datum auf das richtige Format mit dd.mm.yyyy.\n2/3</string>
+    <string name="import_erklaerung3">Bei Gerät ist ein extra Datenwert zum besseren Import dazu gekommen.\nDer erste Wert gibt an, um welche Art von Gerät es sich handelt, bzw. welche Werte Null sind.\n1 ist Produzent\n 2 ist StandBy null aber Notizen voll,\n3 ist StandBy null und Notizen null,\n4 ist StandBy voll, aber Notizen null\nund 5, wenn alle Werte ausgefüllt sind.\n3/3</string>
+
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.stromtracker.ui.importexport
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,21 +56,74 @@ class ImportExportFragment : Fragment() {
             }
 
         }
+        val infobutton: Button = root.findViewById(R.id.button_import_export_info)
+        infobutton.setOnClickListener { view ->
+            if (view != null) {
+                erklaerung()
+            }
+        }
 
         val importbut: Button = root.findViewById(R.id.importexport_importbutton)
         importbut.setOnClickListener { view ->
             if (view != null) {
-                val csvFile = generateFile()
-                if (csvFile != null) {
-
-                    csvFile.writeText(outputtextfield.text.toString())
-                    getDatafromcsv(csvFile)
+                if (outputtextfield.text.isNotEmpty()) {
+                    val csvFile = generateFile()
+                    if (csvFile != null) {
+                        // Bestätigungsdialog mithilfe von AlertDialog
+                        val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
+                        builder1.setMessage(R.string.import_confirm)
+                        builder1.setPositiveButton(
+                            R.string.ja
+                        ) { _, _ ->
+                            csvFile.writeText(outputtextfield.text.toString())
+                            getDatafromcsv(csvFile)
+                        }
+                        builder1.setNegativeButton(
+                            R.string.nein
+                        ) { dialog, _ -> dialog.cancel() }
+                        val alert11: AlertDialog = builder1.create()
+                        alert11.show()
+                    }
+                } else {
+                    outputtextfieldInitialisierung()
                 }
             }
         }
 
         createLists()
         return root
+    }
+
+    private fun erklaerung() {
+        val builder1: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder1.setMessage(R.string.import_erklaerung3)
+        builder1.setPositiveButton(
+            R.string.ok
+        ) { dialog, _ ->
+            dialog.cancel()
+        }
+
+        var alert11: AlertDialog = builder1.create()
+        alert11.show()
+
+        builder1.setMessage(R.string.import_erklaerung2)
+        builder1.setPositiveButton(
+            R.string.ok
+        ) { dialog, _ ->
+            dialog.cancel()
+        }
+
+        alert11 = builder1.create()
+        alert11.show()
+
+        builder1.setMessage(R.string.import_erklaerung1)
+        builder1.setPositiveButton(
+            R.string.ok
+        ) { dialog, _ ->
+            dialog.cancel()
+        }
+        alert11 = builder1.create()
+        alert11.show()
     }
 
     private fun getDatafromcsv(csv: File) {
@@ -79,7 +133,6 @@ class ImportExportFragment : Fragment() {
         val tempkategorielist = ArrayList<String>()
         val tempgeraetelist = ArrayList<String>()
         val tempurlaublist = ArrayList<String>()
-        var zaehler = 0
         haushaltidlist = ArrayList()
 
         val daten: ArrayList<String> = ArrayList()
@@ -117,8 +170,7 @@ class ImportExportFragment : Fragment() {
                                     datum,
                                     oekomix
                                 )
-                                //TODO: der Haushalt wird nicht eingefügt, wenn ein Datum und Zählerstand vorhanden ist
-                                //haushaltneuidlist.add(importexportViewModel.insertHaushalt(tempHaushalt))
+                                sharedViewModel.insertHaushalt(tempHaushalt)
                             } catch (e: ParseException) {
                                 Toast.makeText(
                                     this.context,
@@ -156,7 +208,6 @@ class ImportExportFragment : Fragment() {
                     if (row == "-----------------------------------") {
                         zustand = 2
                         headerread = false
-                        zaehler = 0
                     } else {
                         tempraumlist.add(row)
                     }
@@ -325,17 +376,16 @@ class ImportExportFragment : Fragment() {
                     )
                 )
                 geraetlist.forEachIndexed { _, geraet ->
-                    var geraetetyp = 0
-                    if (geraet.getJahresverbrauch() < 0) {
-                        geraetetyp = 1
+                    val geraetetyp = if (geraet.getJahresverbrauch() < 0) {
+                        1
                     } else if (geraet.getStromStandBy() == null && geraet.getNotiz() != null) {
-                        geraetetyp = 2
+                        2
                     } else if (geraet.getStromStandBy() == null && geraet.getNotiz() == null) {
-                        geraetetyp = 3
+                        3
                     } else if (geraet.getStromStandBy() != null && geraet.getNotiz() == null) {
-                        geraetetyp = 4
+                        4
                     } else {
-                        geraetetyp = 5
+                        5
                     }
                     writeRow(
                         listOf(
@@ -465,6 +515,69 @@ class ImportExportFragment : Fragment() {
             csvFile
         } else {
             null
+        }
+    }
+
+    private fun outputtextfieldInitialisierung() {
+        val csvFile = generateFile()
+        if (csvFile != null) {
+            //Als erstes werden die Haushalte ins File geschrieben
+            csvWriter().open(csvFile, append = false) {
+                writeRow(
+                    listOf(
+                        "[HaushaltIdid]",
+                        "[Name]",
+                        "[Stromkosten]",
+                        "[bewohnerAnzahl]",
+                        "[zaehlerstand]",
+                        "[datum]",
+                        "[oekostrom]"
+                    )
+                )
+                //Jetzt die Raeume
+                writeRow("-----------------------------------")
+                writeRow(listOf("[Raumid]", "[Haushaltid]", "[Raumname]"))
+                //Als naechstes die Kategorien
+                writeRow("-----------------------------------")
+                writeRow(listOf("[KategorienId]", "[Kategorienname]", "[Iconindex]"))
+                //Jetzt die Geraete
+                writeRow("-----------------------------------")
+                writeRow(
+                    listOf(
+                        "[GeraeteTyp]",  //Um  beim Import die unterschiedlichen Typen zu
+                        // unterscheiden. 1 ist Produzent; 2,3,4 und 5 sind unterschiedliche
+                        // verbraucher mit unterschidlichen Feldern leer
+                        "[GeraeteID]",
+                        "[Geraetename]",
+                        "[KategorieID]",
+                        "[RaumID]",
+                        "[HaushaltID]",
+                        "[StromverbrauchVollast]",
+                        "[StromverbrauchStandBy]",
+                        "[BetriebszeitVollast]",
+                        "[BetriebszeitStandBy]",
+                        "[Urlaubsmodus]",
+                        "[Jahresverbrauch]",
+                        "[Eigenverbrauch]",
+                        "[Notiz]"
+                    )
+                )
+
+                //Als letztes die Urlaube
+                writeRow("-----------------------------------")
+                writeRow(
+                    listOf(
+                        "[Urlaubid]",
+                        "[HaushaltId]",
+                        "[DatumVon]",
+                        "[DatumBis]",
+                        "[name]",
+                        "[Ersparniss Pro Tag]"
+                    )
+                )
+
+            }
+            outputtextfield.setText(csvFile.readText())
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.stromtracker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -75,11 +76,17 @@ class MainActivity : AppCompatActivity() {
 
                         override fun onItemSelected(
                             parent: AdapterView<*>,
-                            v: View,
+                            v: View?,
                             pos: Int,
                             id: Long
                         ) {
-                            sharedViewModel.setHaushalt(haushaltItems[pos])
+                            Log.d("Error2", v.toString())
+                            try {
+                                sharedViewModel.setHaushalt(haushaltItems[pos])
+                            } catch (e: Exception) {
+                                Log.d("Error", "Import")
+                            }
+
                         }
                     }
                 }
