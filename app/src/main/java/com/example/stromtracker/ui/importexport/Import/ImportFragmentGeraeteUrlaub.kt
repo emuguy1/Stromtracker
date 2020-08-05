@@ -15,8 +15,8 @@ import com.example.stromtracker.database.Geraete
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.database.Urlaub
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.home.HomeFragment
-import com.example.stromtracker.ui.importexport.ImportExportViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,7 +31,7 @@ class ImportFragmentGeraeteUrlaub(
     private var urlaublist: ArrayList<String>
 ) : Fragment() {
 
-    private lateinit var importexportViewModel: ImportExportViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var raumlist: ArrayList<Raum>
     private lateinit var kategorieneulist: ArrayList<Kategorie>
     private lateinit var haushalttext: TextView
@@ -49,12 +49,12 @@ class ImportFragmentGeraeteUrlaub(
         savedInstanceState: Bundle?
     ): View? {
 
-        importexportViewModel =
-            ViewModelProvider(this).get(ImportExportViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport_import, container, false)
 
         //Button finden und auf Invisible setzen, bis man fertig ist mit dem Einfügen der restlichen Elemente
-        fertigButton = root.findViewById<Button>(R.id.import_export_button_fertig)
+        fertigButton = root.findViewById(R.id.import_export_button_fertig)
         fertigButton.visibility = View.INVISIBLE
 
 
@@ -83,7 +83,7 @@ class ImportFragmentGeraeteUrlaub(
         return root
     }
 
-    fun makeGeraete() {
+    private fun makeGeraete() {
         //Texte setzen
         haushalttext.text = getString(R.string.import_text_haushalte)
         kategorietext.text = getString(R.string.import_text_kategorien)
@@ -143,7 +143,7 @@ class ImportFragmentGeraeteUrlaub(
                     data[4].toDouble(),
                     haushaltidlist[data[5].toInt()]
                 )
-                importexportViewModel.insertUrlaub(tmpurlaub)
+                sharedViewModel.insertUrlaub(tmpurlaub)
             }
         } catch (e: ParseException) {
             Toast.makeText(
@@ -160,96 +160,103 @@ class ImportFragmentGeraeteUrlaub(
     private fun geraeteErstellen() {
         geraetelist.forEach { row ->
             val data = row.split(",")
-            if (data[0].toInt() == 1) {
-                //Gerät ist Produzent
-                tmpgeraet = Geraete(
-                    data[2],
-                    kategorienidlist[data[3].toInt()],
-                    raumidarray[data[4].toInt()],
-                    haushaltidlist[data[5].toInt()],
-                    0.0,
-                    null,
-                    0.0,
-                    null,
-                    false,
-                    data[11].toDouble(),
-                    data[12].toDouble(),
-                    data[13]
-                )
-                importexportViewModel.insertGeraet(tmpgeraet)
-            } else if (data[0].toInt() == 2) {
-                //Gerät ist Verbraucher und hat null bei standby und ausgefüllte Notiz
-                tmpgeraet = Geraete(
-                    data[2],
-                    kategorienidlist[data[3].toInt()],
-                    raumidarray[data[4].toInt()],
-                    haushaltidlist[data[5].toInt()],
-                    data[6].toDouble(),
-                    null,
-                    data[8].toDouble(),
-                    null,
-                    data[10].toBoolean(),
-                    data[11].toDouble(),
-                    null,
-                    data[13]
-                )
-                importexportViewModel.insertGeraet(tmpgeraet)
-            } else if (data[0].toInt() == 3) {
-                //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
-                tmpgeraet = Geraete(
-                    data[2],
-                    kategorienidlist[data[3].toInt()],
-                    raumidarray[data[4].toInt()],
-                    haushaltidlist[data[5].toInt()],
-                    data[6].toDouble(),
-                    null,
-                    data[8].toDouble(),
-                    null,
-                    data[10].toBoolean(),
-                    data[11].toDouble(),
-                    null,
-                    null
-                )
-                importexportViewModel.insertGeraet(tmpgeraet)
-            } else if (data[0].toInt() == 4) {
-                //Gerät ist Verbraucher und hat standby und null bei Notiz
-                tmpgeraet = Geraete(
-                    data[2],
-                    kategorienidlist[data[3].toInt()],
-                    raumidarray[data[4].toInt()],
-                    haushaltidlist[data[5].toInt()],
-                    data[6].toDouble(),
-                    data[7].toDouble(),
-                    data[8].toDouble(),
-                    data[9].toDouble(),
-                    data[10].toBoolean(),
-                    data[11].toDouble(),
-                    null,
-                    null
-                )
-                importexportViewModel.insertGeraet(tmpgeraet)
-            } else if (data[0].toInt() == 5) {
-                //Geraet ist Verbraucher und hat sowohl Standby als auch Notiz
-                tmpgeraet = Geraete(
-                    data[2],
-                    kategorienidlist[data[3].toInt()],
-                    raumidarray[data[4].toInt()],
-                    haushaltidlist[data[5].toInt()],
-                    data[6].toDouble(),
-                    data[7].toDouble(),
-                    data[8].toDouble(),
-                    data[9].toDouble(),
-                    data[10].toBoolean(),
-                    data[11].toDouble(),
-                    null,
-                    data[13]
-                )
-                importexportViewModel.insertGeraet(tmpgeraet)
-            } else {
-                Toast.makeText(
-                    this.context, "Fehler beim Einfügen eines Gerätes. Inkonsistente Daten",
-                    Toast.LENGTH_SHORT
-                ).show()
+            when {
+                data[0].toInt() == 1 -> {
+                    //Gerät ist Produzent
+                    tmpgeraet = Geraete(
+                        data[2],
+                        kategorienidlist[data[3].toInt()],
+                        raumidarray[data[4].toInt()],
+                        haushaltidlist[data[5].toInt()],
+                        0.0,
+                        null,
+                        0.0,
+                        null,
+                        false,
+                        data[11].toDouble(),
+                        data[12].toDouble(),
+                        data[13]
+                    )
+                    sharedViewModel.insertGeraet(tmpgeraet)
+                }
+                data[0].toInt() == 2 -> {
+                    //Gerät ist Verbraucher und hat null bei standby und ausgefüllte Notiz
+                    tmpgeraet = Geraete(
+                        data[2],
+                        kategorienidlist[data[3].toInt()],
+                        raumidarray[data[4].toInt()],
+                        haushaltidlist[data[5].toInt()],
+                        data[6].toDouble(),
+                        null,
+                        data[8].toDouble(),
+                        null,
+                        data[10].toBoolean(),
+                        data[11].toDouble(),
+                        null,
+                        data[13]
+                    )
+                    sharedViewModel.insertGeraet(tmpgeraet)
+                }
+                data[0].toInt() == 3 -> {
+                    //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
+                    tmpgeraet = Geraete(
+                        data[2],
+                        kategorienidlist[data[3].toInt()],
+                        raumidarray[data[4].toInt()],
+                        haushaltidlist[data[5].toInt()],
+                        data[6].toDouble(),
+                        null,
+                        data[8].toDouble(),
+                        null,
+                        data[10].toBoolean(),
+                        data[11].toDouble(),
+                        null,
+                        null
+                    )
+                    sharedViewModel.insertGeraet(tmpgeraet)
+                }
+                data[0].toInt() == 4 -> {
+                    //Gerät ist Verbraucher und hat standby und null bei Notiz
+                    tmpgeraet = Geraete(
+                        data[2],
+                        kategorienidlist[data[3].toInt()],
+                        raumidarray[data[4].toInt()],
+                        haushaltidlist[data[5].toInt()],
+                        data[6].toDouble(),
+                        data[7].toDouble(),
+                        data[8].toDouble(),
+                        data[9].toDouble(),
+                        data[10].toBoolean(),
+                        data[11].toDouble(),
+                        null,
+                        null
+                    )
+                    sharedViewModel.insertGeraet(tmpgeraet)
+                }
+                data[0].toInt() == 5 -> {
+                    //Geraet ist Verbraucher und hat sowohl Standby als auch Notiz
+                    tmpgeraet = Geraete(
+                        data[2],
+                        kategorienidlist[data[3].toInt()],
+                        raumidarray[data[4].toInt()],
+                        haushaltidlist[data[5].toInt()],
+                        data[6].toDouble(),
+                        data[7].toDouble(),
+                        data[8].toDouble(),
+                        data[9].toDouble(),
+                        data[10].toBoolean(),
+                        data[11].toDouble(),
+                        null,
+                        data[13]
+                    )
+                    sharedViewModel.insertGeraet(tmpgeraet)
+                }
+                else -> {
+                    Toast.makeText(
+                        this.context, "Fehler beim Einfügen eines Gerätes. Inkonsistente Daten",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
         }
@@ -258,7 +265,7 @@ class ImportFragmentGeraeteUrlaub(
     private fun createList1() {
         raumlist = ArrayList()
 
-        importexportViewModel.getAllRaeume().observe(
+        sharedViewModel.getAllRaeume().observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
@@ -276,7 +283,7 @@ class ImportFragmentGeraeteUrlaub(
     private fun createList2() {
         kategorieneulist = ArrayList()
 
-        importexportViewModel.getAllKategorie().observe(
+        sharedViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorie ->
                 if (kategorie != null) {
@@ -291,7 +298,3 @@ class ImportFragmentGeraeteUrlaub(
         )
     }
 }
-
-
-
-

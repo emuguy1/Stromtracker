@@ -14,7 +14,7 @@ import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
-import com.example.stromtracker.ui.importexport.ImportExportViewModel
+import com.example.stromtracker.ui.SharedViewModel
 
 class ImportFragmentRaumKategorien(
     private var daten: ArrayList<String>,
@@ -25,7 +25,7 @@ class ImportFragmentRaumKategorien(
     private var urlaubstringlist: ArrayList<String>
 ) : Fragment() {
 
-    private lateinit var importexportViewModel: ImportExportViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var haushaltlist: ArrayList<Haushalt>
     private var kategoriealtlist = CompanionImport.getkategoriealtlist()
     private lateinit var haushalttext: TextView
@@ -38,8 +38,8 @@ class ImportFragmentRaumKategorien(
         savedInstanceState: Bundle?
     ): View? {
 
-        importexportViewModel =
-            ViewModelProvider(this).get(ImportExportViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport_import, container, false)
 
         //Text feld zur Fortschrittsanzeige finden
@@ -82,7 +82,7 @@ class ImportFragmentRaumKategorien(
             val data = row.split(",")
             raumidlist.add(data[0].toInt())
             val tmpraum = Raum(data[2], idarray[data[1].toInt()])
-            importexportViewModel.insertRaum(tmpraum)
+            sharedViewModel.insertRaum(tmpraum)
         }
 
         //nun werden noch die kategorien erzeugt, sodass im nächsten Schritt dann gleich die Geräte hinzugefügt werden können.
@@ -125,7 +125,7 @@ class ImportFragmentRaumKategorien(
             if (!found) {
                 kategorieneuidlist.add(data[0].toInt())
                 val tempkat = Kategorie(data[1], data[2].toInt())
-                importexportViewModel.insertKategorie(tempkat)
+                sharedViewModel.insertKategorie(tempkat)
             }
         }
     }
@@ -133,7 +133,7 @@ class ImportFragmentRaumKategorien(
     private fun createList() {
         haushaltlist = ArrayList()
 
-        importexportViewModel.getAllHaushalt().observe(
+        sharedViewModel.getAllHaushalt().observe(
             viewLifecycleOwner,
             Observer { haushalte ->
                 if (haushalte != null) {

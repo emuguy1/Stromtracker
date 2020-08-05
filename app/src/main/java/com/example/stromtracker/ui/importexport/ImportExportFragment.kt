@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
+import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.importexport.Import.CompanionImport
 import com.example.stromtracker.ui.importexport.Import.ImportFragmentRaumKategorien
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
@@ -23,10 +24,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class ImportExportFragment : Fragment() {
 
-    private lateinit var importexportViewModel: ImportExportViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var haushaltlist: ArrayList<Haushalt>
     private lateinit var raumlist: ArrayList<Raum>
     private lateinit var kategorielist: ArrayList<Kategorie>
@@ -41,8 +41,8 @@ class ImportExportFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        importexportViewModel =
-            ViewModelProvider(this).get(ImportExportViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport, container, false)
 
         textview = root.findViewById(R.id.text_view_import_export_erklärung)
@@ -61,11 +61,10 @@ class ImportExportFragment : Fragment() {
             if (view != null) {
                 val csvFile = generateFile()
                 if (csvFile != null) {
+
                     csvFile.writeText(outputtextfield.text.toString())
                     getDatafromcsv(csvFile)
                 }
-
-                //createFile(Uri.EMPTY)
             }
         }
 
@@ -76,10 +75,10 @@ class ImportExportFragment : Fragment() {
     private fun getDatafromcsv(csv: File) {
         var zustand = 0
         var headerread = false
-        var tempraumlist = ArrayList<String>()
+        val tempraumlist = ArrayList<String>()
         val tempkategorielist = ArrayList<String>()
-        var tempgeraetelist = ArrayList<String>()
-        var tempurlaublist = ArrayList<String>()
+        val tempgeraetelist = ArrayList<String>()
+        val tempurlaublist = ArrayList<String>()
         var zaehler = 0
         haushaltidlist = ArrayList()
 
@@ -88,8 +87,6 @@ class ImportExportFragment : Fragment() {
 
             //Zusand 0 sind die Haushalte
             if (zustand == 0) {
-                var akthaushaltid = haushaltlist[haushaltlist.size - 1].getHaushaltID()
-                var haushaltzaehler = 0
                 if (!headerread) {
                     headerread = true
                 } else {
@@ -145,7 +142,7 @@ class ImportExportFragment : Fragment() {
                                 null,
                                 oekomix
                             )
-                            importexportViewModel.insertHaushalt(tempHaushalt)
+                            sharedViewModel.insertHaushalt(tempHaushalt)
                         }
 
                     }
@@ -211,7 +208,7 @@ class ImportExportFragment : Fragment() {
                 ).show()
             }
         }
-        val impCompanion = CompanionImport()
+
         CompanionImport.setHaushaltaltlist(haushaltlist)
         CompanionImport.setkategorienaltlist(kategorielist)
         CompanionImport.setraeumealtlist(raumlist)
@@ -413,7 +410,7 @@ class ImportExportFragment : Fragment() {
         geraetlist = ArrayList()
         urlaublist = ArrayList()
 
-        importexportViewModel.getAllHaushalt().observe(
+        sharedViewModel.getAllHaushalt().observe(
             viewLifecycleOwner,
             Observer { haushalte ->
                 if (haushalte != null) {
@@ -422,7 +419,7 @@ class ImportExportFragment : Fragment() {
                 }
             }
         )
-        importexportViewModel.getAllRaeume().observe(
+        sharedViewModel.getAllRaeume().observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
@@ -431,7 +428,7 @@ class ImportExportFragment : Fragment() {
                 }
             }
         )
-        importexportViewModel.getAllKategorie().observe(
+        sharedViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorien ->
                 if (kategorien != null) {
@@ -440,7 +437,7 @@ class ImportExportFragment : Fragment() {
                 }
             }
         )
-        importexportViewModel.getAllGeraete().observe(
+        sharedViewModel.getAllGeraete().observe(
             viewLifecycleOwner,
             Observer { geraete ->
                 if (geraete != null) {
@@ -449,7 +446,7 @@ class ImportExportFragment : Fragment() {
                 }
             }
         )
-        importexportViewModel.getAllUrlaub().observe(
+        sharedViewModel.getAllUrlaub().observe(
             viewLifecycleOwner,
             Observer { urlaube ->
                 if (urlaube != null) {
