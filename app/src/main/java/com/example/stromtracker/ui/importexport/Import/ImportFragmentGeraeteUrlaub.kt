@@ -1,6 +1,7 @@
 package com.example.stromtracker.ui.importexport.Import
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,6 +101,7 @@ class ImportFragmentGeraeteUrlaub(
             kategorienidlist[id] = ersteneueID + zaehler
             zaehler++
         }
+        //TODO: Toast.makeText(this.context,kategorienidlist.toString(),Toast.LENGTH_LONG).show()
 
         //Jetzt noch das ganze für Raeume auch noch machen
         //Anzahl an eingefügten Raeume herausfinden
@@ -178,6 +180,7 @@ class ImportFragmentGeraeteUrlaub(
                         data[13]
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
+                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 data[0].toInt() == 2 -> {
                     //Gerät ist Verbraucher und hat null bei standby und ausgefüllte Notiz
@@ -196,6 +199,7 @@ class ImportFragmentGeraeteUrlaub(
                         data[13]
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
+                    Log.d("Test", data[3])
                 }
                 data[0].toInt() == 3 -> {
                     //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
@@ -214,6 +218,7 @@ class ImportFragmentGeraeteUrlaub(
                         null
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
+                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 data[0].toInt() == 4 -> {
                     //Gerät ist Verbraucher und hat standby und null bei Notiz
@@ -232,6 +237,7 @@ class ImportFragmentGeraeteUrlaub(
                         null
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
+                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 data[0].toInt() == 5 -> {
                     //Geraet ist Verbraucher und hat sowohl Standby als auch Notiz
@@ -250,6 +256,7 @@ class ImportFragmentGeraeteUrlaub(
                         data[13]
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
+                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 else -> {
                     Toast.makeText(
