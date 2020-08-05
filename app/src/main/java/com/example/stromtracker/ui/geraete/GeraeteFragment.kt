@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
@@ -58,7 +56,6 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
     private lateinit var iconArray: Array<Int>
 
     private lateinit var buttonZuAuswertung: Button
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
