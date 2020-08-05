@@ -19,7 +19,6 @@ import kotlin.math.withSign
 
 class CO2BilanzFragment : Fragment() {
 
-    private lateinit var co2bilanzViewModel: CO2BilanzViewModel
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var root: View
     private lateinit var verbraucherList: ArrayList<Geraete>
@@ -53,13 +52,12 @@ class CO2BilanzFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        co2bilanzViewModel = ViewModelProvider(this).get(CO2BilanzViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
 
         val verbraucherData: LiveData<List<Geraete>> =
-            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                co2bilanzViewModel.getAllVerbraucherByHaushaltID(haushalt.getHaushaltID())
+            Transformations.switchMap(this.sharedViewModel.getHaushalt()) { haushalt ->
+                this.sharedViewModel.getAllVerbraucherByHaushaltID(haushalt.getHaushaltID())
             }
         verbraucherData.observe(
             viewLifecycleOwner,
@@ -72,8 +70,8 @@ class CO2BilanzFragment : Fragment() {
             })
 
         val raumDataHaushalt: LiveData<List<Raum>> =
-            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                co2bilanzViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
+            Transformations.switchMap(this.sharedViewModel.getHaushalt()) { haushalt ->
+                this.sharedViewModel.getAllRaumByHaushaltID(haushalt.getHaushaltID())
             }
         raumDataHaushalt.observe(
             viewLifecycleOwner,
@@ -86,7 +84,7 @@ class CO2BilanzFragment : Fragment() {
                 }
             })
 
-        sharedViewModel.getHaushalt().observe(
+        this.sharedViewModel.getHaushalt().observe(
             viewLifecycleOwner,
             Observer { haushalt ->
                 currHaushalt = haushalt
@@ -94,8 +92,8 @@ class CO2BilanzFragment : Fragment() {
         )
 
         val produzentData: LiveData<List<Geraete>> =
-            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                co2bilanzViewModel.getAllProduzentenByHaushaltID(haushalt.getHaushaltID())
+            Transformations.switchMap(this.sharedViewModel.getHaushalt()) { haushalt ->
+                this.sharedViewModel.getAllProduzentenByHaushaltID(haushalt.getHaushaltID())
             }
         produzentData.observe(
             viewLifecycleOwner,
@@ -109,8 +107,8 @@ class CO2BilanzFragment : Fragment() {
         )
 
         val urlaubData: LiveData<List<Urlaub>> =
-            Transformations.switchMap(sharedViewModel.getHaushalt()) { haushalt ->
-                co2bilanzViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
+            Transformations.switchMap(this.sharedViewModel.getHaushalt()) { haushalt ->
+                this.sharedViewModel.getAllUrlaubByHaushaltID(haushalt.getHaushaltID())
             }
         urlaubData.observe(
             viewLifecycleOwner,
