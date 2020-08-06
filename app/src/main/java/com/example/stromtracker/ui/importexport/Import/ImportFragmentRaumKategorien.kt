@@ -125,7 +125,6 @@ class ImportFragmentRaumKategorien(
     }
 
     private fun createkategorien() {
-        //TODO: hier wird noch falsch ausgewählt, wenn keine Kategorie hinzugefügt wird
         //höchste ID der Kategorien bei denen die Importiert werden sollen, finden und damit ein IntArray erzeugen, wo die Kategorieids hinzugefügt werden können
         katidarray = IntArray(kategorielist[kategorielist.size - 1].split(",")[0].toInt() + 1)
         //Damit wir den noch verbleibenden neu angelegten Kategorien noch die neuen ID#s hinzufügen können, werden diese noch in ein IntArray gespeichert, das mit übergeben wird
@@ -135,7 +134,7 @@ class ImportFragmentRaumKategorien(
             val data = row.split(",")
             var found = false
             kategoriealtlist.forEach { kat ->
-                if (kat.getName() != data[1] && kat.getIcon() != data[2].toInt()) {
+                if (kat.getName() == data[1] && kat.getIcon() == data[2].toInt()) {
                     found = true
                     //Wenn eine Kategorie gefunden wurde, die eventuell neue ID speichern in das entsprechende IntArray
                     katidarray[data[0].toInt()] = kat.getKategorieID()

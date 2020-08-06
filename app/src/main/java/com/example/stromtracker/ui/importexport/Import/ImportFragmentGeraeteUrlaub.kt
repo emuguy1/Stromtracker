@@ -1,7 +1,6 @@
 package com.example.stromtracker.ui.importexport.Import
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,7 +100,7 @@ class ImportFragmentGeraeteUrlaub(
             kategorienidlist[id] = ersteneueID + zaehler
             zaehler++
         }
-        //TODO: Toast.makeText(this.context,kategorienidlist.toString(),Toast.LENGTH_LONG).show()
+        Toast.makeText(this.context, kategorienidlist.size.toString(), Toast.LENGTH_LONG).show()
 
         //Jetzt noch das ganze für Raeume auch noch machen
         //Anzahl an eingefügten Raeume herausfinden
@@ -160,6 +159,7 @@ class ImportFragmentGeraeteUrlaub(
     }
 
     private fun geraeteErstellen() {
+        //Toast.makeText(this.context,kategorienidlist.size,Toast.LENGTH_LONG).show()
         geraetelist.forEach { row ->
             val data = row.split(",")
             when {
@@ -180,7 +180,6 @@ class ImportFragmentGeraeteUrlaub(
                         data[13]
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
-                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 data[0].toInt() == 2 -> {
                     //Gerät ist Verbraucher und hat null bei standby und ausgefüllte Notiz
@@ -199,7 +198,6 @@ class ImportFragmentGeraeteUrlaub(
                         data[13]
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
-                    Log.d("Test", data[3])
                 }
                 data[0].toInt() == 3 -> {
                     //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
@@ -218,7 +216,6 @@ class ImportFragmentGeraeteUrlaub(
                         null
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
-                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 data[0].toInt() == 4 -> {
                     //Gerät ist Verbraucher und hat standby und null bei Notiz
@@ -237,7 +234,6 @@ class ImportFragmentGeraeteUrlaub(
                         null
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
-                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 data[0].toInt() == 5 -> {
                     //Geraet ist Verbraucher und hat sowohl Standby als auch Notiz
@@ -256,7 +252,6 @@ class ImportFragmentGeraeteUrlaub(
                         data[13]
                     )
                     sharedViewModel.insertGeraet(tmpgeraet)
-                    Toast.makeText(this.context, data[3], Toast.LENGTH_LONG).show()
                 }
                 else -> {
                     Toast.makeText(
@@ -271,7 +266,7 @@ class ImportFragmentGeraeteUrlaub(
 
     private fun createList1() {
         raumlist = ArrayList()
-
+        var aufgerufen = false
         sharedViewModel.getAllRaeume().observe(
             viewLifecycleOwner,
             Observer { raeume ->
@@ -279,8 +274,9 @@ class ImportFragmentGeraeteUrlaub(
                     raumlist.clear()
                     raumlist.addAll(raeume)
                     //Überprüfung ob alle Eingefügt wurden, damit die Funktion nicht mehrmals aufgerufen wird
-                    if (raumlist.size == CompanionImport.getraeumealtlist().size + raumErzeugtidlist.size) {
+                    if (!aufgerufen && raumlist.size == CompanionImport.getraeumealtlist().size + raumErzeugtidlist.size) {
                         createList2()
+                        aufgerufen = true
                     }
                 }
             }
@@ -289,16 +285,17 @@ class ImportFragmentGeraeteUrlaub(
 
     private fun createList2() {
         kategorieneulist = ArrayList()
-
+        var executed = false
         sharedViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorie ->
                 if (kategorie != null) {
                     kategorieneulist.clear()
                     kategorieneulist.addAll(kategorie)
-                    //Überprüfung pb schon alle eingefügt wurden, sodass nicht mehrmals die Funktion aufgerufen wird
-                    if (kategorieneulist.size == CompanionImport.getkategoriealtlist().size + kategorienneuidlist.size) {
+                    //Überprüfung ob schon alle eingefügt wurden, sodass nicht mehrmals die Funktion aufgerufen wird
+                    if (kategorieneulist.size == CompanionImport.getkategoriealtlist().size + kategorienneuidlist.size && !executed) {
                         makeGeraete()
+                        executed = true
                     }
                 }
             }
