@@ -249,5 +249,6 @@
                             dadurch werden insgesamt %.2fkg CO2 eingespart.</string>
     <string name="co2_text_groeßer">größer</string>
     <string name="co2_text_kleiner">kleiner</string>
+    <string name="emptyline">" "</string>
 
 </resources>

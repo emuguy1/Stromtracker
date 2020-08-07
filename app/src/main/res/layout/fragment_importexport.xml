@@ -39,8 +39,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                tools:layout_editor_absoluteX="75dp"
-                tools:layout_editor_absoluteY="86dp" />
+                android:autofillHints="@string/emptyline"
+                android:hint="@string/emptyline" />
 
         </androidx.cardview.widget.CardView>
 
