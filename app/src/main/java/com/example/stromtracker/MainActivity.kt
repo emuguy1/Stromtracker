@@ -18,8 +18,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.SharedViewModel
-import com.google.android.material.navigation.NavigationView
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -80,11 +80,10 @@ class MainActivity : AppCompatActivity() {
                             pos: Int,
                             id: Long
                         ) {
-                            Log.d("Error2", v.toString())
                             try {
                                 sharedViewModel.setHaushalt(haushaltItems[pos])
                             } catch (e: Exception) {
-                                Log.d("Error", "Import")
+                                Log.d("Error", "sharedViewModelException")
                             }
 
                         }

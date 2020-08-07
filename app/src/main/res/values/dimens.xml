@@ -91,8 +91,8 @@
     <integer name="length_notizen">128</integer>
     <integer name="length_kosten">8</integer>
 
-    <dimen name="DualButtonLeft">8dp</dimen>
-    <dimen name="DualButtonRight">8dp</dimen>
+    <dimen name="dual_button_left">8dp</dimen>
+    <dimen name="dual_button_right">8dp</dimen>
     <dimen name="import_export_buttons_top">280dp</dimen>
     <dimen name="import_export_text_view">52dp</dimen>
     <dimen name="import_export_import_button">24dp</dimen>
