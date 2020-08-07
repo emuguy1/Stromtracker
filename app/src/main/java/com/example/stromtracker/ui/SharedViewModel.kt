@@ -10,8 +10,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val repo: DataRepository = DataRepository(application)
     val selectedHaushalt = MutableLiveData<Haushalt>()
     var geraetelist: LiveData<List<Geraete>> = repo.getAllGeraete()
-    var verbraucherList: LiveData<List<Geraete>> = repo.getAllVerbraucher()
-    var produzentenList: LiveData<List<Geraete>> = repo.getAllProduzenten()
     var haushaltlist: LiveData<List<Haushalt>> = repo.getAllHaushalt()
     var kategorieList: LiveData<List<Kategorie>> = repo.getAllKategorie()
     var raumList: LiveData<List<Raum>> = repo.getAllRaeume()
@@ -41,14 +39,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         return geraetelist
     }
 
-    fun getAllVerbraucher(): LiveData<List<Geraete>> {
-        return verbraucherList
-    }
-
-    fun getAllProduzenten(): LiveData<List<Geraete>> {
-        return produzentenList
-    }
-
     fun getAllKategorie(): LiveData<List<Kategorie>> {
         return kategorieList
     }
@@ -71,10 +61,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getAllHaushalt(): LiveData<List<Haushalt>> {
         return haushaltlist
-    }
-
-    fun getHaushaltByID(id: Int): LiveData<Haushalt> {
-        return repo.getHaushaltByID(id)
     }
 
     fun insertGeraet(g: Geraete) {
