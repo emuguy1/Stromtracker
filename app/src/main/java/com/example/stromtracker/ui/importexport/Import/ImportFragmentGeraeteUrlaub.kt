@@ -98,7 +98,6 @@ class ImportFragmentGeraeteUrlaub(
             kategorienidlist[id] = ersteneueID + zaehler
             zaehler++
         }
-        Toast.makeText(this.context, kategorienidlist.size.toString(), Toast.LENGTH_LONG).show()
 
         //Jetzt noch das ganze für Raeume auch noch machen
         //Anzahl an eingefügten Raeume herausfinden
@@ -162,7 +161,6 @@ class ImportFragmentGeraeteUrlaub(
     }
 
     private fun geraeteErstellen() {
-        //Toast.makeText(this.context,kategorienidlist.size,Toast.LENGTH_LONG).show()
         geraetelist.forEach { row ->
             val data = row.split(",")
             when {
