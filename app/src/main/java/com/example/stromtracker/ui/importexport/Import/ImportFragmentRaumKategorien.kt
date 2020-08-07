@@ -10,12 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.database.Kategorie
 import com.example.stromtracker.database.Raum
 import com.example.stromtracker.ui.SharedViewModel
+import com.example.stromtracker.ui.haushalt.HaushaltFragment
 import com.example.stromtracker.ui.home.HomeFragment
 
 class ImportFragmentRaumKategorien(
@@ -60,8 +60,7 @@ class ImportFragmentRaumKategorien(
 
     private fun makeRaeume() {
         //Alte Haushaltliste setzen, sodass nicht die Standardräume nochmal erzeugt werden
-        val mainact = requireActivity() as MainActivity
-        mainact.setOldHaushaltList(haushaltlist)
+        HaushaltFragment.setOldHaushaltList(haushaltlist)
 
         //Anzahl an eingefügten Haushalten herausfinden
         val eingefuegteHaushalte = daten.size
