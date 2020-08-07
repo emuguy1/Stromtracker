@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stromtracker.MainActivity
@@ -274,8 +272,11 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_name_prod -> {
-                val sortedName = produzentList.sortedWith(compareBy { it.getName().toLowerCase(
-                    Locale.ROOT) })
+                val sortedName = produzentList.sortedWith(compareBy {
+                    it.getName().toLowerCase(
+                        Locale.ROOT
+                    )
+                })
                 produzentList.clear()
                 produzentList.addAll(sortedName)
                 produzentViewAdapter.notifyDataSetChanged()
@@ -288,15 +289,10 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_sort_raum_prd -> {
-                // TODO: Rauslöschen?
-                /*val sortedRaum = produzentList.sortedWith(compareBy {
-                    produzentList[it.getRaumID() - 1].getName().toLowerCase()
-                })
-                */
-                /*produzentList.clear()
+                var sortedRaum = produzentList.sortedWith(compareBy { it.getRaumID() })
+                produzentList.clear()
                 produzentList.addAll(sortedRaum)
 
-                 */
                 produzentViewAdapter.notifyDataSetChanged()
                 buttonSortRaum_prod.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 buttonSortProduktion_prod.paintFlags = 0

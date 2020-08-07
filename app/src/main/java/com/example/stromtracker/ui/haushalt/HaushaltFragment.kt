@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,32 +38,28 @@ class HaushaltFragment : Fragment() {
     private lateinit var mainact: MainActivity
     private var isinit: Boolean = false
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // Main Activity holen um auf die Haushaltliste in der MainActivity zugreifen zu können
-        mainact = requireActivity() as MainActivity
-        // View Model zuweisen, benötigt für DB Zugriff
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         sharedViewModel.getAllHaushalt().observe(
-            viewLifecycleOwner,
+            this,
             Observer { haushalte ->
                 if (haushalte != null) {
-
                     if (haushalte.isEmpty()) {
-                        // Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
+                        //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
                         initHaushalt()
                         isinit = true
                     }
-                    // die alte Haushaltliste aus Main Activity holen, um zu schauen,
+                    //die alte Haushaltliste aus Main Activity holen, um zu schauen,
                     // welcher Haushalt erzeugt wurde und dem dann Standardräume hinzuzufügen
-                    datatemp = mainact.getOldHaushaltList()
+                    datatemp = getOldHaushaltList()
 
                     datain.clear()
                     datain.addAll(haushalte)
-                    // Die Haushaltliste in Main Activity erneuern.
-                    mainact.setOldHaushaltList(datain)
-                    // Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
+                    //Die Haushaltliste in Main Activity erneuern.
+                    setOldHaushaltList(datain)
+                    //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
                     if (datain.size > datatemp.size && !isinit && datatemp.size > 0) {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                     }
@@ -135,5 +132,17 @@ class HaushaltFragment : Fragment() {
             }
         }
         return root
+    }
+
+    companion object {
+        private lateinit var oldHaushaltList: ArrayList<Haushalt>
+
+        fun setOldHaushaltList(h: ArrayList<Haushalt>) {
+            oldHaushaltList = h
+        }
+
+        fun getOldHaushaltList(): ArrayList<Haushalt> {
+            return oldHaushaltList
+        }
     }
 }
