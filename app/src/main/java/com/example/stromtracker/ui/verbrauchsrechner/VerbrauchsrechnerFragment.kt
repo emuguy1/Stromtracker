@@ -54,7 +54,7 @@ class VerbrauchsrechnerFragment : Fragment() {
         return root
     }
 
-    private fun CustomTextListener(edit: EditText): EditText {
+    private fun customTextListener(edit: EditText): EditText {
         edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 val neustrompreis: Double? = strompreis.text.toString().toDoubleOrNull()
