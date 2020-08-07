@@ -46,11 +46,11 @@ class VerbrauchsrechnerFragment : Fragment() {
         kostenprojahr = root.findViewById(R.id.text_view_verbrauchsrechner_erg_kosten_jahr)
         warnungstext = root.findViewById(R.id.text_view_verbrauchsrechner_warnung)
 
-        customTextListener(strompreis)
-        customTextListener(leistungsverbrauch)
-        customTextListener(standbyverbrauch)
-        customTextListener(standbyzeit)
-        customTextListener(lastzeit)
+        CustomTextListener(strompreis)
+        CustomTextListener(leistungsverbrauch)
+        CustomTextListener(standbyverbrauch)
+        CustomTextListener(standbyzeit)
+        CustomTextListener(lastzeit)
         return root
     }
 
@@ -106,7 +106,6 @@ class VerbrauchsrechnerFragment : Fragment() {
                     kostenprojahr.text = null
                 }
             }
-
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
