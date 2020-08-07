@@ -21,18 +21,18 @@ import com.example.stromtracker.ui.home.HomeFragment
 class ImportFragmentRaumKategorien(
     private var daten: ArrayList<String>,
     private var alteHaushalteIDList: ArrayList<Int>,
-    private var raumlist: ArrayList<String>,
-    private var kategorielist: ArrayList<String>,
-    private var geraetestringlist: ArrayList<String>,
-    private var urlaubstringlist: ArrayList<String>
+    private var raumList: ArrayList<String>,
+    private var kategorieList: ArrayList<String>,
+    private var geraeteStringList: ArrayList<String>,
+    private var urlaubStringList: ArrayList<String>
 ) : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var haushaltlist: ArrayList<Haushalt>
-    private var kategoriealtlist = CompanionImport.getkategoriealtlist()
+    private lateinit var haushaltList: ArrayList<Haushalt>
+    private var kategorieAltList = CompanionImport.getkategoriealtlist()
     private lateinit var haushalttext: TextView
-    private lateinit var kategorieneuidlist: ArrayList<Int>
-    private lateinit var katidarray: IntArray
+    private lateinit var kategorieNeuIDList: ArrayList<Int>
+    private lateinit var kategorieIDArray: IntArray
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +60,7 @@ class ImportFragmentRaumKategorien(
 
     private fun makeRaeume() {
         //Alte Haushaltliste setzen, sodass nicht die Standardräume nochmal erzeugt werden
-        HaushaltFragment.setOldHaushaltList(haushaltlist)
+        HaushaltFragment.setOldHaushaltList(haushaltList)
 
         //Anzahl an eingefügten Haushalten herausfinden
         val eingefuegteHaushalte = daten.size
@@ -68,7 +68,7 @@ class ImportFragmentRaumKategorien(
         // da immer nur komplette Haushalte importiert werden können
         if (eingefuegteHaushalte != 0) {
             //Die ID des ersten Elements, das neu Eingefügt wurde
-            val ersteneueID = haushaltlist[haushaltlist.size - eingefuegteHaushalte].getHaushaltID()
+            val ersteneueID = haushaltList[haushaltList.size - eingefuegteHaushalte].getHaushaltID()
 
             //Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten
             // Erstellung der neuen Objekte direkt dort hinein zu speichern
@@ -81,27 +81,27 @@ class ImportFragmentRaumKategorien(
             }
 
             //Die neuen Räume einfügen, mit der neuen HaushaltID
-            val raumidlist: ArrayList<Int> = ArrayList()
-            raumlist.forEach { row ->
+            val raumIDList: ArrayList<Int> = ArrayList()
+            raumList.forEach { row ->
                 val data = row.split(",")
-                raumidlist.add(data[0].toInt())
-                val tmpraum = Raum(data[2], idarray[data[1].toInt()])
-                sharedViewModel.insertRaum(tmpraum)
+                raumIDList.add(data[0].toInt())
+                val tmpRaum = Raum(data[2], idarray[data[1].toInt()])
+                sharedViewModel.insertRaum(tmpRaum)
             }
 
             //nun werden noch die kategorien erzeugt,
             // sodass im nächsten Schritt dann gleich die Geräte hinzugefügt werden können.
-            createkategorien()
+            createKategorien()
 
             haushalttext.text = getString(R.string.import_text_haushalte)
             //neues Fragment erstellen auf das weitergeleitet werden soll
             val frag = ImportFragmentGeraeteUrlaub(
                 idarray,
-                katidarray,
-                kategorieneuidlist,
-                raumidlist,
-                geraetestringlist,
-                urlaubstringlist
+                kategorieIDArray,
+                kategorieNeuIDList,
+                raumIDList,
+                geraeteStringList,
+                urlaubStringList
             )
             //Fragment Manager aus Main Activity holen
             val fragMan = parentFragmentManager
@@ -129,28 +129,28 @@ class ImportFragmentRaumKategorien(
 
     }
 
-    private fun createkategorien() {
+    private fun createKategorien() {
         //höchste ID der Kategorien bei denen die Importiert werden sollen, finden und damit
         // ein IntArray erzeugen, wo die Kategorieids hinzugefügt werden können
-        katidarray = IntArray(
-            kategorielist[kategorielist.size - 1].split(",")[0].toInt() + 1
+        kategorieIDArray = IntArray(
+            kategorieList[kategorieList.size - 1].split(",")[0].toInt() + 1
         )
         //Damit wir den noch verbleibenden neu angelegten Kategorien noch die neuen IDs hinzufügen
         // können, werden diese noch in ein IntArray gespeichert, das mit übergeben wird
-        kategorieneuidlist = ArrayList()
+        kategorieNeuIDList = ArrayList()
         //kategorien erstellen
-        kategorielist.forEach { row ->
+        kategorieList.forEach { row ->
             val data = row.split(",")
             var found = false
-            kategoriealtlist.forEach { kat ->
+            kategorieAltList.forEach { kat ->
                 if (kat.getName() == data[1] && kat.getIcon() == data[2].toInt()) {
                     found = true
                     //Wenn Kategorie gefunden wurde, neue ID in das entsprechende IntArray speichern
-                    katidarray[data[0].toInt()] = kat.getKategorieID()
+                    kategorieIDArray[data[0].toInt()] = kat.getKategorieID()
                 }
             }
             if (!found) {
-                kategorieneuidlist.add(data[0].toInt())
+                kategorieNeuIDList.add(data[0].toInt())
                 val tempkat = Kategorie(data[1], data[2].toInt())
                 sharedViewModel.insertKategorie(tempkat)
             }
@@ -158,15 +158,15 @@ class ImportFragmentRaumKategorien(
     }
 
     private fun createList() {
-        haushaltlist = ArrayList()
+        haushaltList = ArrayList()
 
         sharedViewModel.getAllHaushalt().observe(
             viewLifecycleOwner,
             Observer { haushalte ->
                 if (haushalte != null) {
-                    haushaltlist.clear()
-                    haushaltlist.addAll(haushalte)
-                    if (haushaltlist.size == CompanionImport.getHaushaltaltlist().size
+                    haushaltList.clear()
+                    haushaltList.addAll(haushalte)
+                    if (haushaltList.size == CompanionImport.getHaushaltaltlist().size
                         + daten.size
                     ) {
                         makeRaeume()

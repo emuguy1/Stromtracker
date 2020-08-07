@@ -23,25 +23,25 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ImportFragmentGeraeteUrlaub(
-    private var haushaltidlist: IntArray,
-    private var kategorienidlist: IntArray,
-    private var kategorienneuidlist: ArrayList<Int>,
-    private var raumErzeugtidlist: ArrayList<Int>,
-    private var geraetelist: ArrayList<String>,
-    private var urlaublist: ArrayList<String>
+    private var haushaltIDList: IntArray,
+    private var kategorienIDList: IntArray,
+    private var kategorieNeuIDList: ArrayList<Int>,
+    private var raumErzeugtIDList: ArrayList<Int>,
+    private var geraeteList: ArrayList<String>,
+    private var urlaubList: ArrayList<String>
 ) : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var raumlist: ArrayList<Raum>
-    private lateinit var kategorieneulist: ArrayList<Kategorie>
+    private lateinit var raumList: ArrayList<Raum>
+    private lateinit var kategorieNeuList: ArrayList<Kategorie>
     private lateinit var haushalttext: TextView
     private lateinit var kategorietext: TextView
     private lateinit var raumtext: TextView
     private lateinit var geraetetext: TextView
     private lateinit var urlaubtext: TextView
-    private lateinit var tmpgeraet: Geraete
+    private lateinit var tmpGeraet: Geraete
     private lateinit var fertigButton: Button
-    private lateinit var raumidarray: IntArray
+    private lateinit var raumIDArray: IntArray
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,29 +88,29 @@ class ImportFragmentGeraeteUrlaub(
 
 
         //Anzahl an eingefügten Kategorien
-        val eingefuegtekategorien = kategorienneuidlist.size
+        val eingefuegteKategorien = kategorieNeuIDList.size
         //Die ID des ersten Elements, das neu Eingefügt wurde
         var ersteneueID =
-            kategorieneulist[kategorieneulist.size - 1 - eingefuegtekategorien].getKategorieID()
+            kategorieNeuList[kategorieNeuList.size - 1 - eingefuegteKategorien].getKategorieID()
         //Fügt dem bereits existierenden Array die neuen IDs noch hinzu
         var zaehler = 0
-        kategorienneuidlist.forEach { id ->
-            kategorienidlist[id] = ersteneueID + zaehler
+        kategorieNeuIDList.forEach { id ->
+            kategorienIDList[id] = ersteneueID + zaehler
             zaehler++
         }
 
         //Jetzt noch das ganze für Raeume auch noch machen
         //Anzahl an eingefügten Raeume herausfinden
-        val eingefuegteraeume = raumErzeugtidlist.size
+        val eingefuegteRaeume = raumErzeugtIDList.size
         //Die ID des ersten Elements, das neu Eingefügt wurde
-        ersteneueID = raumlist[raumlist.size - eingefuegteraeume].getRaumID()
+        ersteneueID = raumList[raumList.size - eingefuegteRaeume].getRaumID()
         //Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten
         // Erstellung der neuen Objekte direkt dort hinein zu speichern
-        raumidarray = IntArray(raumErzeugtidlist[raumErzeugtidlist.size - 1] + 1)
+        raumIDArray = IntArray(raumErzeugtIDList[raumErzeugtIDList.size - 1] + 1)
         zaehler = 0
         //dem idarray die neuen IDs hinzufügen
-        raumErzeugtidlist.forEach { id ->
-            raumidarray[id] = ersteneueID + zaehler
+        raumErzeugtIDList.forEach { id ->
+            raumIDArray[id] = ersteneueID + zaehler
             zaehler++
         }
 
@@ -131,7 +131,7 @@ class ImportFragmentGeraeteUrlaub(
 
     private fun urlaubeErstellen() {
         try {
-            urlaublist.forEach { row ->
+            urlaubList.forEach { row ->
                 val data = row.split(",")
                 val tmpurlaub = Urlaub(
                     data[1],
@@ -144,7 +144,7 @@ class ImportFragmentGeraeteUrlaub(
                         Locale.GERMAN
                     ).parse(data[3])!!,
                     data[4].toDouble(),
-                    haushaltidlist[data[5].toInt()]
+                    haushaltIDList[data[5].toInt()]
                 )
                 sharedViewModel.insertUrlaub(tmpurlaub)
             }
@@ -161,16 +161,16 @@ class ImportFragmentGeraeteUrlaub(
     }
 
     private fun geraeteErstellen() {
-        geraetelist.forEach { row ->
+        geraeteList.forEach { row ->
             val data = row.split(",")
             when {
                 data[0].toInt() == 1 -> {
                     //Gerät ist Produzent
-                    tmpgeraet = Geraete(
+                    tmpGeraet = Geraete(
                         data[2],
-                        kategorienidlist[data[3].toInt()],
-                        raumidarray[data[4].toInt()],
-                        haushaltidlist[data[5].toInt()],
+                        kategorienIDList[data[3].toInt()],
+                        raumIDArray[data[4].toInt()],
+                        haushaltIDList[data[5].toInt()],
                         0.0,
                         null,
                         0.0,
@@ -180,15 +180,15 @@ class ImportFragmentGeraeteUrlaub(
                         data[12].toDouble(),
                         data[13]
                     )
-                    sharedViewModel.insertGeraet(tmpgeraet)
+                    sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 2 -> {
                     //Gerät ist Verbraucher und hat null bei standby und ausgefüllte Notiz
-                    tmpgeraet = Geraete(
+                    tmpGeraet = Geraete(
                         data[2],
-                        kategorienidlist[data[3].toInt()],
-                        raumidarray[data[4].toInt()],
-                        haushaltidlist[data[5].toInt()],
+                        kategorienIDList[data[3].toInt()],
+                        raumIDArray[data[4].toInt()],
+                        haushaltIDList[data[5].toInt()],
                         data[6].toDouble(),
                         null,
                         data[8].toDouble(),
@@ -198,15 +198,15 @@ class ImportFragmentGeraeteUrlaub(
                         null,
                         data[13]
                     )
-                    sharedViewModel.insertGeraet(tmpgeraet)
+                    sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 3 -> {
                     //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
-                    tmpgeraet = Geraete(
+                    tmpGeraet = Geraete(
                         data[2],
-                        kategorienidlist[data[3].toInt()],
-                        raumidarray[data[4].toInt()],
-                        haushaltidlist[data[5].toInt()],
+                        kategorienIDList[data[3].toInt()],
+                        raumIDArray[data[4].toInt()],
+                        haushaltIDList[data[5].toInt()],
                         data[6].toDouble(),
                         null,
                         data[8].toDouble(),
@@ -216,15 +216,15 @@ class ImportFragmentGeraeteUrlaub(
                         null,
                         null
                     )
-                    sharedViewModel.insertGeraet(tmpgeraet)
+                    sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 4 -> {
                     //Gerät ist Verbraucher und hat standby und null bei Notiz
-                    tmpgeraet = Geraete(
+                    tmpGeraet = Geraete(
                         data[2],
-                        kategorienidlist[data[3].toInt()],
-                        raumidarray[data[4].toInt()],
-                        haushaltidlist[data[5].toInt()],
+                        kategorienIDList[data[3].toInt()],
+                        raumIDArray[data[4].toInt()],
+                        haushaltIDList[data[5].toInt()],
                         data[6].toDouble(),
                         data[7].toDouble(),
                         data[8].toDouble(),
@@ -234,15 +234,15 @@ class ImportFragmentGeraeteUrlaub(
                         null,
                         null
                     )
-                    sharedViewModel.insertGeraet(tmpgeraet)
+                    sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 5 -> {
                     //Geraet ist Verbraucher und hat sowohl Standby als auch Notiz
-                    tmpgeraet = Geraete(
+                    tmpGeraet = Geraete(
                         data[2],
-                        kategorienidlist[data[3].toInt()],
-                        raumidarray[data[4].toInt()],
-                        haushaltidlist[data[5].toInt()],
+                        kategorienIDList[data[3].toInt()],
+                        raumIDArray[data[4].toInt()],
+                        haushaltIDList[data[5].toInt()],
                         data[6].toDouble(),
                         data[7].toDouble(),
                         data[8].toDouble(),
@@ -252,7 +252,7 @@ class ImportFragmentGeraeteUrlaub(
                         null,
                         data[13]
                     )
-                    sharedViewModel.insertGeraet(tmpgeraet)
+                    sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 else -> {
                     Toast.makeText(
@@ -267,17 +267,17 @@ class ImportFragmentGeraeteUrlaub(
     }
 
     private fun createList1() {
-        raumlist = ArrayList()
+        raumList = ArrayList()
         var aufgerufen = false
         sharedViewModel.getAllRaeume().observe(
             viewLifecycleOwner,
             Observer { raeume ->
                 if (raeume != null) {
-                    raumlist.clear()
-                    raumlist.addAll(raeume)
+                    raumList.clear()
+                    raumList.addAll(raeume)
                     //Überprüfung ob alle Eingefügt, damit Funktion nicht mehrmals aufgerufen wird
-                    if (!aufgerufen && raumlist.size == CompanionImport.getraeumealtlist().size +
-                        raumErzeugtidlist.size
+                    if (!aufgerufen && raumList.size == CompanionImport.getraeumealtlist().size +
+                        raumErzeugtIDList.size
                     ) {
                         createList2()
                         aufgerufen = true
@@ -288,17 +288,17 @@ class ImportFragmentGeraeteUrlaub(
     }
 
     private fun createList2() {
-        kategorieneulist = ArrayList()
+        kategorieNeuList = ArrayList()
         var executed = false
         sharedViewModel.getAllKategorie().observe(
             viewLifecycleOwner,
             Observer { kategorie ->
                 if (kategorie != null) {
-                    kategorieneulist.clear()
-                    kategorieneulist.addAll(kategorie)
+                    kategorieNeuList.clear()
+                    kategorieNeuList.addAll(kategorie)
                     //Überprüfung ob alle eingefügt, sodass nicht mehrmals Funktion aufgerufen wird
-                    if (kategorieneulist.size == CompanionImport.getkategoriealtlist().size +
-                        kategorienneuidlist.size && !executed
+                    if (kategorieNeuList.size == CompanionImport.getkategoriealtlist().size +
+                        kategorieNeuIDList.size && !executed
                     ) {
                         makeGeraete()
                         executed = true
