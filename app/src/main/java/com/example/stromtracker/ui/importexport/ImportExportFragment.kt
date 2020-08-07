@@ -127,6 +127,11 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun getDatafromcsv(csv: File) {
+        //Importfunktion
+        //Im ersten Schritt werden die Haushalte eingefügt und dann auf ein neues Fragment
+        // übergeleitet. Dort wird dann Raum und Kategorie eingefügt und dann die Geräte und Urlaube
+        //Es können immer nur komplette Datenätze eingefügt werden und nicht nur ein Gerät
+        // oder einen einzelnen Raum zu einem bestehenem Haushalt.
         var zustand = 0
         var headerread = false
         val tempraumlist = ArrayList<String>()
@@ -284,6 +289,7 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun writeCSVFile() {
+        //Daten exportieren
         val csvFile = generateFile()
         if (csvFile != null) {
             //Als erstes werden die Haushalte ins File geschrieben

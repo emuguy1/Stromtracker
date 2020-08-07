@@ -53,7 +53,7 @@ class ImportFragmentGeraeteUrlaub(
             ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport_import, container, false)
 
-        //Button finden und auf Invisible setzen, bis man fertig ist mit dem Einfügen der restlichen Elemente
+        //Button finden und Invisible setzen,bis man fertig ist mit Einfügen der restlichen Elemente
         fertigButton = root.findViewById(R.id.import_export_button_fertig)
         fertigButton.visibility = View.INVISIBLE
 
@@ -74,7 +74,8 @@ class ImportFragmentGeraeteUrlaub(
                 val frag = HomeFragment()
                 //Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment ersetzen, dass oben erstellt wurde
+                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen
+                // ragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
                 //und anschließend noch ein commit()
             }
@@ -84,10 +85,7 @@ class ImportFragmentGeraeteUrlaub(
     }
 
     private fun makeGeraete() {
-        //Texte setzen
-        haushalttext.text = getString(R.string.import_text_haushalte)
-        kategorietext.text = getString(R.string.import_text_kategorien)
-        raumtext.text = getString(R.string.import_text_raeume)
+
 
         //Anzahl an eingefügten Kategorien
         val eingefuegtekategorien = kategorienneuidlist.size
@@ -107,7 +105,8 @@ class ImportFragmentGeraeteUrlaub(
         val eingefuegteraeume = raumErzeugtidlist.size
         //Die ID des ersten Elements, das neu Eingefügt wurde
         ersteneueID = raumlist[raumlist.size - eingefuegteraeume].getRaumID()
-        //Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten Erstellung der neuen Objekte direkt dort hinein zu speichern
+        //Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten
+        // Erstellung der neuen Objekte direkt dort hinein zu speichern
         raumidarray = IntArray(raumErzeugtidlist[raumErzeugtidlist.size - 1] + 1)
         zaehler = 0
         //dem idarray die neuen IDs hinzufügen
@@ -124,6 +123,10 @@ class ImportFragmentGeraeteUrlaub(
         urlaubeErstellen()
         urlaubtext.text = getString(R.string.import_text_urlaub)
         fertigButton.visibility = View.VISIBLE
+        //Texte setzen
+        haushalttext.text = getString(R.string.import_text_haushalte)
+        kategorietext.text = getString(R.string.import_text_kategorien)
+        raumtext.text = getString(R.string.import_text_raeume)
 
     }
 
@@ -255,7 +258,8 @@ class ImportFragmentGeraeteUrlaub(
                 }
                 else -> {
                     Toast.makeText(
-                        this.context, "Fehler beim Einfügen eines Gerätes. Inkonsistente Daten",
+                        this.context,
+                        getString(R.string.import_export_inkonsistenz_geraet),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -273,8 +277,10 @@ class ImportFragmentGeraeteUrlaub(
                 if (raeume != null) {
                     raumlist.clear()
                     raumlist.addAll(raeume)
-                    //Überprüfung ob alle Eingefügt wurden, damit die Funktion nicht mehrmals aufgerufen wird
-                    if (!aufgerufen && raumlist.size == CompanionImport.getraeumealtlist().size + raumErzeugtidlist.size) {
+                    //Überprüfung ob alle Eingefügt, damit Funktion nicht mehrmals aufgerufen wird
+                    if (!aufgerufen && raumlist.size == CompanionImport.getraeumealtlist().size +
+                        raumErzeugtidlist.size
+                    ) {
                         createList2()
                         aufgerufen = true
                     }
@@ -292,8 +298,10 @@ class ImportFragmentGeraeteUrlaub(
                 if (kategorie != null) {
                     kategorieneulist.clear()
                     kategorieneulist.addAll(kategorie)
-                    //Überprüfung ob schon alle eingefügt wurden, sodass nicht mehrmals die Funktion aufgerufen wird
-                    if (kategorieneulist.size == CompanionImport.getkategoriealtlist().size + kategorienneuidlist.size && !executed) {
+                    //Überprüfung ob alle eingefügt, sodass nicht mehrmals Funktion aufgerufen wird
+                    if (kategorieneulist.size == CompanionImport.getkategoriealtlist().size +
+                        kategorienneuidlist.size && !executed
+                    ) {
                         makeGeraete()
                         executed = true
                     }
