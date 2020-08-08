@@ -16,7 +16,6 @@
 
     <dimen name="nav_spinner_text">16sp</dimen>
 
-
     <dimen name="geraet_sort_cardview_margin">8dp</dimen>
     <dimen name="geraet_cardview_margin">8dp</dimen>
     <dimen name="geraet_text_recycler">14sp</dimen>
@@ -93,7 +92,7 @@
 
     <dimen name="dual_button_left">8dp</dimen>
     <dimen name="dual_button_right">8dp</dimen>
-    <dimen name="import_export_buttons_top">280dp</dimen>
+
     <dimen name="import_export_text_view">52dp</dimen>
     <dimen name="import_export_import_button">24dp</dimen>
 </resources>
