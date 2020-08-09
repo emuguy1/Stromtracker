@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.haushalt.haushaltErstellen.HaushaltErstellenFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/haushaltsname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/edit_text_haushalt_erstellen_name"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/haushalt_edit_text_height"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/haushaltedithint_name"
+            android:hint="@string/haushaltedithint_name"
+            android:inputType="text"
+            android:maxLength="@integer/length_namen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_name" />
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_strompreis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/haushaltstrompreis"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_name" />
+
+        <EditText
+            android:id="@+id/edit_text_haushalt_erstellen_strompreis"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/haushalt_edit_text_height"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/haushaltedithint_strompreis"
+            android:hint="@string/haushaltedithint_strompreis"
+            android:inputType="numberDecimal"
+            android:maxLength="@integer/length_strompreis"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_strompreis" />
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_strompreis_einheit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_edit_and_text_one_line"
+            android:text="@string/einheit_cent"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/edit_text_haushalt_erstellen_strompreis"
+            app:layout_constraintTop_toTopOf="@+id/edit_text_haushalt_erstellen_strompreis" />
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_anzahl_personen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/haushaltspersonen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_strompreis" />
+
+        <EditText
+            android:id="@+id/edit_text_haushalt_erstellen_anzahl_personen"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/haushalt_edit_text_height"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/haushaltedithint_personen"
+            android:hint="@string/haushaltedithint_personen"
+            android:inputType="number"
+            android:maxLength="@integer/length_personen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_anzahl_personen" />
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_zaehlerstand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/haushaltzaehlerstand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_anzahl_personen" />
+
+        <EditText
+            android:id="@+id/edit_text_haushalt_erstellen_zaehlerstand"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/haushalt_edit_text_height"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/haushaltedithint_stand"
+            android:hint="@string/haushaltedithint_stand"
+            android:inputType="numberDecimal"
+            android:maxLength="@integer/length_zaehlerstand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_zaehlerstand" />
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_zählerstand_einheit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_edit_and_text_one_line"
+            android:text="@string/einheit_kwh"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/edit_text_haushalt_erstellen_zaehlerstand"
+            app:layout_constraintTop_toTopOf="@+id/edit_text_haushalt_erstellen_zaehlerstand" />
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_datum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/haushaltdatum"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_zaehlerstand" />
+
+        <EditText
+            android:id="@+id/edit_text_haushalt_erstellen_datum"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/haushalt_edit_text_height"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/haushaltedithint_datum"
+            android:hint="@string/haushaltedithint_datum"
+            android:inputType="date"
+            android:maxLength="@integer/length_datum"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_datum" />
+
+        <TextView
+            android:id="@+id/text_view_haushalt_erstellen_oekostrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/haushaltökomix"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_datum" />
+
+        <CheckBox
+            android:id="@+id/check_box_haushalt_erstellen_oekostrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top_small"
+            android:autofillHints="@string/haushaltedithint_strommix"
+            android:hint="@string/haushaltedithint_strommix"
+            app:layout_constraintStart_toEndOf="@+id/text_view_haushalt_erstellen_oekostrom"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_haushalt_erstellen_datum" />
+
+        <Button
+            android:id="@+id/button_haushalt_erstellen_speichern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_speichern"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_oekostrom"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/button_haushalt_erstellen_abbrechen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorDarkGreen"
+            android:text="@string/button_abbrechen"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_haushalt_erstellen_oekostrom"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

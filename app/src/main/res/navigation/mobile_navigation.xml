@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_haushalt">
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.stromtracker.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_haushalt"
@@ -38,7 +44,7 @@
     <fragment
         android:id="@+id/nav_amortisationsrechnerPV"
         android:name="com.example.stromtracker.ui.amortisationsrechnerPV.AmortisationsrechnerPVFragment"
-        android:label="@string/menu_amortisationsrechnerPV"
+        android:label="@string/menu_amortisationsrechner_pv"
         tools:layout="@layout/fragment_amortisationsrechnerpv" />
     <fragment
         android:id="@+id/nav_co2bilanz"
@@ -51,12 +57,10 @@
         android:label="@string/menu_importexport"
         tools:layout="@layout/fragment_importexport" />
 
-
-
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.stromtracker.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_urlaub"
+        android:name="com.example.stromtracker.ui.urlaub.UrlaubFragment"
+        android:label="@string/menu_urlaub"
+        tools:layout="@layout/fragment_urlaub" />
 
 </navigation>

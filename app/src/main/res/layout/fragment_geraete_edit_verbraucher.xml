@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.geraete.geraet_edit.GeraeteEditVerbraucherFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/geraete_edit_text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_new_text_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/geraete_edit_edit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:autofillHints="@string/geraet_new_name"
+            android:hint="@string/geraet_new_name"
+            android:inputType="text"
+            android:maxLength="@integer/length_namen"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_name"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_name" />
+
+        <TextView
+            android:id="@+id/geraete_edit_text_raum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_text_raum"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_name" />
+
+        <Spinner
+            android:id="@+id/geraete_edit_raum_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:dropDownWidth="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_raum"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_raum" />
+
+        <TextView
+            android:id="@+id/geraete_edit_text_kategorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_text_kategorie"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_raum_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_raum_spinner" />
+
+        <Spinner
+            android:id="@+id/geraete_edit_kategorie_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:dropDownWidth="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_kategorie"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_kategorie" />
+
+        <TextView
+            android:id="@+id/geraete_edit_text_volllast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_text_volllast"
+            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_text_zeit_volllast"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_kategorie_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_kategorie_spinner" />
+
+
+        <TextView
+            android:id="@+id/geraete_edit_text_zeit_volllast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:text="@string/geraet_zeit_volllast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_kategorie_spinner" />
+
+        <EditText
+            android:id="@+id/geraete_edit_edit_volllast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:autofillHints="@string/geraete_edit_hint_volllast"
+            android:hint="@string/geraete_edit_hint_volllast"
+            android:inputType="numberDecimal"
+            android:maxLength="@integer/length_verbrauch"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_volllast"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_volllast" />
+
+        <TextView
+            android:id="@+id/geraete_edit_leistung_einheit_volllast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
+            android:text="@string/einheit_watt"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/geraete_edit_edit_volllast"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_volllast" />
+
+        <EditText
+            android:id="@+id/geraete_edit_edit_zeit_volllast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:autofillHints="@string/geraete_edit_hint_zeit"
+            android:hint="@string/geraete_edit_hint_zeit"
+            android:inputType="numberDecimal"
+            android:maxLength="@integer/length_stunden"
+            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_zeit_einheit_volllast"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@+id/geraete_edit_leistung_einheit_volllast"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_volllast" />
+
+        <TextView
+            android:id="@+id/geraete_edit_zeit_einheit_volllast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:text="@string/einheit_stunden_tag"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_volllast" />
+
+        <TextView
+            android:id="@+id/geraete_edit_text_standby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_text_standBy"
+            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_text_zeit_standby"
+
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_volllast"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_volllast" />
+
+        <EditText
+            android:id="@+id/geraete_edit_edit_standby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:autofillHints="@string/geraete_edit_hint_stand_by"
+            android:hint="@string/geraete_edit_hint_stand_by"
+            android:inputType="numberDecimal"
+            android:maxLength="@integer/length_verbrauch"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standby" />
+
+        <TextView
+            android:id="@+id/geraete_edit_leistung_einheit_standby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
+            android:text="@string/einheit_watt"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/geraete_edit_edit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_standby" />
+
+        <TextView
+            android:id="@+id/geraete_edit_text_zeit_standby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:text="@string/geraet_zeit_standBy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_volllast" />
+
+        <EditText
+            android:id="@+id/geraete_edit_edit_zeit_standby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:autofillHints="@string/geraete_edit_hint_zeit"
+            android:hint="@string/geraete_edit_hint_zeit"
+            android:inputType="numberDecimal"
+            android:maxLength="@integer/length_stunden"
+            app:layout_constraintEnd_toStartOf="@+id/geraete_edit_zeit_einheit_standby"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@+id/geraete_edit_leistung_einheit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_standby" />
+
+        <TextView
+            android:id="@+id/geraete_edit_zeit_einheit_standby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_top_text_einheit"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:text="@string/einheit_stunden_tag"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_zeit_standby" />
+
+
+        <CheckBox
+            android:id="@+id/geraete_edit_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_text_urlaubsmodus"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_edit_standby"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_standby" />
+
+
+        <TextView
+            android:id="@+id/geraete_edit_text_notiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:text="@string/geraet_text_notiz"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_checkbox"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_checkbox" />
+
+        <EditText
+            android:id="@+id/geraete_edit_edit_notiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_edit_text"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:autofillHints="@string/geraet_edit_edit_notiz"
+            android:hint="@string/geraet_edit_edit_notiz"
+            android:inputType="textMultiLine"
+            android:maxLength="@integer/length_notizen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/geraete_edit_text_notiz"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_text_notiz" />
+
+
+        <Button
+            android:id="@+id/geraete_edit_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_speichern"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_notiz" />
+
+        <Button
+            android:id="@+id/geraete_edit_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/button_margin_between"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/button_margin_between"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorDarkRed"
+            android:text="@string/button_loeschen"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/geraete_edit_save"
+            app:layout_constraintStart_toEndOf="@id/geraete_edit_button_abbrechen"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_notiz" />
+
+        <Button
+            android:id="@+id/geraete_edit_button_abbrechen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorDarkGreen"
+            android:text="@string/button_abbrechen"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/geraete_edit_edit_notiz" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

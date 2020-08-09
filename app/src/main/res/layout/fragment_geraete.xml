@@ -1,23 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGrey"
     tools:context=".ui.geraete.GeraeteFragment">
 
-    <TextView
-        android:id="@+id/text_geraete"
+    <ScrollView
+
+        android:id="@+id/scroll_view2"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackgroundGrey"
+            tools:context=".ui.geraete.GeraeteFragment">
+
+
+            <Button
+                android:id="@+id/geraete_button_auswertung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/geraete_button_auswertung"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/geraete_text_verbraucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/geraete_text_verbraucher"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geraete_button_auswertung" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/geraete_sort_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/geraet_sort_cardview_margin"
+                android:layout_marginLeft="@dimen/geraet_sort_cardview_margin"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/geraet_sort_cardview_margin"
+                android:layout_marginRight="@dimen/geraet_sort_cardview_margin"
+                android:layout_marginBottom="@dimen/geraet_sort_cardview_margin"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geraete_text_verbraucher"
+                app:layout_constraintVertical_bias="0.0">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="7.125">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/geraet_cardview_margin"
+                        android:layout_marginRight="@dimen/geraet_cardview_margin"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/geraete_button_sort_name"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginEnd="@dimen/geraet_cardview_margin"
+                        android:layout_weight="2.625"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:text="@string/geraet_new_name"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/geraet_text_sort_button" />
+
+
+                    <Button
+                        android:id="@+id/geraete_button_sort_raum"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/geraet_cardview_margin"
+                        android:layout_weight="1.75"
+                        android:background="@color/colorWhite"
+
+
+                        android:gravity="center_vertical"
+                        android:text="@string/geraet_text_raum"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/geraet_text_sort_button">
+
+
+                    </Button>
+
+                    <Button
+                        android:id="@+id/geraete_button_sort_verbrauch"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="@dimen/geraet_cardview_margin"
+                        android:layout_weight="1.75"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:text="@string/geraet_verbrauch"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/geraet_text_sort_button"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0">
+
+                    </Button>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/geraete_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geraete_sort_card">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+            <TextView
+                android:id="@+id/geraete_text_produzent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/geraete_text_produzent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geraete_recycler_view" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/geraete_sort_card_prod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geraete_text_produzent"
+                fab:cardBackgroundColor="@color/colorWhite"
+                fab:layout_constraintVertical_bias="0.0">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="7.125">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/geraet_cardview_margin"
+                        android:layout_marginRight="@dimen/geraet_cardview_margin"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/geraete_button_sort_name_prod"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginEnd="@dimen/geraet_cardview_margin"
+                        android:layout_weight="2.625"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:text="@string/geraet_new_name"
+                        android:textColor="@color/colorTextBlack"
+
+
+                        android:textSize="@dimen/geraet_text_sort_button" />
+
+
+                    <Button
+                        android:id="@+id/geraete_button_sort_raum_prd"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/geraet_cardview_margin"
+                        android:layout_weight="1.75"
+                        android:background="@color/colorWhite"
+
+
+                        android:gravity="center_vertical"
+                        android:text="@string/geraet_text_raum"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/geraet_text_sort_button">
+
+
+                    </Button>
+
+                    <Button
+                        android:id="@+id/geraete_button_sort_produktion_prod"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="@dimen/geraet_cardview_margin"
+                        android:layout_weight="1.75"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:text="@string/geraet_produktion"
+                        android:textColor="@color/colorTextBlack"
+
+                        android:textSize="@dimen/geraet_text_sort_button"
+                        fab:layout_constraintEnd_toEndOf="parent"
+                        fab:layout_constraintHorizontal_bias="1.0">
+
+                    </Button>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/produzent_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="@dimen/margin_bottom_because_fab"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/geraete_sort_card_prod"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/geraete_fab_menu"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:clickable="false"
+        android:focusable="true"
+        app:backgroundTint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_labelStyle="@style/menu_labels_style">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_geraete_add_produzent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_menu_amortrechnerpv"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Produzent" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_geraete_add_verbraucher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_kategorien_plug"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Verbraucher" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

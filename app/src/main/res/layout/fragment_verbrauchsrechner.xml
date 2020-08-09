@@ -4,20 +4,306 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGrey"
+    android:fillViewport="true"
     tools:context=".ui.verbrauchsrechner.VerbrauchsrechnerFragment">
 
-    <TextView
-        android:id="@+id/text_verbrauchsrechner"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_view_margin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_margin_normal">
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_strompreis_kwh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:text="@string/verbrauchsrechner_strompreispkwh"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_text_verbrauchsrechner_strompreis_kwh_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:autofillHints="@string/verbrauchsrechner_beispiel_stromkosten"
+                    android:ems="5"
+                    android:hint="@string/verbrauchsrechner_beispiel_stromkosten"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_strompreis"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_strompreis_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_strompreis_einheit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
+                    android:text="@string/einheit_cent"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_strompreis_kwh_input"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_strompreis_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_leistung_kwh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:text="@string/verbrauchsrechner_leistung_kwh"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_strompreis_kwh_input" />
+
+                <EditText
+                    android:id="@+id/edit_text_verbrauchsrechner_leistung_kwh_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:autofillHints="@string/verbrauchsrechner_beispiel_stromverbrauch"
+                    android:ems="5"
+                    android:hint="@string/verbrauchsrechner_beispiel_stromverbrauch"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_verbrauch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_leistung_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_leistung_w_einheit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
+                    android:text="@string/einheit_watt"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_leistung_kwh_input"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_leistung_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_leistung_zeit_kwh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft2"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:text="@string/verbrauchsrechner_zeit_leistung"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_strompreis_kwh_input" />
+
+                <EditText
+                    android:id="@+id/edit_text_verbrauchsrechner_leistung_zeit_kwh_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft2"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:autofillHints="@string/verbrauchsrechner_beispiel_vollastzeit"
+                    android:ems="4"
+                    android:hint="@string/verbrauchsrechner_beispiel_vollastzeit"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_stunden"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_leistung_zeit_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_leistung_zeit_w_einheit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
+                    android:text="@string/einheit_stunden_tag"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_leistung_zeit_kwh_input"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_leistung_zeit_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_stand_by_leistung_kwh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:text="@string/verbrauchsrechner_standby_leistung"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_leistung_kwh_input" />
+
+                <EditText
+                    android:id="@+id/edit_text_verbrauchsrechner_stand_by_leistung_kwh_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:autofillHints="@string/verbrauchsrechner_beispiel_standby_verbrauch"
+                    android:ems="5"
+                    android:hint="@string/verbrauchsrechner_beispiel_standby_verbrauch"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_verbrauch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_stand_by_leistung_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_stand_by_leistung_w_einheit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
+                    android:text="@string/einheit_watt"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_stand_by_leistung_kwh_input"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_stand_by_leistung_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_stand_by_leistung_zeit_kwh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft2"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:text="@string/verbrauchsrechner_zeit_standby"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_leistung_kwh_input" />
+
+                <EditText
+                    android:id="@+id/edit_text_verbrauchsrechner_stand_by_leistung_zeit_kwh_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft2"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:autofillHints="@string/verbrauchsrechner_beispiel_standby_zeit"
+                    android:ems="4"
+                    android:hint="@string/verbrauchsrechner_beispiel_standby_zeit"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_stunden"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_stand_by_leistung_zeit_kwh" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_stand_by_leistung_zeit_w_einheit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTopEinheiten"
+                    android:text="@string/einheit_stunden_tag"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toEndOf="@id/edit_text_verbrauchsrechner_stand_by_leistung_zeit_kwh_input"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_stand_by_leistung_zeit_kwh" />
+
+                <View
+                    android:id="@+id/divider_verbrauchsrechner"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_verbrauchsrechner_stand_by_leistung_kwh_input" />
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_verbrauch_jahr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:text="@string/verbrauchsrechner_verbrauchjahr"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_verbrauchsrechner" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_verbrauchsrechner_verbrauch_jahr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_verbrauch_jahr">
+
+                    <TextView
+                        android:id="@+id/text_view_verbrauchsrechner_erg_verbrauch_jahr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/content_text_big" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_kosten_jahr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:text="@string/verbrauchsrechner_kosten_jahr"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/card_verbrauchsrechner_verbrauch_jahr" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_verbrauchsrechner_kosten_jahr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_verbrauchsrechner_kosten_jahr">
+
+                    <TextView
+                        android:id="@+id/text_view_verbrauchsrechner_erg_kosten_jahr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/content_text_big" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/text_view_verbrauchsrechner_warnung"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/verbrauchsrechner_marginLeft1"
+                    android:layout_marginTop="@dimen/verbrauchsrechner_marginTop"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_warnung"
+                    android:textSize="@dimen/content_text_bigger"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/card_verbrauchsrechner_kosten_jahr" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

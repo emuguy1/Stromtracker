@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.raeume.raeumeErstellen.RaeumeErstellenFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_view_raum_erstellen_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top_large"
+            android:text="@string/raeumname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/edit_text_raum_erstellen_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:autofillHints="@string/raumedithint_name"
+            android:hint="@string/raumedithint_name"
+            android:inputType="textPersonName"
+            android:maxLength="@integer/length_namen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_raum_erstellen_name" />
+
+
+        <TextView
+            android:id="@+id/text_view_raum_erstellen_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_infotext_large"
+            android:textColor="@color/text_warnung"
+            app:layout_constraintBottom_toTopOf="@+id/button_raeume_erstellen_abbrechen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_raeume_erstellen_speichern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_speichern"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button_raeume_erstellen_abbrechen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorDarkGreen"
+            android:text="@string/button_abbrechen"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

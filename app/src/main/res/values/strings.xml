@@ -1,4 +1,23 @@
 <resources>
+    //Allgmeines
+    <string name="text_kWh">kWh</string>
+    <string name="text_euro">€</string>
+    <string name="text_cent">Cent</string>
+    <string name="text_kWp">kWp</string>
+    <string name="text_kWh_pro_kWp">kWh/kWp</string>
+    <string name="text_prozent">%</string>
+
+    <string name="einheit_kwh">kWh</string>
+    <string name="einheit_watt">Watt</string>
+    <string name="einheit_prozent">Prozent</string>
+    <string name="einheit_cent">Cent</string>
+    <string name="einheit_stunden_tag">h/Tag</string>
+
+    <string name="emptyline">" "</string>
+    <string name="parse_error_datum">Datum konnte nicht geparsed werden, achten Sie auf das Format: dd.MM.yyyy</string>
+    <string name="toast_invalid_date">Das eingegebene Datum ist ungültig.</string>
+    <string name="toast_invalid_values">Die eingegebenen Werte sind ungültig</string>
+
     <string name="app_name">Stromtracker</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -6,18 +25,233 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="ja">ja</string>
+    <string name="nein">nein</string>
+    <string name="ok">OK</string>
+    <string name="ueberspringen">Überspringen</string>
+
     <string name="menu_home">Home</string>
+    <string name="menu_urlaub">Urlaubsmodus</string>
     <string name="menu_geraete">Geräte</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_haushalt">Haushalt</string>
     <string name="menu_amortisationsrechner">Amortisationsrechner</string>
-    <string name="menu_amortisationsrechnerPV">AmortisationsrechnerPV</string>
+    <string name="menu_amortisationsrechner_pv">AmortisationsrechnerPV</string>
     <string name="menu_co2bilanz">CO2-Bilanz</string>
     <string name="menu_importexport">Import/Export</string>
     <string name="menu_kategorien">Kategorien</string>
     <string name="menu_raeume">Räume</string>
     <string name="menu_verbrauchsrechner">Verbrauchsrechner</string>
-    <string name="hint_text">hint_text</string>
-    <string name="addButtonHaushalt">Add</string>
 
+    <string name="hint_text">hint_text</string>
+    <string name="button_abbrechen">Abbrechen</string>
+    <string name="button_speichern">Speichern</string>
+    <string name="button_loeschen">Löschen</string>
+    <string name="add_button">Add</string>
+
+    //Kategorien
+    <string name="hint_kategorie">Kategorie</string>
+    <string name="hint_kategorie_input">z.B. Fernseher</string>
+    <string name="kategorie_new_text">Neue Kategorie erstellen</string>
+    <string name="kategorie_edit_name">Name der Kategorie</string>
+    <string name="kategorie_edit_icon">Icon wählen</string>
+    <string name="kategorie_edit_loeschen_confirm">Sind Sie sicher, dass Sie die Kategorie löschen wollen?</string>
+    <string name="kategorie_new_invalid_value">Bitte einen gültigen Namen eingeben</string>
+    <string name="kategorie_edit_info">Kategorie - Sonstiges - darf nicht erstellt werden!</string>
+
+    //Haushalt
+    <string name="haushaltstrompreis">Strompreis pro kWh</string>
+    <string name="haushaltsname">Name des Haushalt</string>
+    <string name="standardhaushaltsname">Haushalt</string>
+    <string name="haushaltspersonen">Anzahl Personen</string>
+    <string name="haushaltdatum">Datum</string>
+    <string name="haushaltzaehlerstand">Aktueller Zählerstand</string>
+    <string name="haushalt_zaehlerstand_neu">Neuer Zählerstand</string>
+    <string name="haushalt_zaehlerstand_placeholder">X kWh</string>
+    <string name="haushalt_hint_auswertung">Die eingegebenen Werte für Zählerstand und Datum sind ungültig. Deswegen wird der bisherige Zählerstand gespeichert.</string>
+    <string name="haushaltökomix">Ökomix?</string>
+    <string name="haushaltedithint_name">z.B. Haushalt</string>
+    <string name="haushaltedithint_strompreis">z.B. 26.62</string>
+    <string name="haushaltedithint_personen">z.B. 2</string>
+    <string name="haushaltedithint_stand">z.B. 2500</string>
+    <string name="haushaltedithint_datum">DD.MM.JJJJ</string>
+    <string name="haushaltedithint_strommix">Auswählen bei Ökomstromvertrag</string>
+    <string name="haushaltlöschen_confirm">Sind Sie sicher, dass Sie den Hauhalt löschen wollen?</string>
+    <string name="leere_felder_haushalt">Eines der folgenden Felder ist leer. Bitte füllen Sie dieses aus, bevor Sie fortfahren: Name, Personenanzahl oder Strompreis</string>
+
+    //AmortPV
+    <string name="amort_pv_hint_leistung">z.B. 4.5</string>
+    <string name="amort_pv_hint_anschaffung">z.B. 10000</string>
+    <string name="amort_pv_hint_jahresertrag_kwh_zahl">z.B. 4500</string>
+    <string name="amort_pv_hint_amortdauer_zahl">X Jahre und X Tage bis zur Amortisation.</string>
+    <string name="amort_pv_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
+    <string name="amort_pv_hint_jahresertrag_euro_zahl">z.B. 406.35</string>
+    <string name="amort_pv_hint_kwh_pro_kwp">z.B. 1000</string>
+    <string name="amort_pv_hint_verguetung">z. B. 9.03</string>
+    <string name="amort_pv_hint_eigenverbrauch">z. B. 30%</string>
+    <string name="amort_pv_hint_preis_kwh">z. B. 26.40</string>
+    <string name="amort_pv_edit_kwh_pro_kwp">1000</string>
+    <string name="amort_pv_edit_verguetung">9.03</string>
+    <string name="amort_pv_edit_eigenverbrauch">30</string>
+    <string name="amort_pv_edit_preis_kwh">26.4</string>
+    <string name="amort_pv_text_beschreibung">Bestimmung der Amortisationszeit für eine Photovoltaik-Anlage</string>
+    <string name="amort_pv_text_leistung">Leistung der PV-Anlage</string>
+    <string name="amort_pv_text_anschaffung">Anschaffungskosten</string>
+    <string name="amort_pv_text_jahresertragkWh">Jahresertrag in kWh</string>
+    <string name="amort_pv_text_amortdauer">Amortisation</string>
+    <string name="amort_pv_text_jahresertrag_euro">Jahresertrag in Euro</string>
+    <string name="amort_pv_text_kwh_pro_kwp">Ertrag pro kWp in kWh</string>
+    <string name="amort_pv_text_ertrag_beschreibung">(Der Ertrag pro kWp gibt an, wieviel kWh die PV-Anlage im Durchschnitt pro kWp (Nennleistung) im Jahr produziert.
+        Im Süden Deutschlands beträgt dieser ca. 1020 und im Norden ca. 900 kWh/kWp)</string>
+    <string name="amort_pv_text_verguetung">Vergütung pro kWh</string>
+    <string name="amort_pv_text_eigenverbrauch">Eigenverbrauch</string>
+    <string name="amort_pv_text_eigenverbrauch_beschreibung">(Teil der produzierten Energie, der verbraucht und somit nicht eingespeist wird)</string>
+    <string name="amort_pv_text_preis_kwh">Aktueller Preis für eine kWh</string>
+
+    //Geraete
+    <string name="geraet_text_notiz">Notizen (optional)</string>
+    <string name="geraet_edit_edit_notiz">z.B Wird bald ersetzt</string>
+    <string name="geraete_hint">Gerät</string>
+    <string name="geraete_button_auswertung">Auswertung</string>
+    <string name="geraete_text_verbraucher">Energieverbraucher</string>
+    <string name="geraete_text_produzent">Energieproduzenten</string>
+    <string name="geraet_new_text_name">Name</string>
+    <string name="geraet_text_raum">Raum</string>
+    <string name="geraet_text_kategorie">Kategorie</string>
+    <string name="geraet_text_volllast">Vollast-Verbrauch</string>
+    <string name="geraet_zeit_volllast">Betriebszeit Volllast</string>
+    <string name="geraet_zeit_standBy">Betriebszeit StandBy</string>
+
+    <string name="geraet_text_standBy">StandBy-Verbrauch</string>
+    <string name="geraet_text_urlaubsmodus">Urlaubsmodus</string>
+    <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben.</string>
+    <string name="geraet_new_zeit_error">Die eingegebene Zeiten überschreiten 24h.</string>
+
+    <string name="geraet_new_name">Name</string>
+    <string name="geraet_standby_error">Beide StandBy Felder müssen gefüllt sein.</string>
+    <string name="geraet_verbrauch">Verbrauch</string>
+    <string name="geraet_produktion">Produktion</string>
+    <string name="geraete_edit_hint_volllast">z.B 180.0</string>
+    <string name="geraete_edit_hint_zeit">z.B 8.0</string>
+    <string name="geraete_edit_hint_stand_by">z.B 10.5</string>
+    <string name="geraete_edit_confirmDelete">Sind Sie sicher, dass Sie das Gerät löschen wollen?</string>
+
+    <string name="geraet_new_produzent_prod_pro_jahr">Produzierte Energie pro Jahr</string>
+    <string name="geraet_new_produzent_verbrauch">Davon verbrauchte Energie</string>
+    <string name="geraet_new_produzent_hint_prozent">z.B 30</string>
+    <string name="geraet_new_produzent_hint_name">z.B. PV Anlage</string>
+    <string name="geraet_new_produzent_hint_prod">z.B 2700.5</string>
+    <string name="geraet_produzent_edit_hint_verbrauch">z.B 30.5</string>
+
+    <string name="geraet_auswertung_button_back">Zurück</string>
+    <string name="geraet_auswertung_text_auswertung">Auswertung</string>
+    <string name="geraet_auswertung_text_bilanz">Es werden nur Urlaube berücksichtigt, die im aktuellen Jahr starten.</string>
+
+    //Raum
+    <string name="raeumname">Name des Raums</string>
+    <string name="raumedithint_name">z.B. Wohnzimmer</string>
+    <string name="raumlöschen_confirm">Sind Sie sicher, dass Sie diesen Raum löschen wollen?</string>
+    <string name="raum_name_leer">Raum kann nicht gespeichert werden, da kein Name eingegeben wurde.</string>
+    <string name="raum_sonstiges_erstellen">Raum - Sonstiges - darf nicht erstellt werden!</string>
+
+    //Verbrauchsrechner
+    <string name="verbrauchsrechner_strompreispkwh">Strompreis pro kWh</string>
+    <string name="verbrauchsrechner_leistung_kwh">Stromverbrauch</string>
+    <string name="verbrauchsrechner_zeit_leistung">Zeit unter Last</string>
+    <string name="verbrauchsrechner_zeit_standby">StandBy Zeit</string>
+    <string name="verbrauchsrechner_standby_leistung">StandBy-Verbrauch</string>
+    <string name="verbrauchsrechner_Strompreispkwh">Strompreis pro kWh</string>
+    <string name="verbrauchsrechner_LeistungkWh">Stromverbrauch</string>
+    <string name="verbrauchsrechner_Zeit_Leistung">Zeit unter Last</string>
+    <string name="verbrauchsrechner_Zeit_Standby">StandBy Zeit</string>
+    <string name="verbrauchsrechner_StandbyLeistung">StandBy-Verbrauch</string>
+    <string name="verbrauchsrechner_verbrauchjahr">Verbrauch/Jahr</string>
+    <string name="verbrauchsrechner_kosten_jahr">"Kosten/ Jahr "</string>
+    <string name="verbrauchsrechner_beispiel_stromkosten">z.B. 7.6</string>
+    <string name="verbrauchsrechner_beispiel_stromverbrauch">z.B.50</string>
+    <string name="verbrauchsrechner_beispiel_vollastzeit">z.B. 4</string>
+    <string name="verbrauchsrechner_beispiel_standby_verbrauch">z.B. 0.5</string>
+    <string name="verbrauchsrechner_beispiel_standby_zeit">z.B. 20</string>
+    <string name="verbrauchsrechner_zeitueberschreitung">Die Zeit unter Last zusammen mit Standby überschreitet 24h! Sie beträgt:</string>
+    <string name="verbrauchsrechner_kwhprojahr">" kWh pro Jahr"</string>
+    <string name="verbrauchsrechner_euro_pro_jahr">" € pro Jahr"</string>
+
+    //AmortRechner
+    <string name="amort_text_beschreibung">Bestimmung der Amortisationszeit beim Verlgeich zweier Geräte</string>
+    <string name="amort_text_verbrauch_akt">Verbrauch des aktuellen Gerätes pro Jahr</string>
+    <string name="amort_text_verbrauch_neu">Verbrauch des neuen Gerätes pro Jahr</string>
+    <string name="amort_text_anschaffung_neu">Anschaffungskosten des neuen Gerätes</string>
+    <string name="amort_text_strompreis">Aktueller Strompreis pro kWh</string>
+    <string name="amort_edit_strompreis">26.45</string>
+    <string name="amort_text_kosten_akt">Aktuelle Kosten pro Jahr</string>
+    <string name="amort_text_kosten_neu">Neue Kosten pro Jahr</string>
+    <string name="amort_text_amortdauer">Amortisation</string>
+    <string name="amort_text_hinweis_berechnung">Diese Berechnung ist vereinfacht. Für genauere Bestimmung der Amortisationsdauer müssen Kosten für
+        Austausch und Montage, Lebensdauer, Zinsen und der Wiederverkaufswert des aktuellen Gerätes berücksichtigt werden.</string>
+    <string name="amort_hint_amortdauer">X Jahre und X Tage bis zur Amortisation.</string>
+    <string name="amort_hint_amort_ersparnis">Danach: X Euro Ersparnis im Jahr.</string>
+    <string name="amort_hint_verbrauch_akt">z.B. 126.5</string>
+    <string name="amort_hint_verbrauch_neu">z.B. 100.2</string>
+    <string name="amort_hint_anschaffung">z.B. 249.99</string>
+    <string name="amort_hint_strompreis">z.B. 26.45</string>
+
+    //Home
+    <string name="home_headline_desc">Beschreibung</string>
+    <string name="home_text_desc">Die App soll den Stromverbrauch eines Haushaltes erfassen, visualisieren und Kosten und Nutzen einzelner Geräte und des gesamten Haushaltes errechnen. Hierzu muss der User selbst die Verbrauchsdaten seiner Geräte messen/ablesen und in die App eintragen. Außerdem beinhaltet die App Amortisationsrechner, um die Kostenvorteile von Solaranlagen oder effizienteren Geräten abzuschätzen.</string>
+    <string name="home_text_info">Es werden ein Standardhaushalt mit mehreren Standardräumen, sowie mehrere Standardkategorien erstellt. Falls ein Haushalt gelöscht wird, werden alle darin enthaltenen Räume und Geräte ebenfalls gelöscht.</string>
+    <string name="home_headline_info">Info</string>
+
+    //Urlaub
+    <string name="urlaub_hint_haushalt">Haushalt X</string>
+    <string name="urlaub_text_name">Name des Urlaubs</string>
+    <string name="urlaub_hint_name">z.B. Ostsee</string>
+    <string name="urlaub_text_datum_von">Beginn des Urlaubs</string>
+    <string name="urlaub_text_datum_bis">Ende des Urlaubs</string>
+    <string name="urlaub_hint_tage">Der Urlaub dauert insgesamt X Tage</string>
+    <string name="urlaub_hint_verbrauch">Währenddessen werden X kWh, also Y € gespart</string>
+    <string name="urlaub_text_hinweis">Der Verbrauch während des Urlaubs basiert auf der Konfiguration der Geräte zum Zeitpunkt des Erstellens
+        und kann im Nachhinein nicht mehr geändert werden.
+        Dabei wird der StandBy Verbrauch auf einen Tag hochgerechnet,
+        falls dieser null ist wird das Ergebnis des Produkts von Vollast-Verbrauch und Betriebszeit verwendet.</string>
+    <string name="urlaub_hint_urlaub">Urlaub</string>
+    <string name="urlaub_recycler_hint_von">von DD.MM.JJJJ</string>
+    <string name="urlaub_recycler_hint_bis">bis DD.MM.JJJJ</string>
+    <string name="urlaub_edit_löschen_confirm">Sind Sie sicher, dass Sie den Urlaub löschen wollen?</string>
+
+    //Import/Export
+    <string name="impexp_export">Export</string>
+    <string name="impexp_import">Import</string>
+    <string name="import_export_button_fertig">Fertig</string>
+    <string name="import_text_haushalte">Haushalte wurden erstellt</string>
+    <string name="import_text_kategorien">Kategorien wurden erstellt</string>
+    <string name="import_text_raeume">Räume wurden erstellt</string>
+    <string name="import_text_geraete">Geräte wurden erstellt</string>
+    <string name="import_text_urlaub">Urlaube wurden erstellt</string>
+    <string name="import_confirm">Wenn Sie die Daten importieren, können durch fehlerhafte Eingaben falsche Einträge entstehen und die App abstürzen. Nach einem Neustart müssen Sie eventuelle falsche Einträge löschen. Sind Sie sicher, dass sie fortfahren wollen?</string>
+    <string name="import_export_keine_daten_zum_importieren">Keine Daten zum Importieren. Es können nur ganze Haushalte erstellt werden.</string>
+    <string name="import_erklaerung1">Hier eine kleine Erklärung zur Import-Export Funktion.\nWenn sie etwas falsches eingeben, können unter Umständen falsche Datensätze erzeugt werden.\nWenn Sie auf Import klicken, wenn das Eingabefeld leer ist, wird eine leere Vorlage erstellt.\nWenn Sie auf Export klicken, wird eine aktuelle Kopie des Datenbankinhalts geladen, den sie sich dann herauskopieren können.\n1/3</string>
+    <string name="import_erklaerung2">Es können immer nur vollständige Haushalte importiert werden und nicht nur einzelne Geräte.\nDatensätze müssen immer mit einem Enter abgetrennt werden und die einzelnen Werte durch ein Komma.\nDezimalzahlen werden mit einem Punkt erstellt. Bitte ändern Sie nichts an der Vorlage, da sonst ein fehlerhafter Import passieren könnte.\nAchten Sie bei Datum auf das richtige Format mit dd.mm.yyyy.\n2/3</string>
+    <string name="import_erklaerung3">Bei Gerät ist ein extra Datenwert zum besseren Import dazu gekommen.\nDer erste Wert gibt an, um welche Art von Gerät es sich handelt, bzw. welche Werte Null sind.\n1 ist Produzent\n 2 ist StandBy null aber Notizen voll,\n3 ist StandBy null und Notizen null,\n4 ist StandBy voll, aber Notizen null\nund 5, wenn alle Werte ausgefüllt sind.\n3/3</string>
+    <string name="import_export_inkonsistenz_geraet">Fehler beim Einfügen eines Gerätes. Inkonsistente Daten.</string>
+
+    //CO2-Bilanz
+    <string name="co2_headline_bilanz">Bilanz</string>
+    <string name="co2_text_tipps">Effizientere Geräte benutzen
+        \nSolaranlage benutzen
+        \nÖkostrom verwenden
+        \nStandBy vermeiden
+        \nOfen nicht vorheizen
+        \nWaschmaschinen nur benutzen, wenn sie voll sind
+        \nWaschtemperatur beachten</string>
+    <string name="co2_headline_tipps">Tipps</string>
+    <string name="co2_text_main_oeko">Der derzeitige Gesamtverbrauch beträgt %.2fkWh pro Jahr. Dies würde bei Benutzung des deutschen Strommixes einem
+                        gesamten CO2-Ausstoß von %.2fkg, bzw. %.2fkg pro Person entsprechen,
+                        die durch den Ökostrom nun (je nach Plan) komplett eingespart werden."</string>
+    <string name="co2_text_main_normal">Der derzeitige Gesamtverbrauch beträgt %.2f kWh pro Jahr. Dies entspricht einem
+                        gesamten CO2-Ausstoß von %.2fkg, bzw. %.2fkg pro Person."</string>
+    <string name="co2_text_comp_avg">Dies entspricht dem exakten deutschen Durchschnitt.</string>
+    <string name="co2_text_comp_main">Dies ist um %.2f%%  %s als der durchschnittliche Haushalt dieser Größe,
+                            dadurch werden insgesamt %.2fkg CO2 eingespart.</string>
+    <string name="co2_text_groeßer">größer</string>
+    <string name="co2_text_kleiner">kleiner</string>
 </resources>

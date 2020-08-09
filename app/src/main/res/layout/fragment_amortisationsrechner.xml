@@ -4,20 +4,278 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGrey"
     tools:context=".ui.amortisationsrechner.AmortisationsrechnerFragment">
 
-    <TextView
-        android:id="@+id/text_amortisationsrechner"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_view_margin"
+            app:cardBackgroundColor="@color/colorWhite">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/content_margin_small">
+
+                <TextView
+                    android:id="@+id/text_amortisationsrechner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/amort_text_beschreibung"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/content_text_bigger"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/amort_text_verbrauch_akt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:text="@string/amort_text_verbrauch_akt"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_amortisationsrechner"
+                    app:layout_constraintTop_toBottomOf="@+id/text_amortisationsrechner" />
+
+                <EditText
+                    android:id="@+id/amort_edit_verbrauch_akt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    android:autofillHints="@string/amort_hint_verbrauch_akt"
+                    android:hint="@string/amort_hint_verbrauch_akt"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_verbrauch"
+                    android:textSize="@dimen/content_text_big"
+                    app:layout_constraintStart_toStartOf="@+id/amort_text_verbrauch_akt"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_text_verbrauch_akt" />
+
+                <TextView
+                    android:id="@+id/amort_text_verbrauch_akt_kwh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/amort_edit_measure_margin_top"
+                    android:text="@string/text_kWh"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toEndOf="@+id/amort_edit_verbrauch_akt"
+                    app:layout_constraintTop_toTopOf="@+id/amort_edit_verbrauch_akt" />
+
+                <TextView
+                    android:id="@+id/amort_text_verbrauch_neu_kwh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/amort_edit_measure_margin_top"
+                    android:text="@string/text_kWh"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toEndOf="@+id/amort_edit_verbrauch_neu"
+                    app:layout_constraintTop_toTopOf="@+id/amort_edit_verbrauch_neu" />
+
+                <EditText
+                    android:id="@+id/amort_edit_verbrauch_neu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    android:autofillHints="@string/amort_hint_verbrauch_neu"
+                    android:hint="@string/amort_hint_verbrauch_neu"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_verbrauch"
+                    android:textSize="@dimen/content_text_big"
+                    app:layout_constraintStart_toStartOf="@+id/amort_text_verbrauch_neu"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_text_verbrauch_neu" />
+
+                <TextView
+                    android:id="@+id/amort_text_verbrauch_neu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:text="@string/amort_text_verbrauch_neu"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/amort_edit_verbrauch_akt"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_edit_verbrauch_akt" />
+
+                <TextView
+                    android:id="@+id/amort_text_anschaffung_neu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:text="@string/amort_text_anschaffung_neu"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/amort_edit_verbrauch_neu"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_edit_verbrauch_neu" />
+
+                <EditText
+                    android:id="@+id/amort_edit_anschaffung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    android:autofillHints="@string/amort_hint_anschaffung"
+                    android:hint="@string/amort_hint_anschaffung"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_kosten"
+                    android:textSize="@dimen/content_text_big"
+                    app:layout_constraintStart_toStartOf="@+id/amort_text_anschaffung_neu"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_text_anschaffung_neu" />
+
+                <TextView
+                    android:id="@+id/amort_text_anschaffung_neu_euro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/amort_edit_measure_margin_top"
+                    android:text="@string/text_euro"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toEndOf="@+id/amort_edit_anschaffung"
+                    app:layout_constraintTop_toTopOf="@+id/amort_edit_anschaffung" />
+
+                <TextView
+                    android:id="@+id/amort_text_strompreis"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:text="@string/amort_text_strompreis"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/amort_edit_anschaffung"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_edit_anschaffung" />
+
+                <TextView
+                    android:id="@+id/amort_text_strompreis_cent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/amort_edit_measure_margin_top"
+                    android:text="@string/text_cent"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toEndOf="@+id/amort_edit_strompreis"
+                    app:layout_constraintTop_toTopOf="@+id/amort_edit_strompreis" />
+
+                <EditText
+                    android:id="@+id/amort_edit_strompreis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    android:autofillHints="@string/amort_hint_strompreis"
+                    android:hint="@string/amort_hint_strompreis"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/length_strompreis"
+                    android:text="@string/amort_edit_strompreis"
+                    android:textSize="@dimen/content_text_big"
+                    app:layout_constraintStart_toStartOf="@+id/amort_text_strompreis"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_text_strompreis" />
+
+                <TextView
+                    android:id="@+id/amort_text_kosten_akt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:text="@string/amort_text_kosten_akt"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/amort_edit_strompreis"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_edit_strompreis" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/amort_card_kosten_akt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    app:layout_constraintStart_toStartOf="@+id/amort_edit_strompreis"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_text_kosten_akt">
+
+                    <TextView
+                        android:id="@+id/amort_text_kosten_akt_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/content_text_big" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/amort_text_kosten_neu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:text="@string/amort_text_kosten_neu"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/amort_card_kosten_akt"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_card_kosten_akt" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/amort_card_kosten_neu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    app:layout_constraintStart_toStartOf="@+id/amort_text_kosten_neu"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_text_kosten_neu">
+
+                    <TextView
+                        android:id="@+id/amort_text_kosten_neu_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="@dimen/content_text_big" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/amort_text_amortdauer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top"
+                    android:text="@string/amort_text_amortdauer"
+                    android:textSize="@dimen/content_text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/amort_card_kosten_neu"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_card_kosten_neu" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/amort_card_amortdauer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_small"
+                    app:layout_constraintStart_toStartOf="@+id/amort_card_kosten_neu"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_text_amortdauer">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/amort_text_amortdauer_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/amort_hint_amortdauer"
+                            android:textColor="@color/colorTextBlack"
+                            android:textSize="@dimen/content_text_big" />
+
+                        <TextView
+                            android:id="@+id/amort_text_amort_ersparnis_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/amort_hint_amort_ersparnis"
+                            android:textColor="@color/colorTextBlack"
+                            android:textSize="@dimen/content_text_big" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/amort_text_beschreibung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_top_large"
+                    android:layout_marginBottom="@dimen/content_margin_bottom"
+                    android:text="@string/amort_text_hinweis_berechnung"
+                    android:textSize="@dimen/content_text_smaller"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/amort_card_amortdauer"
+                    app:layout_constraintTop_toBottomOf="@+id/amort_card_amortdauer" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
