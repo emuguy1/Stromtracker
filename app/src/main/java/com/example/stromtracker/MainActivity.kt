@@ -1,6 +1,7 @@
 package com.example.stromtracker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,8 +18,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.stromtracker.database.Haushalt
 import com.example.stromtracker.ui.SharedViewModel
-import com.google.android.material.navigation.NavigationView
 import com.example.stromtracker.ui.haushalt.HaushaltFragment
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -75,11 +76,16 @@ class MainActivity : AppCompatActivity() {
 
                         override fun onItemSelected(
                             parent: AdapterView<*>,
-                            v: View,
+                            v: View?,
                             pos: Int,
                             id: Long
                         ) {
-                            sharedViewModel.setHaushalt(haushaltItems[pos])
+                            try {
+                                sharedViewModel.setHaushalt(haushaltItems[pos])
+                            } catch (e: Exception) {
+                                Log.d("Error", "sharedViewModelException")
+                            }
+
                         }
                     }
                 }

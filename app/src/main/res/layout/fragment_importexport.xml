@@ -1,23 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
     tools:context=".ui.importexport.ImportExportFragment">
 
-    <TextView
-        android:id="@+id/text_importExport"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_import_export_erklärung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_sides_normal"
+            android:layout_marginTop="@dimen/content_margin_top"
+            android:layout_marginEnd="@dimen/content_margin_sides_normal"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            app:layout_constraintBottom_toTopOf="@+id/importexport_exportbutton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/text_view_import_export_erklärung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/content_text_big" />
+
+            <EditText
+                android:id="@+id/edit_text_multiline_import"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:autofillHints="@string/emptyline"
+                android:hint="@string/emptyline" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/importexport_exportbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dual_button_right"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorDarkGreen"
+            android:text="@string/impexp_export"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/importexport_importbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dual_button_left"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/colorPrimary"
+            android:text="@string/impexp_import"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_import_export_info"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/content_margin_bottom"
+            android:background="@color/transparent"
+            android:drawableStart="@drawable/ic_info"
+            android:drawablePadding="@dimen/content_margin_sides_normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/importexport_exportbutton"
+            app:layout_constraintStart_toEndOf="@+id/importexport_importbutton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+

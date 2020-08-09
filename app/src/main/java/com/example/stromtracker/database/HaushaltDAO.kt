@@ -17,8 +17,11 @@ interface HaushaltDAO {
     @Query("SELECT * FROM haushalt WHERE name LIKE :name ")
     fun findByName(name: String): Haushalt
 
+    @Query("SELECT haushaltID FROM haushalt WHERE haushaltID NOT IN  (:haushaltID)")
+    fun getHauahaltIDByNotID(haushaltID: IntArray): LiveData<List<Int>>
+
     @Insert
-    fun insertHaushalt(vararg haushalt: Haushalt)
+    fun insertHaushalt(haushalt: Haushalt): Long
 
     @Delete
     fun delete(haushalt: Haushalt)

@@ -7,6 +7,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+
     defaultConfig {
         applicationId "com.example.stromtracker"
         minSdkVersion 19
@@ -16,6 +17,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
 
         kapt {
             arguments {
@@ -72,5 +75,8 @@ dependencies {
 
     //Any Chart
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
+    //Kotlin csv konverter
+    implementation "com.github.doyaaaaaken:kotlin-csv-jvm:0.10.4"
 
 }

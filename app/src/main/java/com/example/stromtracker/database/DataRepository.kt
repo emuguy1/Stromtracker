@@ -28,6 +28,10 @@ class DataRepository(application: Application) {
         return mAllGeraete
     }
 
+    fun getAllHaushaltIDNotInID(haushaltID: IntArray): LiveData<List<Int>> {
+        return mHaushaltDAO.getHauahaltIDByNotID(haushaltID)
+    }
+
     fun getAllVerbraucherByHaushaltID(haushaltID: Int): LiveData<List<Geraete>> {
         return mGeraeteDao.getAllVerbraucherByHaushaltID(haushaltID)
     }
