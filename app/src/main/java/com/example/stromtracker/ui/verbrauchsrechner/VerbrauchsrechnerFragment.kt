@@ -46,11 +46,11 @@ class VerbrauchsrechnerFragment : Fragment() {
         kostenprojahr = root.findViewById(R.id.text_view_verbrauchsrechner_erg_kosten_jahr)
         warnungstext = root.findViewById(R.id.text_view_verbrauchsrechner_warnung)
 
-        CustomTextListener(strompreis)
-        CustomTextListener(leistungsverbrauch)
-        CustomTextListener(standbyverbrauch)
-        CustomTextListener(standbyzeit)
-        CustomTextListener(lastzeit)
+        customTextListener(strompreis)
+        customTextListener(leistungsverbrauch)
+        customTextListener(standbyverbrauch)
+        customTextListener(standbyzeit)
+        customTextListener(lastzeit)
         return root
     }
 
