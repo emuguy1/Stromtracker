@@ -34,6 +34,5 @@ class CompanionImport {
         fun getkategoriealtlist(): ArrayList<Kategorie> {
             return kategoriealtlist
         }
-
     }
 }

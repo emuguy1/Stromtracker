@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             R.drawable.ic_menu_amortrechnerpv
         )
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -85,13 +84,12 @@ class MainActivity : AppCompatActivity() {
                             } catch (e: Exception) {
                                 Log.d("Error", "sharedViewModelException")
                             }
-
                         }
                     }
                 }
             })
 
-        //Alte Haushaltliste initialisieren um damit auf neue Haushalte überprüfen
+        // Alte Haushaltliste initialisieren um damit auf neue Haushalte überprüfen
         HaushaltFragment.setOldHaushaltList(haushaltItems)
 
         // Passing each menu ID as a set of Ids because each
@@ -108,7 +106,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-
 
     fun getIconArray(): Array<Int> {
         return iconArrayList
