@@ -22,6 +22,7 @@ import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.round
 import kotlin.math.withSign
 
 private const val numToProzent = 100.0
@@ -376,7 +377,7 @@ class GeraeteAuswertungFragment(
     }
 
     private fun roundTo2Decimal(num: Double): Double {
-        return String.format("%.2f", num).toDouble()
+        return round(num * 100)/100;
     }
 
     override fun onClick(v: View) {
