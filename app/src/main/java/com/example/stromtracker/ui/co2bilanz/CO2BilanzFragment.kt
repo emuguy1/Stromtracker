@@ -11,7 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import com.example.stromtracker.R
-import com.example.stromtracker.database.*
+import com.example.stromtracker.database.Geraete
+import com.example.stromtracker.database.Haushalt
+import com.example.stromtracker.database.Raum
+import com.example.stromtracker.database.Urlaub
 import com.example.stromtracker.ui.SharedViewModel
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
 import kotlin.math.round
@@ -26,9 +29,9 @@ class CO2BilanzFragment : Fragment() {
     private lateinit var produzentList: ArrayList<Geraete>
     private lateinit var raumListHaushalt: ArrayList<Raum>
     private lateinit var currHaushalt: Haushalt
-    private val co2: Double = 0.401 //Deutscher Strommix, kg CO2 pro kWh im Jahre 2019
+    private val co2: Double = 0.401 // Deutscher Strommix, kg CO2 pro kWh im Jahre 2019
     private val avgVerbrauchGrund: Double =
-        500.0 //Durchschnittlicher Verbrauch des Haushalts, siehe UrlaubsFragment
+        500.0 // Durchschnittlicher Verbrauch des Haushalts, siehe UrlaubsFragment
     private val avgVerbrauchPerson: Double = 1000.0
     private lateinit var textView: TextView
 
@@ -53,7 +56,6 @@ class CO2BilanzFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-
 
         val verbraucherData: LiveData<List<Geraete>> =
             Transformations.switchMap(this.sharedViewModel.getHaushalt()) { haushalt ->
@@ -80,7 +82,6 @@ class CO2BilanzFragment : Fragment() {
                     raumListHaushalt.clear()
                     raumListHaushalt.addAll(raum)
                     updateText()
-
                 }
             })
 
@@ -117,7 +118,6 @@ class CO2BilanzFragment : Fragment() {
                     urlaubList.clear()
                     urlaubList.addAll(urlaub)
                     updateText()
-
                 }
             })
     }
@@ -188,5 +188,4 @@ class CO2BilanzFragment : Fragment() {
     private fun roundDouble(number: Double): Double {
         return round(number * 100) / 100
     }
-
 }

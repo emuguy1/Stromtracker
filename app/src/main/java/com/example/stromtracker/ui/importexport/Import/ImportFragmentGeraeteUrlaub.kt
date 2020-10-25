@@ -53,31 +53,30 @@ class ImportFragmentGeraeteUrlaub(
             ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_importexport_import, container, false)
 
-        //Button finden und Invisible setzen,bis man fertig ist mit Einfügen der restlichen Elemente
+        // Button finden und Invisible setzen,bis man fertig ist mit Einfügen der restlichen Elemente
         fertigButton = root.findViewById(R.id.import_export_button_fertig)
         fertigButton.visibility = View.INVISIBLE
 
-
-        //Suchen der Fortschrittsindikatoren
+        // Suchen der Fortschrittsindikatoren
         haushalttext = root.findViewById(R.id.text_view_import_haushalte)
         kategorietext = root.findViewById(R.id.text_view_import_kategorien)
         raumtext = root.findViewById(R.id.text_view_import_raeume)
         geraetetext = root.findViewById(R.id.text_view_import_geraete)
         urlaubtext = root.findViewById(R.id.text_view_import_urlaube)
 
-        //Erstellen der Listen
+        // Erstellen der Listen
         createList1()
 
         fertigButton.setOnClickListener { view ->
             if (view != null) {
-                //neues Fragment erstellen auf das weitergeleitet werden soll
+                // neues Fragment erstellen auf das weitergeleitet werden soll
                 val frag = HomeFragment()
-                //Fragment Manager aus Main Activity holen
+                // Fragment Manager aus Main Activity holen
                 val fragMan = parentFragmentManager
-                //Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen
+                // Ftagment container aus content_main.xml muss ausgeählt werden, dann mit neuen
                 // ragment ersetzen, dass oben erstellt wurde
                 fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag).commit()
-                //und anschließend noch ein commit()
+                // und anschließend noch ein commit()
             }
         }
 
@@ -86,47 +85,45 @@ class ImportFragmentGeraeteUrlaub(
 
     private fun makeGeraete() {
 
-
-        //Anzahl an eingefügten Kategorien
+        // Anzahl an eingefügten Kategorien
         val eingefuegteKategorien = kategorieNeuIDList.size
-        //Die ID des ersten Elements, das neu Eingefügt wurde
+        // Die ID des ersten Elements, das neu Eingefügt wurde
         var ersteneueID =
             kategorieNeuList[kategorieNeuList.size - 1 - eingefuegteKategorien].getKategorieID()
-        //Fügt dem bereits existierenden Array die neuen IDs noch hinzu
+        // Fügt dem bereits existierenden Array die neuen IDs noch hinzu
         var zaehler = 0
         kategorieNeuIDList.forEach { id ->
             kategorienIDList[id] = ersteneueID + zaehler
             zaehler++
         }
 
-        //Jetzt noch das ganze für Raeume auch noch machen
-        //Anzahl an eingefügten Raeume herausfinden
+        // Jetzt noch das ganze für Raeume auch noch machen
+        // Anzahl an eingefügten Raeume herausfinden
         val eingefuegteRaeume = raumErzeugtIDList.size
-        //Die ID des ersten Elements, das neu Eingefügt wurde
+        // Die ID des ersten Elements, das neu Eingefügt wurde
         ersteneueID = raumList[raumList.size - eingefuegteRaeume].getRaumID()
-        //Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten
+        // Legt ein Array an, mit der größe der letzten ID um die neue ID zur vereinfachten
         // Erstellung der neuen Objekte direkt dort hinein zu speichern
         raumIDArray = IntArray(raumErzeugtIDList[raumErzeugtIDList.size - 1] + 1)
         zaehler = 0
-        //dem idarray die neuen IDs hinzufügen
+        // dem idarray die neuen IDs hinzufügen
         raumErzeugtIDList.forEach { id ->
             raumIDArray[id] = ersteneueID + zaehler
             zaehler++
         }
 
-        //Die neuen Geräte einfügen, mit der neuen HaushaltID und der neuen KategorieID
+        // Die neuen Geräte einfügen, mit der neuen HaushaltID und der neuen KategorieID
         geraeteErstellen()
         geraetetext.text = getString(R.string.import_text_geraete)
 
-        //Als nächstes werden noch die Urlaube eingefügt
+        // Als nächstes werden noch die Urlaube eingefügt
         urlaubeErstellen()
         urlaubtext.text = getString(R.string.import_text_urlaub)
         fertigButton.visibility = View.VISIBLE
-        //Texte setzen
+        // Texte setzen
         haushalttext.text = getString(R.string.import_text_haushalte)
         kategorietext.text = getString(R.string.import_text_kategorien)
         raumtext.text = getString(R.string.import_text_raeume)
-
     }
 
     private fun urlaubeErstellen() {
@@ -157,7 +154,6 @@ class ImportFragmentGeraeteUrlaub(
                 .show()
             e.printStackTrace()
         }
-
     }
 
     private fun geraeteErstellen() {
@@ -165,7 +161,7 @@ class ImportFragmentGeraeteUrlaub(
             val data = row.split(",")
             when {
                 data[0].toInt() == 1 -> {
-                    //Gerät ist Produzent
+                    // Gerät ist Produzent
                     tmpGeraet = Geraete(
                         data[2],
                         kategorienIDList[data[3].toInt()],
@@ -183,7 +179,7 @@ class ImportFragmentGeraeteUrlaub(
                     sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 2 -> {
-                    //Gerät ist Verbraucher und hat null bei standby und ausgefüllte Notiz
+                    // Gerät ist Verbraucher und hat null bei standby und ausgefüllte Notiz
                     tmpGeraet = Geraete(
                         data[2],
                         kategorienIDList[data[3].toInt()],
@@ -201,7 +197,7 @@ class ImportFragmentGeraeteUrlaub(
                     sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 3 -> {
-                    //Gerät ist Verbraucher und hat null bei standby und null bei Notiz
+                    // Gerät ist Verbraucher und hat null bei standby und null bei Notiz
                     tmpGeraet = Geraete(
                         data[2],
                         kategorienIDList[data[3].toInt()],
@@ -219,7 +215,7 @@ class ImportFragmentGeraeteUrlaub(
                     sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 4 -> {
-                    //Gerät ist Verbraucher und hat standby und null bei Notiz
+                    // Gerät ist Verbraucher und hat standby und null bei Notiz
                     tmpGeraet = Geraete(
                         data[2],
                         kategorienIDList[data[3].toInt()],
@@ -237,7 +233,7 @@ class ImportFragmentGeraeteUrlaub(
                     sharedViewModel.insertGeraet(tmpGeraet)
                 }
                 data[0].toInt() == 5 -> {
-                    //Geraet ist Verbraucher und hat sowohl Standby als auch Notiz
+                    // Geraet ist Verbraucher und hat sowohl Standby als auch Notiz
                     tmpGeraet = Geraete(
                         data[2],
                         kategorienIDList[data[3].toInt()],
@@ -262,7 +258,6 @@ class ImportFragmentGeraeteUrlaub(
                     ).show()
                 }
             }
-
         }
     }
 
@@ -275,7 +270,7 @@ class ImportFragmentGeraeteUrlaub(
                 if (raeume != null) {
                     raumList.clear()
                     raumList.addAll(raeume)
-                    //Überprüfung ob alle Eingefügt, damit Funktion nicht mehrmals aufgerufen wird
+                    // Überprüfung ob alle Eingefügt, damit Funktion nicht mehrmals aufgerufen wird
                     if (!aufgerufen && raumList.size == CompanionImport.getraeumealtlist().size +
                         raumErzeugtIDList.size
                     ) {
@@ -296,7 +291,7 @@ class ImportFragmentGeraeteUrlaub(
                 if (kategorie != null) {
                     kategorieNeuList.clear()
                     kategorieNeuList.addAll(kategorie)
-                    //Überprüfung ob alle eingefügt, sodass nicht mehrmals Funktion aufgerufen wird
+                    // Überprüfung ob alle eingefügt, sodass nicht mehrmals Funktion aufgerufen wird
                     if (kategorieNeuList.size == CompanionImport.getkategoriealtlist().size +
                         kategorieNeuIDList.size && !executed
                     ) {

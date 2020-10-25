@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,19 +46,19 @@ class HaushaltFragment : Fragment() {
             Observer { haushalte ->
                 if (haushalte != null) {
                     if (haushalte.isEmpty()) {
-                        //Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
+                        // Zur Testbarkeit werden erstmal ein paar Einträge erzeugt
                         initHaushalt()
                         isinit = true
                     }
-                    //die alte Haushaltliste aus Main Activity holen, um zu schauen,
+                    // die alte Haushaltliste aus Main Activity holen, um zu schauen,
                     // welcher Haushalt erzeugt wurde und dem dann Standardräume hinzuzufügen
                     datatemp = getOldHaushaltList()
 
                     datain.clear()
                     datain.addAll(haushalte)
-                    //Die Haushaltliste in Main Activity erneuern.
+                    // Die Haushaltliste in Main Activity erneuern.
                     setOldHaushaltList(datain)
-                    //Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
+                    // Standardräume erstellern, sobald ein neuer Haushalt erzeugt wird.
                     if (datain.size > datatemp.size && !isinit && datatemp.size > 0) {
                         initRaeume(datain[datain.size - 1].getHaushaltID())
                     }

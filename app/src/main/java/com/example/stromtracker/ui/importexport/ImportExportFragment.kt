@@ -54,7 +54,6 @@ class ImportExportFragment : Fragment() {
             if (view != null) {
                 writeCSVFile()
             }
-
         }
         val infobutton: Button = root.findViewById(R.id.button_import_export_info)
         infobutton.setOnClickListener { view ->
@@ -127,10 +126,10 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun getDatafromcsv(csv: File) {
-        //Importfunktion
-        //Im ersten Schritt werden die Haushalte eingefügt und dann auf ein neues Fragment
+        // Importfunktion
+        // Im ersten Schritt werden die Haushalte eingefügt und dann auf ein neues Fragment
         // übergeleitet. Dort wird dann Raum und Kategorie eingefügt und dann die Geräte und Urlaube
-        //Es können immer nur komplette Datenätze eingefügt werden und nicht nur ein Gerät
+        // Es können immer nur komplette Datenätze eingefügt werden und nicht nur ein Gerät
         // oder einen einzelnen Raum zu einem bestehenem Haushalt.
         var zustand = 0
         var headerread = false
@@ -143,7 +142,7 @@ class ImportExportFragment : Fragment() {
         val daten: ArrayList<String> = ArrayList()
         FileReader(csv).forEachLine { row: String ->
 
-            //Zusand 0 sind die Haushalte
+            // Zusand 0 sind die Haushalte
             if (zustand == 0) {
                 if (!headerread) {
                     headerread = true
@@ -156,7 +155,7 @@ class ImportExportFragment : Fragment() {
                         val data = row.split(",")
                         haushaltidlist.add(data[0].toInt())
                         if (data[5].isNotEmpty()) {
-                            //try catch Block um Parser Fehler beim Datum abzufangen
+                            // try catch Block um Parser Fehler beim Datum abzufangen
                             try {
                                 val haushaltname: String = data[1]
                                 val strompreis = data[2].toDouble()
@@ -185,7 +184,6 @@ class ImportExportFragment : Fragment() {
                                     .show()
                                 e.printStackTrace()
                             }
-
                         } else {
                             val haushaltname: String = data[1]
                             val strompreis = data[2].toDouble()
@@ -201,11 +199,10 @@ class ImportExportFragment : Fragment() {
                             )
                             sharedViewModel.insertHaushalt(tempHaushalt)
                         }
-
                     }
                 }
             }
-            //Räume
+            // Räume
             else if (zustand == 1) {
                 if (!headerread) {
                     headerread = true
@@ -218,7 +215,7 @@ class ImportExportFragment : Fragment() {
                     }
                 }
             }
-            //Kategorie
+            // Kategorie
             else if (zustand == 2) {
                 if (!headerread) {
                     headerread = true
@@ -231,7 +228,7 @@ class ImportExportFragment : Fragment() {
                     }
                 }
             }
-            //Geräte
+            // Geräte
             else if (zustand == 3) {
                 if (!headerread) {
                     headerread = true
@@ -244,7 +241,7 @@ class ImportExportFragment : Fragment() {
                     }
                 }
             }
-            //Urlaub
+            // Urlaub
             else if (zustand == 4) {
                 if (!headerread) {
                     headerread = true
@@ -268,7 +265,7 @@ class ImportExportFragment : Fragment() {
         CompanionImport.setHaushaltaltlist(haushaltlist)
         CompanionImport.setkategorienaltlist(kategorielist)
         CompanionImport.setraeumealtlist(raumlist)
-        //neues Fragment erstellen auf das weitergeleitet werden soll
+        // neues Fragment erstellen auf das weitergeleitet werden soll
         val frag = ImportFragmentRaumKategorien(
             daten,
             haushaltidlist,
@@ -277,22 +274,21 @@ class ImportExportFragment : Fragment() {
             tempgeraetelist,
             tempurlaublist
         )
-        //Fragment Manager aus Main Activity holen
+        // Fragment Manager aus Main Activity holen
         val fragMan = parentFragmentManager
-        //Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment
+        // Fragment container aus content_main.xml muss ausgeählt werden, dann mit neuen Fragment
         // ersetzen, dass oben erstellt wurde
         fragMan.beginTransaction().replace(R.id.nav_host_fragment, frag)
             .addToBackStack(null).commit()
-        //und anschließend noch ein commit()
-
+        // und anschließend noch ein commit()
 
     }
 
     private fun writeCSVFile() {
-        //Daten exportieren
+        // Daten exportieren
         val csvFile = generateFile()
         if (csvFile != null) {
-            //Als erstes werden die Haushalte ins File geschrieben
+            // Als erstes werden die Haushalte ins File geschrieben
             csvWriter().open(csvFile, append = false) {
                 writeRow(
                     listOf(
@@ -315,7 +311,7 @@ class ImportExportFragment : Fragment() {
                                 haushalt.getBewohnerAnzahl(),
                                 haushalt.getZaehlerstand(),
                                 SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).format(
-                                    //Kann nicht null sein, da danach geprüft wird.
+                                    // Kann nicht null sein, da danach geprüft wird.
                                     haushalt.getDatum()
                                 ),
                                 haushalt.getOekostrom()
@@ -335,7 +331,7 @@ class ImportExportFragment : Fragment() {
                         )
                     }
                 }
-                //Jetzt die Raeume
+                // Jetzt die Raeume
                 writeRow("-----------------------------------")
                 writeRow(listOf("[Raumid]", "[Haushaltid]", "[Raumname]"))
                 raumlist.forEachIndexed { _, raum ->
@@ -347,7 +343,7 @@ class ImportExportFragment : Fragment() {
                         )
                     )
                 }
-                //Als naechstes die Kategorien
+                // Als naechstes die Kategorien
                 writeRow("-----------------------------------")
                 writeRow(listOf("[KategorienId]", "[Kategorienname]", "[Iconindex]"))
                 kategorielist.forEachIndexed { _, kategorie ->
@@ -359,11 +355,11 @@ class ImportExportFragment : Fragment() {
                         )
                     )
                 }
-                //Jetzt die Geraete
+                // Jetzt die Geraete
                 writeRow("-----------------------------------")
                 writeRow(
                     listOf(
-                        "[GeraeteTyp]",  //Um  beim Import die unterschiedlichen Typen zu
+                        "[GeraeteTyp]", // Um  beim Import die unterschiedlichen Typen zu
                         // unterscheiden. 1 ist Produzent; 2,3,4 und 5 sind unterschiedliche
                         // verbraucher mit unterschidlichen Feldern leer
                         "[GeraeteID]",
@@ -412,9 +408,8 @@ class ImportExportFragment : Fragment() {
                         )
                     )
 
-
                 }
-                //Als letztes die Urlaube
+                // Als letztes die Urlaube
                 writeRow("-----------------------------------")
                 writeRow(
                     listOf(
@@ -432,11 +427,11 @@ class ImportExportFragment : Fragment() {
                             urlaub.getUrlaubID(),
                             urlaub.getName(),
                             SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).format(
-                                //Kann nicht null sein, da danach geprüft wird.
+                                // Kann nicht null sein, da danach geprüft wird.
                                 urlaub.getDateVon()
                             ),
                             SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN).format(
-                                //Kann nicht null sein, da danach geprüft wird.
+                                // Kann nicht null sein, da danach geprüft wird.
                                 urlaub.getDateBis()
                             ),
                             urlaub.getErsparnisProTag(),
@@ -445,11 +440,9 @@ class ImportExportFragment : Fragment() {
                     )
                 }
 
-
             }
-            //Schreiben der CSV Dateiinhalte in den Input um dort dann die Daten rauszukopieren
+            // Schreiben der CSV Dateiinhalte in den Input um dort dann die Daten rauszukopieren
             outputtextfield.setText(csvFile.readText())
-
         } else {
             Toast.makeText(
                 this.context,
@@ -527,7 +520,7 @@ class ImportExportFragment : Fragment() {
     private fun outputtextfieldInitialisierung() {
         val csvFile = generateFile()
         if (csvFile != null) {
-            //Als erstes werden die Haushalte ins File geschrieben
+            // Als erstes werden die Haushalte ins File geschrieben
             csvWriter().open(csvFile, append = false) {
                 writeRow(
                     listOf(
@@ -540,17 +533,17 @@ class ImportExportFragment : Fragment() {
                         "[oekostrom]"
                     )
                 )
-                //Jetzt die Raeume
+                // Jetzt die Raeume
                 writeRow("-----------------------------------")
                 writeRow(listOf("[Raumid]", "[Haushaltid]", "[Raumname]"))
-                //Als naechstes die Kategorien
+                // Als naechstes die Kategorien
                 writeRow("-----------------------------------")
                 writeRow(listOf("[KategorienId]", "[Kategorienname]", "[Iconindex]"))
-                //Jetzt die Geraete
+                // Jetzt die Geraete
                 writeRow("-----------------------------------")
                 writeRow(
                     listOf(
-                        "[GeraeteTyp]",  //Um  beim Import die unterschiedlichen Typen zu
+                        "[GeraeteTyp]", // Um  beim Import die unterschiedlichen Typen zu
                         // unterscheiden. 1 ist Produzent; 2,3,4 und 5 sind unterschiedliche
                         // verbraucher mit unterschidlichen Feldern leer
                         "[GeraeteID]",
@@ -569,7 +562,7 @@ class ImportExportFragment : Fragment() {
                     )
                 )
 
-                //Als letztes die Urlaube
+                // Als letztes die Urlaube
                 writeRow("-----------------------------------")
                 writeRow(
                     listOf(
@@ -581,7 +574,6 @@ class ImportExportFragment : Fragment() {
                         "[Ersparniss Pro Tag]"
                     )
                 )
-
             }
             outputtextfield.setText(csvFile.readText())
         }
