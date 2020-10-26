@@ -31,7 +31,7 @@
     <string name="ueberspringen">Überspringen</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_urlaub">Urlaubsmodus</string>
+    <string name="menu_urlaub">Urlaube</string>
     <string name="menu_geraete">Geräte</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_haushalt">Haushalt</string>
@@ -123,7 +123,7 @@
     <string name="geraet_zeit_standBy">Betriebszeit StandBy</string>
 
     <string name="geraet_text_standBy">StandBy-Verbrauch</string>
-    <string name="geraet_text_urlaubsmodus">Urlaubsmodus</string>
+    <string name="geraet_text_urlaubsmodus">Inaktiv während Urlaub?</string>
     <string name="geraet_new_nullValue"> Bitte gültige Werte eingeben.</string>
     <string name="geraet_new_zeit_error">Die eingegebene Zeiten überschreiten 24h.</string>
 
