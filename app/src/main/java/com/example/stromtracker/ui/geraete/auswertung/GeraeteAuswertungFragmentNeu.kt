@@ -111,6 +111,9 @@ class GeraeteAuswertungNeu(
             .chartType(AAChartType.Waterfall)
             .title("title")
             .dataLabelsEnabled(true)
+            .yAxisTitle("Verbrauch [kWh]")
+            .categories( arrayOf("Verbrauch", "Produktion", "Urlaube", "Ergebnis") )
+            .legendEnabled(false)
         return chart
     }
 
@@ -131,7 +134,7 @@ class GeraeteAuswertungNeu(
             pie.series(
                 arrayOf(
                     AASeriesElement()
-                        .name("Verbrauch in kwh")
+                        .name("Verbrauch in kWh")
                         .data(
                             loadVerbraucherData()
                         )
@@ -157,13 +160,21 @@ class GeraeteAuswertungNeu(
     private fun loadBilanzData() : Array<Any> {
         var totalData: ArrayList<Any> = ArrayList()
         var tempSum = roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
-        totalData.add(arrayOf("Verbraucher", tempSum))
+        val verbraucher = HashMap<String, Any>()
+        verbraucher["name"] = "Verbraucher"
+        verbraucher["y"] = tempSum
+        verbraucher["color"] = loadColorFromRes(R.color.colorRed)
+        totalData.add(verbraucher)
 
         tempSum = produzentList.sumByDouble { geraete ->
             getProdVerbrauch(geraete)
         }.withSign(-1)
         tempSum = roundTo2Decimal(tempSum)
-        totalData.add(arrayOf("Produzenten", tempSum))
+        val produzenten = HashMap<String, Any>()
+        produzenten["name"] = "Produzenten"
+        produzenten["y"] = tempSum
+        produzenten["color"] = loadColorFromRes(R.color.colorPrimaryLight)
+        totalData.add(produzenten)
 
         val tempList: ArrayList<Urlaub> = ArrayList()
         for (currUrlaub in urlaubList) {
@@ -180,14 +191,17 @@ class GeraeteAuswertungNeu(
                             urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
         }
         tempSum = roundTo2Decimal(tempSum.withSign(-1))
-        totalData.add(arrayOf("Urlaube", tempSum))
-        tempSum = roundTo2Decimal(tempSum)
+        val urlaube = HashMap<String, Any>()
+        urlaube["name"] = "Urlaube"
+        urlaube["y"] = tempSum
+        urlaube["color"] = loadColorFromRes(R.color.colorPrimaryLight)
+        totalData.add(urlaube)
 
-        val dataElement7 = HashMap<String, Any>()
-        dataElement7["name"] = "Ergebnis"
-        dataElement7["isSum"] = true
-        dataElement7["color"] = "#4BC521"
-        totalData.add(dataElement7)
+        val ergebnis = HashMap<String, Any>()
+        ergebnis["name"] = "Ergebnis"
+        ergebnis["isSum"] = true
+        ergebnis["color"] = loadColorFromRes(R.color.colorGreyLight)
+        totalData.add(ergebnis)
 
         return totalData.toTypedArray()
     }
@@ -202,7 +216,7 @@ class GeraeteAuswertungNeu(
                 arrayOf(
 
                     AASeriesElement()
-                        .name("kwh")
+                        .name("kWh")
                         .data(
                             data
                         )
@@ -244,7 +258,7 @@ class GeraeteAuswertungNeu(
             pie = initPieChart(pie)
             pie.series(arrayOf(
                     AASeriesElement()
-                        .name("Produziert in kwh")
+                        .name("Produziert in kWh")
                         .data(data)
             ));
             pie.title("Gesamtproduktion")
@@ -294,7 +308,7 @@ class GeraeteAuswertungNeu(
             pie = initPieChart(pie)
             pie.series(arrayOf(
                 AASeriesElement()
-                    .name("Verbrauch in kwh")
+                    .name("Verbrauch in kWh")
                     .data(data)
             ));
             pie.title("Gesamtverbrauch Kategorien")
@@ -335,7 +349,7 @@ class GeraeteAuswertungNeu(
             pie = initPieChart(pie)
             pie.series(arrayOf(
                 AASeriesElement()
-                    .name("Verbrauch in kwh")
+                    .name("Verbrauch in kWh")
                     .data(data)
             ));
             pie.title("Gesamtverbrauch Räume")
@@ -369,6 +383,10 @@ class GeraeteAuswertungNeu(
                     "geringer als der Durchschnitt."
         }
         return str
+    }
+
+    private fun loadColorFromRes(colorId : Int): String {
+        return "#" + resources.getString(colorId).substring(3)
     }
 
     private fun roundTo2Decimal(num: Double): Double {
