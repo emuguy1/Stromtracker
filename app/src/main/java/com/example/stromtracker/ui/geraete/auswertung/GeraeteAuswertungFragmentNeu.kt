@@ -76,7 +76,7 @@ class GeraeteAuswertungNeu(
 
         try {
             reloadVerbrauchsChart()
-            //reloadBilanzChart()
+            reloadBilanzChart()
             reloadProduzentChart()
             reloadKategorieChart()
             reloadRaumChart()
@@ -101,6 +101,14 @@ class GeraeteAuswertungNeu(
     private fun initPieChart(chart: AAChartModel): AAChartModel {
         chart
             .chartType(AAChartType.Pie)
+            .title("title")
+            .dataLabelsEnabled(true)
+        return chart
+    }
+
+    private fun initWaterfallChart(chart: AAChartModel): AAChartModel {
+        chart
+            .chartType(AAChartType.Waterfall)
             .title("title")
             .dataLabelsEnabled(true)
         return chart
@@ -146,16 +154,16 @@ class GeraeteAuswertungNeu(
         }
     }
 
-    /*
-    private fun reloadBilanzChart() {
-        val data: MutableList<DataEntry> = ArrayList()
-        var tempSum = verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
-        data.add(ValueDataEntry("Verbraucher", tempSum))
+    private fun loadBilanzData() : Array<Any> {
+        var totalData: ArrayList<Any> = ArrayList()
+        var tempSum = roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
+        totalData.add(arrayOf("Verbraucher", tempSum))
 
         tempSum = produzentList.sumByDouble { geraete ->
             getProdVerbrauch(geraete)
         }.withSign(-1)
-        data.add(ValueDataEntry("Produzenten", tempSum))
+        tempSum = roundTo2Decimal(tempSum)
+        totalData.add(arrayOf("Produzenten", tempSum))
 
         val tempList: ArrayList<Urlaub> = ArrayList()
         for (currUrlaub in urlaubList) {
@@ -171,32 +179,55 @@ class GeraeteAuswertungNeu(
                     (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays -
                             urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
         }
-        tempSum = tempSum.withSign(-1)
+        tempSum = roundTo2Decimal(tempSum.withSign(-1))
+        totalData.add(arrayOf("Urlaube", tempSum))
         tempSum = roundTo2Decimal(tempSum)
-        data.add(ValueDataEntry("Urlaube", tempSum))
+
+        val dataElement7 = HashMap<String, Any>()
+        dataElement7["name"] = "Ergebnis"
+        dataElement7["isSum"] = true
+        dataElement7["color"] = "#4BC521"
+        totalData.add(dataElement7)
+
+        return totalData.toTypedArray()
+    }
+
+    private fun reloadBilanzChart() {
+        val data = loadBilanzData()
 
         if (data.isNotEmpty()) {
-            APIlib.getInstance().setActiveAnyChartView(aaChartBilanz)
+            var waterfall: AAChartModel = AAChartModel()
+            waterfall = initWaterfallChart(waterfall)
+            waterfall.series(
+                arrayOf(
 
-            val wat = AnyChart.waterfall()
-            wat.yAxis(0).labels().format("{%Value}{scale:(1)(1)|(kWh)}")
-            wat.labels().enabled(true)
+                    AASeriesElement()
+                        .name("kwh")
+                        .data(
+                            data
+                        )
 
-            val end = DataEntry()
-            end.setValue("x", "Ergebnis")
-            end.setValue("isTotal", true)
-            data.add(end)
-            wat.data(data)
-            wat.title("Bilanz")
+                    /*
+                    AASeriesElement()
+                        .name("Verbraucher")
+                        .data(arrayOf("Verbrauchter Strom in kWh", 300)),
+                    AASeriesElement()
+                        .name("Produzenten")
+                        .data(arrayOf("Produzierter Strom in kWh", -123)),
+                    AASeriesElement()
+                        .name("Urlaube")
+                        .data(arrayOf("Ersparter Strom durch Urlaube in kWh", 48))
+                     */
+                )
+            );
+            waterfall.title("Bilanz")
 
-            //aaChartBilanz.aa_drawChartWithChartModel(wat)
+            aaChartBilanz.aa_drawChartWithChartModel(waterfall)
         } else {
             aaChartBilanz.visibility = View.GONE
             textBilanz.visibility = View.GONE
         }
     }
-
-     */
 
     private fun loadProduzentData(): Array<Any> {
         var totalData: ArrayList<Any> = ArrayList()
