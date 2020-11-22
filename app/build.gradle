@@ -73,9 +73,6 @@ dependencies {
     //Floating Action Menu
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
-    //Any Chart
-    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
-
     //AA Chart Model
     implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
 

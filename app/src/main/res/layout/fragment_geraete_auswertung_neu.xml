@@ -47,7 +47,7 @@
                     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                         android:id="@+id/aa_chart_verbraucher"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/anyChart_height">
+                        android:layout_height="@dimen/aaChart_height">
                     </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
                     <TextView
                         android:id="@+id/geraete_auswertung_text_durchschnitt"
@@ -64,7 +64,7 @@
                 <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                     android:id="@+id/aa_chart_kategorie"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/anyChart_height" />
+                    android:layout_height="@dimen/aaChart_height" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -74,7 +74,7 @@
                 <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                     android:id="@+id/aa_chart_raum"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/anyChart_height" />
+                    android:layout_height="@dimen/aaChart_height" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -84,7 +84,7 @@
                 <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                     android:id="@+id/aa_chart_produzent"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/anyChart_height" />
+                    android:layout_height="@dimen/aaChart_height" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -98,7 +98,7 @@
                     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                         android:id="@+id/aa_chart_bilanz"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/anyChart_height"
+                        android:layout_height="@dimen/aaChart_height"
                         android:layout_margin="@dimen/geraet_cardview_margin" />
                     <TextView
                         android:id="@+id/geraete_auswertung_text_bilanz"

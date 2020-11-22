@@ -8,10 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.anychart.APIlib
-import com.anychart.AnyChart
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.geraete.GeraeteFragment
