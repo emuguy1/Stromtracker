@@ -54,18 +54,20 @@ class ImportExportFragment : Fragment() {
 
         val testText =
             "[HaushaltIdid],[Name],[Stromkosten],[bewohnerAnzahl],[zaehlerstand],[datum],[oekostrom]\n" +
-                    "1,Haushalt1,26.5,1,,,false\n" +
-                    "3,Haushalt2,26.534,1,187187.0,11.11.2020,true\n" +
+                    "5,Haushalt1,26.5,1,2500.0,22.10.2020,true\n" +
+                    "6,Haushalt2,26.534,1,187187.0,11.11.2020,true\n" +
                     "-----------------------------------\n" +
                     "[Raumid],[Haushaltid],[Raumname]\n" +
-                    "1,1,Sonstiges\n" +
-                    "2,1,Wohnzimmer\n" +
-                    "3,1,Schlafzimmer\n" +
-                    "7,1,Garten\n" +
-                    "8,3,Sonstiges\n" +
-                    "9,3,Wohnzimmer\n" +
-                    "10,3,Schlafzimmer\n" +
-                    "11,3,Garten\n" +
+                    "19,5,Sonstiges\n" +
+                    "20,5,Wohnzimmer\n" +
+                    "21,5,Schlafzimmer\n" +
+                    "22,5,Garten\n" +
+                    "23,6,Sonstiges\n" +
+                    "24,6,Wohnzimmer\n" +
+                    "25,6,Schlafzimmer\n" +
+                    "26,6,Garten\n" +
+                    "27,5,Küche\n" +
+                    "28,5,Badezimmer\n" +
                     "-----------------------------------\n" +
                     "[KategorienId],[Kategorienname],[Iconindex]\n" +
                     "1,Sonstiges,7\n" +
@@ -77,26 +79,40 @@ class ImportExportFragment : Fragment() {
                     "7,Waschen,5\n" +
                     "8,Lampen,6\n" +
                     "9,Stromerzeugung,8\n" +
+                    "11,MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM,5\n" +
                     "-----------------------------------\n" +
                     "[GeraeteTyp],[GeraeteID],[Geraetename],[KategorieID],[RaumID],[HaushaltID],[StromverbrauchVollast],[StromverbrauchStandBy],[BetriebszeitVollast],[BetriebszeitStandBy],[Urlaubsmodus],[Jahresverbrauch],[Eigenverbrauch],[Notiz]\n" +
-                    "4,3,PC-Bildschirm Wohzimmer,3,2,1,45.0,1.0,4.0,20.0,true,73.0,,\n" +
-                    "5,4,Fernseher,4,2,1,70.0,2.0,2.0,22.0,true,67.16,,Richtig nice 4K crispy\n" +
-                    "2,5,Kühlschrank,6,1,1,10.0,,24.0,,false,87.6,,Schön mit Eiswürfeln Dies das Annanas\n" +
-                    "3,6,Diebstahlschutzlampe,8,2,1,30.0,,5.0,,false,54.75,,\n" +
-                    "1,7,PV Gartenhaus,9,1,1,0.0,,0.0,,false,-2000.0,50.0,\n" +
-                    "1,8,PVDach,9,7,1,0.0,,0.0,,false,-6800.0,50.0,ballert die sonne richtig rein\n" +
-                    "4,9,PC-Bildschirm Wohzimmer,3,9,3,45.0,1.0,4.0,20.0,true,73.0,,\n" +
-                    "5,10,Fernseher,4,9,3,70.0,2.0,2.0,22.0,true,67.16,,Richtig nice 4K crispy\n" +
-                    "2,11,Kühlschrank,6,8,3,10.0,,24.0,,false,87.6,,Schön mit Eiswürfeln Dies das Annanas\n" +
-                    "3,12,Diebstahlschutzlampe,8,9,3,30.0,,5.0,,false,54.75,,\n" +
-                    "1,13,PV Gartenhaus,9,8,3,0.0,,0.0,,false,-2000.0,50.0,\n" +
-                    "1,14,PVDach,9,11,3,0.0,,0.0,,false,-6800.0,50.0,ballert die sonne richtig rein\n" +
+                    "4,22,PC-Bildschirm Groß,2,20,5,45.0,1.0,3.0,20.0,true,56.58,,\n" +
+                    "5,23,Fernseher,2,20,5,70.0,2.0,2.0,22.0,true,67.16,,Richtig nice 4K crispy\n" +
+                    "2,24,Kühlschrank,5,27,5,10.0,,24.0,,false,87.6,,Schön mit Eiswürfeln Dies das Annanas\n" +
+                    "3,25,Diebstahlschutzlampe,8,20,5,30.0,,5.0,,false,54.75,,\n" +
+                    "1,26,PV Gartenhaus,9,19,5,0.0,,0.0,,false,-2000.0,3.6,\n" +
+                    "1,27,PVDach,9,22,5,0.0,,0.0,,false,-6800.0,2.9,ballert die sonne richtig rein\n" +
+                    "4,28,PC-Bildschirm Wohzimmer,3,24,6,45.0,1.0,4.0,20.0,true,73.0,,\n" +
+                    "5,29,Fernseher,4,24,6,70.0,2.0,2.0,22.0,true,67.16,,Richtig nice 4K crispy\n" +
+                    "2,30,Kühlschrank,6,23,6,10.0,,24.0,,false,87.6,,Schön mit Eiswürfeln Dies das Annanas\n" +
+                    "3,31,Diebstahlschutzlampe,8,24,6,30.0,,5.0,,false,54.75,,\n" +
+                    "1,32,PV Gartenhaus,9,23,6,0.0,,0.0,,false,-2000.0,2.3,\n" +
+                    "1,33,PVDach,9,26,6,0.0,,0.0,,false,-6800.0,3.7,ballert die sonne richtig rein\n" +
+                    "4,34,Computer,3,20,5,130.0,0.5,3.0,21.0,true,146.18,,\n" +
+                    "4,35,PC Bildschirm IPS,2,20,5,60.0,1.5,3.0,21.0,true,77.2,,\n" +
+                    "3,36,Spülmaschine,7,27,5,400.0,,0.5,,true,73.0,,\n" +
+                    "3,37,Herd,6,27,5,500.0,,1.0,,true,182.5,,\n" +
+                    "3,38,Mikrowelle,6,27,5,600.0,,0.25,,true,54.75,,\n" +
+                    "3,39,Kaffemaschine,1,27,5,165.0,,1.0,,false,60.225,,\n" +
+                    "3,40,Küchenlampe,8,27,5,10.0,,5.0,,false,18.25,,\n" +
+                    "3,41,Musikbox,4,21,5,50.0,,0.7,,false,12.775,,\n" +
+                    "4,42,Elektrische Zahnbürste,1,28,5,10.0,2.0,2.0,22.0,false,23.36,,\n" +
+                    "3,43,Föhn,1,28,5,100.0,,0.2,,false,7.3,,\n" +
+                    "3,44,Nachttischlampe,1,27,5,15.0,,2.0,,false,10.95,,\n" +
+                    "3,45,Badlicht,8,28,5,10.0,,1.0,,false,3.65,,\n" +
+                    "4,46,Radio,4,19,5,45.0,3.0,1.0,23.0,true,41.61,,\n" +
                     "-----------------------------------\n" +
                     "[Urlaubid],[HaushaltId],[DatumVon],[DatumBis],[name],[Ersparniss Pro Tag]\n" +
-                    "1,wdaw,14.06.2018,14.07.2018,-0.628,1\n" +
-                    "3,Alf der Rummelbär,20.03.2020,20.09.2020,0.384,1\n" +
-                    "4,wdaw,14.06.2018,14.07.2018,-0.628,3\n" +
-                    "5,Alf der Rummelbär,20.03.2020,20.09.2020,0.384,3\n"
+                    "5,wdaw,14.06.2018,14.07.2018,-0.628,5\n" +
+                    "6,Alf der Rummelbär,20.03.2020,20.09.2020,0.384,5\n" +
+                    "7,wdaw,14.06.2018,14.07.2018,-0.628,6\n" +
+                    "8,Alf der Rummelbär,20.03.2020,20.09.2020,0.384,6"
         outputtextfield.setText(testText)
 
         val exportbut: Button = root.findViewById(R.id.importexport_exportbutton)
