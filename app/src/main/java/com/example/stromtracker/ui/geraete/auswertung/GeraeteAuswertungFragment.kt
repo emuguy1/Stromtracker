@@ -29,7 +29,7 @@ private const val centToEuro = 0.01
 private const val dsBasisDeutschland: Double = 500.0
 private const val dsVerbrauchDeutschland: Double = 1000.0
 
-class GeraeteAuswertungNeu(
+class GeraeteAuswertungFragment(
     private val verbraucherList: ArrayList<Geraete>,
     private val produzentList: ArrayList<Geraete>,
     private val kategorieList: ArrayList<Kategorie>,

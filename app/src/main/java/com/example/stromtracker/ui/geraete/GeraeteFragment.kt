@@ -16,7 +16,7 @@ import com.example.stromtracker.MainActivity
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.SharedViewModel
-import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungNeu
+import com.example.stromtracker.ui.geraete.auswertung.GeraeteAuswertungFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewProduzentFragment
 import com.example.stromtracker.ui.geraete.geraet_new.GeraeteNewVerbraucherFragment
 import com.getbase.floatingactionbutton.FloatingActionButton
@@ -304,7 +304,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
 
             R.id.geraete_button_auswertung -> {
 
-                val frag = GeraeteAuswertungNeu(
+                val frag = GeraeteAuswertungFragment(
                     verbraucherList,
                     produzentList,
                     kategorieList,
