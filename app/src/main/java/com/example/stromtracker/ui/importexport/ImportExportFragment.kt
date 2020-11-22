@@ -48,57 +48,7 @@ class ImportExportFragment : Fragment() {
 
         textview = root.findViewById(R.id.text_view_import_export_erklärung)
         outputtextfield = root.findViewById(R.id.edit_text_multiline_import)
-
-        //for better texting
-        //TODO: delete before publish
-
-        val testText =
-            "[HaushaltIdid],[Name],[Stromkosten],[bewohnerAnzahl],[zaehlerstand],[datum],[oekostrom]\n" +
-                    "1,Haushalt1,26.5,1,,,false\n" +
-                    "3,Haushalt2,26.534,1,187187.0,11.11.2020,true\n" +
-                    "-----------------------------------\n" +
-                    "[Raumid],[Haushaltid],[Raumname]\n" +
-                    "1,1,Sonstiges\n" +
-                    "2,1,Wohnzimmer\n" +
-                    "3,1,Schlafzimmer\n" +
-                    "7,1,Garten\n" +
-                    "8,3,Sonstiges\n" +
-                    "9,3,Wohnzimmer\n" +
-                    "10,3,Schlafzimmer\n" +
-                    "11,3,Garten\n" +
-                    "-----------------------------------\n" +
-                    "[KategorienId],[Kategorienname],[Iconindex]\n" +
-                    "1,Sonstiges,7\n" +
-                    "2,Fernseher,0\n" +
-                    "3,Gaming,1\n" +
-                    "4,Unterhaltung,2\n" +
-                    "5,Kühlung,3\n" +
-                    "6,Kochen,4\n" +
-                    "7,Waschen,5\n" +
-                    "8,Lampen,6\n" +
-                    "9,Stromerzeugung,8\n" +
-                    "-----------------------------------\n" +
-                    "[GeraeteTyp],[GeraeteID],[Geraetename],[KategorieID],[RaumID],[HaushaltID],[StromverbrauchVollast],[StromverbrauchStandBy],[BetriebszeitVollast],[BetriebszeitStandBy],[Urlaubsmodus],[Jahresverbrauch],[Eigenverbrauch],[Notiz]\n" +
-                    "4,3,PC-Bildschirm Wohzimmer,3,2,1,45.0,1.0,4.0,20.0,true,73.0,,\n" +
-                    "5,4,Fernseher,4,2,1,70.0,2.0,2.0,22.0,true,67.16,,Richtig nice 4K crispy\n" +
-                    "2,5,Kühlschrank,6,1,1,10.0,,24.0,,false,87.6,,Schön mit Eiswürfeln Dies das Annanas\n" +
-                    "3,6,Diebstahlschutzlampe,8,2,1,30.0,,5.0,,false,54.75,,\n" +
-                    "1,7,PV Gartenhaus,9,1,1,0.0,,0.0,,false,-2000.0,50.0,\n" +
-                    "1,8,PVDach,9,7,1,0.0,,0.0,,false,-6800.0,50.0,ballert die sonne richtig rein\n" +
-                    "4,9,PC-Bildschirm Wohzimmer,3,9,3,45.0,1.0,4.0,20.0,true,73.0,,\n" +
-                    "5,10,Fernseher,4,9,3,70.0,2.0,2.0,22.0,true,67.16,,Richtig nice 4K crispy\n" +
-                    "2,11,Kühlschrank,6,8,3,10.0,,24.0,,false,87.6,,Schön mit Eiswürfeln Dies das Annanas\n" +
-                    "3,12,Diebstahlschutzlampe,8,9,3,30.0,,5.0,,false,54.75,,\n" +
-                    "1,13,PV Gartenhaus,9,8,3,0.0,,0.0,,false,-2000.0,50.0,\n" +
-                    "1,14,PVDach,9,11,3,0.0,,0.0,,false,-6800.0,50.0,ballert die sonne richtig rein\n" +
-                    "-----------------------------------\n" +
-                    "[Urlaubid],[HaushaltId],[DatumVon],[DatumBis],[name],[Ersparniss Pro Tag]\n" +
-                    "1,wdaw,14.06.2018,14.07.2018,-0.628,1\n" +
-                    "3,Alf der Rummelbär,20.03.2020,20.09.2020,0.384,1\n" +
-                    "4,wdaw,14.06.2018,14.07.2018,-0.628,3\n" +
-                    "5,Alf der Rummelbär,20.03.2020,20.09.2020,0.384,3\n"
-        outputtextfield.setText(testText)
-
+        
         val exportbut: Button = root.findViewById(R.id.importexport_exportbutton)
         exportbut.setOnClickListener { view ->
             if (view != null) {
