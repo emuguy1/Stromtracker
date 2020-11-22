@@ -58,7 +58,7 @@ class GeraeteAuswertungNeu(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = inflater.inflate(R.layout.fragment_geraete_auswertung_neu, container, false)
+        root = inflater.inflate(R.layout.fragment_geraete_auswertung, container, false)
 
         aaChartVerbraucher = root.findViewById<AAChartView>(R.id.aa_chart_verbraucher)
         aaChartBilanz = root.findViewById(R.id.aa_chart_bilanz)
