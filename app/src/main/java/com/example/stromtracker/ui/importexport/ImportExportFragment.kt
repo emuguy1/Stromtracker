@@ -48,7 +48,7 @@ class ImportExportFragment : Fragment() {
 
         textview = root.findViewById(R.id.text_view_import_export_erklärung)
         outputtextfield = root.findViewById(R.id.edit_text_multiline_import)
-        
+
         val exportbut: Button = root.findViewById(R.id.importexport_exportbutton)
         exportbut.setOnClickListener { view ->
             if (view != null) {
