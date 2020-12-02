@@ -99,6 +99,7 @@ class GeraeteAuswertungFragment(
             .chartType(AAChartType.Pie)
             .title("title")
             .dataLabelsEnabled(true)
+            .legendEnabled(false)
         return chart
     }
 
@@ -210,24 +211,11 @@ class GeraeteAuswertungFragment(
             waterfall = initWaterfallChart(waterfall)
             waterfall.series(
                 arrayOf(
-
                     AASeriesElement()
                         .name("kWh")
                         .data(
                             data
                         )
-
-                    /*
-                    AASeriesElement()
-                        .name("Verbraucher")
-                        .data(arrayOf("Verbrauchter Strom in kWh", 300)),
-                    AASeriesElement()
-                        .name("Produzenten")
-                        .data(arrayOf("Produzierter Strom in kWh", -123)),
-                    AASeriesElement()
-                        .name("Urlaube")
-                        .data(arrayOf("Ersparter Strom durch Urlaube in kWh", 48))
-                     */
                 )
             );
             waterfall.title("Bilanz")
@@ -264,7 +252,6 @@ class GeraeteAuswertungFragment(
                         .withSign(1)
                 ).toString() + " kWh"
             )
-
             aaChartProduzent.aa_drawChartWithChartModel(pie)
         } else {
             aaChartProduzent.visibility = View.GONE
