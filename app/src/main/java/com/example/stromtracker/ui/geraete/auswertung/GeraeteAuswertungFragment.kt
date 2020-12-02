@@ -1,25 +1,22 @@
 package com.example.stromtracker.ui.geraete.auswertung
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.anychart.APIlib
-import com.anychart.AnyChart
-import com.anychart.AnyChartView
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
-import com.anychart.charts.Pie
-import com.anychart.enums.Align
-import com.anychart.enums.LegendLayout
-import com.anychart.enums.Orientation
 import com.example.stromtracker.R
 import com.example.stromtracker.database.*
 import com.example.stromtracker.ui.geraete.GeraeteFragment
 import com.example.stromtracker.ui.urlaub.UrlaubCompanion
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.round
@@ -31,9 +28,6 @@ private const val centToEuro = 0.01
 // Quelle (Stand 07.2020): https://www.stromvergleich.de/durchschnittlicher-stromverbrauch
 private const val dsBasisDeutschland: Double = 500.0
 private const val dsVerbrauchDeutschland: Double = 1000.0
-
-private const val piePaddingTop = 10.0
-private const val piePaddingSides = 0.0
 
 class GeraeteAuswertungFragment(
     private val verbraucherList: ArrayList<Geraete>,
@@ -50,14 +44,13 @@ class GeraeteAuswertungFragment(
 
     private lateinit var root: View
 
-    private lateinit var anyChartVerbraucher: AnyChartView
+    private lateinit var aaChartVerbraucher: AAChartView
     private lateinit var textAvg: TextView
-    private lateinit var anyChartProduziertVerbrauch: AnyChartView
-    private lateinit var anyChartBilanz: AnyChartView
+    private lateinit var aaChartBilanz: AAChartView
     private lateinit var textBilanz: TextView
-    private lateinit var anyChartProduzent: AnyChartView
-    private lateinit var anyChartKategorie: AnyChartView
-    private lateinit var anyChartRaum: AnyChartView
+    private lateinit var aaChartProduzent: AAChartView
+    private lateinit var aaChartKategorie: AAChartView
+    private lateinit var aaChartRaum: AAChartView
     private lateinit var btnBack: Button
 
     override fun onCreateView(
@@ -67,32 +60,33 @@ class GeraeteAuswertungFragment(
     ): View? {
         root = inflater.inflate(R.layout.fragment_geraete_auswertung, container, false)
 
-        anyChartVerbraucher = root.findViewById(R.id.any_chart_verbraucher)
-        anyChartProduziertVerbrauch = root.findViewById(R.id.any_chart_produziert_verbrauch)
-        anyChartBilanz = root.findViewById(R.id.any_chart_bilanz)
-        anyChartProduzent = root.findViewById(R.id.any_chart_produzent)
-        anyChartKategorie = root.findViewById(R.id.any_chart_kategorie)
-        anyChartRaum = root.findViewById(R.id.any_chart_raum)
+        aaChartVerbraucher = root.findViewById<AAChartView>(R.id.aa_chart_verbraucher)
+        aaChartBilanz = root.findViewById(R.id.aa_chart_bilanz)
+        aaChartProduzent = root.findViewById(R.id.aa_chart_produzent)
+        aaChartKategorie = root.findViewById(R.id.aa_chart_kategorie)
+        aaChartRaum = root.findViewById(R.id.aa_chart_raum)
+
+
         textAvg = root.findViewById(R.id.geraete_auswertung_text_durchschnitt)
         textBilanz = root.findViewById(R.id.geraete_auswertung_text_bilanz)
 
-        reloadVerbrauchsChart()
-        reloadProduziertVerbrauchChart()
-        reloadBilanzChart()
-        reloadProduzentChart()
-        reloadKategorieChart()
-        reloadRaumChart()
+        try {
+            reloadVerbrauchsChart()
+            reloadBilanzChart()
+            reloadProduzentChart()
+            reloadKategorieChart()
+            reloadRaumChart()
+        }
+        catch (e : Exception) {
+            Log.d("ERROR", "ERROR while loading chart: $e")
+        }
 
         textAvg.text = generateDurchschnittText(gesamtverbrauchkWh)
 
         btnBack = root.findViewById(R.id.geraete_auswertung_button_back)
         btnBack.setOnClickListener(this)
 
-        return root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        return root;
     }
 
     private fun getProdVerbrauch(geraet: Geraete): Double {
@@ -100,89 +94,84 @@ class GeraeteAuswertungFragment(
                 geraet.getEigenverbrauch()!! / numToProzent
     }
 
-    private fun initPieChart(pie: Pie): Pie {
-        pie.legend().title().enabled(true)
-        pie.legend().title().padding(
-            piePaddingTop, piePaddingSides, piePaddingSides, piePaddingSides
-        )
-        pie.legend()
-            .position(Orientation.RIGHT)
-            .itemsLayout(LegendLayout.VERTICAL)
-            .align(Align.TOP)
+    private fun initPieChart(chart: AAChartModel): AAChartModel {
+        chart
+            .chartType(AAChartType.Pie)
+            .title("title")
+            .dataLabelsEnabled(true)
+            .legendEnabled(false)
+        return chart
+    }
 
-        return pie
+    private fun initWaterfallChart(chart: AAChartModel): AAChartModel {
+        chart
+            .chartType(AAChartType.Waterfall)
+            .title("title")
+            .dataLabelsEnabled(true)
+            .yAxisTitle("Verbrauch [kWh]")
+            .categories( arrayOf("Verbrauch", "Produktion", "Urlaube", "Ergebnis") )
+            .legendEnabled(false)
+        return chart
+    }
+
+    private fun loadVerbraucherData(): Array<Any> {
+        var totalData: ArrayList<Any> = ArrayList()
+        for (geraet in verbraucherList) {
+            totalData.add(arrayOf(geraet.getName(), geraet.getJahresverbrauch()))
+        }
+        return totalData.toTypedArray()
     }
 
     private fun reloadVerbrauchsChart() {
         // Geräte nach Verbrauchern filtern & data vorbereiten
-        val data: MutableList<DataEntry> = ArrayList()
-        for (geraet in verbraucherList)
-            data.add(ValueDataEntry(geraet.getName(), geraet.getJahresverbrauch()))
-
+        val data = loadVerbraucherData()
         if (data.isNotEmpty()) {
-            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
-            // neu Zeichnen das aktuelle als aktiv markieren
-            APIlib.getInstance().setActiveAnyChartView(anyChartVerbraucher)
-
-            var pie = AnyChart.pie()
+            var pie: AAChartModel = AAChartModel()
             pie = initPieChart(pie)
-
-            pie.data(data)
+            pie.series(
+                arrayOf(
+                    AASeriesElement()
+                        .name("Verbrauch in kWh")
+                        .data(
+                            loadVerbraucherData()
+                        )
+                )
+            );
+            pie.title(
+                "Gesamtverbrauch"
+            )
             gesamtverbrauchkWh = roundTo2Decimal(
                 verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
             gesamtverbrauchEuro =
                 roundTo2Decimal(
                     gesamtverbrauchkWh * currHaushalt.getStromkosten() * centToEuro
                 )
-            pie.title(
-                "Gesamtverbrauch $gesamtverbrauchkWh kWh bzw. $gesamtverbrauchEuro€"
-            )
-            pie.legend().title().text("Verbraucher")
+            pie.subtitle("$gesamtverbrauchkWh kWh bzw. $gesamtverbrauchEuro€")
 
-            anyChartVerbraucher.setChart(pie)
+            aaChartVerbraucher.aa_drawChartWithChartModel(pie)
         } else {
-            anyChartVerbraucher.visibility = View.GONE
+            aaChartVerbraucher.visibility = View.GONE
         }
     }
 
-    private fun reloadProduziertVerbrauchChart() {
-        val data: MutableList<DataEntry> = ArrayList()
-        for (geraet in produzentList)
-            data.add(ValueDataEntry(geraet.getName(), getProdVerbrauch(geraet)))
-
-        if (data.isNotEmpty()) {
-            APIlib.getInstance().setActiveAnyChartView(anyChartProduziertVerbrauch)
-
-            var pie = AnyChart.pie()
-            pie = initPieChart(pie)
-
-            pie.data(data)
-            pie.title(
-                "Produzierte Energie, die verbraucht wird " +
-                        roundTo2Decimal(produzentList.sumByDouble { geraete ->
-                            getProdVerbrauch(
-                                geraete
-                            )
-                        }) +
-                        " kWh"
-            )
-            pie.legend().title().text("Produzenten")
-
-            anyChartProduziertVerbrauch.setChart(pie)
-        } else {
-            anyChartProduziertVerbrauch.visibility = View.GONE
-        }
-    }
-
-    private fun reloadBilanzChart() {
-        val data: MutableList<DataEntry> = ArrayList()
-        var tempSum = verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
-        data.add(ValueDataEntry("Verbraucher", tempSum))
+    private fun loadBilanzData() : Array<Any> {
+        var totalData: ArrayList<Any> = ArrayList()
+        var tempSum = roundTo2Decimal(verbraucherList.sumByDouble { geraete -> geraete.getJahresverbrauch() })
+        val verbraucher = HashMap<String, Any>()
+        verbraucher["name"] = "Verbraucher"
+        verbraucher["y"] = tempSum
+        verbraucher["color"] = loadColorFromRes(R.color.colorRed)
+        totalData.add(verbraucher)
 
         tempSum = produzentList.sumByDouble { geraete ->
             getProdVerbrauch(geraete)
         }.withSign(-1)
-        data.add(ValueDataEntry("Produzenten", tempSum))
+        tempSum = roundTo2Decimal(tempSum)
+        val produzenten = HashMap<String, Any>()
+        produzenten["name"] = "Produzenten"
+        produzenten["y"] = tempSum
+        produzenten["color"] = loadColorFromRes(R.color.colorPrimaryLight)
+        totalData.add(produzenten)
 
         val tempList: ArrayList<Urlaub> = ArrayList()
         for (currUrlaub in urlaubList) {
@@ -198,69 +187,79 @@ class GeraeteAuswertungFragment(
                     (urlaub.getDateBis().time / UrlaubCompanion.dateTimeToDays -
                             urlaub.getDateVon().time / UrlaubCompanion.dateTimeToDays + 1)
         }
-        tempSum = tempSum.withSign(-1)
-        tempSum = roundTo2Decimal(tempSum)
-        data.add(ValueDataEntry("Urlaube", tempSum))
+        tempSum = roundTo2Decimal(tempSum.withSign(-1))
+        val urlaube = HashMap<String, Any>()
+        urlaube["name"] = "Urlaube"
+        urlaube["y"] = tempSum
+        urlaube["color"] = loadColorFromRes(R.color.colorPrimaryLight)
+        totalData.add(urlaube)
+
+        val ergebnis = HashMap<String, Any>()
+        ergebnis["name"] = "Ergebnis"
+        ergebnis["isSum"] = true
+        ergebnis["color"] = loadColorFromRes(R.color.colorGreyLight)
+        totalData.add(ergebnis)
+
+        return totalData.toTypedArray()
+    }
+
+    private fun reloadBilanzChart() {
+        val data = loadBilanzData()
 
         if (data.isNotEmpty()) {
-            APIlib.getInstance().setActiveAnyChartView(anyChartBilanz)
+            var waterfall: AAChartModel = AAChartModel()
+            waterfall = initWaterfallChart(waterfall)
+            waterfall.series(
+                arrayOf(
+                    AASeriesElement()
+                        .name("kWh")
+                        .data(
+                            data
+                        )
+                )
+            );
+            waterfall.title("Bilanz")
 
-            val wat = AnyChart.waterfall()
-            wat.yAxis(0).labels().format("{%Value}{scale:(1)(1)|(kWh)}")
-            wat.labels().enabled(true)
-
-            val end = DataEntry()
-            end.setValue("x", "Ergebnis")
-            end.setValue("isTotal", true)
-            data.add(end)
-            wat.data(data)
-            wat.title("Bilanz")
-
-            anyChartBilanz.setChart(wat)
+            aaChartBilanz.aa_drawChartWithChartModel(waterfall)
         } else {
-            anyChartBilanz.visibility = View.GONE
+            aaChartBilanz.visibility = View.GONE
             textBilanz.visibility = View.GONE
         }
     }
 
+    private fun loadProduzentData(): Array<Any> {
+        var totalData: ArrayList<Any> = ArrayList()
+        for (geraet in produzentList) {
+            totalData.add(arrayOf(geraet.getName(), geraet.getJahresverbrauch().withSign(1)))
+        }
+        return totalData.toTypedArray()
+    }
+
     private fun reloadProduzentChart() {
-        // Geräte nach Produzenten filtern & data vorbereiten
-        val data: MutableList<DataEntry> = ArrayList()
-        for (geraet in produzentList)
-            data.add(
-                ValueDataEntry(
-                    geraet.getName(), geraet.getJahresverbrauch().withSign(1)
-                )
-            )
-
+        val data = loadProduzentData()
         if (data.isNotEmpty()) {
-            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
-            // neu Zeichnen das aktuelle als aktiv markieren
-            APIlib.getInstance().setActiveAnyChartView(anyChartProduzent)
-
-            var pie = AnyChart.pie()
+            var pie: AAChartModel = AAChartModel()
             pie = initPieChart(pie)
-
-            pie.data(data)
-            pie.title(
-                "Gesamtproduktion " +
-                        roundTo2Decimal(
-                            produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
-                                .withSign(1)
-                        ) +
-                        " kWh"
+            pie.series(arrayOf(
+                    AASeriesElement()
+                        .name("Produziert in kWh")
+                        .data(data)
+            ));
+            pie.title("Gesamtproduktion")
+            pie.subtitle(
+                roundTo2Decimal(
+                    produzentList.sumByDouble { geraete -> geraete.getJahresverbrauch() }
+                        .withSign(1)
+                ).toString() + " kWh"
             )
-            pie.legend().title().text("Produzenten")
-
-            anyChartProduzent.setChart(pie)
+            aaChartProduzent.aa_drawChartWithChartModel(pie)
         } else {
-            anyChartProduzent.visibility = View.GONE
+            aaChartProduzent.visibility = View.GONE
         }
     }
 
-    private fun reloadKategorieChart() {
-        val data: MutableList<DataEntry> = ArrayList()
-
+    private fun loadKategorieData(): Array<Any> {
+        val totalData: ArrayList<Any> = ArrayList()
         // Geräte nach Kategorie Gruppieren, dann die Summe der Jahresverbrauche berechnen
         val sortedgeraete: Map<Int, List<Geraete>> =
             verbraucherList.groupBy(keySelector = { it.getKategorieID() })
@@ -277,36 +276,33 @@ class GeraeteAuswertungFragment(
                         name = currKat.getName()
                     }
                 }
-                data.add(
-                    ValueDataEntry(
-                        name, sum
-                    )
+                totalData.add(
+                    arrayOf(name, sum)
                 )
             }
         }
+        return totalData.toTypedArray()
+    }
 
+    private fun reloadKategorieChart() {
+        val data = loadKategorieData()
         if (data.isNotEmpty()) {
-            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
-            // neu Zeichnen das aktuelle als aktiv markieren
-            APIlib.getInstance().setActiveAnyChartView(anyChartKategorie)
-
-            var pie = AnyChart.pie()
+            var pie: AAChartModel = AAChartModel()
             pie = initPieChart(pie)
-
-            pie.data(data)
-
+            pie.series(arrayOf(
+                AASeriesElement()
+                    .name("Verbrauch in kWh")
+                    .data(data)
+            ));
             pie.title("Gesamtverbrauch Kategorien")
-            pie.legend().title().text("Kategorien")
-
-            anyChartKategorie.setChart(pie)
+            aaChartKategorie.aa_drawChartWithChartModel(pie)
         } else {
-            anyChartKategorie.visibility = View.GONE
+            aaChartKategorie.visibility = View.GONE
         }
     }
 
-    private fun reloadRaumChart() {
-        val data: MutableList<DataEntry> = ArrayList()
-
+    private fun loadRaumData(): Array<Any> {
+        var totalData: ArrayList<Any> = ArrayList()
         // Geräte nach Raum Gruppieren, dann die Summe der Jahresverbrauche berechnen
         val sortedgeraete: Map<Int, List<Geraete>> =
             verbraucherList.groupBy(keySelector = { it.getRaumID() })
@@ -323,30 +319,26 @@ class GeraeteAuswertungFragment(
                         name = currRaum.getName()
                     }
                 }
-                data.add(
-                    ValueDataEntry(
-                        name, sum
-                    )
-                )
+                totalData.add(arrayOf(name, sum))
             }
         }
+        return totalData.toTypedArray()
+    }
+
+    private fun reloadRaumChart() {
+        val data = loadRaumData()
         if (data.isNotEmpty()) {
-
-            // WICHTIG! Bei Verwendung von mehr als einem Chart muss man beim erstellen /
-            // neu Zeichnen das aktuelle als aktiv markieren
-            APIlib.getInstance().setActiveAnyChartView(anyChartRaum)
-
-            var pie = AnyChart.pie()
+            var pie: AAChartModel = AAChartModel()
             pie = initPieChart(pie)
-
-            pie.data(data)
-
+            pie.series(arrayOf(
+                AASeriesElement()
+                    .name("Verbrauch in kWh")
+                    .data(data)
+            ));
             pie.title("Gesamtverbrauch Räume")
-            pie.legend().title().text("Räume")
-
-            anyChartRaum.setChart(pie)
+            aaChartRaum.aa_drawChartWithChartModel(pie)
         } else {
-            anyChartRaum.visibility = View.GONE
+            aaChartRaum.visibility = View.GONE
         }
     }
 
@@ -376,8 +368,12 @@ class GeraeteAuswertungFragment(
         return str
     }
 
+    private fun loadColorFromRes(colorId : Int): String {
+        return "#" + resources.getString(colorId).substring(3)
+    }
+
     private fun roundTo2Decimal(num: Double): Double {
-        return round(num * 100)/100;
+        return round(num * 100) / 100;
     }
 
     override fun onClick(v: View) {

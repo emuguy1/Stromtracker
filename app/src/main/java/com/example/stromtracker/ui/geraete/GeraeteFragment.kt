@@ -303,6 +303,7 @@ class GeraeteFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.geraete_button_auswertung -> {
+
                 val frag = GeraeteAuswertungFragment(
                     verbraucherList,
                     produzentList,

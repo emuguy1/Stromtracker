@@ -88,7 +88,7 @@
             android:layout_marginStart="@dimen/button_margin_between"
             android:layout_marginEnd="@dimen/button_margin_between"
             android:layout_marginBottom="@dimen/content_margin_bottom"
-            android:background="@color/colorDarkRed"
+            android:background="@color/colorRedDark"
             android:text="@string/button_loeschen"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
